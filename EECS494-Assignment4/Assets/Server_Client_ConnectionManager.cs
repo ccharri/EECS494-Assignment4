@@ -32,8 +32,11 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 
 	void OnGUI() {
 		if(!connected)
-		{
-			if(GUI.Button(new Rect(20, Screen.height - 100, 100, 80), "Host"))
+		{	
+			GUILayout.BeginArea(new Rect(50, 50, Screen.width - 50, Screen.height - 50));
+			
+			GUILayout.BeginVertical();
+			if(GUILayout.Button("Host", GUILayout.Width(100), GUILayout.Height(100)))
 			{
 				NetworkConnectionError error;
 				bool useNat = !Network.HavePublicAddress();
@@ -49,8 +52,10 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 				}
 			}
 			
-			GUILayout.BeginArea(new Rect(200, 200, Screen.width - 250, Screen.height - 250));
+			GUILayout.EndVertical();
 			
+			Vector2 scrollPosition = new Vector2(0, 0);
+			GUILayout.BeginScrollView(scrollPosition,GUILayout.Width(Screen.width - 100), GUILayout.Height(Screen.height - 100));
 			HostData[] data = MasterServer.PollHostList();
 			// Go through all the hosts in the host list
 			for(int i = 0 ; i < data.Length; i++)
@@ -78,6 +83,7 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 				}
 				GUILayout.EndHorizontal();	
 			}
+			GUILayout.EndScrollView();
 			GUILayout.EndArea();
 //			serverIPText = GUI.TextField(new Rect(Screen.width - 500, Screen.height - 200, 200, 50), serverIPText);
 //			serverPortText = GUI.TextField (new Rect(Screen.width - 500, Screen.height - 150, 200, 50), serverPortText);
