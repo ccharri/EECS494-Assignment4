@@ -17,4 +17,20 @@ public abstract class Creep : Spawnable, Selectable
 	{
 		return health.get() > 0;
 	}
+
+	public string getDescription()
+	{
+		//TODO: Implement
+		return "REPLACE ME?";
+	}
+	public void mouseOverOn()
+	{
+		//TODO: Implement
+
+	}
+	public void mouseOverOff()
+	{
+		//TODO: Implement
+
+	}
 }
