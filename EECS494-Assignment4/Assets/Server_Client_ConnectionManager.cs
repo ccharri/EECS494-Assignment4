@@ -49,6 +49,8 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 				}
 			}
 			
+			GUILayout.BeginArea(new Rect(200, 200, Screen.width() - 250, Screen.height() - 250));
+			
 			HostData[] data = MasterServer.PollHostList();
 			// Go through all the hosts in the host list
 			for(int i = 0 ; i < data.Length; i++)
@@ -76,7 +78,7 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 				}
 				GUILayout.EndHorizontal();	
 			}
-			
+			GUILayout.EndArea();
 //			serverIPText = GUI.TextField(new Rect(Screen.width - 500, Screen.height - 200, 200, 50), serverIPText);
 //			serverPortText = GUI.TextField (new Rect(Screen.width - 500, Screen.height - 150, 200, 50), serverPortText);
 //				
