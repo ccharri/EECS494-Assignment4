@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Creep : Spawnable, Selectable {
+public abstract class Creep : Spawnable, Selectable 
+{
+	Attribute health;
+	Attribute speed;
+	Attribute mana;
+	int bounty;
 
-	// Use this for initialization
-	void Start () {
-	
+	public void onDamage()
+	{
+
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public bool isAlive()
+	{
+		return health.get() > 0;
 	}
 }

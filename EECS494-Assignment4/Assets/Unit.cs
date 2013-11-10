@@ -1,18 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Unit : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
+public abstract class Unit : MonoBehaviour 
+{	
+	public override void Update () 
+	{
+		base.Update();
+		//other things yay!
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	void FixedUpdate() {
-
+	public override void FixedUpdate() 
+	{
+		base.FixedUpdate();
 	}
 }
