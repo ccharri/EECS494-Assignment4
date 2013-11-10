@@ -5,10 +5,11 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 	private bool connected = false;
 	private string serverIPText = "Server IP";
 	private string serverPortText = "Server Port";
+	private string serverGUIDText = "Server GUID";
 	
 	// Use this for initialization
 	void Start () {
-	
+		Network.logLevel = UnityEngine.NetworkLogLevel.Full;
 	}
 	
 	// Update is called once per frame
@@ -22,8 +23,8 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 			if(GUI.Button(new Rect(20, Screen.height - 100, 100, 80), "Host"))
 			{
 				NetworkConnectionError error;
-				//bool useNat = !Network.HavePublicAddress();
-	        	error = Network.InitializeServer(2, 25000, false);
+				bool useNat = !Network.HavePublicAddress();
+	        	error = Network.InitializeServer(2, 25000, useNat);
 				if(error == NetworkConnectionError.NoError)
 				{
 					connected = true;
@@ -33,10 +34,10 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 				}
 			}
 			
-			serverIPText = GUI.TextField(new Rect(Screen.width - 200, Screen.height - 200, 200, 50), serverIPText);
-			serverPortText = GUI.TextField (new Rect(Screen.width - 200, Screen.height - 150, 200, 50), serverPortText);
+			serverIPText = GUI.TextField(new Rect(Screen.width - 500, Screen.height - 200, 200, 50), serverIPText);
+			serverPortText = GUI.TextField (new Rect(Screen.width - 500, Screen.height - 150, 200, 50), serverPortText);
 				
-			if(GUI.Button(new Rect(Screen.width - 120, Screen.height - 100, 100, 80), "Connect"))
+			if(GUI.Button(new Rect(Screen.width - 520, Screen.height - 100, 100, 80), "Connect with IP"))
 			{
 				NetworkConnectionError error;
 				error = Network.Connect (serverIPText, serverPortText);
@@ -45,7 +46,21 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 					connected = true;
 				}
 				else {
-				
+					Debug.Log (error);
+				}
+			}
+			
+			serverGUIDText = GUI.TextField (new Rect(Screen.width - 100, Screen.height - 150, 200, 50), serverGUIDText);
+			
+			if(GUI.Button (new Rect(Screen.width - 200, Screen.height-100, 200, 50), "Connect with GUID"))
+			{
+				NetworkConnectionError error;
+				error = Network.Connect(serverGUIDText);
+				if(error == NetworkConnectionError.NoError)
+				{
+					connected = true;
+				}
+				else {
 					Debug.Log (error);
 				}
 			}
@@ -61,6 +76,8 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 					GUI.Label (new Rect(20,20, 125, 50), "Public IP Address");
 					GUI.Label (new Rect(20,70,125,30), Network.player.ipAddress + ":" + Network.player.port);
 					//GUI.Label(new Rect(20, 70, 100, 30), Network.proxyIP + ":" + Network.proxyPort);
+					
+					GUI.Label (new Rect(20, 120, 1250, 30), Network.player.guid);
 				}
 				else
 				{
