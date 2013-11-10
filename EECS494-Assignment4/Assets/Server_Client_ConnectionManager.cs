@@ -22,8 +22,8 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 			if(GUI.Button(new Rect(20, Screen.height - 100, 100, 80), "Host"))
 			{
 				NetworkConnectionError error;
-				bool useNat = !Network.HavePublicAddress();
-	        	error = Network.InitializeServer(2, 25000, useNat);
+				//bool useNat = !Network.HavePublicAddress();
+	        	error = Network.InitializeServer(2, 25000, false);
 				if(error == NetworkConnectionError.NoError)
 				{
 					connected = true;
@@ -45,12 +45,7 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 					connected = true;
 				}
 				else {
-					// Check if it is the NATPunchthroughFailed error
-					if(error == NetworkConnectionError.NATPunchthroughFailed)
-					{
-						OnFailedToConnect(error);
-					}
-					
+				
 					Debug.Log (error);
 				}
 			}
