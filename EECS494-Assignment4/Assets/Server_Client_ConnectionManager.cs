@@ -7,6 +7,11 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 	private string serverPortText = "Server Port";
 	private string serverGUIDText = "Server GUID";
 	
+	void Awake() {
+        MasterServer.ClearHostList();
+        MasterServer.RequestHostList("BlitzTD");
+    }
+	
 	// Use this for initialization
 	void Start () {
 		Network.logLevel = UnityEngine.NetworkLogLevel.Full;
@@ -14,7 +19,15 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (MasterServer.PollHostList().Length != 0) {
+            HostData[] hostData = MasterServer.PollHostList();
+            int i = 0;
+            while (i < hostData.Length) {
+                Debug.Log("Game name: " + hostData[i].gameName);
+                i++;
+            }
+            MasterServer.ClearHostList();
+        }
 	}
 
 	void OnGUI() {
@@ -24,46 +37,76 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 			{
 				NetworkConnectionError error;
 				bool useNat = !Network.HavePublicAddress();
+				Debug.Log ("Use Nat:" + useNat);
 	        	error = Network.InitializeServer(2, 25000, useNat);
 				if(error == NetworkConnectionError.NoError)
 				{
 					connected = true;
+					MasterServer.RegisterHost("BlitzTD", "This is my test game");
 				}
 				else {
 					Debug.Log(error);
 				}
 			}
 			
-			serverIPText = GUI.TextField(new Rect(Screen.width - 500, Screen.height - 200, 200, 50), serverIPText);
-			serverPortText = GUI.TextField (new Rect(Screen.width - 500, Screen.height - 150, 200, 50), serverPortText);
+			HostData[] data = MasterServer.PollHostList();
+			// Go through all the hosts in the host list
+			for(int i = 0 ; i < data.Length; i++)
+			{
+				HostData element = data[i];
 				
-			if(GUI.Button(new Rect(Screen.width - 520, Screen.height - 100, 100, 80), "Connect with IP"))
-			{
-				NetworkConnectionError error;
-				error = Network.Connect (serverIPText, serverPortText);
-				if(error == NetworkConnectionError.NoError)
+				GUILayout.BeginHorizontal();	
+				string name = element.gameName + " " + element.connectedPlayers + " / " + element.playerLimit;
+				GUILayout.Label(name);	
+				GUILayout.Space(5);
+				string hostInfo = "[";
+				string[] info = element.ip;
+				for (int j = 0; j < info.Length; j++)
+					hostInfo = hostInfo + info[j] + ":" + element.port + " ";
+				hostInfo = hostInfo + "]";
+				GUILayout.Label(hostInfo);	
+				GUILayout.Space(5);
+				GUILayout.Label(element.comment);
+				GUILayout.Space(5);
+				GUILayout.FlexibleSpace();
+				if (GUILayout.Button("Connect"))
 				{
-					connected = true;
+					// Connect to HostData struct, internally the correct method is used (GUID when using NAT).
+					Network.Connect(element);			
 				}
-				else {
-					Debug.Log (error);
-				}
+				GUILayout.EndHorizontal();	
 			}
 			
-			serverGUIDText = GUI.TextField (new Rect(Screen.width - 100, Screen.height - 150, 200, 50), serverGUIDText);
-			
-			if(GUI.Button (new Rect(Screen.width - 200, Screen.height-100, 200, 50), "Connect with GUID"))
-			{
-				NetworkConnectionError error;
-				error = Network.Connect(serverGUIDText);
-				if(error == NetworkConnectionError.NoError)
-				{
-					connected = true;
-				}
-				else {
-					Debug.Log (error);
-				}
-			}
+//			serverIPText = GUI.TextField(new Rect(Screen.width - 500, Screen.height - 200, 200, 50), serverIPText);
+//			serverPortText = GUI.TextField (new Rect(Screen.width - 500, Screen.height - 150, 200, 50), serverPortText);
+//				
+//			if(GUI.Button(new Rect(Screen.width - 520, Screen.height - 100, 100, 80), "Connect with IP"))
+//			{	
+//				NetworkConnectionError error;
+//				error = Network.Connect (serverIPText, serverPortText);
+//				if(error == NetworkConnectionError.NoError)
+//				{
+//					connected = true;
+//				}
+//				else {
+//					Debug.Log (error);
+//				}
+//			}
+//			
+//			serverGUIDText = GUI.TextField (new Rect(Screen.width - 100, Screen.height - 150, 200, 50), serverGUIDText);
+//			
+//			if(GUI.Button (new Rect(Screen.width - 200, Screen.height-100, 200, 50), "Connect with GUID"))
+//			{
+//				NetworkConnectionError error;
+//				error = Network.Connect(serverGUIDText);
+//				if(error == NetworkConnectionError.NoError)
+//				{
+//					connected = true;
+//				}
+//				else {
+//					Debug.Log (error);
+//				}
+//			}
 		}
 		else
 		{
