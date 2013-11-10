@@ -45,6 +45,12 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 					connected = true;
 				}
 				else {
+					// Check if it is the NATPunchthroughFailed error
+					if(error == NetworkConnectionError.NATPunchthroughFailed)
+					{
+						OnFailedToConnect(error);
+					}
+					
 					Debug.Log (error);
 				}
 			}
