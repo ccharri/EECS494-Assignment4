@@ -31,8 +31,8 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 				}
 			}
 			
-			var IP = GUI.TextField(new Rect(Screen.width - 120, Screen.height - 200, 50, 100), "Server IP");
-			var Port = GUI.TextField (new Rect(Screen.width - 120, Screen.height - 150, 50, 100), "Server Port");
+			var IP = GUI.TextField(new Rect(Screen.width - 200, Screen.height - 200, 200, 50), "Server IP");
+			var Port = GUI.TextField (new Rect(Screen.width - 200, Screen.height - 150, 200, 50), "Server Port");
 				
 			if(GUI.Button(new Rect(Screen.width - 120, Screen.height - 100, 100, 80), "Connect"))
 			{
