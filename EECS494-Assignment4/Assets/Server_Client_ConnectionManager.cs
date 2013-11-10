@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Server_Client_ConnectionManager : MonoBehaviour {
 	private bool connected = false;
+	private string serverIPText = "Server IP";
+	private string serverPortText = "Server Port";
 	
 	// Use this for initialization
 	void Start () {
@@ -31,13 +33,13 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 				}
 			}
 			
-			var IP = GUI.TextField(new Rect(Screen.width - 200, Screen.height - 200, 200, 50), "Server IP");
-			var Port = GUI.TextField (new Rect(Screen.width - 200, Screen.height - 150, 200, 50), "Server Port");
+			serverIPText = GUI.TextField(new Rect(Screen.width - 200, Screen.height - 200, 200, 50), serverIPText);
+			serverPortText = GUI.TextField (new Rect(Screen.width - 200, Screen.height - 150, 200, 50), serverPortText);
 				
 			if(GUI.Button(new Rect(Screen.width - 120, Screen.height - 100, 100, 80), "Connect"))
 			{
 				NetworkConnectionError error;
-				error = Network.Connect (IP, Port);
+				error = Network.Connect (serverIPText, serverPortText);
 				if(error == NetworkConnectionError.NoError)
 				{
 					connected = true;
