@@ -66,10 +66,20 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 					GUI.Label (new Rect(20,20, 125, 50), "NAT Facilitator IP");
 					GUI.Label(new Rect(20, 70, 125, 30), Network.natFacilitatorIP + ":" + Network.natFacilitatorPort);
 				}
+				
+				        int i = 0;
+        while (i < Network.connections.Length) {
+            GUILayout.Label("Player " + Network.connections[i] + " - " + Network.GetAveragePing(Network.connections[i]) + " ms");
+            i++;
+        }
 			}
 			else
 			{
-				
+				        int i = 0;
+        while (i < Network.connections.Length) {
+            GUILayout.Label("Player " + Network.connections[i] + " - " + Network.GetAveragePing(Network.connections[i]) + " ms");
+            i++;
+        }
 			}
 		}
 	}
