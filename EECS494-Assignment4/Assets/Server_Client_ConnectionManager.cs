@@ -67,19 +67,19 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 					GUI.Label(new Rect(20, 70, 125, 30), Network.natFacilitatorIP + ":" + Network.natFacilitatorPort);
 				}
 				
-				        int i = 0;
-        while (i < Network.connections.Length) {
-            GUILayout.Label("Player " + Network.connections[i] + " - " + Network.GetAveragePing(Network.connections[i]) + " ms");
-            i++;
-        }
+				int i = 0;
+        		while (i < Network.connections.Length) {
+            		GUI.Label(new Rect(500, 50 + 50*i, 125, 50) ,"Player " + Network.connections[i] + " - " + Network.GetAveragePing(Network.connections[i]) + " ms");
+           			i++;
+        		}
 			}
 			else
 			{
-				        int i = 0;
-        while (i < Network.connections.Length) {
-            GUILayout.Label("Player " + Network.connections[i] + " - " + Network.GetAveragePing(Network.connections[i]) + " ms");
-            i++;
-        }
+				int i = 0;
+        		while (i < Network.connections.Length) {
+            		GUI.Label(new Rect(500, 50 + 50*i, 125, 50), "Player " + Network.connections[i] + " - " + Network.GetAveragePing(Network.connections[i]) + " ms");
+            		i++;
+        		}
 			}
 		}
 	}
