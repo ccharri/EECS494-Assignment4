@@ -21,12 +21,12 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 	void Update () {
 		if (MasterServer.PollHostList().Length != 0) {
             HostData[] hostData = MasterServer.PollHostList();
-            int i = 0;
-            while (i < hostData.Length) {
-                Debug.Log("Game name: " + hostData[i].gameName);
-                i++;
-            }
-            MasterServer.ClearHostList();
+           // int i = 0;
+           // while (i < hostData.Length) {
+           //     Debug.Log("Game name: " + hostData[i].gameName);
+           //     i++;
+           // }
+           // MasterServer.ClearHostList(); //Wat.  Why is this here ?!
         }
 	}
 
@@ -34,7 +34,7 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 		if(!connected)
 		{	
 			GUILayout.BeginArea(new Rect(50, 50, Screen.width - 50, Screen.height - 50));
-			
+			GUILayout.BeginHorizontal();
 			GUILayout.BeginVertical();
 			if(GUILayout.Button("Host", GUILayout.Width(100), GUILayout.Height(100)))
 			{
@@ -52,10 +52,43 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 				}
 			}
 			
+			serverIPText = GUILayout.TextField(serverIPText, GUILayout.Width(200), GUILayout.Height(50));
+			serverPortText = GUILayout.TextField ( serverPortText, GUILayout.Width(200), GUILayout.Height(50));
+				
+			if(GUILayout.Button("Connect with IP", GUILayout.Width(200), GUILayout.Height(100)))
+			{	
+				NetworkConnectionError error;
+				error = Network.Connect (serverIPText, serverPortText);
+				if(error == NetworkConnectionError.NoError)
+				{
+					connected = true;
+				}
+				else {
+					Debug.Log (error);
+				}
+			}
+			
+			serverGUIDText = GUILayout.TextField (serverGUIDText, GUILayout.Width(200), GUILayout.Height(50));
+			
+			if(GUILayout.Button ( "Connect with GUID", GUILayout.Width(200), GUILayout.Height(100)))
+			{
+				NetworkConnectionError error;
+				error = Network.Connect(serverGUIDText);
+				if(error == NetworkConnectionError.NoError)
+				{
+					connected = true;
+				}
+				else {
+					Debug.Log (error);
+				}
+			}
+			
 			GUILayout.EndVertical();
 			
 			Vector2 scrollPosition = new Vector2(0, 0);
-			GUILayout.BeginScrollView(scrollPosition,GUILayout.Width(Screen.width - 100), GUILayout.Height(Screen.height - 100));
+			GUILayout.BeginScrollView(scrollPosition,GUILayout.Width(Screen.width - 400), GUILayout.Height(Screen.height - 300));
+			GUILayout.Label("Game List");
+			
 			HostData[] data = MasterServer.PollHostList();
 			// Go through all the hosts in the host list
 			for(int i = 0 ; i < data.Length; i++)
@@ -84,37 +117,8 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 				GUILayout.EndHorizontal();	
 			}
 			GUILayout.EndScrollView();
+			GUILayout.EndHorizontal();
 			GUILayout.EndArea();
-//			serverIPText = GUI.TextField(new Rect(Screen.width - 500, Screen.height - 200, 200, 50), serverIPText);
-//			serverPortText = GUI.TextField (new Rect(Screen.width - 500, Screen.height - 150, 200, 50), serverPortText);
-//				
-//			if(GUI.Button(new Rect(Screen.width - 520, Screen.height - 100, 100, 80), "Connect with IP"))
-//			{	
-//				NetworkConnectionError error;
-//				error = Network.Connect (serverIPText, serverPortText);
-//				if(error == NetworkConnectionError.NoError)
-//				{
-//					connected = true;
-//				}
-//				else {
-//					Debug.Log (error);
-//				}
-//			}
-//			
-//			serverGUIDText = GUI.TextField (new Rect(Screen.width - 100, Screen.height - 150, 200, 50), serverGUIDText);
-//			
-//			if(GUI.Button (new Rect(Screen.width - 200, Screen.height-100, 200, 50), "Connect with GUID"))
-//			{
-//				NetworkConnectionError error;
-//				error = Network.Connect(serverGUIDText);
-//				if(error == NetworkConnectionError.NoError)
-//				{
-//					connected = true;
-//				}
-//				else {
-//					Debug.Log (error);
-//				}
-//			}
 		}
 		else
 		{
