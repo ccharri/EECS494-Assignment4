@@ -4,22 +4,16 @@ using System.Collections;
 public abstract class Buff
 //NOTE: The buff isn't responsible for deleting itself!
 //NOTE: Buffs aren't explicitly required to have owners!
+//NOTE: Targets are stored within the second level Buffs!
 {
 	protected double duration;
-	protected Unit target;
-	protected Unit owner;
+    protected Unit owner;
 
-    public Buff(Unit target_)
-    {
-        target = target_;
-        onApplication();
-    }
+    public Buff() {}
 
-    public Buff(Unit target_, Unit owner_)
+    public Buff(Unit owner_)
     {
-        target = target_;
         owner = owner_;
-        onApplication();
     }
 
     public abstract void onApplication();
@@ -36,7 +30,4 @@ public abstract class Buff
         }
         return false;
     }
-
-    //NOTE: A buff is meaningless without a target
-    private Buff() { }
 }

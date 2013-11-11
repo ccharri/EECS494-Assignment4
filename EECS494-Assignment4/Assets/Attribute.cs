@@ -34,9 +34,10 @@ public class Attribute
 		return value;
 	}
 
+
     public static Attribute operator -(Attribute a, double b)
     {
-        return new Attribute(a.getBase() - b, a.getMultiplier(), a.getFlat());
+        return new Attribute(a.getBase(), a.getMultiplier(), a.getFlat() - b);
     }
 
 	private void recalculate() 
