@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TowerBuff : Buff {
+public abstract class TowerBuff : Buff {
 
 	protected Tower target;
 
