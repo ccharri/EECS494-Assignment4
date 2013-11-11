@@ -23,7 +23,34 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 	void Update () {
 		
 	}
-
+	
+	void OnServerInitialized () 
+	{
+		Debug.Log("Server Initialized");
+	}
+ 
+	void OnConnectedToServer () 
+	{
+		Debug.Log ("Connected to Server");
+	}
+ 
+	void OnMasterServerEvent(MasterServerEvent mse)
+	{
+		if (mse == MasterServerEvent.RegistrationSucceeded)
+		{
+			Debug.Log("Registered Server");
+		}
+		else
+		{
+			Debug.Log (mse);
+		}
+	}
+	
+	void OnFailedToConnect(NetworkConnectionError error) {
+		connected = false;
+        Debug.Log("Could not connect to server: " + error);
+    }
+	
 	void OnGUI() {
 		if(!connected)
 		{	
