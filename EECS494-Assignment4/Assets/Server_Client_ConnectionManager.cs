@@ -6,10 +6,12 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 	private string serverIPText = "Server IP";
 	private string serverPortText = "Server Port";
 	private string serverGUIDText = "Server GUID";
+	private HostData[] hostData;
 	
 	void Awake() {
         MasterServer.ClearHostList();
         MasterServer.RequestHostList("BlitzTD");
+		hostData = MasterServer.PollHostList();
     }
 	
 	// Use this for initialization
@@ -19,15 +21,7 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (MasterServer.PollHostList().Length != 0) {
-            HostData[] hostData = MasterServer.PollHostList();
-           // int i = 0;
-           // while (i < hostData.Length) {
-           //     Debug.Log("Game name: " + hostData[i].gameName);
-           //     i++;
-           // }
-           // MasterServer.ClearHostList(); //Wat.  Why is this here ?!
-        }
+		
 	}
 
 	void OnGUI() {
@@ -89,7 +83,7 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 			GUILayout.BeginScrollView(scrollPosition,GUILayout.Width(Screen.width - 400), GUILayout.Height(Screen.height - 300));
 			GUILayout.Label("Game List");
 			
-			HostData[] data = MasterServer.PollHostList();
+			HostData[] data = hostData = MasterServer.PollHostList();
 			// Go through all the hosts in the host list
 			for(int i = 0 ; i < data.Length; i++)
 			{
