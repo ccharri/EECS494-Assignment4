@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Server_Client_ConnectionManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PlacementManager.cs">
     <Files>
-      <File FileName="Assets/Server_Client_ConnectionManager.cs" Line="60" Column="34" />
+      <File FileName="Assets\Server_Client_ConnectionManager.cs" Line="60" Column="34" />
+      <File FileName="Assets\PlacementManager.cs" Line="36" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
