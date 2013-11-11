@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ProjectileBuff : MonoBehaviour {
+public abstract class ProjectileBuff : Buff 
+{
+    protected Projectile target;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public ProjectileBuff(Projectile target_) : base()
+    {
+        target = target_;
+        onApplication();
+    }
+    public ProjectileBuff(Projectile target_, Unit owner_) : base(owner_)
+    {
+        target = target_;
+        onApplication();
+    }
+
+    //NOTE: A CreepBuff is meaningless without a target!
+    private ProjectileBuff() {}
 }

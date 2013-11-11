@@ -16,18 +16,6 @@ public abstract class CreepBuff : Buff
         onApplication();
     }
 
-    public override bool FixedUpdate()
-    //DOES: Returns if the buff has expired or not
-    {
-        duration -= Time.deltaTime;
-        if (duration <= 0)
-        {
-            onRemoval();
-            return true;
-        }
-        return false;
-    }
-
     //NOTE: A CreepBuff is meaningless without a target!
     private CreepBuff() {}
 }

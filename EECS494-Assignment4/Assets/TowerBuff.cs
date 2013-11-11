@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TowerBuff : MonoBehaviour {
+public class TowerBuff : Buff {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	protected Tower target;
+
+    public TowerBuff(Tower target_) : base()
+    {
+        target = target_;
+        onApplication();
+    }
+    public TowerBuff(Tower target_, Unit owner_) : base(owner_)
+    {
+        target = target_;
+        onApplication();
+    }
+
+    //NOTE: A TowerBuff is meaningless without a target!
+    private TowerBuff() {}
 }
