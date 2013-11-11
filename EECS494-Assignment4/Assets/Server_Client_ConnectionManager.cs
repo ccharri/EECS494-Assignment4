@@ -58,7 +58,7 @@ public class Server_Client_ConnectionManager : MonoBehaviour {
 			if(GUILayout.Button("Connect with IP", GUILayout.Width(200), GUILayout.Height(100)))
 			{	
 				NetworkConnectionError error;
-				error = Network.Connect (serverIPText, serverPortText);
+				error = Network.Connect (serverIPText, int.Parse(serverPortText));
 				if(error == NetworkConnectionError.NoError)
 				{
 					connected = true;
