@@ -11,11 +11,11 @@ public abstract class Tower : Spawnable, Selectable
 	Attribute cooldown;
 	double lastFired; 
 
-	public virtual void Update () 
+	public override void Update () 
 	{
 		base.Update();
 	}
-	public virtual void FixedUpdate() 
+	public override void FixedUpdate() 
 	{
 		base.FixedUpdate();
 		//cooldown elapsed

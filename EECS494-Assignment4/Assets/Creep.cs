@@ -7,30 +7,26 @@ public abstract class Creep : Spawnable, Selectable
 	Attribute speed;
 	Attribute mana;
 	int bounty;
+	int lifeCost;
 
-	public void onDamage()
+
+	public virtual void onDamage(double damage)
 	{
-
-
+		health -= damage;
+		//NOTE: The person calling on damage needs to check if the unit isAlive after to claim kill credit.
 	}
-	public bool isAlive()
+	public virtual bool isAlive()
 	{
 		return health.get() > 0;
 	}
 
-	public string getDescription()
-	{
-		//TODO: Implement
-		return "REPLACE ME?";
-	}
+	public abstract string getDescription();
 	public void mouseOverOn()
 	{
 		//TODO: Implement
-
 	}
 	public void mouseOverOff()
 	{
 		//TODO: Implement
-
 	}
 }
