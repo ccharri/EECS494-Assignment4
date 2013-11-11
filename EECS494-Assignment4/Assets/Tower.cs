@@ -1,35 +1,55 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
-public class Tower : Spawnable, Selectable 
+public abstract class Tower : Spawnable, Selectable 
 {
+	List<Projectile> projectiles;
 	Creep target;
-	Attribute cooldown; 
+	TargetingBehavior behavior;
+	
+	Attribute range;
+	Attribute cooldown;
+	double lastFired; 
 
-	public override void Update () 
+	public virtual void Update () 
 	{
 		base.Update();
-		//other things yay!
 	}
-	public override void FixedUpdate() 
+	public virtual void FixedUpdate() 
 	{
 		base.FixedUpdate();
-
+		//cooldown elapsed
+		if(lastFired + cooldown.get() > Time.time)
+		{
+			//find target
+			fire();
+		}
 	}
-
-	public string getDescription()
+	
+	public void fire()
 	{
-		//TODO: Implement
-		return "REPLACE ME?";
+		lastFired = Time.time;
 	}
+
+	
+	/*public Creep findTarget()
+	{
+
+	}*/
+	public bool canFire(Creep c)
+	{
+		//range check
+		return true;
+	}
+	
+
+	public abstract string getDescription();
 	public void mouseOverOn()
 	{
 		//TODO: Implement
-
 	}
 	public void mouseOverOff()
 	{
 		//TODO: Implement
-
 	}	
 }
