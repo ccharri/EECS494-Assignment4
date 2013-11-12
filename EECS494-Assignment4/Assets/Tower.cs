@@ -26,7 +26,7 @@ public abstract class Tower : Spawnable, Selectable
 		}
 	}
 	
-	public void fire()
+	public virtual void fire()
 	{
 		lastFired = Time.time;
 	}
@@ -36,7 +36,7 @@ public abstract class Tower : Spawnable, Selectable
 	{
 
 	}*/
-	public bool canFire(Creep c)
+	public virtual bool canFire(Creep c)
 	{
 		//range check
 		return true;

@@ -34,16 +34,31 @@ public class Attribute
 		return value;
 	}
 
+    private void recalculate()
+    {
+        value = (flat + baseValue) * multiplier;
+    }
 
+    //NOTE: These functions modify the COMPONENTS of Attribute, not THE ACTUAL VALUE
+    //      Think of them like STAT BONUSES, especially for * and /
+    //      * : +x%     + : +x
+    //      / : -x%     - : -x
     public static Attribute operator -(Attribute a, double b)
     {
         return new Attribute(a.getBase(), a.getMultiplier(), a.getFlat() - b);
     }
-
-	private void recalculate() 
-	{
-		value = (flat + baseValue) * multiplier;
-	}
+    public static Attribute operator +(Attribute a, double b)
+    {
+        return new Attribute(a.getBase(), a.getMultiplier(), a.getFlat() + b);
+    }
+    public static Attribute operator *(Attribute a, double b)
+    {
+        return new Attribute(a.getBase(), a.getMultiplier()+b, a.getFlat());
+    }
+    public static Attribute operator /(Attribute a, double b)
+    {
+        return new Attribute(a.getBase(), a.getMultiplier()-b, a.getFlat());
+    }
 
 	public void setBase(double a) 		{baseValue = a;  recalculate();}
 	public void setFlat(double a) 		{flat = a; 		 recalculate();}

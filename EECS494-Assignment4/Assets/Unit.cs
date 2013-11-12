@@ -9,10 +9,11 @@ public abstract class Unit : MonoBehaviour
 
 	public virtual void Update() 
 	{
-		//other things yay!
+		
 	}
 	public virtual void FixedUpdate() 
 	{
-		
+		foreach(Buff b in buffs)
+            b.FixedUpdate();
 	}
 }

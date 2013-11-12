@@ -16,6 +16,6 @@ public abstract class ProjectileBuff : Buff
         onApplication();
     }
 
-    //NOTE: A CreepBuff is meaningless without a target!
+    //NOTE: A ProjectileBuff is meaningless without a target!
     private ProjectileBuff() {}
 }
