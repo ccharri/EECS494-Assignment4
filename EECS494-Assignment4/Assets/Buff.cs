@@ -4,7 +4,7 @@ using System.Collections;
 public abstract class Buff<T> where T : Unit
 //NOTE: The buff isn't responsible for deleting itself!
 //NOTE: Buffs aren't explicitly required to have owners!
-//NOTE: Buffs will add themselves to the target's buff list!
+//NOTE: Buffs DO NOT add themselves to the target (yet?)
 {
 	protected double duration;
     protected Unit owner;
@@ -22,10 +22,8 @@ public abstract class Buff<T> where T : Unit
         onApplication();
     }
 
-    public virtual void onApplication()
-    {
-        target.addBuff(this);
-    }
+    //TODO: Make onApplication automatically add the buff to the unit
+    public abstract void onApplication();
     public abstract void onRemoval();
 
     public virtual bool FixedUpdate()

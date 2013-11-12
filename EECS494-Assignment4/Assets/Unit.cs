@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public abstract class Unit : MonoBehaviour 
 {
-    int ownerId;
-    List<Buff<Unit>> buffs;
+    protected int ownerId;
+    protected List<Buff<Unit>> buffs;
     //TODO: Consider changing this to a map from BuffTag (string) to Buff for faster lookup
 
 
@@ -19,7 +19,7 @@ public abstract class Unit : MonoBehaviour
 	}
 	public virtual void FixedUpdate() 
 	{
-		foreach(Buff b in buffs)
+		foreach(Buff<Unit> b in buffs)
             b.FixedUpdate();
 	}
 }

@@ -8,14 +8,16 @@ public class GameState
 	Dictionary<int, List<Tower>> towers;
 	Dictionary<int, PlayerState> players;
 
+    public static GameState getGameState()
+    {
+        if (instance == null)
+            instance = new GameState();
+        return instance;
+    }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+
+
+    static GameState instance;
+    private GameState() {}
 }
