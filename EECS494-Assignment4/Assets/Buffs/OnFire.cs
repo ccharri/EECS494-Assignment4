@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OnFire : CreepBuff 
+public class OnFire : Buff<Creep> 
 {
     private static double DURATION = 10;
     private static double BURN_DAMAGE = 10;
