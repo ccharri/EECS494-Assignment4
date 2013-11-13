@@ -2,8 +2,9 @@
 using System.Collections;
 
 public class PlayerState{
-	int gold;
-	int income;
-	int lives;
-	int pid;
+	public int pid;
+	public int gold;
+	public int income;
+	public int lives;
+	public Race race;
 }

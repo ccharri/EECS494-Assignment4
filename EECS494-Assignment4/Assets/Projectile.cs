@@ -7,7 +7,10 @@ public class Projectile : Unit
     Creep target;
     Vector3 targetPos;
 
-	
+	public float getSpeed()
+	{
+		return (float)speed.get();
+	}
 
 	public override void Update() 
     {

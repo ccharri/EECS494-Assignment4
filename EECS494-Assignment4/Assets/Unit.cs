@@ -3,16 +3,30 @@ using System.Collections.Generic;
 
 public abstract class Unit : MonoBehaviour 
 {
-    protected int ownerId;
+	public string name; //This is an internal name used for mapping and RPC calls
+	public GameObject prefab;
+	protected int ownerID;
     protected List<Buff<Unit>> buffs;
     //TODO: Consider changing this to a map from BuffTag (string) to Buff for faster lookup
 
+	public int getOwnerID() {return ownerID;}
 
     public virtual bool addBuff(Buff<Unit> b)
     {
         buffs.Add(b);
         return true;
     }
+
+	public virtual bool removeBuff(Buff<Unit> b)
+	{
+		if(buffs.Remove(b))
+		{
+			b.onRemoval();
+			return true;
+		}
+		return false;
+	}
+
 	public virtual void Update() 
 	{
 		

@@ -3,5 +3,5 @@ using System.Collections;
 
 public class Spawnable : Unit 
 {
-    int cost;
+    public int cost;
 }
