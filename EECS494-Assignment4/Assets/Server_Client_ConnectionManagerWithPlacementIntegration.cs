@@ -28,12 +28,14 @@ public class Server_Client_ConnectionManagerWithPlacementIntegration : MonoBehav
 	{
 		Debug.Log("Server Initialized");
 		enablePlacementManager();
+		connected = true;
 	}
  
 	void OnConnectedToServer () 
 	{
 		Debug.Log ("Connected to Server");
 		enablePlacementManager();
+		connected = true;
 	}
  
 	void OnMasterServerEvent(MasterServerEvent mse)
