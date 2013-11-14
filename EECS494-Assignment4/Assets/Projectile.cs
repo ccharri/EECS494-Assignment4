@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : Unit 
+public abstract class Projectile : Unit 
 {
     Attribute speed;
     Creep target;
     Vector3 targetPos;
 
-	
+    public Projectile()
+    {
+        tag = "Projectile";
+    }
 
 	public override void Update() 
     {

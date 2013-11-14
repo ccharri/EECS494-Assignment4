@@ -9,7 +9,13 @@ public abstract class Tower : Spawnable, Selectable
 	
 	Attribute range;
 	Attribute cooldown;
-	double lastFired; 
+	double lastFired;
+
+
+    public Tower()
+    {
+        tag = "Tower";
+    }
 
 	public override void Update () 
 	{
@@ -18,10 +24,10 @@ public abstract class Tower : Spawnable, Selectable
 	public override void FixedUpdate() 
 	{
 		base.FixedUpdate();
-		//cooldown elapsed
+        // Cooldown elapsed, fire
 		if(lastFired + cooldown.get() > Time.time)
 		{
-			//find target
+            target = findTarget();
 			fire();
 		}
 	}
@@ -32,20 +38,29 @@ public abstract class Tower : Spawnable, Selectable
 	}
 
 	
-	/*public Creep findTarget()
+	public Creep findTarget() //TODO: Make this?
 	{
-
-	}*/
+        //GameState.getGameState().
+        return null;
+	}
 	public virtual bool canFire(Creep c)
 	{
-		//range check
+		//range check?
 		return true;
 	}
 	
 
 	public abstract string getDescription();
+
+    Light originalLight;
 	public void mouseOverOn()
 	{
+        //TODO: Finish highlighting code
+        originalLight = GetComponent<Light>();
+        Light newLight = new Light();
+        newLight.intensity = 1000;
+        
+
 		//TODO: Implement
 	}
 	public void mouseOverOff()
