@@ -11,10 +11,11 @@ public abstract class Tower : Spawnable, Selectable
 	Attribute cooldown;
 	double lastFired;
 
-
-    public Tower()
+    public Tower(double range_, double cooldown_)
     {
-        tag = "Tower";
+        range = new Attribute(range_);
+        cooldown = new Attribute(cooldown_);
+        behavior = Closest.getInstance();
     }
 
 	public override void Update () 
@@ -24,11 +25,13 @@ public abstract class Tower : Spawnable, Selectable
 	public override void FixedUpdate() 
 	{
 		base.FixedUpdate();
-        // Cooldown elapsed, fire
+        // Cooldown elapsed, Fire!
 		if(lastFired + cooldown.get() > Time.time)
 		{
             target = findTarget();
-			fire();
+            if(target != null)
+			    fire();
+            //OPT: Increment lastFired by a deltaTime*3~ to make this faster
 		}
 	}
 	
@@ -36,17 +39,29 @@ public abstract class Tower : Spawnable, Selectable
 	{
 		lastFired = Time.time;
 	}
-
 	
-	public Creep findTarget() //TODO: Make this?
+	public virtual Creep findTarget()
 	{
-        //GameState.getGameState().
-        return null;
+        List<Creep> arenaCreeps = GameState.getGameState().getEnemyCreeps(ownerId);
+        Creep target = null;
+        foreach(Creep c in arenaCreeps)
+        {
+            if(canFire(c))
+            {
+                if(target == null)
+                    target = c;
+                else if(behavior.compare(c, target, this))
+                    target = c;
+            }
+        }
+        return target;
 	}
+
 	public virtual bool canFire(Creep c)
 	{
-		//range check?
-		return true;
+        if((c.transform.position - transform.position).magnitude > range.get())
+            return false;
+        return true;
 	}
 	
 

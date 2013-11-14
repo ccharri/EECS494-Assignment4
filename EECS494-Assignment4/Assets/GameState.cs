@@ -19,20 +19,31 @@ public class GameState
         return instance;
     }
 
-    void spawnCreepForPlayer(int pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
+    public void spawnCreepForPlayer(int pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
     {
         if (creepsByArena.ContainsKey(pid))
             creepsByArena[pid].Add(c);
     }
 
-    List<Creep> getEnemyCreeps(int pid)
+    public List<Creep> getEnemyCreeps(int pid)
     {
         if(creepsByArena.ContainsKey(pid))
             return creepsByArena[pid];
         return null; //TODO: Throw an exception?
     }
 
+    public void addPlayer(int pid)
+    {
+        creepsByArena.Add(pid, new List<Creep>());
+        towersByPlayer.Add(pid, new List<Tower>());
+        players.Add(pid, new PlayerState());
+    }
 
-    static GameState instance;
-    private GameState() {}
+    private static GameState instance;
+    private GameState() 
+    {
+        creepsByArena = new Dictionary<int, List<Creep>>();
+        towersByPlayer = new Dictionary<int, List<Tower>>();
+        players = new Dictionary<int, PlayerState>();
+    }
 }
