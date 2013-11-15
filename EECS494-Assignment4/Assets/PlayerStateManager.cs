@@ -88,6 +88,12 @@ public class PlayerStateManager : MonoBehaviour
 	[RPC]
 	void setGold(int gold_, string guid_, NetworkMessageInfo info)
 	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive these setGold RPC calls!");
+			return;
+		}
+
 		if(Network.isClient && (guid_ != Network.player.guid))
 		{
 			Debug.Log ("Received setGold for wrong player!");
@@ -109,6 +115,12 @@ public class PlayerStateManager : MonoBehaviour
 	[RPC]
 	void setIncome(int income_, string guid_, NetworkMessageInfo info)
 	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive these setIncome RPC calls!");
+			return;
+		}
+
 		if(Network.isClient && (guid_ != Network.player.guid))
 		{
 			Debug.Log ("Received setIncome for wrong player!");
@@ -130,6 +142,12 @@ public class PlayerStateManager : MonoBehaviour
 	[RPC]
 	void setLives(int lives_, string guid_, NetworkMessageInfo info)
 	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive these setLives RPC calls!");
+			return;
+		}
+
 		Debug.Log ("setLives received from " + info.sender + ", lives = " + lives_ + ", player = " + guid_);
 		setLives(lives_, guid_);
 	}
@@ -140,8 +158,4 @@ public class PlayerStateManager : MonoBehaviour
 		if(state == null) {Debug.Log("Player " + guid_ + " not found!"); return;}
 		state.lives = lives_;
 	}
-
-	//Server RPCS
-
-
 }
