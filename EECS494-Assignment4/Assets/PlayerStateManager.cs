@@ -47,8 +47,16 @@ public class PlayerStateManager : MonoBehaviour {
 		playerStateMap.Add (playerID, new PlayerState(playerID));
 		playerUnitMap.Add(playerID, new List<Unit>());
 		playerSpawnerStateMap.Add(playerID, new SpawnerState(playerID));
+
+
 	}
 
+	private void removePlayer(string playerID)
+	{
+		playerStateMap.Remove(playerID);
+		playerUnitMap.Remove(playerID);
+		playerSpawnerStateMap.Remove(playerID);
+	}
 	
 	void OnPlayerConnected(NetworkPlayer player)
 	{
@@ -69,5 +77,66 @@ public class PlayerStateManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	//RPCs
+
+	//RPCs
+	
+	//setGold
+	[RPC]
+	void setGold(int gold_, string guid_, NetworkMessageInfo info)
+	{
+		if(Network.isClient && (guid_ != Network.player.guid))
+		{
+			Debug.Log ("Received setGold for wrong player!");
+			return;
+		}
+
+		Debug.Log ("setGold received from " + info.sender + ", amount = " + gold_ + ", player = " + guid_);	
+		setGold(gold_, guid_);
+	}
+	
+	void setGold(int gold_, string guid_)
+	{
+		PlayerState state = playerStateMap[guid_];
+		if(state == null) {Debug.Log("Player " + guid_ + " not found!"); return;}
+		state.gold = gold_;
+	}
+	
+	//setIncome
+	[RPC]
+	void setIncome(int income_, string guid_, NetworkMessageInfo info)
+	{
+		if(Network.isClient && (guid_ != Network.player.guid))
+		{
+			Debug.Log ("Received setIncome for wrong player!");
+			return;
+		}
+
+		Debug.Log ("setIncome received from " + info.sender + ", income = " + income_ + ", player = " + guid_);
+		setIncome (income_);
+	}
+	
+	void setIncome(int income_)
+	{
+		PlayerState state = playerStateMap[guid_];
+		if(state == null) {Debug.Log("Player " + guid_ + " not found!"); return;}
+		state.income = income_;
+	}
+
+	//setLives
+	[RPC]
+	void setLives(int lives_, string guid_, NetworkMessageInfo info)
+	{
+		Debug.Log ("setLives received from " + info.sender + ", lives = " + lives_ + ", player = " + guid_);
+		setLives(lives_, guid_);
+	}
+	
+	void setLives(int lives_, string guid_)
+	{
+		PlayerState state = playerStateMap[guid_];
+		if(state == null) {Debug.Log("Player " + guid_ + " not found!"); return;}
+		state.lives = lives_;
 	}
 }
