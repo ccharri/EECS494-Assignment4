@@ -90,7 +90,7 @@ public class PlayerStateManager : MonoBehaviour
 	{
 		if(Network.isServer)
 		{
-			Debug.Log ("Server should not receive these setGold RPC calls!");
+			Debug.Log ("Server should not receive setGold RPC calls!");
 			return;
 		}
 
@@ -117,7 +117,7 @@ public class PlayerStateManager : MonoBehaviour
 	{
 		if(Network.isServer)
 		{
-			Debug.Log ("Server should not receive these setIncome RPC calls!");
+			Debug.Log ("Server should not receive setIncome RPC calls!");
 			return;
 		}
 
@@ -144,7 +144,7 @@ public class PlayerStateManager : MonoBehaviour
 	{
 		if(Network.isServer)
 		{
-			Debug.Log ("Server should not receive these setLives RPC calls!");
+			Debug.Log ("Server should not receive setLives RPC calls!");
 			return;
 		}
 
