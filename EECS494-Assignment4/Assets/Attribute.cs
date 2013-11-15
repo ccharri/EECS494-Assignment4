@@ -11,12 +11,12 @@ public class Attribute
 	public Attribute()
 	{
 		baseValue = 0;
-		multiplier = 0;
+		multiplier = 1;
 		flat = 0;
 	}
 	public Attribute(double base_)
 	{
-		multiplier = 0;
+		multiplier = 1;
 		flat = 0;
 		baseValue = base_;
 		recalculate();

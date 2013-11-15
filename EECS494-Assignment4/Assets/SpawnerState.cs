@@ -3,12 +3,12 @@ using System.Collections;
 
 public class SpawnerState
 {
-	protected int ownerID;
+	protected string ownerID;
 	private Hashtable unitSpawnStateMap;
 
-	public int getOwnerID() {return ownerID;}
+	public string getOwnerID() {return ownerID;}
 
-	public SpawnerState(int ownerID_)
+	public SpawnerState(string ownerID_)
 	{
 		ownerID = ownerID_;
 	}

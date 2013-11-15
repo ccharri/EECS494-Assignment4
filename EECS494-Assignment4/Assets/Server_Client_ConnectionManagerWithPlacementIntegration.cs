@@ -37,7 +37,7 @@ public class Server_Client_ConnectionManagerWithPlacementIntegration : MonoBehav
 		enablePlacementManager();
 		connected = true;
 	}
- 
+
 	void OnMasterServerEvent(MasterServerEvent mse)
 	{
 		if (mse == MasterServerEvent.RegistrationSucceeded)
@@ -49,7 +49,7 @@ public class Server_Client_ConnectionManagerWithPlacementIntegration : MonoBehav
 			Debug.Log (mse);
 		}
 	}
-	
+
 	void OnFailedToConnect(NetworkConnectionError error) {
 		connected = false;
         Debug.Log("Could not connect to server: " + error);

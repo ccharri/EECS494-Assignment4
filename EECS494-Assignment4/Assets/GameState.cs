@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 public class GameState
 {
-	Dictionary<int, List<Creep>> creepsByArena;
+	Dictionary<string, List<Creep>> creepsByArena;
     //NOTE: Returns the creeps in a player's arena. Indexed by pid
 
-	Dictionary<int, List<Tower>> towersByPlayer;
+	Dictionary<string, List<Tower>> towersByPlayer;
     //NOTE: Returns towers owned by a player. Indexed by pid.
 
-	Dictionary<int, PlayerState> players;
+	Dictionary<string, PlayerState> players;
 
     public static GameState getGameState()
     {
@@ -19,12 +19,12 @@ public class GameState
         return instance;
     }
 
-    public void spawnCreepForPlayer(int pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
+	public void spawnCreepForPlayer(string pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
     {
         if(creepsByArena.ContainsKey(pid))
             creepsByArena[pid].Add(c);
     }
-    public void spawnTowerForPlayer(int pid, Tower t) //TODO: fix params? make it a prefab? change the method name?
+	public void spawnTowerForPlayer(string pid, Tower t) //TODO: fix params? make it a prefab? change the method name?
     {
         if(towersByPlayer.ContainsKey(pid))
             towersByPlayer[pid].Add(t);
@@ -32,14 +32,14 @@ public class GameState
 
 
 
-    public List<Creep> getEnemyCreeps(int pid)
+	public List<Creep> getEnemyCreeps(string pid)
     {
         if(creepsByArena.ContainsKey(pid))
             return creepsByArena[pid];
         return null; //TODO: Throw an exception?
     }
 
-    public void addPlayer(int pid)
+	public void addPlayer(string pid)
     {
         creepsByArena.Add(pid, new List<Creep>());
         towersByPlayer.Add(pid, new List<Tower>());
@@ -49,8 +49,8 @@ public class GameState
     private static GameState instance;
     private GameState() 
     {
-        creepsByArena = new Dictionary<int, List<Creep>>();
-        towersByPlayer = new Dictionary<int, List<Tower>>();
-        players = new Dictionary<int, PlayerState>();
+		creepsByArena = new Dictionary<string, List<Creep>>();
+		towersByPlayer = new Dictionary<string, List<Tower>>();
+		players = new Dictionary<string, PlayerState>();
     }
 }

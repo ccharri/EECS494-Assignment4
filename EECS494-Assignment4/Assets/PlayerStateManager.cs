@@ -7,7 +7,7 @@ public class PlayerStateManager : MonoBehaviour {
 	private Hashtable playerUnitMap;
 	private Hashtable playerSpawnerStateMap;
 
-	public PlayerState getPlayerState(int playerID)
+	public PlayerState getPlayerState(string playerID)
 	{
 		return (PlayerState)playerStateMap[playerID];
 	}
@@ -17,7 +17,7 @@ public class PlayerStateManager : MonoBehaviour {
 		playerStateMap.Add(pstate.pid, pstate);
 	}
 
-	public List<Unit> getPlayerUnits(int playerID)
+	public List<Unit> getPlayerUnits(string playerID)
 	{
 		return (List<Unit>)playerUnitMap[playerID];
 	}
@@ -25,14 +25,14 @@ public class PlayerStateManager : MonoBehaviour {
 	public void addUnit(Unit u)
 	{
 		List<Unit> list;
-		int id = u.getOwnerID();
+		string id = u.getOwnerID();
 		if((list = (List<Unit>)playerUnitMap[id]) == null)
 			playerUnitMap.Add (id, new List<Unit>());
 
 		((List<Unit>)playerUnitMap[id]).Add(u);
 	}
 
-	public SpawnerState getSpawnerState(int playerID)
+	public SpawnerState getSpawnerState(string playerID)
 	{
 		return (SpawnerState)playerSpawnerStateMap[playerID];
 	}
@@ -42,14 +42,24 @@ public class PlayerStateManager : MonoBehaviour {
 		playerSpawnerStateMap.Add(spawn.getOwnerID(), spawn);
 	}
 
-	public void initializePlayer(int playerID)
+	public void initializePlayer(string playerID)
 	{
-		/*
 		playerStateMap.Add (playerID, new PlayerState(playerID));
 		playerUnitMap.Add(playerID, new List<Unit>());
 		playerSpawnerStateMap.Add(playerID, new SpawnerState(playerID));
-		*/
 	}
+
+	
+	void OnPlayerConnected(NetworkPlayer player)
+	{
+		initializePlayer(player.guid);
+	}
+	
+	void OnPlayerDisconnected(NetworkPlayer player)
+	{
+		
+	}
+
 
 	// Use this for initialization
 	void Start () {
