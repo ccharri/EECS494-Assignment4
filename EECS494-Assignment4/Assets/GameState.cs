@@ -14,16 +14,23 @@ public class GameState
 
     public static GameState getGameState()
     {
-        if (instance == null)
+        if(instance == null)
             instance = new GameState();
         return instance;
     }
 
     public void spawnCreepForPlayer(int pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
     {
-        if (creepsByArena.ContainsKey(pid))
+        if(creepsByArena.ContainsKey(pid))
             creepsByArena[pid].Add(c);
     }
+    public void spawnTowerForPlayer(int pid, Tower t) //TODO: fix params? make it a prefab? change the method name?
+    {
+        if(towersByPlayer.ContainsKey(pid))
+            towersByPlayer[pid].Add(t);
+    }
+
+
 
     public List<Creep> getEnemyCreeps(int pid)
     {

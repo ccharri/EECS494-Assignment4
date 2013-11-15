@@ -43,7 +43,7 @@ public abstract class Tower : Spawnable, Selectable
 	
 	public virtual Creep findTarget()
 	{
-        List<Creep> arenaCreeps = GameState.getGameState().getEnemyCreeps(ownerId);
+        List<Creep> arenaCreeps = GameState.getGameState().getEnemyCreeps(ownerID);
         Creep target = null;
         foreach(Creep c in arenaCreeps)
         {
