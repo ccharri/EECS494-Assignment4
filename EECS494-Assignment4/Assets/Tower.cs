@@ -24,10 +24,11 @@ public abstract class Tower : Spawnable, Selectable
 	}
 	public override void FixedUpdate() 
 	{
+        GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
         print("HOLY CRAP");
 		base.FixedUpdate();
         // Cooldown elapsed, Fire!
-		if((lastFired + cooldown.get()) > Time.time)
+		if((lastFired + cooldown.get()) > g.getGameTime())
 		{
             if(target == null)
                 target = findTarget();

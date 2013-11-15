@@ -63,6 +63,8 @@ public class GameState : MonoBehaviour
 		spawns.Add (player.guid, new SpawnerState(player.guid));
     }
 
+    public float getGameTime() { return time; }
+
     private static GameState instance;
     private GameState() 
     {
