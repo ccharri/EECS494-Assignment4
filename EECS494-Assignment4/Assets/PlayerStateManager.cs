@@ -81,7 +81,7 @@ public class PlayerStateManager : MonoBehaviour {
 
 	//RPCs
 
-	//RPCs
+	//Client RPCs
 	
 	//setGold
 	[RPC]
@@ -118,7 +118,7 @@ public class PlayerStateManager : MonoBehaviour {
 		setIncome (income_);
 	}
 	
-	void setIncome(int income_)
+	void setIncome(int income_, string guid_)
 	{
 		PlayerState state = playerStateMap[guid_];
 		if(state == null) {Debug.Log("Player " + guid_ + " not found!"); return;}
@@ -139,4 +139,8 @@ public class PlayerStateManager : MonoBehaviour {
 		if(state == null) {Debug.Log("Player " + guid_ + " not found!"); return;}
 		state.lives = lives_;
 	}
+
+	//Server RPCS
+
+
 }
