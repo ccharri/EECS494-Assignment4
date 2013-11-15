@@ -9,7 +9,7 @@ public class Creep : Spawnable, Selectable
 	int bounty;
 	int lifeCost;
 
-    public Creep(double health_, double mana_, double speed_, int bounty_, int lifeCost_ = 1)
+    public void Init(double health_, double mana_, double speed_, int bounty_, int lifeCost_ = 1)
     {
         health = new Attribute(health_);
         mana = new Attribute(mana_);

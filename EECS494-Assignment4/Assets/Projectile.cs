@@ -4,18 +4,22 @@ using System.Collections.Generic;
 public abstract class Projectile : Unit 
 {
     protected Attribute speed;
+    
+    protected Tower owner;
+
     protected Creep target;
     protected Vector3 targetPos;
+    
     protected double birthTime;
 
-    public Projectile(Creep target_)
+    public void Init(Creep target_)
     {
         speed = new Attribute(0);
         target = target_;
         targetPos = target.transform.position;
         birthTime = Time.time;
     }
-    public Projectile(Creep target_, double speed_)
+    public void Init(Creep target_, double speed_)
     {
         speed = new Attribute(speed_);
         target = target_;

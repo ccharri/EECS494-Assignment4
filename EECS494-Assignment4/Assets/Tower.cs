@@ -11,7 +11,7 @@ public abstract class Tower : Spawnable, Selectable
 	protected Attribute cooldown;
 	protected double lastFired;
 
-    public Tower(double range_, double cooldown_)
+    public void Init(double range_, double cooldown_)
     {
         range = new Attribute(range_);
         cooldown = new Attribute(cooldown_);

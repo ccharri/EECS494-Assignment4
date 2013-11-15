@@ -3,9 +3,9 @@ using System.Collections;
 
 public class ArcaneTower : Tower 
 {
-    public ArcaneTower() : base(1000, 1)
+    public void Init()
     {
-
+        base.Init(1000, 1);
     }
 
     public override void fire()
@@ -19,7 +19,7 @@ public class ArcaneTower : Tower
     {
         return "Arcane Tower\nArguably one of the greatest achievements of the human race,\n" +
             " the Arcane Tower is little more than a bundle of sticks, an artificial mana\n" +
-            " crystal, and a targetting glyph. They made them by the thousands, and secured" +
+            " crystal, and a targeting glyph. They made them by the thousands, and secured" +
             " their vast borders against demonic attack.";
     }
 }

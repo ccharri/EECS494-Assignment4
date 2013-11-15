@@ -11,6 +11,12 @@ public abstract class Unit : MonoBehaviour
 
 	public int getOwnerID() {return ownerID;}
 
+    public void Init(string name_, int ownerID_)
+    {
+        name = name_;
+        ownerID = ownerID_;
+    }
+
     public virtual bool addBuff(Buff<Unit> b)
     {
         buffs.Add(b);

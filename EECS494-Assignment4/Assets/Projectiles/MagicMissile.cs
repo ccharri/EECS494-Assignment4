@@ -3,9 +3,9 @@ using System.Collections;
 
 public class MagicMissile : Projectile
 {
-    public MagicMissile(Creep target_) : base(target_)
+    public void Init(Creep target_)
     {
-
+        base.Init(target_);
     }
 
     public override void FixedUpdate()
