@@ -11,7 +11,7 @@ public class Closest : TargetingBehavior
             instance = new Closest();
         return instance;
     }
-    public bool compare(Creep a, Creep b, Tower c)
+    public override bool compare(Creep a, Creep b, Tower c)
     {
         double distA = (a.transform.position - c.transform.position).sqrMagnitude;
         double distB = (a.transform.position - c.transform.position).sqrMagnitude;

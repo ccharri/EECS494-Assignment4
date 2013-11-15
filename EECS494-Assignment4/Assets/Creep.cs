@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Creep : Spawnable, Selectable 
+public class Creep : Spawnable, Selectable 
 {
 	Attribute health;
 	Attribute speed;
@@ -9,10 +9,6 @@ public abstract class Creep : Spawnable, Selectable
 	int bounty;
 	int lifeCost;
 
-    public Creep()
-    {
-        tag = "Creep";
-    }
     public Creep(double health_, double mana_, double speed_, int bounty_, int lifeCost_ = 1)
     {
         health = new Attribute(health_);
@@ -25,11 +21,15 @@ public abstract class Creep : Spawnable, Selectable
 	public virtual bool onDamage(double damage)
 	{
 		health -= damage;
+        if(!isAlive())
+            onDeath();
         return isAlive();
 		//NOTE: The person calling on damage needs to check if the unit isAlive after to claim kill credit.
 	}
-    public abstract void onDeath();
-
+    public virtual void onDeath()
+    {
+        Destroy(this);
+    }
 
 	public virtual bool isAlive()
 	{
@@ -37,7 +37,10 @@ public abstract class Creep : Spawnable, Selectable
 	}
 
 
-	public abstract string getDescription();
+    public string getDescription()
+    {
+        return "Health: " + health.get() + "\nMana: " + mana.get() + "\nSpeed: " + speed.get();
+    }
 	public void mouseOverOn()
 	{
 		//TODO: Implement

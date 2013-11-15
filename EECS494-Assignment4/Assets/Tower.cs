@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 public abstract class Tower : Spawnable, Selectable 
 {
-	List<Projectile> projectiles;
-	Creep target;
-	TargetingBehavior behavior;
+	protected List<Projectile> projectiles;
+	protected Creep target;
+	protected TargetingBehavior behavior;
 	
-	Attribute range;
-	Attribute cooldown;
-	double lastFired;
+	protected Attribute range;
+	protected Attribute cooldown;
+	protected double lastFired;
 
     public Tower(double range_, double cooldown_)
     {
@@ -28,9 +28,10 @@ public abstract class Tower : Spawnable, Selectable
         // Cooldown elapsed, Fire!
 		if(lastFired + cooldown.get() > Time.time)
 		{
-            target = findTarget();
+            if(target == null)
+                target = findTarget();
             if(target != null)
-			    fire();
+                fire();
             //OPT: Increment lastFired by a deltaTime*3~ to make this faster
 		}
 	}
