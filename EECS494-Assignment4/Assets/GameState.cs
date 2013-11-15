@@ -12,6 +12,8 @@ public class GameState : MonoBehaviour
 
 	Dictionary<string, PlayerState> players;
 
+	Dictionary<string, SpawnerState> spawns;
+
     double incomeTimeIncrement = 10;
     double nextIncomeTime = 10;
     double time = 0;
@@ -58,6 +60,7 @@ public class GameState : MonoBehaviour
         creepsByArena.Add(player.guid, new List<Creep>());
         towersByPlayer.Add(player.guid, new List<Tower>());
         players.Add(player.guid, new PlayerState(player));
+		spawns.Add (player.guid, new SpawnerState(player.guid));
     }
 
     private static GameState instance;
@@ -66,6 +69,7 @@ public class GameState : MonoBehaviour
 		creepsByArena = new Dictionary<string, List<Creep>>();
 		towersByPlayer = new Dictionary<string, List<Tower>>();
 		players = new Dictionary<string, PlayerState>();
+		spawns = new Dictionary<string, SpawnerState>();
     }
 
 	void OnPlayerConnected(NetworkPlayer player)
@@ -80,16 +84,18 @@ public class GameState : MonoBehaviour
 
 	public void initializePlayer(NetworkPlayer player)
 	{
-		playerStateMap.Add (player.guid, new PlayerState(player));
-		playerUnitMap.Add(player.guid, new List<Unit>());
-		playerSpawnerStateMap.Add(player.guid, new SpawnerState(player.guid));
+		players.Add (player.guid, new PlayerState(player));
+		creepsByArena.Add(player.guid, new List<Creep>());
+		towersByPlayer.Add(player.guid, new List<Tower>());
+		spawns.Add(player.guid, new SpawnerState(player.guid));
 	}
 
 	private void removePlayer(string playerID)
 	{
-		playerStateMap.Remove(playerID);
-		playerUnitMap.Remove(playerID);
-		playerSpawnerStateMap.Remove(playerID);
+		players.Remove(playerID);
+		creepsByArena.Remove(playerID);
+		towersByPlayer.Remove(playerID);
+		spawns.Remove(playerID);
 	}
 
 	//RPCs
