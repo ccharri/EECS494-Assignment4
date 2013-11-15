@@ -80,9 +80,9 @@ public class GameState : MonoBehaviour
 
 	public void initializePlayer(NetworkPlayer player)
 	{
-		playerStateMap.Add (player.guid, new PlayerState(player.guid));
+		playerStateMap.Add (player.guid, new PlayerState(player));
 		playerUnitMap.Add(player.guid, new List<Unit>());
-		playerSpawnerStateMap.Add(player.guid, new SpawnerState(player));
+		playerSpawnerStateMap.Add(player.guid, new SpawnerState(player.guid));
 	}
 
 	private void removePlayer(string playerID)
