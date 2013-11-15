@@ -68,7 +68,30 @@ public class GameState : MonoBehaviour
 		players = new Dictionary<string, PlayerState>();
     }
 
-	
+	void OnPlayerConnected(NetworkPlayer player)
+	{
+		initializePlayer(player);
+	}
+		
+	void OnPlayerDisconnected(NetworkPlayer player)
+	{
+//		removePlayer(player.guid);
+	}
+
+	public void initializePlayer(NetworkPlayer player)
+	{
+		playerStateMap.Add (player.guid, new PlayerState(player.guid));
+		playerUnitMap.Add(player.guid, new List<Unit>());
+		playerSpawnerStateMap.Add(player.guid, new SpawnerState(player));
+	}
+
+	private void removePlayer(string playerID)
+	{
+		playerStateMap.Remove(playerID);
+		playerUnitMap.Remove(playerID);
+		playerSpawnerStateMap.Remove(playerID);
+	}
+
 	//RPCs
 	
 	//Client RPCs

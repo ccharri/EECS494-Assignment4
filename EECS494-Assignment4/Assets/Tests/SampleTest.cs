@@ -8,8 +8,8 @@ public class SampleTest : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
-        g.addPlayer("1");
-        g.addPlayer("2");
+//        g.addPlayer("1");
+//        g.addPlayer("2");
 
         GameObject tower = Instantiate(arcaneTower, new Vector3(0, 1, 0), new Quaternion()) as GameObject;
         Tower t = tower.GetComponent<Tower>();
