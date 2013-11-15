@@ -9,7 +9,14 @@ public abstract class Tower : Spawnable, Selectable
 	
 	Attribute range;
 	Attribute cooldown;
-	double lastFired; 
+	double lastFired;
+
+    public Tower(double range_, double cooldown_)
+    {
+        range = new Attribute(range_);
+        cooldown = new Attribute(cooldown_);
+        behavior = Closest.getInstance();
+    }
 
 	public override void Update () 
 	{
@@ -18,11 +25,13 @@ public abstract class Tower : Spawnable, Selectable
 	public override void FixedUpdate() 
 	{
 		base.FixedUpdate();
-		//cooldown elapsed
+        // Cooldown elapsed, Fire!
 		if(lastFired + cooldown.get() > Time.time)
 		{
-			//find target
-			fire();
+            target = findTarget();
+            if(target != null)
+			    fire();
+            //OPT: Increment lastFired by a deltaTime*3~ to make this faster
 		}
 	}
 	
@@ -30,22 +39,43 @@ public abstract class Tower : Spawnable, Selectable
 	{
 		lastFired = Time.time;
 	}
-
 	
-	/*public Creep findTarget()
+	public virtual Creep findTarget()
 	{
+        List<Creep> arenaCreeps = GameState.getGameState().getEnemyCreeps(ownerId);
+        Creep target = null;
+        foreach(Creep c in arenaCreeps)
+        {
+            if(canFire(c))
+            {
+                if(target == null)
+                    target = c;
+                else if(behavior.compare(c, target, this))
+                    target = c;
+            }
+        }
+        return target;
+	}
 
-	}*/
 	public virtual bool canFire(Creep c)
 	{
-		//range check
-		return true;
+        if((c.transform.position - transform.position).magnitude > range.get())
+            return false;
+        return true;
 	}
 	
 
 	public abstract string getDescription();
+
+    Light originalLight;
 	public void mouseOverOn()
 	{
+        //TODO: Finish highlighting code
+        originalLight = GetComponent<Light>();
+        Light newLight = new Light();
+        newLight.intensity = 1000;
+        
+
 		//TODO: Implement
 	}
 	public void mouseOverOff()

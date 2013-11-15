@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
-public class TargetingBehavior {
-
-	void canFire(Creep c)
-	{
-
-
-	}
-	void findTarget()
-	{
-		
-	}
+public abstract class TargetingBehavior 
+{
+    public static abstract TargetingBehavior getInstance();
+    //DOES: Grabs an instance (global or new)
+    public abstract bool compare(Creep a, Creep b, Tower c);
+    //DOES: Returns true if a is better than b. > operator
 }
