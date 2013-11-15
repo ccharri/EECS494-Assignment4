@@ -24,6 +24,7 @@ public abstract class Tower : Spawnable, Selectable
 	}
 	public override void FixedUpdate() 
 	{
+        print("HOLY CRAP");
 		base.FixedUpdate();
         // Cooldown elapsed, Fire!
 		if(lastFired + cooldown.get() > Time.time)

@@ -5,14 +5,14 @@ public abstract class Unit : MonoBehaviour
 {
 	public string name; //This is an internal name used for mapping and RPC calls
 	protected string ownerID;
-    protected List<Buff<Unit>> buffs;
+    protected List<Buff<Unit>> buffs = new List<Buff<Unit>>();
     //TODO: Consider changing this to a map from BuffTag (string) to Buff for faster lookup
 
 	public string getOwnerID() {return ownerID;}
 
-    public void Start()
+    void Start()
     {
-        buffs = new List<Buff<Unit>>();
+        
     }
 
     public void Init(string name_, string ownerID_)
@@ -44,6 +44,8 @@ public abstract class Unit : MonoBehaviour
 	}
 	public virtual void FixedUpdate() 
 	{
+        if(buffs == null)
+            print("FICK");
 		foreach(Buff<Unit> b in buffs)
             b.FixedUpdate();
 	}

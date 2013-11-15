@@ -2,14 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerStateManager : MonoBehaviour {
-	private Hashtable playerStateMap;
-	private Hashtable playerUnitMap;
-	private Hashtable playerSpawnerStateMap;
+public class PlayerStateManager : MonoBehaviour 
+{
+	private Dictionary<string, PlayerState> playerStateMap;
+	private Dictionary<string, List<Unit>> playerUnitMap;
+	private Dictionary<string, SpawnerState> playerSpawnerStateMap;
 
 	public PlayerState getPlayerState(string playerID)
 	{
-		return (PlayerState)playerStateMap[playerID];
+		return playerStateMap[playerID];
 	}
 
 	public void addPlayerState(PlayerState pstate)
@@ -19,22 +20,22 @@ public class PlayerStateManager : MonoBehaviour {
 
 	public List<Unit> getPlayerUnits(string playerID)
 	{
-		return (List<Unit>)playerUnitMap[playerID];
+		return playerUnitMap[playerID];
 	}
 
 	public void addUnit(Unit u)
 	{
 		List<Unit> list;
 		string id = u.getOwnerID();
-		if((list = (List<Unit>)playerUnitMap[id]) == null)
-			playerUnitMap.Add (id, new List<Unit>());
+		if((list = playerUnitMap[id]) == null)
+			playerUnitMap.Add(id, new List<Unit>());
 
-		((List<Unit>)playerUnitMap[id]).Add(u);
+		playerUnitMap[id].Add(u);
 	}
 
 	public SpawnerState getSpawnerState(string playerID)
 	{
-		return (SpawnerState)playerSpawnerStateMap[playerID];
+		return playerSpawnerStateMap[playerID];
 	}
 
 	public void addSpawnerState(SpawnerState spawn)
@@ -115,7 +116,7 @@ public class PlayerStateManager : MonoBehaviour {
 		}
 
 		Debug.Log ("setIncome received from " + info.sender + ", income = " + income_ + ", player = " + guid_);
-		setIncome (income_);
+		setIncome (income_, guid_);
 	}
 	
 	void setIncome(int income_, string guid_)
