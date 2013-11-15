@@ -41,7 +41,7 @@ public class GameState
     {
         creepsByArena.Add(pid, new List<Creep>());
         towersByPlayer.Add(pid, new List<Tower>());
-        players.Add(pid, new PlayerState());
+        players.Add(pid, new PlayerState(pid));
     }
 
     private static GameState instance;
