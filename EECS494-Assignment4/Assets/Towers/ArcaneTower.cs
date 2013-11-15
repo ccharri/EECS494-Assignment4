@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ArcaneTower : Tower 
 {
-    public void Init()
+    public void Start()
     {
         base.Init(1000, 1);
     }

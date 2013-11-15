@@ -29,9 +29,7 @@ public class GameState
         if(towersByPlayer.ContainsKey(pid))
             towersByPlayer[pid].Add(t);
     }
-
-
-
+	
 	public List<Creep> getEnemyCreeps(string pid)
     {
         if(creepsByArena.ContainsKey(pid))

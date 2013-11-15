@@ -4,14 +4,19 @@ using System.Collections.Generic;
 public abstract class Unit : MonoBehaviour 
 {
 	public string name; //This is an internal name used for mapping and RPC calls
-	public GameObject prefab;
 	protected int ownerID;
     protected List<Buff<Unit>> buffs;
     //TODO: Consider changing this to a map from BuffTag (string) to Buff for faster lookup
 
 	public int getOwnerID() {return ownerID;}
 
+    public void Start()
+    {
+        buffs = new List<Buff<Unit>>();
+    }
+
     public void Init(string name_, int ownerID_)
+    //NOTE: Init is only used when parameters need to be passed in.
     {
         name = name_;
         ownerID = ownerID_;
