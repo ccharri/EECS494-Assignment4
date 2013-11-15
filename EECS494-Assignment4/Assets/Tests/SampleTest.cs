@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class SampleTest : MonoBehaviour {
-    public GameObject sampleTower;
+    public GameObject arcaneTower;
+    public GameObject infamousCrate;
 
 	// Use this for initialization
 	void Start () {
@@ -10,11 +11,11 @@ public class SampleTest : MonoBehaviour {
         g.addPlayer("1");
         g.addPlayer("2");
 
-        GameObject tower = Instantiate(sampleTower, new Vector3(0, 0, 0), new Quaternion()) as GameObject;
+        GameObject tower = Instantiate(arcaneTower, new Vector3(0, 0, 0), new Quaternion()) as GameObject;
         Tower t = tower.GetComponent<Tower>();
         g.spawnTowerForPlayer("1", t);
 
-        GameObject creep = Instantiate(sampleTower, new Vector3(0, 0, 0), new Quaternion()) as GameObject;
+        GameObject creep = Instantiate(infamousCrate, new Vector3(10, 0, 0), new Quaternion()) as GameObject;
         Creep c = creep.GetComponent<Creep>();
         c.Init(100, 10, 10, 1);
         c.Init("Infamous Crate", "2");
