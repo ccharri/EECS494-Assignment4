@@ -7,6 +7,7 @@ public class Server_Client_ConnectionManagerWithPlacementIntegration : MonoBehav
 	private string serverPortText = "Server Port";
 	private string serverGUIDText = "Server GUID";
 	private HostData[] hostData;
+	private Vector2 scrollPosition;
 	
 	void Awake() {
         MasterServer.ClearHostList();
@@ -115,9 +116,8 @@ public class Server_Client_ConnectionManagerWithPlacementIntegration : MonoBehav
 			}
 			
 			GUILayout.EndVertical();
-			
-			Vector2 scrollPosition = new Vector2(0, 0);
-			GUILayout.BeginScrollView(scrollPosition,GUILayout.Width(Screen.width - 400), GUILayout.Height(Screen.height - 300));
+
+			scrollPosition = GUILayout.BeginScrollView(scrollPosition,GUILayout.Width(Screen.width - 400), GUILayout.Height(Screen.height - 300));
 			GUILayout.Label("Game List");
 			
 			HostData[] data = hostData = MasterServer.PollHostList();
