@@ -14,9 +14,9 @@ public class GameState : MonoBehaviour
 
 	Dictionary<string, SpawnerState> spawns;
 
-    double incomeTimeIncrement = 10;
-    double nextIncomeTime = 10;
-    double time = 0;
+    float incomeTimeIncrement = 10;
+    float nextIncomeTime = 10;
+    float time = 0;
 
 
     void FixedUpdate()
@@ -102,6 +102,7 @@ public class GameState : MonoBehaviour
 	
 	//Client RPCs
 
+	//setIncomeTimer
 	[RPC]
 	void setIncomeTimer(float time_, NetworkMessageInfo info_)
 	{
