@@ -35,13 +35,6 @@ public class GameState : MonoBehaviour
 		}
     }
 
-    public static GameState getGameState()
-    {
-        if(instance == null)
-            instance = new GameState();
-        return instance;
-    }
-
 	public void spawnCreepForPlayer(string pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
     {
         if(creepsByArena.ContainsKey(pid))

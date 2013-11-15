@@ -7,7 +7,7 @@ public class SampleTest : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GameState g = GameState.getGameState();
+		GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
         g.addPlayer("1");
         g.addPlayer("2");
 

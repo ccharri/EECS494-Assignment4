@@ -27,7 +27,7 @@ public abstract class Tower : Spawnable, Selectable
         print("HOLY CRAP");
 		base.FixedUpdate();
         // Cooldown elapsed, Fire!
-		if(lastFired + cooldown.get() > Time.time)
+		if((lastFired + cooldown.get()) > Time.time)
 		{
             if(target == null)
                 target = findTarget();
@@ -44,7 +44,7 @@ public abstract class Tower : Spawnable, Selectable
 	
 	public virtual Creep findTarget()
 	{
-        List<Creep> arenaCreeps = GameState.getGameState().getEnemyCreeps(ownerID);
+        List<Creep> arenaCreeps =  GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>().getEnemyCreeps(ownerID);
         Creep target = null;
         foreach(Creep c in arenaCreeps)
         {
