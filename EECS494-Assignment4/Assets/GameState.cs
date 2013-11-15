@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameState
+public class GameState : MonoBehaviour
 {
 	Dictionary<string, List<Creep>> creepsByArena;
     //NOTE: Returns the creeps in a player's arena. Indexed by pid
@@ -11,6 +11,22 @@ public class GameState
     //NOTE: Returns towers owned by a player. Indexed by pid.
 
 	Dictionary<string, PlayerState> players;
+
+    double incomeTimeIncrement = 10;
+    double nextIncomeTime = 10;
+    double time = 0;
+
+
+    void FixedUpdate()
+    {
+        time += Time.deltaTime;
+        if(time >= nextIncomeTime)
+        {
+            foreach(var p in players)
+                p.Value.gold += p.Value.income;
+            nextIncomeTime += incomeTimeIncrement;
+        }
+    }
 
     public static GameState getGameState()
     {
