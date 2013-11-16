@@ -51,12 +51,12 @@ public class GameState : MonoBehaviour
 		}
     }
 
-	public void spawnCreepForPlayer(string pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
+	public void addCreepForPlayer(string pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
     {
         if(creepsByArena.ContainsKey(pid))
             creepsByArena[pid].Add(c);
     }
-	public void spawnTowerForPlayer(string pid, Tower t) //TODO: fix params? make it a prefab? change the method name?
+	public void addTowerForPlayer(string pid, Tower t) //TODO: fix params? make it a prefab? change the method name?
     {
         if(towersByPlayer.ContainsKey(pid))
             towersByPlayer[pid].Add(t);
@@ -148,6 +148,47 @@ public class GameState : MonoBehaviour
 		towersByPlayer.Remove(playerID);
 		spawns.Remove(playerID);
 	}
+
+	//Add Creep
+
+	[RPC]
+	void addTower(NetworkViewID networkViewID, string ownerGUID_, NetworkMessageInfo info_)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive addTower RPC calls!");
+			return;
+		}
+
+		Debug.Log ("addTower received from " + info_.sender + ", owner = ", ownerGUID_ ", NetworkViewID = " + networkViewID);
+		addTower (networkViewID, ownerGUID_);
+	}
+
+	void addTower(NetworkViewID networkViewID, string ownerGUID_)
+	{
+		NetworkView view = NetworkView.Find(networkViewID);
+		addTowerForPlayer(ownerGUID_, view.gameObject.GetComponent<Tower>());
+	}
+
+	//Add Tower
+
+	[RPC]
+	void addCreep(NetworkViewID networkViewID, string ownerGUID_, NetworkMessageInfo info_)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive addCreep RPC calls!");
+			return;
+		}
+		
+		Debug.Log ("addCreep received from " + info_.sender + ", owner = ", ownerGUID_ ", NetworkViewID = " + networkViewID);
+		addCreep (networkViewID, ownerGUID_);
+	}
+	
+	void addCreep(NetworkViewID networkViewID, string ownerGUID_)
+	{
+		NetworkView view = NetworkView.Find(networkViewID);
+		addCreepForPlayer(ownerGUID_, view.gameObject.GetComponent<Creep>());
 
 	//Setters
 
