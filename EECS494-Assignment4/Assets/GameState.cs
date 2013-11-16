@@ -36,10 +36,16 @@ public class GameState : MonoBehaviour
 	            foreach(var p in players)
 				{
 	                p.Value.gold += p.Value.income;
-					networkView.RPC ("setGold", p.Value.player, p.Value.gold, p.Value.player.guid);
+
+					//We know we're the server, so if the player we're updating isn't us, go ahead and RPC
+					if(p.Value.player.guid != Network.player.guid)
+						networkView.RPC ("setGold", p.Value.player, p.Value.gold, p.Value.player.guid);
 				}
 	            nextIncomeTime += incomeTimeIncrement;
-				networkView.RPC("setIncomeTimer", RPCMode.AllBuffered, nextIncomeTime);
+
+				//Update everyone else's timer.  We don't want to have to rely on messages passed back in,
+				//	in case a User can fabricate setIncomeTimer messages from the server itself
+				networkView.RPC("setIncomeTimer", RPCMode.OthersBuffered, nextIncomeTime);
 	        }
 		}
     }
@@ -134,7 +140,6 @@ public class GameState : MonoBehaviour
 		setGold(gold_, guid_);
 	}
 
-    [RPC]
 	void setGold(int gold_, string guid_)
 	{
 		PlayerState state = players[guid_];
