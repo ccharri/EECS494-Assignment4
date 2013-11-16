@@ -30,6 +30,7 @@ public class GameState : MonoBehaviour
     {
 		if(Network.isServer)
 		{
+			//Update PlayerStates
 	        time += Time.deltaTime;
 	        if(time >= nextIncomeTime)
 	        {
@@ -48,6 +49,39 @@ public class GameState : MonoBehaviour
 				//	in case a User can fabricate setIncomeTimer messages from the server itself
 				networkView.RPC("setIncomeTimer", RPCMode.OthersBuffered, nextIncomeTime);
 	        }
+
+
+
+			//Update SpawnerStates
+			foreach(var s in spawns)
+			{
+				SpawnerState ss = s.Value;
+				NetworkPlayer p = ss.getOwner();
+
+				foreach(var k in ss.getKeys())
+				{
+					//Need to know key, for RPC calls
+					var u = ss.getSpawn(k);
+
+					if(u.currentStock == u.maxStock) continue;
+
+					if(time < u.initialStockTime) continue;
+
+					if(time >= (u.lastRestock + u.restockTime))
+					{
+						u.currentStock += 1;
+						u.lastRestock = time;
+
+						//If it's not us
+						if(p != Network.player)
+						{
+							networkView.RPC ("setStock", p, u.currentStock, p.guid, k);
+							networkView.RPC ("setStockTimer", p, u.lastRestock, p.guid, k);
+						}
+					}
+				}
+			}
+
 		}
     }
 
@@ -90,7 +124,7 @@ public class GameState : MonoBehaviour
         creepsByArena.Add(player.guid, new List<Creep>());
         towersByPlayer.Add(player.guid, new List<Tower>());
         players.Add(player.guid, new PlayerState(player));
-		spawns.Add (player.guid, new SpawnerState(player.guid));
+		spawns.Add (player.guid, new SpawnerState(player));
     }
 
     
@@ -145,7 +179,7 @@ public class GameState : MonoBehaviour
 		players.Add (player.guid, new PlayerState(player));
 		creepsByArena.Add(player.guid, new List<Creep>());
 		towersByPlayer.Add(player.guid, new List<Tower>());
-		spawns.Add(player.guid, new SpawnerState(player.guid));
+		spawns.Add(player.guid, new SpawnerState(player));
 	}
 
 	//Player removing
@@ -344,4 +378,48 @@ public class GameState : MonoBehaviour
 		if(state == null) {Debug.Log("Player " + guid_ + " not found!"); return;}
 		state.lives = lives_;
 	}
+
+	//-----------------------------------------------------
+	//SpawnerState setters
+	//-----------------------------------------------------
+
+
+	//setStock
+	[RPC]
+	void setStock(int stock_, string guid_, string creepName_, NetworkMessageInfo info)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive setStock RPC calls!");
+			return;
+		}
+
+		Debug.Log ("setStock received from " + info.sender + ", stock = " + stock_ + ", player = " + guid_ + ", creepName = " + creepName_);
+		setStock (stock_, guid_, creepName_);
+	}
+
+	void setStock(int stock_, string guid_, string creepName_)
+	{
+		spawns[guid_].getSpawn(creepName_).currentStock = stock_;
+	}
+
+	//setStockTimer
+	[RPC]
+	void setStockTimer(float lastTime_, string guid_, string creepName_, NetworkMessageInfo info)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive setStockTimer RPC calls!");
+			return;
+		}
+		
+		Debug.Log ("setStockTimer received from " + info.sender + ", lastRestock = " + lastTime_ + ", player = " + guid_ + ", creepName = " + creepName_);
+		setStockTimer (lastTime_, guid_, creepName_);
+	}
+
+	void setStockTimer(float lastTime_, string guid_, string creepName_)
+	{
+		spawns[guid_].getSpawn(creepName_).lastRestock = lastTime_;
+	}
+
 }
