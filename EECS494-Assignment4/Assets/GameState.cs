@@ -53,14 +53,30 @@ public class GameState : MonoBehaviour
 
 	public void addCreepForPlayer(string pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
     {
-        if(creepsByArena.ContainsKey(pid))
-            creepsByArena[pid].Add(c);
+		List<Creep> list = creepsByArena[pid];
+		if(list != null)
+			list.Add(c);
     }
 	public void addTowerForPlayer(string pid, Tower t) //TODO: fix params? make it a prefab? change the method name?
     {
-        if(towersByPlayer.ContainsKey(pid))
-            towersByPlayer[pid].Add(t);
+		List<Tower> list = towersByPlayer[pid];
+        if(list != null)
+            list.Add(t);
     }
+
+	public void removeCreepForPlayer(string pid, Creep c)
+	{
+		List<Creep> list = creepsByArena[pid];
+		if(list != null)
+			list.Remove(c);
+	}
+
+	public void removeTowerForPlayer(string pid, Tower t)
+	{
+		List<Tower> list = towersByPlayer[pid];
+		if(list != null)
+			list.Remove(t);
+	}
 	
 	public List<Creep> getEnemyCreeps(string pid)
     {
@@ -149,7 +165,7 @@ public class GameState : MonoBehaviour
 		spawns.Remove(playerID);
 	}
 
-	//Add Creep
+	//Add Tower
 
 	[RPC]
 	void addTower(NetworkViewID networkViewID, string ownerGUID_, NetworkMessageInfo info_)
@@ -160,7 +176,7 @@ public class GameState : MonoBehaviour
 			return;
 		}
 
-		Debug.Log ("addTower received from " + info_.sender + ", owner = ", ownerGUID_ ", NetworkViewID = " + networkViewID);
+		Debug.Log ("addTower received from " + info_.sender + ", owner = " + ownerGUID_ + ", NetworkViewID = " + networkViewID);
 		addTower (networkViewID, ownerGUID_);
 	}
 
@@ -170,7 +186,7 @@ public class GameState : MonoBehaviour
 		addTowerForPlayer(ownerGUID_, view.gameObject.GetComponent<Tower>());
 	}
 
-	//Add Tower
+	//Add Creep
 
 	[RPC]
 	void addCreep(NetworkViewID networkViewID, string ownerGUID_, NetworkMessageInfo info_)
@@ -181,7 +197,7 @@ public class GameState : MonoBehaviour
 			return;
 		}
 		
-		Debug.Log ("addCreep received from " + info_.sender + ", owner = ", ownerGUID_ ", NetworkViewID = " + networkViewID);
+		Debug.Log ("addCreep received from " + info_.sender + ", owner = " + ownerGUID_ + ", NetworkViewID = " + networkViewID);
 		addCreep (networkViewID, ownerGUID_);
 	}
 	
@@ -189,6 +205,47 @@ public class GameState : MonoBehaviour
 	{
 		NetworkView view = NetworkView.Find(networkViewID);
 		addCreepForPlayer(ownerGUID_, view.gameObject.GetComponent<Creep>());
+	}
+
+	//Remove Tower
+	[RPC]
+	void removeTower(NetworkViewID networkViewID, string ownerGUID_, NetworkMessageInfo info_)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive removeTower RPC calls!");
+			return;
+		}
+
+		Debug.Log ("removeTower recieved from " + info_.sender + ", owner = " + ownerGUID_ + ", NetworkViewID = " + networkViewID);
+		removeTower (networkViewID, ownerGUID_);
+	}
+
+	void removeTower(NetworkViewID networkViewID, string ownerGUID_)
+	{
+		NetworkView view = NetworkView.Find (networkViewID);
+		removeTowerForPlayer(ownerGUID_, view.gameObject.GetComponent<Tower>());
+	}
+
+	//Remove Creep
+	[RPC]
+	void removeCreep(NetworkViewID networkViewID, string ownerGUID_, NetworkMessageInfo info_)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive removeCreep RPC calls!");
+			return;
+		}
+		
+		Debug.Log ("removeCreep recieved from " + info_.sender + ", owner = " + ownerGUID_ + ", NetworkViewID = " + networkViewID);
+		removeCreep (networkViewID, ownerGUID_);
+	}
+	
+	void removeCreep(NetworkViewID networkViewID, string ownerGUID_)
+	{
+		NetworkView view = NetworkView.Find (networkViewID);
+		removeCreepForPlayer(ownerGUID_, view.gameObject.GetComponent<Creep>());
+	}
 
 	//Setters
 

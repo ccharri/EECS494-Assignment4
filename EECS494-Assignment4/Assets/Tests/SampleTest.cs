@@ -14,13 +14,13 @@ public class SampleTest : MonoBehaviour {
         GameObject tower = Instantiate(arcaneTower, new Vector3(0, 1, 0), new Quaternion()) as GameObject;
         ArcaneTower t = tower.GetComponent<ArcaneTower>();
         t.Init(Network.player.guid);
-        g.spawnTowerForPlayer(Network.player.guid, t);
+        g.addTowerForPlayer(Network.player.guid, t);
 
         GameObject creep = Instantiate(infamousCrate, new Vector3(10, 1, 0), new Quaternion()) as GameObject;
         Creep c = creep.GetComponent<Creep>();
         c.Init(100, 10, 10, 1);
         c.Init("Infamous Crate", Network.player.guid);
-        g.spawnCreepForPlayer(Network.player.guid, c);
+        g.addCreepForPlayer(Network.player.guid, c);
         
 	}
 	
