@@ -35,11 +35,12 @@ public class GameState : MonoBehaviour
 	        {
 	            foreach(var p in players)
 				{
-	                p.Value.gold += p.Value.income;
+					PlayerState ps = p.Value;
+	               	ps.gold += ps.income;
 
 					//We know we're the server, so if the player we're updating isn't us, go ahead and RPC
-					if(p.Value.player.guid != Network.player.guid)
-						networkView.RPC ("setGold", p.Value.player, p.Value.gold, p.Value.player.guid);
+					if(ps.player != Network.player)
+						networkView.RPC ("setGold", ps.player, ps.gold, ps.player.guid);
 				}
 	            nextIncomeTime += incomeTimeIncrement;
 
