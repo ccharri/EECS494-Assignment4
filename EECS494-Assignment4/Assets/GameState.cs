@@ -80,9 +80,9 @@ public class GameState : MonoBehaviour
 	
 	public List<Creep> getEnemyCreeps(string pid)
     {
-        if(creepsByArena.ContainsKey(pid))
+     //   if(creepsByArena.ContainsKey(pid))
             return creepsByArena[pid];
-        return null; //TODO: Throw an exception?
+      //  return null; //TODO: Throw an exception?
     }
 
 	public void addPlayer(NetworkPlayer player)
@@ -115,11 +115,17 @@ public class GameState : MonoBehaviour
 
     public float getGameTime() { return time; }
 
-	//RPCs
-	
-	//Client RPCs
 
+
+	//RPCs
+
+	//-----------------------------------------------------
+	//Client RPCs
+	//-----------------------------------------------------
+
+	//-----------------------------------------------------
 	//Player adding
+	//-----------------------------------------------------
 
 	[RPC]
 	void initializePlayer(NetworkPlayer player_, NetworkMessageInfo info_)
@@ -164,6 +170,10 @@ public class GameState : MonoBehaviour
 		towersByPlayer.Remove(playerID);
 		spawns.Remove(playerID);
 	}
+
+	//-----------------------------------------------------
+	//Tower and Creep List Modifiers
+	//-----------------------------------------------------
 
 	//Add Tower
 
@@ -247,7 +257,10 @@ public class GameState : MonoBehaviour
 		removeCreepForPlayer(ownerGUID_, view.gameObject.GetComponent<Creep>());
 	}
 
-	//Setters
+
+	//-----------------------------------------------------
+	//PlayerState setters
+	//-----------------------------------------------------
 
 	//setIncomeTimer
 	[RPC]
