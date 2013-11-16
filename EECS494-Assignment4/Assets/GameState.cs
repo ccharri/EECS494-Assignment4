@@ -81,28 +81,20 @@ public class GameState : MonoBehaviour
 
 	void OnPlayerConnected(NetworkPlayer player)
 	{
-		initializePlayer(player);
+		if(Network.isServer)
+		{
+			initializePlayer(player);
+			networkView.RPC("initializePlayer", RPCMode.OthersBuffered, player);
+		}
 	}
 		
 	void OnPlayerDisconnected(NetworkPlayer player)
 	{
-//		removePlayer(player.guid);
-	}
-
-	public void initializePlayer(NetworkPlayer player)
-	{
-		players.Add (player.guid, new PlayerState(player));
-		creepsByArena.Add(player.guid, new List<Creep>());
-		towersByPlayer.Add(player.guid, new List<Tower>());
-		spawns.Add(player.guid, new SpawnerState(player.guid));
-	}
-
-	private void removePlayer(string playerID)
-	{
-		players.Remove(playerID);
-		creepsByArena.Remove(playerID);
-		towersByPlayer.Remove(playerID);
-		spawns.Remove(playerID);
+//		if(Network.isServer)
+//		{
+//			removePlayer(player.guid);
+//			networkView.RPC ("removePlayer", RPCMode.OthersBuffered, player.guid);
+//		}
 	}
 
     public float getGameTime() { return time; }
@@ -110,6 +102,54 @@ public class GameState : MonoBehaviour
 	//RPCs
 	
 	//Client RPCs
+
+	//Player adding
+
+	[RPC]
+	void initializePlayer(NetworkPlayer player_, NetworkMessageInfo info_)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive initializePlayer RPC calls!");
+			return;
+		}
+
+		Debug.Log ("initialzePlayer received from " + info_.sender + ", player = " + player_);	
+		initializePlayer(player_, info_);
+	}
+
+	void initializePlayer(NetworkPlayer player)
+	{
+		players.Add (player.guid, new PlayerState(player));
+		creepsByArena.Add(player.guid, new List<Creep>());
+		towersByPlayer.Add(player.guid, new List<Tower>());
+		spawns.Add(player.guid, new SpawnerState(player.guid));
+	}
+
+	//Player removing
+
+	[RPC]
+	void removePlayer(string playerID, NetworkMessageInfo info_)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive removePlayer RPC calls!");
+			return;
+		}
+
+		Debug.Log ("removePlayer received from " + info_.sender + ", player = " + playerID);
+		removePlayer (playerID);
+	}
+
+	void removePlayer(string playerID)
+	{
+		players.Remove(playerID);
+		creepsByArena.Remove(playerID);
+		towersByPlayer.Remove(playerID);
+		spawns.Remove(playerID);
+	}
+
+	//Setters
 
 	//setIncomeTimer
 	[RPC]
