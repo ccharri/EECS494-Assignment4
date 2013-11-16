@@ -18,6 +18,13 @@ public class GameState : MonoBehaviour
     float nextIncomeTime = 10;
     float time = 0;
 
+    void Start()
+    {
+        creepsByArena = new Dictionary<string, List<Creep>>();
+        towersByPlayer = new Dictionary<string, List<Tower>>();
+        players = new Dictionary<string, PlayerState>();
+        spawns = new Dictionary<string, SpawnerState>();
+    }
 
     void FixedUpdate()
     {
@@ -63,16 +70,7 @@ public class GameState : MonoBehaviour
 		spawns.Add (player.guid, new SpawnerState(player.guid));
     }
 
-    public float getGameTime() { return time; }
-
-    private static GameState instance;
-    private GameState() 
-    {
-		creepsByArena = new Dictionary<string, List<Creep>>();
-		towersByPlayer = new Dictionary<string, List<Tower>>();
-		players = new Dictionary<string, PlayerState>();
-		spawns = new Dictionary<string, SpawnerState>();
-    }
+    
 
 	void OnPlayerConnected(NetworkPlayer player)
 	{
@@ -100,6 +98,8 @@ public class GameState : MonoBehaviour
 		spawns.Remove(playerID);
 	}
 
+    public float getGameTime() { return time; }
+
 	//RPCs
 	
 	//Client RPCs
@@ -113,7 +113,6 @@ public class GameState : MonoBehaviour
 			Debug.Log ("Server should not receive setIncomeTimer RPC calls!");
 			return;
 		}
-
 		nextIncomeTime = time_;
 	}
 	
@@ -126,17 +125,16 @@ public class GameState : MonoBehaviour
 			Debug.Log ("Server should not receive setGold RPC calls!");
 			return;
 		}
-		
 		if(Network.isClient && (guid_ != Network.player.guid))
 		{
 			Debug.Log ("Received setGold for wrong player!");
 			return;
 		}
-		
 		Debug.Log ("setGold received from " + info.sender + ", amount = " + gold_ + ", player = " + guid_);	
 		setGold(gold_, guid_);
 	}
-	
+
+    [RPC]
 	void setGold(int gold_, string guid_)
 	{
 		PlayerState state = players[guid_];
@@ -153,13 +151,11 @@ public class GameState : MonoBehaviour
 			Debug.Log ("Server should not receive setIncome RPC calls!");
 			return;
 		}
-		
 		if(Network.isClient && (guid_ != Network.player.guid))
 		{
 			Debug.Log ("Received setIncome for wrong player!");
 			return;
 		}
-		
 		Debug.Log ("setIncome received from " + info.sender + ", income = " + income_ + ", player = " + guid_);
 		setIncome (income_, guid_);
 	}
