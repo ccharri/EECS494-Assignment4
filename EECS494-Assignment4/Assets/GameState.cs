@@ -127,7 +127,12 @@ public class GameState : MonoBehaviour
 		spawns.Add (player.guid, new SpawnerState(player));
     }
 
-    
+	void OnServerInitialized () 
+	{
+		//So client registers the server player
+		initializePlayer (Network.player);
+		networkView.RPC ("initializePlayer", RPCMode.OthersBuffered, Network.player);
+	}
 
 	void OnPlayerConnected(NetworkPlayer player)
 	{
