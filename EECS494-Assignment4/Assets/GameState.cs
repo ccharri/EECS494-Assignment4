@@ -39,7 +39,7 @@ public class GameState : MonoBehaviour
 		if(Network.isServer)
 		{
 			//Update PlayerStates
-	        time += Time.deltaTime;
+			time += Time.fixedDeltaTime;
 	        if(time >= nextIncomeTime)
 	        {
 	            foreach(var p in players)
