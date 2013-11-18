@@ -5,14 +5,9 @@ public class ArcaneTower : Tower
 {
     public GameObject magicMissile;
 
-    public void Start()
-    {
-        base.Init(1000, 10000);
-    }
-
     public void Init(string pid_)
     {
-        base.Init("Arcane Tower", pid_);
+        base.Init("Arcane Tower", pid_, 1, 1);
     }
 
     public override void fire()

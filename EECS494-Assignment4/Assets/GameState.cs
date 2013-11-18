@@ -36,10 +36,12 @@ public class GameState : MonoBehaviour
 
     void FixedUpdate()
     {
+        //NOTE PLEASE FOR THE LOVE OF GOD MOVE THIS BACK INSIDE THE IF
+        //time += Time.fixedDeltaTime;
 		if(Network.isServer)
 		{
 			//Update PlayerStates
-			time += Time.fixedDeltaTime;
+            time += Time.fixedDeltaTime;	
 	        if(time >= nextIncomeTime)
 	        {
 	            foreach(var p in players)
@@ -57,8 +59,6 @@ public class GameState : MonoBehaviour
 				//	in case a User can fabricate setIncomeTimer messages from the server itself
 				networkView.RPC("setIncomeTimer", RPCMode.OthersBuffered, nextIncomeTime);
 	        }
-
-
 
 			//Update SpawnerStates
 			foreach(var s in spawns)

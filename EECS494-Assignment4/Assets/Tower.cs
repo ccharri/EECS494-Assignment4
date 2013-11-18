@@ -11,10 +11,13 @@ public abstract class Tower : Spawnable, Selectable
 	protected Attribute cooldown = new Attribute(1);
 	protected double lastFired = 0;
 
-    public void Init(double range_, double cooldown_)
+    public void Init(string name, string guid, double range_, double cooldown_)
     {
         range = new Attribute(range_);
         cooldown = new Attribute(cooldown_);
+        Init(name, guid);
+        GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
+        g.addTowerForPlayer(guid, this);
     }
 
 	public override void Update () 
@@ -26,8 +29,9 @@ public abstract class Tower : Spawnable, Selectable
         GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
 		base.FixedUpdate();
         // Cooldown elapsed, Fire!
-		if((lastFired + cooldown.get()) > g.getGameTime())
+		if((lastFired + cooldown.get()) <= g.getGameTime())
 		{
+            
             if(target == null)
                 target = findTarget();
             if(target != null)
@@ -38,7 +42,9 @@ public abstract class Tower : Spawnable, Selectable
 	
 	public virtual void fire()
 	{
-		lastFired = Time.time;
+        print("LAUNCHED");
+        GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
+		lastFired = g.getGameTime();
 	}
 	
 	public virtual Creep findTarget()

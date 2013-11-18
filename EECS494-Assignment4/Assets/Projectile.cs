@@ -27,19 +27,21 @@ public abstract class Projectile : Unit
         birthTime = Time.time;
     }
 
-    protected void home()
+    protected Vector3 calculateHome()
     //DOES: Makes the projectile home on the target. Changes targetPos.
     {
+        if(target == null)
+            return new Vector3();
         targetPos = target.transform.position;
         Vector3 newVel = (targetPos - transform.position);
         newVel.Normalize();
         float scaleFactor = (float)speed.get() * Time.deltaTime;
         newVel.Scale(new Vector3(scaleFactor, scaleFactor, scaleFactor));
-        rigidbody.velocity = newVel;
+        return newVel;
     }
 
 
-    public abstract void OnCollisionEnter(Collision collision);
+    public abstract void OnTriggerEnter(Collider collision);
 
 
 	public float getSpeed()
@@ -55,5 +57,9 @@ public abstract class Projectile : Unit
     public override void FixedUpdate()
     {
         base.FixedUpdate();
+        if(target == null)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

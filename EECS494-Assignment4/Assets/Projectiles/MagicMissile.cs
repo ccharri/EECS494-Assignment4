@@ -5,22 +5,23 @@ public class MagicMissile : Projectile
 {
     public void Init(Creep target_)
     {
-        base.Init(target_, 500);        
+        base.Init(target_, 250);        
     }
 
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        home();
+        transform.rigidbody.velocity = calculateHome();
     }
 
-    public override void OnCollisionEnter(Collision c)
+    public override void OnTriggerEnter(Collider c)
     {
-        print("Collided");
-        if(c.gameObject == target)
+        print("SADNESS");
+        if(c.gameObject.GetComponent<Creep>() == target)
         {
+            print("VICTORY");
             target.onDamage(10.0);
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }
