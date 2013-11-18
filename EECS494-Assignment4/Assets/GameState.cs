@@ -230,6 +230,10 @@ public class GameState : MonoBehaviour
 		ps.gold -= c.cost;
 		networkView.RPC("setGold", player_, ps.gold, player_.guid);
 
+		//Increase player income
+		ps.income += c.bounty;
+		networkView.RPC ("setIncome", player_, ps.income, player_.guid);
+
 		//Add creep to creep lists, however it is we do it
 		//addCreep(c.networkView.viewID, player_.guid);
 		//networkView.RPC ("addCreep", RPCMode.OthersBuffered, c.networkView.viewID, player_.guid);

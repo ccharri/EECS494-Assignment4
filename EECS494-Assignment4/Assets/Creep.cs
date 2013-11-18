@@ -6,8 +6,8 @@ public class Creep : Spawnable, Selectable
 	Attribute health;
 	Attribute speed;
 	Attribute mana;
-	int bounty;
-	int lifeCost;
+	public int bounty;
+	public int lifeCost;
 
     public void Init(double health_, double mana_, double speed_, int bounty_, int lifeCost_ = 1)
     {
