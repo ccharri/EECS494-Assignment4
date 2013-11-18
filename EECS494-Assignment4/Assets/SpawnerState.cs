@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SpawnerState
 {
-	protected string ownerID;
-	private Hashtable unitSpawnStateMap;
+	protected NetworkPlayer owner;
+	private Dictionary<string, UnitSpawn> unitSpawnStateMap;
 
-	public string getOwnerID() {return ownerID;}
+	public NetworkPlayer getOwner() {return owner;}
 
-	public SpawnerState(string ownerID_)
+	public SpawnerState(NetworkPlayer owner_)
 	{
-		ownerID = ownerID_;
+		owner = owner_;
+		unitSpawnStateMap = new Dictionary<string, UnitSpawn>();
 	}
 
 	//Disable default construction
@@ -18,11 +20,26 @@ public class SpawnerState
 
 	public UnitSpawn getSpawn(Spawnable u)
 	{
-		return (UnitSpawn)unitSpawnStateMap[u.name];
+		return unitSpawnStateMap[u.name];
+	}
+
+	public UnitSpawn getSpawn(string name)
+	{
+		return unitSpawnStateMap[name];
 	}
 
 	public void addSpawn(UnitSpawn spawn)
 	{
 		unitSpawnStateMap.Add(spawn.spawn.name, spawn);
+	}
+
+	public Dictionary<string, UnitSpawn>.ValueCollection getSpawns()
+	{
+		return unitSpawnStateMap.Values;
+	}
+
+	public Dictionary<string, UnitSpawn>.KeyCollection getKeys()
+	{
+		return unitSpawnStateMap.Keys;
 	}
 }

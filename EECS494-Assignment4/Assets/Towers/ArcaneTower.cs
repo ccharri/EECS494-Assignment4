@@ -3,16 +3,24 @@ using System.Collections;
 
 public class ArcaneTower : Tower 
 {
+    public GameObject magicMissile;
+
     public void Start()
     {
-        base.Init(1000, 1);
+        base.Init(1000, 10000);
+    }
+
+    public void Init(string pid_)
+    {
+        base.Init("Arcane Tower", pid_);
     }
 
     public override void fire()
     {
         base.fire();
-        GameObject proj = Instantiate(Resources.Load<Object>("Projectiles/MagicMissile"), transform.position, transform.rotation) as GameObject;
-        proj.SendMessage("MagicMissile", target);
+        GameObject proj = Instantiate(magicMissile, transform.position, transform.rotation) as GameObject;
+        MagicMissile p = proj.GetComponent<MagicMissile>();
+        p.Init(target);
     }
 
     public override string getDescription()

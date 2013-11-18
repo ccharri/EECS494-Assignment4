@@ -5,17 +5,16 @@ public abstract class Tower : Spawnable, Selectable
 {
 	protected List<Projectile> projectiles;
 	protected Creep target;
-	protected TargetingBehavior behavior;
+	protected TargetingBehavior behavior = Closest.getInstance();
 	
-	protected Attribute range;
-	protected Attribute cooldown;
-	protected double lastFired;
+	protected Attribute range = new Attribute(1000);
+	protected Attribute cooldown = new Attribute(1);
+	protected double lastFired = 0;
 
     public void Init(double range_, double cooldown_)
     {
         range = new Attribute(range_);
         cooldown = new Attribute(cooldown_);
-        behavior = Closest.getInstance();
     }
 
 	public override void Update () 
@@ -25,7 +24,6 @@ public abstract class Tower : Spawnable, Selectable
 	public override void FixedUpdate() 
 	{
         GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
-        print("HOLY CRAP");
 		base.FixedUpdate();
         // Cooldown elapsed, Fire!
 		if((lastFired + cooldown.get()) > g.getGameTime())
@@ -45,8 +43,11 @@ public abstract class Tower : Spawnable, Selectable
 	
 	public virtual Creep findTarget()
 	{
-        List<Creep> arenaCreeps =  GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>().getEnemyCreeps(ownerID);
-        Creep target = null;
+        GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
+        List<Creep> arenaCreeps = g.getEnemyCreeps(ownerGUID);
+        if(arenaCreeps.Count == 0)
+            return null;
+        Creep target = arenaCreeps[0];
         foreach(Creep c in arenaCreeps)
         {
             if(canFire(c))

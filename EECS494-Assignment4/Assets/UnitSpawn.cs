@@ -4,10 +4,13 @@ using System.Collections;
 public class UnitSpawn 
 {
 	public Spawnable spawn;
-	public double initialStockTime;
-	public double restockTime;
-	public double lastRestock;
-	public int maxStock;
-	public int currentStock;
+	public float initialStockTime;
+	public float restockTime;
 
+	//Needs to be sent to player
+	public float lastRestock;
+	public int maxStock;
+
+	//Needs to be sent to player
+	public int currentStock;
 }
