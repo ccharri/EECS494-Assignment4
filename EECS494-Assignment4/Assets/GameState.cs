@@ -113,9 +113,12 @@ public class GameState : MonoBehaviour
 
         if (GUILayout.Button("FILE", layoutOptions))
         {
+            //menu buttons code and whatever
+        }
+        if (GUILayout.Button("EDIT", layoutOptions))
+        {
 
         }
-        GUILayout.Button("EDIT", layoutOptions);
 
         GUILayout.FlexibleSpace();
 
@@ -125,8 +128,8 @@ public class GameState : MonoBehaviour
         GUILayout.FlexibleSpace();
 
 
-        var currGold = 10;                //Find this data
-        var currIncome = 2;               //ditto
+        var currGold = 10;
+        var currIncome = 2;
         foreach (var p in players)
         {
             if (p.Value.player.Equals(Network.player))
