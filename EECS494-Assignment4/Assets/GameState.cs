@@ -18,6 +18,13 @@ public class GameState : MonoBehaviour
     float nextIncomeTime = 10;
     float time = 0;
 
+	void Awake()
+	{
+		//Should be set higher than default if going to use more than 100 networkViewID requests/minute
+		//As this is based on spawning lots of units, I have a feeling we will need as many viewIDs as we can get
+		//in the viewID pool.  Thus, the reason this is at 300;
+		Network.minimumAllocatableViewIDs = 300;
+	}
 
     void FixedUpdate()
     {
