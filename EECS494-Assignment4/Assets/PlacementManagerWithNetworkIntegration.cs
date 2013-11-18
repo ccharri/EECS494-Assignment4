@@ -6,6 +6,9 @@ public class PlacementManagerWithNetworkIntegration : MonoBehaviour {
 	public bool placing = false;
 	private GameObject placeObject;
 	
+    public GameObject arcaneTower;
+    public GameObject infamousCrate;
+
 	public float gridSize = 10;
 
 	// Use this for initialization

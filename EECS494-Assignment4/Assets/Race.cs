@@ -7,6 +7,12 @@ public class Race{
 	Dictionary<string, Tower> towerMap = new Dictionary<string, Tower>();
 	Dictionary<string, Creep> creepMap = new Dictionary<string, Creep>();
 
+    public Race()
+    {
+        towerMap.Add("Arcane Tower", new ArcaneTower());
+        creepMap.Add("Infamous Crate", new InfamousCrate());
+    }
+
 	public Tower getTower(string tower)
 	{
 		return towerMap[tower];
