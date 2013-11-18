@@ -93,6 +93,133 @@ public class GameState : MonoBehaviour
 		}
     }
 
+    void OnGUI()
+    {
+        GUILayout.BeginArea(new Rect(10, 5, Screen.width - 15, Screen.height - 5));
+        GUILayout.BeginVertical();
+
+        OnGUI_TopBar();
+        OnGUI_ScoreBoard();
+        GUILayout.FlexibleSpace();
+        OnGUI_BottomBar();
+
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+    }
+
+    void OnGUI_TopBar()
+    {
+        GUILayout.BeginHorizontal("box", GUILayout.Height(20));
+
+        var layoutOptions = new GUILayoutOption[] { GUILayout.Height(20) };
+
+        if (GUILayout.Button("FILE", layoutOptions))
+        {
+
+        }
+        GUILayout.Button("EDIT", layoutOptions);
+
+        GUILayout.FlexibleSpace();
+
+        var incomeTimerString = "Income Timer: " + ((int)nextIncomeTime - (int)time);
+        GUILayout.Label(incomeTimerString, layoutOptions);
+
+        GUILayout.FlexibleSpace();
+
+
+        var currGold = 10;                //Find this data
+        var currIncome = 2;               //ditto
+        foreach (var p in players)
+        {
+            if (p.Value.player.Equals(Network.player))
+            {
+                currGold = p.Value.gold;
+                currIncome = p.Value.income;
+            }
+        }
+        var goldIncomeString = "Gold + Income: " + currGold + " + " + currIncome;
+        GUILayout.Label(goldIncomeString, layoutOptions);
+
+        GUILayout.EndHorizontal();
+    }
+
+    void OnGUI_ScoreBoard()
+    {
+        int friendlyLives = 10, opponentLives = 10;
+
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+
+        foreach (var p in players)
+        {
+            if (p.Value.player.Equals(Network.player))
+                friendlyLives = p.Value.lives;
+            else
+                opponentLives = p.Value.lives;
+        }
+
+        var scoreBoardString = "Your Lives: " + friendlyLives + "\nOpponent's Lives: " + opponentLives;
+        GUILayout.Box(scoreBoardString);
+
+        GUILayout.EndHorizontal();
+    }
+
+    void OnGUI_BottomBar()
+    {
+        GUILayout.BeginHorizontal();
+
+        GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3), GUILayout.Height(Screen.height / 5));
+        GUILayout.Label("Buffs: ");
+        GUILayout.EndVertical();
+
+        //GUILayout.FlexibleSpace();
+
+        //TOWER PLACEMENT BUTTONS
+        GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3), GUILayout.Height(Screen.height / 5));
+        GUILayout.BeginHorizontal();
+        GUILayout.Button("Tower1");
+        GUILayout.Button("Tower2");
+        GUILayout.Button("Tower3");
+        GUILayout.Button("Tower4");
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Button("Tower5");
+        GUILayout.Button("Tower6");
+        GUILayout.Button("Tower7");
+        GUILayout.Button("Tower8");
+        GUILayout.EndHorizontal();
+        GUILayout.EndVertical();
+
+        //GUILayout.FlexibleSpace();
+
+        //CREEP PLACEMENT BUTTONS
+        GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3 - 30), GUILayout.Height(Screen.height / 5));
+        GUILayout.BeginHorizontal();
+        GUILayout.Button("Creep1");
+        GUILayout.Button("Creep2");
+        GUILayout.Button("Creep3");
+        GUILayout.Button("Creep4");
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Button("Creep5");
+        GUILayout.Button("Creep6");
+        GUILayout.Button("Creep7");
+        GUILayout.Button("Creep8");
+        GUILayout.EndHorizontal();
+
+        //Upgrade Buttons
+        GUILayout.FlexibleSpace();
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+        GUILayout.Button("Upgrade Creeps");
+        GUILayout.EndHorizontal();
+        GUILayout.EndVertical();
+
+        GUILayout.EndHorizontal();
+    }
+
 	public void addCreepForPlayer(string pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
     {
 		List<Creep> list = creepsByArena[pid];
