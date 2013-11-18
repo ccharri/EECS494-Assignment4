@@ -3,24 +3,31 @@ using System.Collections;
 
 public class MagicMissile : Projectile
 {
-    public void Init(Creep target_)
+    public void Init(Creep target_, Tower owner_)
     {
-        base.Init(target_, 500);        
+        base.Init(target_, owner_, 250);        
     }
 
     public override void FixedUpdate()
     {
-        base.FixedUpdate();
-        home();
+        if(Network.isServer)
+        {
+            base.FixedUpdate();
+            transform.rigidbody.velocity = calculateHome();
+        }
     }
 
-    public override void OnCollisionEnter(Collision c)
+    public override void OnTriggerEnter(Collider c)
     {
-        print("Collided");
-        if(c.gameObject == target)
+        if(Network.isServer)
         {
-            target.onDamage(10.0);
-            Destroy(this);
+            print("SADNESS");
+            if(c.gameObject.GetComponent<Creep>() == target && target != null)
+            {
+                print("VICTORY");
+                target.onDamage(10.0);
+                Destroy(this.gameObject);
+            }
         }
     }
 }

@@ -5,14 +5,9 @@ public class ArcaneTower : Tower
 {
     public GameObject magicMissile;
 
-    public void Start()
-    {
-        base.Init(1000, 10000);
-    }
-
     public void Init(string pid_)
     {
-        base.Init("Arcane Tower", pid_);
+        base.Init("Arcane Tower", pid_, 1, 1);
     }
 
     public override void fire()
@@ -20,7 +15,7 @@ public class ArcaneTower : Tower
         base.fire();
         GameObject proj = Instantiate(magicMissile, transform.position, transform.rotation) as GameObject;
         MagicMissile p = proj.GetComponent<MagicMissile>();
-        p.Init(target);
+        p.Init(target, this);
     }
 
     public override string getDescription()
