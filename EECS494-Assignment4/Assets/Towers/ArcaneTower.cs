@@ -15,7 +15,7 @@ public class ArcaneTower : Tower
         base.fire();
         GameObject proj = Instantiate(magicMissile, transform.position, transform.rotation) as GameObject;
         MagicMissile p = proj.GetComponent<MagicMissile>();
-        p.Init(target);
+        p.Init(target, this);
     }
 
     public override string getDescription()

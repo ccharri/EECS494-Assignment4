@@ -26,18 +26,21 @@ public abstract class Tower : Spawnable, Selectable
 	}
 	public override void FixedUpdate() 
 	{
-        GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
-		base.FixedUpdate();
-        // Cooldown elapsed, Fire!
-		if((lastFired + cooldown.get()) <= g.getGameTime())
-		{
-            
-            if(target == null)
-                target = findTarget();
-            if(target != null)
-                fire();
-            //OPT: Increment lastFired by a deltaTime*3~ to make this faster
-		}
+        if(Network.isServer)
+        {
+            GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
+            base.FixedUpdate();
+            // Cooldown elapsed, Fire!
+            if((lastFired + cooldown.get()) <= g.getGameTime())
+            {
+
+                if(target == null)
+                    target = findTarget();
+                if(target != null)
+                    fire();
+                //OPT: Increment lastFired by a deltaTime*3~ to make this faster
+            }
+        }
 	}
 	
 	public virtual void fire()

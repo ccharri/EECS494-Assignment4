@@ -36,8 +36,6 @@ public class GameState : MonoBehaviour
 
     void FixedUpdate()
     {
-        //NOTE PLEASE FOR THE LOVE OF GOD MOVE THIS BACK INSIDE THE IF
-        //time += Time.fixedDeltaTime;
 		if(Network.isServer)
 		{
 			//Update PlayerStates

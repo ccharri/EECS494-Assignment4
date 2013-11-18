@@ -12,19 +12,19 @@ public abstract class Projectile : Unit
     
     protected double birthTime;
 
-    public void Init(Creep target_)
-    {
-        speed = new Attribute(0);
-        target = target_;
-        targetPos = target.transform.position;
-        birthTime = Time.time;
-    }
-    public void Init(Creep target_, double speed_)
+    public void Init(Creep target_, Tower owner_, double speed_)
     {
         speed = new Attribute(speed_);
         target = target_;
+        owner = owner_;
         targetPos = target.transform.position;
         birthTime = Time.time;
+    }
+
+    public void replace(Projectile p_)
+    {
+        transform.position = p_.transform.position;
+        rigidbody.velocity = p_.rigidbody.velocity;
     }
 
     protected Vector3 calculateHome()
@@ -56,10 +56,13 @@ public abstract class Projectile : Unit
 
     public override void FixedUpdate()
     {
-        base.FixedUpdate();
-        if(target == null)
+        if(Network.isServer)
         {
-            Destroy(this.gameObject);
+            base.FixedUpdate();
+            if(target == null)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }
