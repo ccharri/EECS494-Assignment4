@@ -5,6 +5,8 @@ public class CameraMovement : MonoBehaviour {
 
 	bool rightDown;
 	GameObject mainCamera;
+	float scrollArea = 25.0f;
+	float scrollSpeed = 25.0f;
 
 	// Use this for initialization
 	void Start () 
@@ -17,6 +19,26 @@ public class CameraMovement : MonoBehaviour {
 	void Update ()
 	{
 		rightDown = Input.GetMouseButton(1);
+
+		var mPosX = Input.mousePosition.x;
+		var mPosY = Input.mousePosition.y;
+
+		if (mPosX < scrollArea) 
+		{
+			mainCamera.transform.position += (Vector3.right * -scrollSpeed * Time.deltaTime);
+		}
+		if (mPosX >= Screen.width-scrollArea)
+		{
+			mainCamera.transform.position += (Vector3.right * scrollSpeed * Time.deltaTime);
+		}
+		if (mPosY < scrollArea)
+		{
+			mainCamera.transform.position += (Vector3.forward * -scrollSpeed * Time.deltaTime);
+		}
+		if (mPosY >= Screen.height-scrollArea)
+		{
+			mainCamera.transform.position += (Vector3.forward * scrollSpeed * Time.deltaTime);
+		}
 	}
 
 	void LateUpdate()
