@@ -267,7 +267,6 @@ public class GameState : MonoBehaviour
 	{
 		//So client registers the server player
 		initializePlayer (Network.player);
-		networkView.RPC ("initializePlayer", RPCMode.OthersBuffered, Network.player);
 	}
 
 	void OnPlayerConnected(NetworkPlayer player)
@@ -275,7 +274,16 @@ public class GameState : MonoBehaviour
 		if(Network.isServer)
 		{
 			initializePlayer(player);
-			networkView.RPC("initializePlayer", RPCMode.OthersBuffered, player);
+			
+			foreach(NetworkPlayer NPlayer in Network.connections)
+			{
+				networkView.RPC("initializePlayer", player, NPlayer);
+
+				if(NPlayer != player)
+				{
+					networkView.RPC ("initializePlayer", NPlayer, player);
+				}
+			}
 		}
 	}
 		
