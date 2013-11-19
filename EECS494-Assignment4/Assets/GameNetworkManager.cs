@@ -120,9 +120,14 @@ public class GameNetworkManager : MonoBehaviour {
 	void OnGUI_Unconnected()
 	{
 
-		if(GUI.Button (new Rect(Screen.width - 300, Screen.height - 100, 200, 50), "Refresh"))
+		if(GUI.Button (new Rect(Screen.width - 300, Screen.height - 100, 200, 50), "Back"))
 		{
-			Refresh();
+			this.enabled = false;
+		}
+
+		if(GUI.Button (new Rect((Screen.width - 200)/2, Screen.height - 100, 200, 50), "Refresh"))
+		{
+			Refresh ();
 		}
 
 		GUILayout.BeginArea(new Rect(50, 50, Screen.width - 50, Screen.height - 50));
@@ -218,6 +223,12 @@ public class GameNetworkManager : MonoBehaviour {
 
 	void OnGUI_Connected()
 	{
+		if(GUI.Button (new Rect(Screen.width - 300, Screen.height-100, 200, 50), "Disconnect"))
+		{
+			Network.Disconnect();
+			connected = false;
+		}
+
 		if(Network.isServer)
 		{
 			if(Network.HavePublicAddress())
