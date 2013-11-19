@@ -23,7 +23,7 @@ public class MainMenuManager : MonoBehaviour {
 
 		GUILayout.BeginArea(new Rect((Screen.width - 300)/2, Screen.height/2, 600, Screen.height/2 - 50));
 
-		GUILayout.TextField(userName, GUILayout.Height(50));
+		GUILayout.TextArea(userName, GUILayout.Height(50));
 
 		if(GUILayout.Button ("Play", GUILayout.Height (50)))
 		{
