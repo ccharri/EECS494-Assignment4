@@ -9,6 +9,8 @@ public class PlayerState{
 		gold = 25;
 		income = 25;
 		lives = 10;
+
+		race = new Race();
 	}
 
 	public NetworkPlayer player;
