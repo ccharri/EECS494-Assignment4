@@ -182,18 +182,18 @@ public class GameState : MonoBehaviour
 
         //GUILayout.FlexibleSpace();
 
+        //Used to set player's towers and creeps
+        PlayerState pState = players[Network.player.guid];
+        int rowCount = 0;
+
         //TOWER PLACEMENT BUTTONS
         GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3), GUILayout.Height(Screen.height / 5));
-
-		PlayerState pState = players[Network.player.guid];
-
-		
-		int rowCount = 0;
+	
 		GUILayout.BeginHorizontal();
 		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap)
 		{
 			rowCount++;
-			if (GUILayout.Button(entry.Key)) //use entry.Value.name, after towers have a name defined
+			if (GUILayout.Button(entry.Key)) //use entry.Value.name after towers have a name defined (maybe)
 			{
 
 			}
@@ -212,19 +212,24 @@ public class GameState : MonoBehaviour
 
         //CREEP PLACEMENT BUTTONS
         GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3 - 30), GUILayout.Height(Screen.height / 5));
-        GUILayout.BeginHorizontal();
-        GUILayout.Button("Creep1");
-        GUILayout.Button("Creep2");
-        GUILayout.Button("Creep3");
-        GUILayout.Button("Creep4");
-        GUILayout.EndHorizontal();
 
-        GUILayout.BeginHorizontal();
-        GUILayout.Button("Creep5");
-        GUILayout.Button("Creep6");
-        GUILayout.Button("Creep7");
-        GUILayout.Button("Creep8");
-        GUILayout.EndHorizontal();
+		rowCount = 0;
+		GUILayout.BeginHorizontal();
+		foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap)
+		{
+			rowCount++;
+			if (GUILayout.Button(entry.Key)) //use entry.Value.name, after creeps have a name defined (maybe)
+			{
+
+			}
+			if (rowCount == 4)
+			{
+				GUILayout.EndHorizontal();
+				GUILayout.BeginHorizontal();
+				rowCount = 0;
+			}
+		}
+		GUILayout.EndHorizontal();
 
         //Upgrade Buttons
         GUILayout.FlexibleSpace();
