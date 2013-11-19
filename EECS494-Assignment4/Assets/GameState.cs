@@ -24,14 +24,19 @@ public class GameState : MonoBehaviour
 		//As this is based on spawning lots of units, I have a feeling we will need as many viewIDs as we can get
 		//in the viewID pool.  Thus, the reason this is at 300;
 		Network.minimumAllocatableViewIDs = 300;
+		creepsByArena = new Dictionary<string, List<Creep>>();
+		towersByPlayer = new Dictionary<string, List<Tower>>();
+		players = new Dictionary<string, PlayerState>();
+		spawns = new Dictionary<string, SpawnerState>();
 	}
 
     void Start()
     {
-        creepsByArena = new Dictionary<string, List<Creep>>();
-        towersByPlayer = new Dictionary<string, List<Tower>>();
-        players = new Dictionary<string, PlayerState>();
-        spawns = new Dictionary<string, SpawnerState>();
+		initializePlayer(Network.player);
+		foreach(NetworkPlayer player in Network.connections)
+		{
+			initializePlayer(player);
+		}
     }
 
     void FixedUpdate()

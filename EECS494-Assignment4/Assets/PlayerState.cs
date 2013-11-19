@@ -6,8 +6,8 @@ public class PlayerState{
 	public PlayerState(NetworkPlayer player_)
 	{
 		player = player_;
-		gold = 0;
-		income = 0;
+		gold = 25;
+		income = 25;
 		lives = 10;
 	}
 
