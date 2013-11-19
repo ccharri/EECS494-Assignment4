@@ -23,21 +23,21 @@ public class CameraMovement : MonoBehaviour {
 		var mPosX = Input.mousePosition.x;
 		var mPosY = Input.mousePosition.y;
 
-		if (mPosX < scrollArea) 
-		{
-			mainCamera.transform.position += (Vector3.right * -scrollSpeed * Time.deltaTime);
-		}
-		if (mPosX >= Screen.width-scrollArea)
-		{
-			mainCamera.transform.position += (Vector3.right * scrollSpeed * Time.deltaTime);
-		}
-		if (mPosY < scrollArea)
+		if (mPosX <= scrollArea) 
 		{
 			mainCamera.transform.position += (Vector3.forward * -scrollSpeed * Time.deltaTime);
 		}
-		if (mPosY >= Screen.height-scrollArea)
+		if (mPosX >= Screen.width-scrollArea)
 		{
 			mainCamera.transform.position += (Vector3.forward * scrollSpeed * Time.deltaTime);
+		}
+		if (mPosY <= scrollArea)
+		{
+			mainCamera.transform.position += (Vector3.right * scrollSpeed * Time.deltaTime);
+		}
+		if (mPosY >= Screen.height-scrollArea)
+		{
+			mainCamera.transform.position += (Vector3.right * -scrollSpeed * Time.deltaTime);
 		}
 	}
 
@@ -47,7 +47,7 @@ public class CameraMovement : MonoBehaviour {
 		{
 			float MouseX = Input.GetAxis("Mouse X");
 			float MouseY = Input.GetAxis("Mouse Y");
-			Vector3 CameraPos = new Vector3(- MouseX, 0, - MouseY);
+			Vector3 CameraPos = new Vector3(- MouseY, 0, - MouseX);
 			 
 			mainCamera.transform.position += CameraPos;
 		}
