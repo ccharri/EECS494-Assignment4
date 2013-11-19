@@ -8,6 +8,8 @@ public class ArcaneTower : Tower
     public void Init(string pid_)
     {
         base.Init("Arcane Tower", pid_, 1, 1);
+		prefab = Resources.Load("Towers/ArcaneTower") as GameObject;
+		magicMissile = Resources.Load ("Projectiles/MagicMissile") as GameObject;
     }
 
     public override void fire()
