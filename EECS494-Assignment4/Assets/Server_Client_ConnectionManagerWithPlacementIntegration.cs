@@ -187,4 +187,11 @@ public class Server_Client_ConnectionManagerWithPlacementIntegration : MonoBehav
 			}
 		}
 	}
+
+	[RPC]
+	void launchGameScene(NetworkMessageInfo info)
+	{
+		Debug.Log ("launchGameScene RPC Call received from " + info);
+		Application.LoadLevel("GameScene");
+	}
 }
