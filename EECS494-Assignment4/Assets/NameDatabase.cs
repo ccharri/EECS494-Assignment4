@@ -7,7 +7,14 @@ public class NameDatabase {
 
 	public static void clearNames() {names.Clear();}
 	public static void addName(string key, string name) {names.Add(key, name);}
-	public static string getName(string key) {return names[key];}
+	public static string getName(string key) 
+	{
+		if(names.ContainsKey(key))
+		{
+			return names[key];
+		}
+		return null;
+	}
 	public static void removeName(string key) {names.Remove(key);}
 
 	public static Dictionary<string, string>.KeyCollection getKeys() {return names.Keys;}
