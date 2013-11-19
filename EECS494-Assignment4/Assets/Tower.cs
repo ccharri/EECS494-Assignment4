@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public abstract class Tower : Spawnable, Selectable 
 {
+    protected GameState g;
+
 	protected List<Projectile> projectiles;
 	protected Creep target;
 	protected TargetingBehavior behavior = Closest.getInstance();
@@ -11,12 +13,16 @@ public abstract class Tower : Spawnable, Selectable
 	protected Attribute cooldown = new Attribute(1);
 	protected double lastFired = 0;
 
-    public void Init(string name, string guid, double range_, double cooldown_)
+    void Start()
+    {
+        g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
+    }
+
+    public void Init(string name, string guid, float range_, float cooldown_)
     {
         range = new Attribute(range_);
         cooldown = new Attribute(cooldown_);
         Init(name, guid);
-        GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
         g.addTowerForPlayer(guid, this);
     }
 
@@ -28,7 +34,6 @@ public abstract class Tower : Spawnable, Selectable
 	{
         if(Network.isServer)
         {
-            GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
             base.FixedUpdate();
             // Cooldown elapsed, Fire!
             if((lastFired + cooldown.get()) <= g.getGameTime())
@@ -46,13 +51,11 @@ public abstract class Tower : Spawnable, Selectable
 	public virtual void fire()
 	{
         print("LAUNCHED");
-        GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
 		lastFired = g.getGameTime();
 	}
 	
 	public virtual Creep findTarget()
 	{
-        GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
         List<Creep> arenaCreeps = g.getEnemyCreeps(ownerGUID);
         if(arenaCreeps.Count == 0)
             return null;
@@ -77,22 +80,13 @@ public abstract class Tower : Spawnable, Selectable
         return true;
 	}
 	
-
 	public abstract string getDescription();
-
-    Light originalLight;
 	public void mouseOverOn()
 	{
-        //TODO: Finish highlighting code
-        originalLight = GetComponent<Light>();
-        Light newLight = new Light();
-        newLight.intensity = 1000;
-        
 
-		//TODO: Implement
 	}
 	public void mouseOverOff()
 	{
-		//TODO: Implement
+
 	}	
 }

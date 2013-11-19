@@ -25,7 +25,7 @@ public class MagicMissile : Projectile
             if(c.gameObject.GetComponent<Creep>() == target && target != null)
             {
                 print("VICTORY");
-                target.onDamage(10.0);
+                target.onDamage(10.0f);
                 Destroy(this.gameObject);
             }
         }

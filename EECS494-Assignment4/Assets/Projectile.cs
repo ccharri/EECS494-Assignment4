@@ -12,7 +12,7 @@ public abstract class Projectile : Unit
     
     protected double birthTime;
 
-    public void Init(Creep target_, Tower owner_, double speed_)
+    public void Init(Creep target_, Tower owner_, float speed_)
     {
         speed = new Attribute(speed_);
         target = target_;

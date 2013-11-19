@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Attribute
 {
-	private double baseValue;
-	private double multiplier;
-	private double flat;
-	private double value;
+	private float baseValue;
+	private float multiplier;
+	private float flat;
+	private float value;
 
 	public Attribute()
 	{
@@ -14,14 +14,14 @@ public class Attribute
 		multiplier = 1;
 		flat = 0;
 	}
-	public Attribute(double base_)
+	public Attribute(float base_)
 	{
 		multiplier = 1;
 		flat = 0;
 		baseValue = base_;
 		recalculate();
 	}
-	public Attribute(double base_, double multiplier_, double flat_)
+	public Attribute(float base_, float multiplier_, float flat_)
 	{
 		baseValue = base_;
 		multiplier = multiplier_;
@@ -29,7 +29,7 @@ public class Attribute
 		recalculate();
 	}
 
-	public double get() 
+	public float get() 
 	{
 		return value;
 	}
@@ -43,27 +43,27 @@ public class Attribute
     //      Think of them like STAT BONUSES, especially for * and /
     //      * : +x%     + : +x
     //      / : -x%     - : -x
-    public static Attribute operator -(Attribute a, double b)
+    public static Attribute operator -(Attribute a, float b)
     {
         return new Attribute(a.getBase(), a.getMultiplier(), a.getFlat() - b);
     }
-    public static Attribute operator +(Attribute a, double b)
+    public static Attribute operator +(Attribute a, float b)
     {
         return new Attribute(a.getBase(), a.getMultiplier(), a.getFlat() + b);
     }
-    public static Attribute operator *(Attribute a, double b)
+    public static Attribute operator *(Attribute a, float b)
     {
         return new Attribute(a.getBase(), a.getMultiplier()+b, a.getFlat());
     }
-    public static Attribute operator /(Attribute a, double b)
+    public static Attribute operator /(Attribute a, float b)
     {
         return new Attribute(a.getBase(), a.getMultiplier()-b, a.getFlat());
     }
 
-	public void setBase(double a) 		{baseValue = a;  recalculate();}
-	public void setFlat(double a) 		{flat = a; 		 recalculate();}
-	public void setMultiplier(double a) {multiplier = a; recalculate();}
-	public double getBase() 			{return baseValue;}
-	public double getFlat() 			{return flat;}
-	public double getMultiplier() 		{return multiplier;}
+	public void setBase(float a) 		{baseValue = a;  recalculate();}
+	public void setFlat(float a) 		{flat = a; 		 recalculate();}
+	public void setMultiplier(float a)  {multiplier = a; recalculate();}
+	public float getBase() 			    {return baseValue;}
+	public float getFlat() 			    {return flat;}
+	public float getMultiplier() 		{return multiplier;}
 }

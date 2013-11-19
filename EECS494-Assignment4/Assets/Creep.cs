@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Creep : Spawnable, Selectable 
+public abstract class Creep : Spawnable, Selectable 
 {
 	Attribute health;
 	Attribute speed;
@@ -9,7 +9,7 @@ public class Creep : Spawnable, Selectable
 	public int bounty;
 	public int lifeCost;
 
-    public void Init(string name, string guid, double health_, double mana_, double speed_, int bounty_, int lifeCost_ = 1)
+    public void Init(string name, string guid, float health_, float mana_, float speed_, int bounty_, int lifeCost_ = 1)
     {
         health = new Attribute(health_);
         mana = new Attribute(mana_);
@@ -21,7 +21,14 @@ public class Creep : Spawnable, Selectable
         g.addCreepForPlayer(guid, this);
     }
 
-	public virtual bool onDamage(double damage)
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        NavMeshAgent v = GetComponent<NavMeshAgent>();
+        v.speed = speed.get();
+    }
+
+	public virtual bool onDamage(float damage)
 	{
 		health -= damage;
         if(!isAlive())

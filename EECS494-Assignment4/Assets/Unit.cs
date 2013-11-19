@@ -10,11 +10,6 @@ public abstract class Unit : MonoBehaviour
 
     public string getOwnerID() { return ownerGUID; }
 
-    void Start()
-    {
-        
-    }
-
     public void Init(string name_, string ownerGUID_)
     //NOTE: Init is only used when parameters need to be passed in.
     {

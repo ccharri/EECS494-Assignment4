@@ -3,9 +3,9 @@ using System.Collections;
 
 public class InfamousCrate : Creep 
 {
-    public void Init()
+    public override void Init(string ownerGUID)
     {
 		prefab = Resources.Load ("Creeps/InfamousCreate") as GameObject;
-        Init("Infamous Crate", Network.player.guid, 100, 10, 10, 1);
+        Init("Infamous Crate", ownerGUID, 100, 10, 10, 1);
     }
 }

@@ -3,8 +3,8 @@ using System.Collections;
 
 public class OnFire : Buff<Creep> 
 {
-    private static double DURATION = 10;
-    private static double BURN_DAMAGE = 10;
+    private static float DURATION = 10;
+    private static float BURN_DAMAGE = 10;
 
     public OnFire(Creep target_) : base(target_) {}
     public OnFire(Creep target_, Unit owner_) : base(target_, owner_) {}
