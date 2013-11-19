@@ -5,9 +5,6 @@ public class PlacementManagerWithNetworkIntegration : MonoBehaviour {
 	public GameObject placePrefab;
 	public bool placing = false;
 	private GameObject placeObject;
-	
-    public GameObject arcaneTower;
-    public GameObject infamousCrate;
 
 	public float gridSize = 10;
 
