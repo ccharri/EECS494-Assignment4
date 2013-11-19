@@ -10,9 +10,7 @@ public class GameNetworkManager : MonoBehaviour {
 	private string gameName = "Game Name";
 	
 	void Awake() {
-        MasterServer.ClearHostList();
-        MasterServer.RequestHostList("BlitzTD");
-		hostData = MasterServer.PollHostList();
+		Refresh ();
 		NameDatabase.clearNames();
     }
 	
@@ -24,6 +22,13 @@ public class GameNetworkManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void Refresh()
+	{
+		MasterServer.ClearHostList();
+		MasterServer.RequestHostList("BlitzTD");
+		hostData = MasterServer.PollHostList();
 	}
 	
 	void OnServerInitialized () 
@@ -114,6 +119,12 @@ public class GameNetworkManager : MonoBehaviour {
 
 	void OnGUI_Unconnected()
 	{
+
+		if(GUI.Button (new Rect(Screen.width - 300, Screen.height - 100, 200, 50), "Refresh"))
+		{
+			Refresh();
+		}
+
 		GUILayout.BeginArea(new Rect(50, 50, Screen.width - 50, Screen.height - 50));
 		GUILayout.BeginHorizontal();
 		GUILayout.BeginVertical();
@@ -230,20 +241,48 @@ public class GameNetworkManager : MonoBehaviour {
 				networkView.RPC ("launchGameScene", RPCMode.AllBuffered);
 			}
 
-			int i = 0;
-			while (i < Network.connections.Length) {
-				GUI.Label(new Rect(500, 50 + 50*i, 125, 50) ,"Player " + Network.connections[i] + " - " + Network.GetAveragePing(Network.connections[i]) + " ms");
-				i++;
-			}
+			OnGUI_DisplayPlayers();
 		}
 		else
 		{
-			int i = 0;
-			while (i < Network.connections.Length) {
-				GUI.Label(new Rect(500, 50 + 50*i, 125, 50), "Player " + Network.connections[i] + " - " + Network.GetAveragePing(Network.connections[i]) + " ms");
-				i++;
+			OnGUI_DisplayPlayers();
+		}
+	}
+
+	void OnGUI_DisplayPlayers()
+	{
+		Rect playerArea = new Rect(200, 200, Screen.width - 300, (Screen.height/2) - 100);
+		GUILayout.BeginArea(playerArea);
+		GUILayout.BeginVertical();
+
+		OnGUI_DisplayPlayer(Network.player);
+
+		foreach(NetworkPlayer player in Network.connections)
+		{
+			OnGUI_DisplayPlayer(player);
+		}
+
+		GUILayout.EndVertical();
+		GUILayout.EndArea();
+	}
+
+	void OnGUI_DisplayPlayer(NetworkPlayer player)
+	{
+		GUILayout.BeginHorizontal(GUILayout.Height(50));
+		
+		GUILayout.Label(NameDatabase.getName(player.guid), GUILayout.Width(300));
+		GUILayout.FlexibleSpace();
+		GUILayout.Label (Network.GetAveragePing(player).ToString(), GUILayout.Width(50));
+		GUILayout.FlexibleSpace();
+		if(Network.isServer && player != Network.player)
+		{
+			if(GUILayout.Button ("Kick", GUILayout.Width(50), GUILayout.Height(50)))
+			{
+				Network.CloseConnection(player, true);
 			}
 		}
+		
+		GUILayout.EndHorizontal();
 	}
 
 	[RPC]

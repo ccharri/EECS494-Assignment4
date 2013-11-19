@@ -316,25 +316,30 @@ public class GameState : MonoBehaviour
 		}
 
 		Debug.Log ("tryTowerSpawn received from " + info_.sender + ", player = " + player_ + ", tower = " + towerName_ + ", position = " + position_);
+		tryTowerSpawn(towerName_, position_, player_);
+	}
+
+	void tryTowerSpawn(string towerName_, Vector3 position_, NetworkPlayer player_)
+	{
 		Tower t;
 		PlayerState ps;
 		if(null == (ps = players[player_.guid])) {Debug.Log ("Player does not exist!"); return;}
 		if(null == (t = ps.race.getTower(towerName_))) {Debug.Log ("Player's Race cannot build a tower of this type!"); return;}
 		if(t.cost > ps.gold) {Debug.Log ("Player does not have enough money to build this tower!"); return;}
-
+		
 		//Pseudocode for constraint checking
-
+		
 		//Vector3 buildpos = constraintToGrid(position_);
-
+		
 		//canBuild encapsulates checking for collisions with creeps and other towers, checking that
 		//the tower is inside the buildable area of the player, and that it does not block a path
 		//from start to finish
-
+		
 		//if(!canBuild(t, buildpos) {Debug.Log("Cannot build tower at this location!"); return;}
 		//t = ((GameObject)Network.Instantiate(t.gameObject, buildpos, Quaternion.identity, 0)).GetComponent<Tower>();
 		ps.gold -= t.cost;
 		networkView.RPC("setGold", player_, ps.gold, player_.guid);
-
+		
 		//Add tower to tower lists
 		addTower (t.networkView.viewID, player_.guid);
 		networkView.RPC ("addTower", RPCMode.OthersBuffered, t.networkView.viewID, player_.guid);
@@ -350,36 +355,41 @@ public class GameState : MonoBehaviour
 		}
 
 		Debug.Log ("tryCreepSpawn received from " + info_.sender + ", player = " + player_ + ", creep = " + creepName_);
+		tryCreepSpawn(creepName_, player_);
+	}
+
+	void tryCreepSpawn(string creepName_, NetworkPlayer player_)
+	{
 		Creep c;
 		PlayerState ps;
 		if(null == (ps = players[player_.guid])) {Debug.Log ("Player does not exist!"); return;}
 		if(null == (c = ps.race.getCreep(creepName_))) {Debug.Log ("Player's Race cannot build a creep of this type!"); return;}
 		if(c.cost > ps.gold) {Debug.Log ("Player does not have enough money to build this creep!"); return;}
-
+		
 		SpawnerState ss = spawns[player_.guid];
 		UnitSpawn us;
 		if(null == (us = ss.getSpawn(creepName_))) {Debug.Log ("Player's Spawner does not have creeps of this type!"); return;}
 		if(us.currentStock == 0) {Debug.Log("Player's Spawner does not have enough stock!"); return;}
-
+		
 		//Spawn creep and set destination afterwards
 		//c = ((GameObject)Network.Instantiate(t.gameObject, SPAWNERPOSITION, Quaternion.identity, 0)).GetComponent<Creep>();
 		ps.gold -= c.cost;
 		networkView.RPC("setGold", player_, ps.gold, player_.guid);
-
+		
 		//Increase player income
 		ps.income += c.bounty;
 		networkView.RPC ("setIncome", player_, ps.income, player_.guid);
-
+		
 		//Add creep to creep lists, however it is we do it
 		//addCreep(c.networkView.viewID, player_.guid);
 		//networkView.RPC ("addCreep", RPCMode.OthersBuffered, c.networkView.viewID, player_.guid);
-
+		
 		if(us.currentStock == us.maxStock)
 		{
 			us.lastRestock = time;
 			networkView.RPC("setStockTimer", player_, us.lastRestock, player_.guid, creepName_);
 		}
-
+		
 		us.currentStock -= 1;
 		networkView.RPC ("setStock", player_, us.currentStock, player_.guid, creepName_);
 	}
