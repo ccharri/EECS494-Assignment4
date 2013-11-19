@@ -21,9 +21,9 @@ public class MainMenuManager : MonoBehaviour {
 	{
 		if(man.enabled) return;
 
-		GUILayout.BeginArea(new Rect((Screen.width - 300)/2, Screen.height/2, 600, Screen.height/2 - 50));
+		GUILayout.BeginArea(new Rect((Screen.width - 600)/2, Screen.height/2, 600, Screen.height/2 - 50));
 
-		GUILayout.TextArea(userName, GUILayout.Height(50));
+		GUILayout.Label(userName, GUILayout.Height(50));
 
 		if(GUILayout.Button ("Play", GUILayout.Height (50)))
 		{

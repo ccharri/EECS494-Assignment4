@@ -36,10 +36,11 @@ public class GameState : MonoBehaviour
 
     void FixedUpdate()
     {
+		time += Time.fixedDeltaTime;
+
 		if(Network.isServer)
 		{
-			//Update PlayerStates
-            time += Time.fixedDeltaTime;	
+			//Update PlayerStates	
 	        if(time >= nextIncomeTime)
 	        {
 	            foreach(var p in players)
@@ -122,14 +123,14 @@ public class GameState : MonoBehaviour
 
         GUILayout.FlexibleSpace();
 
-        var incomeTimerString = "Income Timer: " + ((int)nextIncomeTime - (int)time);
+        var incomeTimerString = "Income Timer: " + ((int)(nextIncomeTime + .5) - (int)(time + .5));
         GUILayout.Label(incomeTimerString, layoutOptions);
 
         GUILayout.FlexibleSpace();
 
 
-        var currGold = 10;
-        var currIncome = 2;
+		int currGold = 0; 
+		int currIncome = 0;
         foreach (var p in players)
         {
             if (p.Value.player.Equals(Network.player))
@@ -146,7 +147,8 @@ public class GameState : MonoBehaviour
 
     void OnGUI_ScoreBoard()
     {
-        int friendlyLives = 10, opponentLives = 10;
+		int friendlyLives = 0;
+		int opponentLives = 0;
 
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
