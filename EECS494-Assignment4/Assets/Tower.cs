@@ -18,7 +18,7 @@ public abstract class Tower : Spawnable, Selectable
         g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
     }
 
-    public void Init(string name, string guid, float range_, float cooldown_)
+    protected void Init(string name, string guid, float range_, float cooldown_)
     {
         range = new Attribute(range_);
         cooldown = new Attribute(cooldown_);
@@ -26,11 +26,11 @@ public abstract class Tower : Spawnable, Selectable
         g.addTowerForPlayer(guid, this);
     }
 
-	public override void Update () 
+	protected override void Update () 
 	{
 		base.Update();
 	}
-	public override void FixedUpdate() 
+	protected override void FixedUpdate() 
 	{
         if(Network.isServer)
         {
@@ -48,13 +48,13 @@ public abstract class Tower : Spawnable, Selectable
         }
 	}
 	
-	public virtual void fire()
+	protected virtual void fire()
 	{
         print("LAUNCHED");
 		lastFired = g.getGameTime();
 	}
 	
-	public virtual Creep findTarget()
+	protected virtual Creep findTarget()
 	{
         List<Creep> arenaCreeps = g.getEnemyCreeps(ownerGUID);
         if(arenaCreeps.Count == 0)
@@ -73,7 +73,7 @@ public abstract class Tower : Spawnable, Selectable
         return target;
 	}
 
-	public virtual bool canFire(Creep c)
+	protected virtual bool canFire(Creep c)
 	{
         if((c.transform.position - transform.position).magnitude > range.get())
             return false;

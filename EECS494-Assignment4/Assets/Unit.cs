@@ -33,11 +33,11 @@ public abstract class Unit : MonoBehaviour
 		return false;
 	}
 
-	public virtual void Update() 
+	protected virtual void Update() 
 	{
 		
 	}
-	public virtual void FixedUpdate() 
+	protected virtual void FixedUpdate() 
 	{
 		foreach(Buff<Unit> b in buffs)
             b.FixedUpdate();

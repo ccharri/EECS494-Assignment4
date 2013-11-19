@@ -12,7 +12,7 @@ public class ArcaneTower : Tower
 		magicMissile = Resources.Load ("Projectiles/MagicMissile") as GameObject;
     }
 
-    public override void fire()
+    protected override void fire()
     {
         base.fire();
         GameObject proj = Instantiate(magicMissile, transform.position, transform.rotation) as GameObject;

@@ -8,7 +8,7 @@ public class MagicMissile : Projectile
         base.Init(target_, owner_, 250);        
     }
 
-    public override void FixedUpdate()
+    protected override void FixedUpdate()
     {
         if(Network.isServer)
         {

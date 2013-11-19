@@ -4,27 +4,25 @@ using System.Collections.Generic;
 public abstract class Projectile : Unit 
 {
     protected Attribute speed;
-    
     protected Tower owner;
-
     protected Creep target;
     protected Vector3 targetPos;
-    
     protected double birthTime;
 
-    public void Init(Creep target_, Tower owner_, float speed_)
+
+    public void replace(Projectile p_)
+    {
+        transform.position = p_.transform.position;
+        rigidbody.velocity = p_.rigidbody.velocity;
+    }
+
+    protected void Init(Creep target_, Tower owner_, float speed_)
     {
         speed = new Attribute(speed_);
         target = target_;
         owner = owner_;
         targetPos = target.transform.position;
         birthTime = Time.time;
-    }
-
-    public void replace(Projectile p_)
-    {
-        transform.position = p_.transform.position;
-        rigidbody.velocity = p_.rigidbody.velocity;
     }
 
     protected Vector3 calculateHome()
@@ -49,12 +47,12 @@ public abstract class Projectile : Unit
 		return (float)speed.get();
 	}
 
-	public override void Update() 
+	protected override void Update() 
     {
         base.Update();
 	}
 
-    public override void FixedUpdate()
+    protected override void FixedUpdate()
     {
         if(Network.isServer)
         {
