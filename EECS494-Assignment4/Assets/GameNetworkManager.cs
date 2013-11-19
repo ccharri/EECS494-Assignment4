@@ -36,7 +36,7 @@ public class GameNetworkManager : MonoBehaviour {
 		Debug.Log("Server Initialized");
 		connected = true;
 		NameDatabase.clearNames();
-		NameDatabase.addName(Network.player.guid, PlayerPrefs.GetString("playerName"));
+		NameDatabase.addName(Network.player.guid, PlayerPrefs.GetString("userName"));
 	}
  
 	void OnConnectedToServer () 
@@ -44,7 +44,7 @@ public class GameNetworkManager : MonoBehaviour {
 		NameDatabase.clearNames();
 		Debug.Log ("Connected to Server");
 		connected = true;
-		string myname = PlayerPrefs.GetString("playerName");
+		string myname = PlayerPrefs.GetString("userName");
 		NameDatabase.addName(Network.player.guid, myname);
 		networkView.RPC ("registerName", RPCMode.Server, myname, Network.player.guid);
 	}
