@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class Race{
 	//Dictionary mapping unit internal name to the Spawnable base class.  
-	Dictionary<string, Tower> towerMap = new Dictionary<string, Tower>();
-	Dictionary<string, Creep> creepMap = new Dictionary<string, Creep>();
+	public Dictionary<string, Tower> towerMap = new Dictionary<string, Tower>();
+	public Dictionary<string, Creep> creepMap = new Dictionary<string, Creep>();
 
     public Race()
     {
@@ -15,11 +15,19 @@ public class Race{
 
 	public Tower getTower(string tower)
 	{
-		return towerMap[tower];
+		if (towerMap.ContainsKey(tower))
+		{
+			return towerMap[tower];
+		}
+		return null;
 	}
 
 	public Creep getCreep(string creep)
 	{
-		return creepMap[creep];
+		if (creepMap.ContainsKey(creep))
+		{
+			return creepMap[creep];
+		}
+		return null;
 	}
 }

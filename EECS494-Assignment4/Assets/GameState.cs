@@ -184,29 +184,28 @@ public class GameState : MonoBehaviour
 
         //TOWER PLACEMENT BUTTONS
         GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3), GUILayout.Height(Screen.height / 5));
-        GUILayout.BeginHorizontal();
-        GUILayout.Button("Tower1");
-        GUILayout.Button("Tower2");
-        GUILayout.Button("Tower3");
-        GUILayout.Button("Tower4");
-        GUILayout.EndHorizontal();
-//
-//
-//		foreach(Tower tower in Player.Race.towers)
-//		{
-//			if(GUILayout.Button (tower.name))
-//			{
-//				PlacementManager.beginPlacing(tower.prefabkey);
-//				PlacementManager.enabled = true;
-//			}
-//		}
 
-        GUILayout.BeginHorizontal();
-        GUILayout.Button("Tower5");
-        GUILayout.Button("Tower6");
-        GUILayout.Button("Tower7");
-        GUILayout.Button("Tower8");
-        GUILayout.EndHorizontal();
+		PlayerState pState = players[Network.player.guid];
+
+		
+		int rowCount = 0;
+		GUILayout.BeginHorizontal();
+		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap)
+		{
+			rowCount++;
+			if (GUILayout.Button(entry.Key)) //use entry.Value.name, after towers have a name defined
+			{
+
+			}
+			if (rowCount == 4)
+			{
+				GUILayout.EndHorizontal();
+				GUILayout.BeginHorizontal();
+				rowCount = 0;
+			}
+		}
+		GUILayout.EndHorizontal();
+
         GUILayout.EndVertical();
 
         //GUILayout.FlexibleSpace();
