@@ -1,17 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameNetworkManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GameState.cs">
     <Files>
-      <File FileName="EECS494-Assignment4.sln" Line="1" Column="1" />
-      <File FileName="Assets\CameraMovement.cs" Line="15" Column="53" />
-      <File FileName="Assets\PlayerStateManager.cs" Line="57" Column="37" />
-      <File FileName="Assets\PlayerState.cs" Line="1" Column="1" />
-      <File FileName="Assets\PlacementManagerWithNetworkIntegration.cs" Line="64" Column="3" />
-      <File FileName="Assets\GameState.cs" Line="291" Column="4" />
-      <File FileName="Assets\Tests\SampleTest.cs" Line="1" Column="1" />
-      <File FileName="Assets\Tower.cs" Line="1" Column="1" />
-      <File FileName="Assets\Creep.cs" Line="1" Column="1" />
-      <File FileName="Assets\GameNetworkManager.cs" Line="106" Column="19" />
+      <File FileName="Assets/PlayerStateManager.cs" Line="57" Column="37" />
+      <File FileName="Assets/PlayerState.cs" Line="14" Column="30" />
+      <File FileName="Assets/PlacementManagerWithNetworkIntegration.cs" Line="63" Column="33" />
+      <File FileName="Assets/GameState.cs" Line="275" Column="4" />
+      <File FileName="Assets/Tests/SampleTest.cs" Line="1" Column="19" />
+      <File FileName="Assets/Tower.cs" Line="39" Column="24" />
+      <File FileName="Assets/Creep.cs" Line="8" Column="17" />
+      <File FileName="Assets/Server_Client_ConnectionManagerWithPlacementIntegration.cs" Line="155" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

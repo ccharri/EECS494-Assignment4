@@ -224,7 +224,12 @@ public class GameNetworkManager : MonoBehaviour {
 				GUI.Label (new Rect(20,20, 125, 50), "NAT Facilitator IP");
 				GUI.Label(new Rect(20, 70, 125, 30), Network.natFacilitatorIP + ":" + Network.natFacilitatorPort);
 			}
-			
+
+			if(GUI.Button (new Rect((Screen.width - 100)/2, Screen.height - 300, 200, 200), "Start"))
+			{
+				networkView.RPC ("launchGameScene", RPCMode.AllBuffered);
+			}
+
 			int i = 0;
 			while (i < Network.connections.Length) {
 				GUI.Label(new Rect(500, 50 + 50*i, 125, 50) ,"Player " + Network.connections[i] + " - " + Network.GetAveragePing(Network.connections[i]) + " ms");
