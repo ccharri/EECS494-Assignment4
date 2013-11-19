@@ -183,6 +183,16 @@ public class GameState : MonoBehaviour
         GUILayout.Button("Tower3");
         GUILayout.Button("Tower4");
         GUILayout.EndHorizontal();
+//
+//
+//		foreach(Tower tower in Player.Race.towers)
+//		{
+//			if(GUILayout.Button (tower.name))
+//			{
+//				PlacementManager.beginPlacing(tower.prefabkey);
+//				PlacementManager.enabled = true;
+//			}
+//		}
 
         GUILayout.BeginHorizontal();
         GUILayout.Button("Tower5");
