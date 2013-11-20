@@ -9,7 +9,7 @@ public abstract class Tower : Spawnable, Selectable
 	protected Creep target;
 	protected TargetingBehavior behavior = Closest.getInstance();
 	
-	protected Attribute range = new Attribute(1000);
+	protected Attribute range = new Attribute(1);
 	protected Attribute cooldown = new Attribute(1);
 	protected double lastFired = 0;
 
