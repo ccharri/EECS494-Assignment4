@@ -45,8 +45,8 @@ public abstract class Creep : Spawnable, Selectable
     public virtual void onDeath()
     {
         GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
-		g.removeCreep(networkView.viewID);
-		g.networkView.RPC("removeCreep", RPCMode.OthersBuffered, networkView.viewID);
+		g.removeCreep(networkView.viewID, getOwner());
+		g.networkView.RPC("removeCreep", RPCMode.OthersBuffered, networkView.viewID, getOwner());
         Network.Destroy(this.gameObject);
     }
 
