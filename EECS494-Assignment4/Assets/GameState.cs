@@ -36,6 +36,7 @@ public class GameState : MonoBehaviour
 		spawns = new Dictionary<string, SpawnerState>();
 		pMan = GetComponent<PlacementManager>();
 		spawnLocation = GameObject.FindGameObjectWithTag("SpawnLocation").transform.position;
+		playerNums = new List<string>();
 	}
 
     void Start()
