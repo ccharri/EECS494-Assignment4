@@ -265,10 +265,8 @@ public class GameState : MonoBehaviour
 		List<Tower> list = towersByPlayer[pid];
         if(list != null)
         {
-            Debug.Log("GOD DAMNIT");
             list.Add(t);
             t.setOwner(pid);
-            Debug.Log("fuck: " + t.getOwner());
         }
     }
 
@@ -361,9 +359,6 @@ public class GameState : MonoBehaviour
 	{
 		Tower t;
 		PlayerState ps;
-
-        print("C: " + player_.guid);
-
 		foreach(var entry in players)
 		{
 			Debug.Log ("Key = " + entry.Key + ", Value = " + entry.Value);
