@@ -256,7 +256,10 @@ public class GameState : MonoBehaviour
     {
 		List<Tower> list = towersByPlayer[pid];
         if(list != null)
+        {
             list.Add(t);
+            t.Init(pid);
+        }
     }
 
 	public void removeCreepForPlayer(string pid, Creep c)
@@ -348,6 +351,8 @@ public class GameState : MonoBehaviour
 	{
 		Tower t;
 		PlayerState ps;
+
+        print("C: " + player_.guid);
 
 		foreach(var entry in players)
 		{
