@@ -14,7 +14,7 @@ public class GameState : MonoBehaviour
 
 	Dictionary<string, SpawnerState> spawns;
 
-	list<string> playerNums;
+	List<string> playerNums;
 
     float incomeTimeIncrement = 10;
     float nextIncomeTime = 10;
@@ -234,13 +234,13 @@ public class GameState : MonoBehaviour
 			rowCount++;
 			if (GUILayout.Button(entry.Value.name)) //use entry.Value.name, after creeps have a name defined (maybe)
 			{
-				if (network.isServer)
+				if (Network.isServer)
 				{
-					GameState.tryCreepSpawn(entry.value.id, network.player);
+					tryCreepSpawn(entry.Value.id, Network.player);
 				}
 				else
 				{
-					networkView.RPC("tryCreepSpawn", RPCMode.server, entry.value.id, network.player);
+					networkView.RPC("tryCreepSpawn", RPCMode.Server, entry.Value.id, Network.player);
 				}
 			}
 			if (rowCount == 4)
@@ -313,13 +313,15 @@ public class GameState : MonoBehaviour
 
     public int getPlayerNum(string pid)
     {
-    	for (int i = 0; i < playerNums.length; i++)
+    	for (int i = 0; i < playerNums.Count; i++)
     	{
     		if (playerNums[i] == pid)
     			{
     				return (i + 1);
     			}
     	}
+
+		return -1;
     }
 
 //	void OnServerInitialized () 

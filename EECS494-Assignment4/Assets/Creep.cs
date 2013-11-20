@@ -18,13 +18,13 @@ public abstract class Creep : Spawnable, Selectable
 		gstate = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
         navAgent = GetComponent<NavMeshAgent>();
 
-        if (gstate.getPlayerNum(guid) == 1)
+        if (gstate.getPlayerNum(getOwner()) == 1)
         {
-            navAgent.SetDestination(Vector3(-110, 0, 0));
+            navAgent.SetDestination(new Vector3(-110, 0, 0));
         }
         else
         {
-            navAgent.SetDestination(Vector3(110, 0, 0));
+            navAgent.SetDestination(new Vector3(110, 0, 0));
         }
     }
 
