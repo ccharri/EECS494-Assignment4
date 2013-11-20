@@ -25,11 +25,11 @@ public abstract class Creep : Spawnable, Selectable
 
 		if (gstate.getPlayerNum(getOwner()) == 1)
 		{
-			navAgent.SetDestination(new Vector3(-110, 0, 0));
+			navAgent.SetDestination(new Vector3(110, 0, 0));
 		}
 		else
 		{
-			navAgent.SetDestination(new Vector3(110, 0, 0));
+			navAgent.SetDestination(new Vector3(-110, 0, 0));
 		}
 	}
 
