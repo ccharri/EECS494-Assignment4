@@ -232,7 +232,14 @@ public class GameState : MonoBehaviour
 			rowCount++;
 			if (GUILayout.Button(entry.Value.name)) //use entry.Value.name, after creeps have a name defined (maybe)
 			{
-
+				if (network.isServer)
+				{
+					GameState.tryCreepSpawn(entry.value.id, network.player);
+				}
+				else
+				{
+					networkView.RPC("tryCreepSpawn", RPCMode.server, entry.value.id, network.player);
+				}
 			}
 			if (rowCount == 4)
 			{
