@@ -40,6 +40,12 @@ public class MainMenuManager : MonoBehaviour {
 			GUILayout.Window(0, new Rect(Screen.width/2 - 100, Screen.height/2 - 50, 200, 100), ChangeNameFunc, "Enter Username", GUILayout.Width (200), GUILayout.Height(100));
 		}
 
+		if(GUILayout.Button ("Exit", GUILayout.Height (50)))
+		{
+			Application.Quit();
+		}
+
+
 		GUILayout.EndArea();
 	}
 
