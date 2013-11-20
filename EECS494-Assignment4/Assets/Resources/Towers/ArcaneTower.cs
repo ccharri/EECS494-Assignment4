@@ -5,11 +5,23 @@ public class ArcaneTower : Tower
 {
     public GameObject magicMissile;
 
+	public void LoadPrefabs()
+	{
+		prefab = Resources.Load ("Towers/ArcaneTower") as GameObject;
+		if(prefab != null)
+			Debug.Log ("Loaded ArcaneTower prefab " + prefab);
+		else
+			Debug.Log ("ArcaneTower prefab = null");
+		magicMissile = Resources.Load ("Projectiles/MagicMissile") as GameObject;
+		if(magicMissile != null)
+			Debug.Log ("Loaded MagicMissile prefab " + magicMissile);
+		else
+			Debug.Log ("MagicMissile prefab = null");
+	}
+
     public override void Init(string pid_)
     {
         base.Init("Arcane Tower", pid_, 1, 1);
-		prefab = Resources.Load("Towers/ArcaneTower") as GameObject;
-		magicMissile = Resources.Load ("Projectiles/MagicMissile") as GameObject;
     }
 
     protected override void fire()

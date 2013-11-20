@@ -9,8 +9,14 @@ public class Race{
 
     public Race()
     {
-        towerMap.Add("Arcane Tower", new ArcaneTower());
-        creepMap.Add("Infamous Crate", new InfamousCrate());
+		ArcaneTower atower = new ArcaneTower();
+		atower.LoadPrefabs();
+
+		InfamousCrate icrate = new InfamousCrate();
+		icrate.LoadPrefabs();
+
+        towerMap.Add("Arcane Tower", atower);
+        creepMap.Add("Infamous Crate",  icrate);
     }
 
 	public Tower getTower(string tower)
