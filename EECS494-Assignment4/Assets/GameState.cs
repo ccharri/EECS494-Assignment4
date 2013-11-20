@@ -265,8 +265,10 @@ public class GameState : MonoBehaviour
 		List<Tower> list = towersByPlayer[pid];
         if(list != null)
         {
+            Debug.Log("GOD DAMNIT");
             list.Add(t);
             t.setOwner(pid);
+            Debug.Log("fuck: " + t.getOwner());
         }
     }
 
@@ -286,8 +288,9 @@ public class GameState : MonoBehaviour
 	
 	public List<Creep> getEnemyCreeps(string pid)
     {
-        if(creepsByArena.ContainsKey(pid))
-            return creepsByArena[pid];
+        if(pid != null)
+            if(creepsByArena.ContainsKey(pid))
+                return creepsByArena[pid];
         return new List<Creep>(); //TODO: Throw an exception?
     }
 
