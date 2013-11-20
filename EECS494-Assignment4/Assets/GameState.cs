@@ -484,8 +484,9 @@ public class GameState : MonoBehaviour
 		if(us.currentStock == 0) {Debug.Log("Player's Spawner does not have enough stock!"); return;}
 */
 		//Spawn creep and set destination afterwards
-		foreach(NetworkPlayer player in Network.connections)
+		foreach(PlayerState pstate in players.Values)
 		{
+			NetworkPlayer player = pstate.player;
 			if(player == player_) return;
 
 			c = ((GameObject)Network.Instantiate(c.prefab, spawnLocation, Quaternion.identity, 0)).GetComponent<Creep>();
