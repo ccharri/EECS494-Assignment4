@@ -14,6 +14,8 @@ public class GameState : MonoBehaviour
 
 	Dictionary<string, SpawnerState> spawns;
 
+	list<string> playerNums;
+
     float incomeTimeIncrement = 10;
     float nextIncomeTime = 10;
     float time = 0;
@@ -307,6 +309,17 @@ public class GameState : MonoBehaviour
         towersByPlayer.Add(player.guid, new List<Tower>());
         players.Add(player.guid, new PlayerState(player));
 		spawns.Add (player.guid, new SpawnerState(player));
+    }
+
+    public int getPlayerNum(string pid)
+    {
+    	for (int i = 0; i < playerNums.length; i++)
+    	{
+    		if (playerNums[i] == pid)
+    			{
+    				return (i + 1);
+    			}
+    	}
     }
 
 //	void OnServerInitialized () 
