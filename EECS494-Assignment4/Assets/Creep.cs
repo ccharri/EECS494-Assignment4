@@ -9,6 +9,7 @@ public abstract class Creep : Spawnable, Selectable
 	public int bounty;
 	public int lifeCost;
 
+	NavMeshAgent navAgent;
 
     public virtual bool onDamage(float damage)
     {
@@ -41,13 +42,14 @@ public abstract class Creep : Spawnable, Selectable
         Init(name, guid);
         GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
         g.addCreepForPlayer(guid, this);
+		navAgent = GetComponent<NavMeshAgent>();
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        NavMeshAgent v = GetComponent<NavMeshAgent>();
-        v.speed = speed.get();
+
+        navAgent.speed = speed.get();
     }
 
 	
