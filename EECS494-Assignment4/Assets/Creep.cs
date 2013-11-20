@@ -73,7 +73,7 @@ public abstract class Creep : Spawnable, Selectable
 
 			transform.position += (dest - transform.position).normalized * speed.get () * Time.fixedDeltaTime;
 
-			if((transform.position - navAgent.destination).magnitude < .5)
+			if((transform.position - navAgent.destination).magnitude < .75)
 			{
 				GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
 				g.onCreepLeaked(this);

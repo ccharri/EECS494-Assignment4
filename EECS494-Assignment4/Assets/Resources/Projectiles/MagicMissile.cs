@@ -8,7 +8,7 @@ public class MagicMissile : Projectile
     {
         setTarget(target_);
         setOwner(owner_);
-        setSpeed(750);
+        setSpeed(7.5f);
     }
 
     protected override void FixedUpdate()
@@ -24,7 +24,7 @@ public class MagicMissile : Projectile
     {
         if(Network.isServer)
         {
-            if(c.gameObject.GetComponent<Creep>() == target && target != null)
+			if( target != null && c.gameObject.GetComponent<Creep>() == target)
             {
                 target.onDamage(10.0f);
                 destroy();
