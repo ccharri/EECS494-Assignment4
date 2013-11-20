@@ -11,26 +11,14 @@ public abstract class Unit : MonoBehaviour
 
     public string getOwnerID() { return ownerGUID; }
 
-    public void Init(string name_, string ownerGUID_)
-    //NOTE: Init is only used when parameters need to be passed in.
-    {
-        name = name_;
-        ownerGUID = ownerGUID_;
-    }
+    public void setName(string name_)   { name = name_; }
+    public void setOwner(string guid_)  { ownerGUID = guid_;    }
+    public void setId(string id_)       { id = id_; }
 
+    public string getName()     { return name; }
+    public string getOwner()    { return ownerGUID; }
+    public string getId()       { return id; }
 
-    public void setName(string name_)
-    {
-        name = name_;
-    }
-    public void setOwner(string guid_)
-    {
-        ownerGUID = guid_;
-    }
-    public void setId(string id_)
-    {
-        id = id_;
-    }
 
     public virtual bool addBuff(Buff<Unit> b)
     {

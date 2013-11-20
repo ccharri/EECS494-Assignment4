@@ -39,9 +39,10 @@ public abstract class Creep : Spawnable, Selectable
         speed = new Attribute(speed_);
         bounty = bounty_;
         lifeCost = lifeCost_;
-        Init(name, guid);
-        GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
-        g.addCreepForPlayer(guid, this);
+
+        setName(name);
+        setOwner(guid);
+
 		navAgent = GetComponent<NavMeshAgent>();
     }
 
