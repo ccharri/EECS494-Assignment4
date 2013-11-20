@@ -222,7 +222,7 @@ public class GameState : MonoBehaviour
 		foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap)
 		{
 			rowCount++;
-			if (GUILayout.Button(entry.Key)) //use entry.Value.name, after creeps have a name defined (maybe)
+			if (GUILayout.Button(entry.Value.name)) //use entry.Value.name, after creeps have a name defined (maybe)
 			{
 
 			}
@@ -288,11 +288,11 @@ public class GameState : MonoBehaviour
 		spawns.Add (player.guid, new SpawnerState(player));
     }
 
-	void OnServerInitialized () 
-	{
-		//So client registers the server player
-		initializePlayer (Network.player);
-	}
+//	void OnServerInitialized () 
+//	{
+//		//So client registers the server player
+//		initializePlayer (Network.player);
+//	}
 
 	void OnPlayerConnected(NetworkPlayer player)
 	{
@@ -348,8 +348,9 @@ public class GameState : MonoBehaviour
 	{
 		Tower t;
 		PlayerState ps;
-		if(null == (ps = players[player_.guid])) {Debug.Log ("Player does not exist!"); return;}
-		if(null == (t = ps.race.getTower(towerName_))) {Debug.Log ("Player's Race cannot build a tower of this type!"); return;}
+		if(null == (ps = players[player_.guid])) {Debug.Log ("Player " + player_ + " does not exist!"); return;}
+		Debug.Log ("Player Race Towers = " + ps.race.towerMap);
+		if(null == (t = ps.race.getTower(towerName_))) {Debug.Log ("Player's Race cannot build a tower of type " + towerName_ + "!"); return;}
 		if(t.cost > ps.gold) {Debug.Log ("Player does not have enough money to build this tower!"); return;}
 		
 		//Pseudocode for constraint checking
@@ -387,8 +388,8 @@ public class GameState : MonoBehaviour
 	{
 		Creep c;
 		PlayerState ps;
-		if(null == (ps = players[player_.guid])) {Debug.Log ("Player does not exist!"); return;}
-		if(null == (c = ps.race.getCreep(creepName_))) {Debug.Log ("Player's Race cannot build a creep of this type!"); return;}
+		if(null == (ps = players[player_.guid])) {Debug.Log ("Player " + player_ + " does not exist!"); return;}
+		if(null == (c = ps.race.getCreep(creepName_))) {Debug.Log ("Player's Race cannot build a creep of type " + creepName_ + "!"); return;}
 		if(c.cost > ps.gold) {Debug.Log ("Player does not have enough money to build this creep!"); return;}
 		
 		SpawnerState ss = spawns[player_.guid];

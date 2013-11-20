@@ -49,13 +49,19 @@ public class PlacementManager : MonoBehaviour {
 	void place(Vector3 point)
 	{
 		Destroy(placeObject);
+
+		Tower t = placeObject.GetComponent<Tower>();
+
+		if (t == null)
+		Debug.Log ("t == null");
+
 		if(Network.isServer)
 		{
-			gstate.tryTowerSpawn(placeObject.name, point, Network.player);
+			gstate.tryTowerSpawn(t.id, point, Network.player);
 		}
 		else
 		{
-			networkView.RPC("tryTowerSpawn", RPCMode.Server, placeObject.name, point, Network.player);
+			networkView.RPC("tryTowerSpawn", RPCMode.Server, t.id, point, Network.player);
 		}
 		placeObject = null;
 //		Instantiate(placePrefab, alignToGrid(point), Quaternion.identity);

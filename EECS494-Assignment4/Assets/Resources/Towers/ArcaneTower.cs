@@ -5,6 +5,12 @@ public class ArcaneTower : Tower
 {
     public GameObject magicMissile;
 
+	void Awake() 
+	{
+		id = "arcaneTower";
+		name = "Arcane Tower";
+	}
+
 	public void LoadPrefabs()
 	{
 		id = "arcaneTower";
