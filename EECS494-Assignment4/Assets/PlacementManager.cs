@@ -38,7 +38,7 @@ public class PlacementManager : MonoBehaviour {
 				
 				if(Input.GetMouseButtonDown(0))
 				{
-					place(rhit.point);
+					place(alignToGrid(rhit.point));
 				}
 			}
 		}
@@ -46,8 +46,6 @@ public class PlacementManager : MonoBehaviour {
 
 	void place(Vector3 point)
 	{
-		Destroy(placeObject);
-
 		Tower t = placeObject.GetComponent<Tower>();
 
 		if (t == null)
@@ -63,7 +61,10 @@ public class PlacementManager : MonoBehaviour {
 		{
 			networkView.RPC("tryTowerSpawn", RPCMode.Server, t.id, point, Network.player);
 		}
-		placeObject = null;
+
+
+		Destroy(placeObject);
+
 //		Instantiate(placePrefab, alignToGrid(point), Quaternion.identity);
 		placing = false;
 		enabled = false;
