@@ -3,9 +3,12 @@ using System.Collections;
 
 public class MagicMissile : Projectile
 {
+
     public void Init(Creep target_, Tower owner_)
     {
-        base.Init(target_, owner_, 250);        
+        setTarget(target_);
+        setOwner(owner_);
+        setSpeed(250);
     }
 
     protected override void FixedUpdate()

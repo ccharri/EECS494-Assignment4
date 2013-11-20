@@ -3,26 +3,32 @@ using System.Collections.Generic;
 
 public abstract class Projectile : Unit 
 {
-    protected Attribute speed;
-    protected Tower owner;
-    protected Creep target;
-    protected Vector3 targetPos;
-    protected double birthTime;
+    protected Attribute speed = new Attribute(1);
+    protected Tower owner = null;
+    protected Creep target = null;
+    protected Vector3 targetPos = new Vector3(0,0,0);
+    protected double birthTime = 0;
 
+    public void setSpeed(float speed_)              { speed = new Attribute(speed_); }
+    public void setTarget(Creep target_)            { target = target_; setTargetPos(target.transform.position); }
+    public void setOwner(Tower owner_)              { owner = owner_; }
+    public void setTargetPos(Vector3 targetPos_)    { targetPos = targetPos_; }
+
+    public float getSpeed()         { return speed.get(); }
+    public Creep getTarget()        { return target;}
+    public Tower getOwner()         { return owner;}
+    public Vector3 getTargetPos()   { return targetPos;}
+
+
+    void Awake()
+    {
+        birthTime = Time.time;
+    }
 
     public void replace(Projectile p_)
     {
         transform.position = p_.transform.position;
         rigidbody.velocity = p_.rigidbody.velocity;
-    }
-
-    protected void Init(Creep target_, Tower owner_, float speed_)
-    {
-        speed = new Attribute(speed_);
-        target = target_;
-        owner = owner_;
-        targetPos = target.transform.position;
-        birthTime = Time.time;
     }
 
     protected Vector3 calculateHome()
@@ -41,11 +47,6 @@ public abstract class Projectile : Unit
 
     public abstract void OnTriggerEnter(Collider collision);
 
-
-	public float getSpeed()
-	{
-		return (float)speed.get();
-	}
 
 	protected override void Update() 
     {
