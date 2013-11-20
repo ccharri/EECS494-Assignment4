@@ -11,10 +11,21 @@ public abstract class Creep : Spawnable, Selectable
 
 	NavMeshAgent navAgent;
 
+	GameState gstate;
 
     void Awake()
     {
+		gstate = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
         navAgent = GetComponent<NavMeshAgent>();
+
+        if (gstate.getPlayerNum(guid) == 1)
+        {
+            navAgent.SetDestination(Vector3(-110, 0, 0));
+        }
+        else
+        {
+            navAgent.SetDestination(Vector3(110, 0, 0));
+        }
     }
 
     public virtual bool onDamage(float damage)
