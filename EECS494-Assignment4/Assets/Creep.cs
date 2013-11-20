@@ -16,6 +16,7 @@ public abstract class Creep : Spawnable, Selectable
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
+		navAgent.speed = 0;
     }
 
 	public void updateDestination()
@@ -66,9 +67,13 @@ public abstract class Creep : Spawnable, Selectable
 		{
         	base.FixedUpdate();
             navAgent = GetComponent<NavMeshAgent>();
-        	navAgent.speed = speed.get();
+//        	navAgent.speed = speed.get();
 
-			if((transform.position - navAgent.destination).magnitude < .1)
+			Vector3 dest = navAgent.path.corners[0];
+
+			transform.position += (dest - transform.position).normalized * speed.get () * Time.fixedDeltaTime;
+
+			if((transform.position - navAgent.destination).magnitude < .5)
 			{
 				GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
 				g.onCreepLeaked(this);
