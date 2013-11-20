@@ -4,7 +4,7 @@ using System.Collections;
 public abstract class Creep : Spawnable, Selectable 
 {
 	Attribute health = new Attribute(1);
-	Attribute speed = new Attribute(1);
+	Attribute speed = new Attribute(200);
 	Attribute mana = new Attribute(1);
 	public int bounty = 1;
 	public int lifeCost = 1;
@@ -60,7 +60,7 @@ public abstract class Creep : Spawnable, Selectable
 		if(Network.isServer)
 		{
         	base.FixedUpdate();
-
+            navAgent = GetComponent<NavMeshAgent>();
         	navAgent.speed = speed.get();
 		}
     }

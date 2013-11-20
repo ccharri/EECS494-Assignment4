@@ -8,7 +8,7 @@ public class InfamousCrate : Creep
         setName("Infamous Crate");
         setId("InfamousCrate");
         setHealth(100);
-        setSpeed(10);
+        setSpeed(250);
         setMana(10);
         setBounty(1);
         setLifeCost(1);
