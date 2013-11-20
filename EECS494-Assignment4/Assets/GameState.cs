@@ -41,6 +41,11 @@ public class GameState : MonoBehaviour
 		playerNums = new List<string>();
 	}
 
+  void OnLevelWasLoaded(int level)
+  {
+      Awake();  //maybe just copy code from awake
+  }
+
     void Start()
     {
 		initializePlayer(Network.player);
