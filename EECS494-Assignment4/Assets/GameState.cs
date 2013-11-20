@@ -288,7 +288,7 @@ public class GameState : MonoBehaviour
     {
         if(creepsByArena.ContainsKey(pid))
             return creepsByArena[pid];
-        return null; //TODO: Throw an exception?
+        return new List<Creep>(); //TODO: Throw an exception?
     }
 
 	public void addPlayer(NetworkPlayer player)

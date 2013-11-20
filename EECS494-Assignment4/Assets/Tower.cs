@@ -23,6 +23,7 @@ public abstract class Tower : Spawnable, Selectable
         range = new Attribute(range_);
         cooldown = new Attribute(cooldown_);
         Init(name, guid);
+        base.Init(
     }
 
 	protected override void Update () 

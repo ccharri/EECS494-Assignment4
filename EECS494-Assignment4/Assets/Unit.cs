@@ -18,6 +18,20 @@ public abstract class Unit : MonoBehaviour
         ownerGUID = ownerGUID_;
     }
 
+
+    public void setName(string name_)
+    {
+        name = name_;
+    }
+    public void setOwner(string guid_)
+    {
+        ownerGUID = guid_;
+    }
+    public void setId(string id_)
+    {
+        id = id_;
+    }
+
     public virtual bool addBuff(Buff<Unit> b)
     {
         buffs.Add(b);
