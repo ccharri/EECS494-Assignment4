@@ -36,7 +36,6 @@ public abstract class Tower : Spawnable, Selectable
             // Cooldown elapsed, Fire!
             if((lastFired + cooldown.get()) <= g.getGameTime())
             {
-
                 if(target == null)
                     target = findTarget();
                 if(target != null)

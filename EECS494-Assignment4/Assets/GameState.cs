@@ -288,9 +288,8 @@ public class GameState : MonoBehaviour
 	
 	public List<Creep> getEnemyCreeps(string pid)
     {
-        if(pid != null)
-            if(creepsByArena.ContainsKey(pid))
-                return creepsByArena[pid];
+        if(creepsByArena.ContainsKey(pid))
+            return creepsByArena[pid];
         return new List<Creep>(); //TODO: Throw an exception?
     }
 
