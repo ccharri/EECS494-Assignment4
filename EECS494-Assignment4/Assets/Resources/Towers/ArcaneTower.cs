@@ -18,6 +18,7 @@ public class ArcaneTower : Tower
 	{
 		id = "arcaneTower";
 		name = "Arcane Tower";
+		cost = 10;
 		prefab = Resources.Load ("Towers/ArcaneTower") as GameObject;
 		if(prefab != null)
 			Debug.Log ("Loaded ArcaneTower prefab " + prefab);
