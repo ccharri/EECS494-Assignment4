@@ -11,12 +11,14 @@ public class ArcaneTower : Tower
 		setName("Arcane Tower");
         setCooldown(1);
         setRange(10);
+		cost = 10;
 	}
 
 	public void LoadPrefabs()
 	{
 		id = "arcaneTower";
 		name = "Arcane Tower";
+		cost = 10;
 		prefab = Resources.Load ("Towers/ArcaneTower") as GameObject;
 		if(prefab != null)
 			Debug.Log ("Loaded ArcaneTower prefab " + prefab);
