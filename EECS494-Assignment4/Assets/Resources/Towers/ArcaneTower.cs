@@ -10,7 +10,7 @@ public class ArcaneTower : Tower
 		setId("arcaneTower");
 		setName("Arcane Tower");
         setCooldown(1);
-        setRange(4);
+        setRange(8);
 		cost = 10;
 	}
 

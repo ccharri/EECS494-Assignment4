@@ -56,17 +56,18 @@ public abstract class Tower : Spawnable, Selectable
         List<Creep> arenaCreeps = g.getEnemyCreeps(ownerGUID);
         if(arenaCreeps.Count == 0)
             return null;
+        Creep newTarget = null;
         foreach(Creep c in arenaCreeps)
         {
             if(canFire(c))
             {
-                if(target == null)
-                    target = c;
-                else if(behavior.compare(c, target, this))
-                    target = c;
+                if(newTarget == null)
+                    newTarget = c;
+                else if(behavior.compare(c, newTarget, this))
+                    newTarget = c;
             }
         }
-        return target;
+        return newTarget;
 	}
 
 	protected virtual bool canFire(Creep c)

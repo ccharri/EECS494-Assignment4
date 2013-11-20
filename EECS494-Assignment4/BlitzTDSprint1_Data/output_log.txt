@@ -1,0 +1,3496 @@
+Initialize engine version: 4.3.0f4 (e01000627d60)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [nvumdshim.dll 9.18.13.2049]
+    Renderer: NVIDIA GeForce GT 540M
+    Vendor:   NVIDIA
+    VRAM:     1999 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Thomas\Desktop\EECS494-Assignment4\EECS494-Assignment4\BlitzTDSprint1_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Thomas\Desktop\EECS494-Assignment4\EECS494-Assignment4\BlitzTDSprint1_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Thomas\Desktop\EECS494-Assignment4\EECS494-Assignment4\BlitzTDSprint1_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Thomas\Desktop\EECS494-Assignment4\EECS494-Assignment4\BlitzTDSprint1_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Thomas\Desktop\EECS494-Assignment4\EECS494-Assignment4\BlitzTDSprint1_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\Thomas\Desktop\EECS494-Assignment4\EECS494-Assignment4\BlitzTDSprint1_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+- Completed reload, in  0.055 seconds
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+sendto failed with code -1 for char 9 and length 1464.
+sendto failed with code -1 for char 9 and length 1464.
+sendto failed with code -1 for char 9 and length 1464.
+sendto failed with code -1 for char 9 and length 1464.
+Received Host List
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Use Nat:False
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Running as server. Player ID is 0.
+ 
+(Filename:  Line: 2479)
+
+Server Initialized
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Attempting to connect to master server at 67.225.180.24:23466
+ 
+(Filename:  Line: 2479)
+
+sendto failed with code -1 for char 9 and length 1464.
+sendto failed with code -1 for char 9 and length 1464.
+launchGameScene RPC Call received from UnityEngine.NetworkMessageInfo
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Sent RPC call 'launchGameScene' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'launchGameScene' to buffer.
+ 
+(Filename:  Line: 2479)
+
+UnloadTime: 0.578325 ms
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 200.
+Total: 1.856593 ms (FindLiveObjects: 0.030276 ms CreateObjectMapping: 0.020526 ms MarkObjects: 0.316616 ms  DeleteObjects: 0.014881 ms)
+
+Loaded ArcaneTower prefab ArcaneTower (UnityEngine.GameObject)
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Loaded MagicMissile prefab MagicMissile (UnityEngine.GameObject)
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Loaded InfamousCrate prefab
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+sendto failed with code -1 for char 9 and length 1464.
+sendto failed with code -1 for char 9 and length 1464.
+Connected to master server at 67.225.180.24:23466
+ 
+(Filename:  Line: 2479)
+
+Empty game type given during host registration, aborting
+ 
+(Filename:  Line: 575)
+
+Allocating view ID AllocatedID: 1.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 1'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 2.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 2'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 3.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 3'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 4.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 4'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 5.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 5'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 6.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 6'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 7.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 7'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 8.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 8'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 9.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 9'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 10.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 10'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 11.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 11'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 12.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 12'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 13.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 13'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 14.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 14'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 15.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 15'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 16.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 16'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 17.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 17'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 18.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 18'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 19.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 19'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 20.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 20'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 21.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 21'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 22.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 22'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 23.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 23'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 24.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 24'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 25.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 25'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 26.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 26'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 27.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 27'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 28.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 28'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 29.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 29'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 30.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 30'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 31.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 31'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 32.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 32'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 33.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 33'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 34.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 34'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 35.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 35'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 36.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 36'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 37.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 37'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 38.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 38'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 39.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 39'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 40.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 40'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 41.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 41'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 42.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 42'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 43.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 43'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 44.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 44'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 45.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 45'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 46.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 46'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 47.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 47'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 48.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 48'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 49.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 49'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 50.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 50'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 51.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 51'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 52.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 52'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 53.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 53'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 54.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 54'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 55.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 55'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 56.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 56'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 57.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 57'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 58.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 58'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 59.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 59'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 60.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 60'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 61.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 61'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 62.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 62'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 63.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 63'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 64.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 64'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 65.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 65'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 66.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 66'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 67.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 67'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 68.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 68'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 69.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 69'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 70.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 70'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 71.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 71'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 72.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 72'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 73.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 73'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 74.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 74'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 75.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 75'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 76.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 76'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 77.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 77'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 78.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 78'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 79.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 79'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 80.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 80'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 81.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 81'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 82.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 82'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 83.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 83'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 84.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 84'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 85.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 85'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 86.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 86'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 87.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 87'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 88.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 88'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 89.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 89'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 90.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 90'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 91.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 91'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 92.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 92'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 93.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 93'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 94.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 94'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 95.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 95'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 96.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 96'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+t.id = arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = 540431990953060116, Value = PlayerState
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Key = arcaneTower, Value = null
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Arcane Tower, arcaneTower
+ 
+(Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
+
+Allocating view ID AllocatedID: 97.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 97'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addTower' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addTower' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 98.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 98'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 99.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 99'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 100.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 100'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Allocating view ID AllocatedID: 101.
+
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call '__RPCNetworkInstantiate' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC '__RPCNetworkInstantiate' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Assigning a view ID: old view ID 'AllocatedID: 0', new view ID 'AllocatedID: 101'
+
+ 
+(Filename:  Line: 2489)
+
+Sent RPC call 'addCreep' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'addCreep' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+Sent RPC call 'setIncomeTimer' to all connected clients
+
+ 
+(Filename:  Line: 2479)
+
+Added RPC 'setIncomeTimer' to buffer.
+ 
+(Filename:  Line: 2479)
+
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+Skipped rendering frame because GfxDevice is in invalid state (device lost)
+ 
+(Filename:  Line: 1539)
+
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: needs reset, doing it
+FullResetD3DDevice
+ResetD3DDevice
+dev->Reset
+D3Dwindow device not lost anymore
