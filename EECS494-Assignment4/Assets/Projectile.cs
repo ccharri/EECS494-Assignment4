@@ -44,6 +44,10 @@ public abstract class Projectile : Unit
         return newVel;
     }
 
+    public void destroy()
+    {
+        Network.Destroy(this.gameObject);
+    }
 
     public abstract void OnTriggerEnter(Collider collision);
 
