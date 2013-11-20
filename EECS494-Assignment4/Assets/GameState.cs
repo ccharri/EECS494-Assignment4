@@ -450,6 +450,7 @@ public class GameState : MonoBehaviour
 */
 		//Spawn creep and set destination afterwards
 		c = ((GameObject)Network.Instantiate(c.prefab, spawnLocation, Quaternion.identity, 0)).GetComponent<Creep>();
+
 		ps.gold -= c.cost;
 
 		if(!(Network.player == player_))
@@ -462,8 +463,11 @@ public class GameState : MonoBehaviour
 			networkView.RPC ("setIncome", player_, ps.income, player_.guid);
 		
 		//Add creep to creep lists, however it is we do it
-		//addCreep(c.networkView.viewID, player_.guid);
-		//networkView.RPC ("addCreep", RPCMode.OthersBuffered, c.networkView.viewID, player_.guid);
+		addCreep(c.networkView.viewID, player_.guid);
+		networkView.RPC ("addCreep", RPCMode.OthersBuffered, c.networkView.viewID, player_.guid);
+
+		c.updateDestination();
+
 		/*
 		if(us.currentStock == us.maxStock)
 		{
