@@ -55,6 +55,8 @@ public class PlacementManager : MonoBehaviour {
 		if (t == null)
 		Debug.Log ("t == null");
 
+		Debug.Log ("t.id = " + t.id);
+
 		if(Network.isServer)
 		{
 			gstate.tryTowerSpawn(t.id, point, Network.player);

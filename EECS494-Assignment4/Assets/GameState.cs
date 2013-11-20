@@ -349,7 +349,10 @@ public class GameState : MonoBehaviour
 		Tower t;
 		PlayerState ps;
 		if(null == (ps = players[player_.guid])) {Debug.Log ("Player " + player_ + " does not exist!"); return;}
-		Debug.Log ("Player Race Towers = " + ps.race.towerMap);
+		foreach(var entry in ps.race.towerMap)
+		{
+			Debug.Log ("Key = " + entry.Key + ", Value = " + entry.Value);
+		}
 		if(null == (t = ps.race.getTower(towerName_))) {Debug.Log ("Player's Race cannot build a tower of type " + towerName_ + "!"); return;}
 		if(t.cost > ps.gold) {Debug.Log ("Player does not have enough money to build this tower!"); return;}
 		
