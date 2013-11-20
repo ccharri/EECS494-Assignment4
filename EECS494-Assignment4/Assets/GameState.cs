@@ -642,7 +642,7 @@ public class GameState : MonoBehaviour
 		removeTower (networkViewID, ownerGUID_);
 	}
 
-	void removeTower(NetworkViewID networkViewID, string ownerGUID_)
+	public void removeTower(NetworkViewID networkViewID, string ownerGUID_)
 	{
 		NetworkView view = NetworkView.Find (networkViewID);
 		removeTowerForPlayer(ownerGUID_, view.gameObject.GetComponent<Tower>());
@@ -662,7 +662,7 @@ public class GameState : MonoBehaviour
 		removeCreep (networkViewID, ownerGUID_);
 	}
 	
-	void removeCreep(NetworkViewID networkViewID, string ownerGUID_)
+	public void removeCreep(NetworkViewID networkViewID, string ownerGUID_)
 	{
 		NetworkView view = NetworkView.Find (networkViewID);
 		removeCreepForPlayer(ownerGUID_, view.gameObject.GetComponent<Creep>());
