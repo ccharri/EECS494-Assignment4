@@ -249,6 +249,7 @@ public class GameNetworkManager : MonoBehaviour {
 
 			if(GUI.Button (new Rect((Screen.width - 100)/2, Screen.height - 300, 200, 200), "Start"))
 			{
+				MasterServer.UnregisterHost();
 				networkView.RPC ("launchGameScene", RPCMode.AllBuffered);
 			}
 

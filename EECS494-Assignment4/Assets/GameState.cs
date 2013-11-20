@@ -360,7 +360,16 @@ public class GameState : MonoBehaviour
 
     public float getGameTime() { return time; }
 
+	public void onCreepLeaked(Creep creep)
+	{
+		removeCreep(creep.networkView.viewID, creep.getOwner());
+		networkView.RPC ("removeCreep", RPCMode.OthersBuffered, creep.networkView.viewID, creep.getOwner ());
 
+		players[creep.getOwner ()].lives -= creep.lifeCost;
+		networkView.RPC ("setLives", RPCMode.OthersBuffered, players[creep.getOwner()].lives, creep.getOwner ());
+
+		Network.Destroy(creep.gameObject);
+	}
 
 	//RPCs
 

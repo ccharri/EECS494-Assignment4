@@ -67,6 +67,12 @@ public abstract class Creep : Spawnable, Selectable
         	base.FixedUpdate();
             navAgent = GetComponent<NavMeshAgent>();
         	navAgent.speed = speed.get();
+
+			if((transform.position - navAgent.destination).magnitude < .1)
+			{
+				GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
+				g.onCreepLeaked(this);
+			}
 		}
     }
 
