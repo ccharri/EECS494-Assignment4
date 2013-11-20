@@ -492,7 +492,7 @@ public class GameState : MonoBehaviour
 		foreach(PlayerState pstate in players.Values)
 		{
 			NetworkPlayer player = pstate.player;
-			if(player == player_) return;
+			if(player == player_) continue;
 
 			c = ((GameObject)Network.Instantiate(c.prefab, spawnLocation, Quaternion.identity, 0)).GetComponent<Creep>();
 
