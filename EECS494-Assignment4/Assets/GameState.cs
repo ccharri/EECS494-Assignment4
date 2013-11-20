@@ -18,6 +18,8 @@ public class GameState : MonoBehaviour
     float nextIncomeTime = 10;
     float time = 0;
 
+	public Vector3 spawnLocation;
+
 	public PlacementManager pMan;
 	
 	void Awake()
@@ -31,6 +33,7 @@ public class GameState : MonoBehaviour
 		players = new Dictionary<string, PlayerState>();
 		spawns = new Dictionary<string, SpawnerState>();
 		pMan = GetComponent<PlacementManager>();
+		spawnLocation = GameObject.FindGameObjectWithTag("SpawnLocation").transform.position;
 	}
 
     void Start()
@@ -423,7 +426,7 @@ public class GameState : MonoBehaviour
 		if(us.currentStock == 0) {Debug.Log("Player's Spawner does not have enough stock!"); return;}
 		
 		//Spawn creep and set destination afterwards
-		//c = ((GameObject)Network.Instantiate(t.gameObject, SPAWNERPOSITION, Quaternion.identity, 0)).GetComponent<Creep>();
+		c = ((GameObject)Network.Instantiate(c.prefab, spawnLocation, Quaternion.identity, 0)).GetComponent<Creep>();
 		ps.gold -= c.cost;
 
 		if(!(Network.player == player_))
