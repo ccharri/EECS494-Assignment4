@@ -254,8 +254,11 @@ public class GameState : MonoBehaviour
 	public void addCreepForPlayer(string pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
     {
 		List<Creep> list = creepsByArena[pid];
-		if(list != null)
-			list.Add(c);
+        if(list != null)
+        {
+            list.Add(c);
+            c.Init(pid);
+        }
     }
 	public void addTowerForPlayer(string pid, Tower t) //TODO: fix params? make it a prefab? change the method name?
     {
