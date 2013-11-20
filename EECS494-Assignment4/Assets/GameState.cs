@@ -438,7 +438,8 @@ public class GameState : MonoBehaviour
 		Creep c;
 		PlayerState ps;
 		if(null == (ps = players[player_.guid])) {Debug.Log ("Player " + player_ + " does not exist!"); return;}
-		if(null == (c = ps.race.getCreep(creepName_))) {Debug.Log ("Player's Race cannot build a creep of type " + creepName_ + "!"); return;}
+		if(null == ps.race.creepMap.ContainsKey(creepName_)) {Debug.Log ("Player's Race cannot build a creep of type " + creepName_ + "!"); return;}
+		c = ps.race.getCreep(creepName_);
 		if(c.cost > ps.gold) {Debug.Log ("Player does not have enough money to build this creep!"); return;}
 		
 		SpawnerState ss = spawns[player_.guid];
