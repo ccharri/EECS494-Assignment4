@@ -6,11 +6,19 @@ public class PlacementManager : MonoBehaviour {
 	public bool placing = false;
 	private GameObject placeObject;
 	
-	public float gridSize = 10;
+	public float gridSize = .5f;
 
 	// Use this for initialization
 	void Start () {
 	
+	}
+
+	public void beginPlacing(GameObject placePrefab_)
+	{
+		placePrefab = placePrefab_;
+		placing = true;
+		placeObject = (GameObject)Instantiate(placePrefab);
+		placeObject.layer = 2;
 	}
 	
 	// Update is called once per frame
@@ -31,24 +39,13 @@ public class PlacementManager : MonoBehaviour {
 		}
 	}
 
-	void OnGUI() {
-		if(!placing)
-		{
-			if(GUI.Button(new Rect(20, Screen.height-70, 100, 50), "Place a box"))
-			{
-				placing = true;
-				placeObject = (GameObject)Instantiate(placePrefab);
-				placeObject.layer = 2;
-			}
-		}
-	}
-
 	void place(Vector3 point)
 	{
 		Destroy(placeObject);
 		placeObject = null;
 		Instantiate(placePrefab, alignToGrid(point), Quaternion.identity);
 		placing = false;
+		enabled = false;
 	}
 	
 	Vector3 alignToGrid(Vector3 point)

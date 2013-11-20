@@ -17,6 +17,8 @@ public class GameState : MonoBehaviour
     float incomeTimeIncrement = 10;
     float nextIncomeTime = 10;
     float time = 0;
+
+	public PlacementManager pMan;
 	
 	void Awake()
 	{
@@ -28,6 +30,7 @@ public class GameState : MonoBehaviour
 		towersByPlayer = new Dictionary<string, List<Tower>>();
 		players = new Dictionary<string, PlayerState>();
 		spawns = new Dictionary<string, SpawnerState>();
+		pMan = GetComponent<PlacementManager>();
 	}
 
     void Start()
@@ -195,7 +198,8 @@ public class GameState : MonoBehaviour
 			rowCount++;
 			if (GUILayout.Button(entry.Key)) //use entry.Value.name after towers have a name defined (maybe)
 			{
-
+				pMan.enabled = true;
+				pMan.beginPlacing(entry.Value.prefab);
 			}
 			if (rowCount == 4)
 			{
