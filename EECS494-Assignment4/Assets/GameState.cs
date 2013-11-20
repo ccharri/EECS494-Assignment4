@@ -373,7 +373,7 @@ public class GameState : MonoBehaviour
 			Debug.Log ("Key = " + entry.Key + ", Value = " + entry.Value);
 			Debug.Log (entry.Value.name + ", " + entry.Value.id);
 		}
-		if(null == ps.race.towerMap.ContainsKey(towerName_))  {Debug.Log ("Player's Race cannot build a tower of type " + towerName_ + "!"); return;}
+		if(!ps.race.towerMap.ContainsKey(towerName_))  {Debug.Log ("Player's Race cannot build a tower of type " + towerName_ + "!"); return;}
 		t = ps.race.getTower(towerName_);
 		if(t.cost > ps.gold) {Debug.Log ("Player does not have enough money to build this tower!"); return;}
 		
@@ -418,7 +418,7 @@ public class GameState : MonoBehaviour
 		
 		SpawnerState ss = spawns[player_.guid];
 		UnitSpawn us;
-		if(null == ss.hasSpawn(creepName_)) {Debug.Log ("Player's Spawner does not have creeps of this type!"); return;}
+		if(!ss.hasSpawn(creepName_)) {Debug.Log ("Player's Spawner does not have creeps of this type!"); return;}
 		us = ss.getSpawn(creepName_);
 		if(us.currentStock == 0) {Debug.Log("Player's Spawner does not have enough stock!"); return;}
 		
