@@ -20,11 +20,6 @@ public class DummyTower : Tower {
       guiStyleBack.wordWrap = true;	
 	}
 
-    public override void Init(string s)
-    {
-
-    }
-
   public override string getDescription()
   {
       string description = "Object: " + name + "\nTargeting: ";

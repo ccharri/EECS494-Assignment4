@@ -257,7 +257,7 @@ public class GameState : MonoBehaviour
         if(list != null)
         {
             list.Add(c);
-            c.Init(pid);
+            c.setOwner(pid);
         }
     }
 	public void addTowerForPlayer(string pid, Tower t) //TODO: fix params? make it a prefab? change the method name?
@@ -266,7 +266,7 @@ public class GameState : MonoBehaviour
         if(list != null)
         {
             list.Add(t);
-            t.Init(pid);
+            t.setOwner(pid);
         }
     }
 

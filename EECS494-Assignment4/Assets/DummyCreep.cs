@@ -21,11 +21,6 @@ public class DummyCreep : Creep {
       guiStyleBack.wordWrap = true;		
 	}
 
-    public override void Init(string s)
-    {
-        
-    }
-
   public string getDescription()
   {
       return "DummyCreep description";

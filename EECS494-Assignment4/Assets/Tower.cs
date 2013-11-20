@@ -18,13 +18,11 @@ public abstract class Tower : Spawnable, Selectable
         g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
     }
 
-    protected void Init(string name, string guid, float range_, float cooldown_)
-    {
-        range = new Attribute(range_);
-        cooldown = new Attribute(cooldown_);
-        setName(name);
-        setOwner(guid);
-    }
+    public void setRange(float range_)          { range = new Attribute(range_); }
+    public void setCooldown(float cooldown_)    { cooldown = new Attribute(cooldown_); }
+
+    public float getRange()                     { return range.get(); }
+    public float getCooldown()                  { return cooldown.get(); }
 
 	protected override void Update () 
 	{

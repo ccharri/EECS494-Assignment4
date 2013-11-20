@@ -3,6 +3,17 @@ using System.Collections;
 
 public class InfamousCrate : Creep 
 {
+    void Awake()
+    {
+        setName("Infamous Crate");
+        setId("InfamousCrate");
+        setHealth(100);
+        setSpeed(10);
+        setMana(10);
+        setBounty(1);
+        setLifeCost(1);
+    }
+
 	public void LoadPrefabs()
 	{
 		id = "infamousCrate";
@@ -13,9 +24,4 @@ public class InfamousCrate : Creep
 		else
 			Debug.Log ("InfamousCrate = null");
 	}
-
-    public override void Init(string ownerGUID)
-    {
-        Init("Infamous Crate", ownerGUID, 100, 10, 10, 1);
-    }
 }

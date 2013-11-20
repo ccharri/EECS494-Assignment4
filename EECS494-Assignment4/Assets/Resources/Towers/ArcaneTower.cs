@@ -7,8 +7,10 @@ public class ArcaneTower : Tower
 
 	void Awake() 
 	{
-		id = "arcaneTower";
-		name = "Arcane Tower";
+		setId("arcaneTower");
+		setName("Arcane Tower");
+        setCooldown(1);
+        setRange(10);
 	}
 
 	public void LoadPrefabs()
@@ -26,11 +28,6 @@ public class ArcaneTower : Tower
 		else
 			Debug.Log ("MagicMissile prefab = null");
 	}
-
-    public override void Init(string pid_)
-    {
-        base.Init("Arcane Tower", pid_, 1, 1);
-    }
 
     protected override void fire()
     {

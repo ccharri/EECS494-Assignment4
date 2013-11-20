@@ -3,13 +3,19 @@ using System.Collections;
 
 public abstract class Creep : Spawnable, Selectable 
 {
-	Attribute health;
-	Attribute speed;
-	Attribute mana;
-	public int bounty;
-	public int lifeCost;
+	Attribute health = new Attribute(1);
+	Attribute speed = new Attribute(1);
+	Attribute mana = new Attribute(1);
+	public int bounty = 1;
+	public int lifeCost = 1;
 
 	NavMeshAgent navAgent;
+
+
+    void Awake()
+    {
+        navAgent = GetComponent<NavMeshAgent>();
+    }
 
     public virtual bool onDamage(float damage)
     {
@@ -32,19 +38,11 @@ public abstract class Creep : Spawnable, Selectable
     }
 
 
-    protected void Init(string name, string guid, float health_, float mana_, float speed_, int bounty_, int lifeCost_ = 1)
-    {
-        health = new Attribute(health_);
-        mana = new Attribute(mana_);
-        speed = new Attribute(speed_);
-        bounty = bounty_;
-        lifeCost = lifeCost_;
-
-        setName(name);
-        setOwner(guid);
-
-		navAgent = GetComponent<NavMeshAgent>();
-    }
+    public void setHealth(float health_)    { health = new Attribute(health_); }
+    public void setSpeed(float speed_)      { speed = new Attribute(speed_); }
+    public void setMana(float mana_)        { mana = new Attribute(mana_); }
+    public void setBounty(int bounty_)      { bounty = bounty_; }
+    public void setLifeCost(int lifeCost_)  { lifeCost = lifeCost_;}
 
     protected override void FixedUpdate()
     {
@@ -52,9 +50,6 @@ public abstract class Creep : Spawnable, Selectable
 
         navAgent.speed = speed.get();
     }
-
-	
-
 
     public string getDescription()
     {
