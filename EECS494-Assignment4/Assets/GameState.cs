@@ -20,6 +20,8 @@ public class GameState : MonoBehaviour
     float nextIncomeTime = 10;
     float time = 0;
 
+	bool showMenu = false;
+
 	public Vector3 spawnLocation;
 
 	public PlacementManager pMan;
@@ -118,7 +120,29 @@ public class GameState : MonoBehaviour
 
         GUILayout.EndVertical();
         GUILayout.EndArea();
+
+		if(showMenu)
+		{
+			GUILayout.Window(0, new Rect(Screen.width/2 - 200, Screen.height/2 - 200, 400, 400), WindowGUI, "Menu", GUILayout.Width(400), GUILayout.Height(400));
+		}
     }
+
+	void WindowGUI(int windowID)
+	{
+		GUILayout.BeginVertical();
+		if(GUILayout.Button ("Back"))
+		{
+			showMenu = false;
+		}
+
+		GUILayout.FlexibleSpace();
+
+		if(GUILayout.Button ("Exit"))
+		{
+			Application.Quit();
+		}
+		GUILayout.EndVertical();
+	}
 
     void OnGUI_TopBar()
     {
@@ -126,9 +150,9 @@ public class GameState : MonoBehaviour
 
         var layoutOptions = new GUILayoutOption[] { GUILayout.Height(20) };
 
-        if (GUILayout.Button("FILE", layoutOptions))
+        if (GUILayout.Button("Menu", layoutOptions))
         {
-            //menu buttons code and whatever
+			showMenu = true;
         }
         if (GUILayout.Button("EDIT", layoutOptions))
         {
