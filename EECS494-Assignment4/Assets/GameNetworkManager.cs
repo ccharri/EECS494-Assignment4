@@ -16,7 +16,6 @@ public class GameNetworkManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		Network.logLevel = UnityEngine.NetworkLogLevel.Full;
 	}
 	
 	// Update is called once per frame
