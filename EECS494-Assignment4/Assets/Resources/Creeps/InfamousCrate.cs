@@ -12,12 +12,15 @@ public class InfamousCrate : Creep
         setMana(10);
         setBounty(1);
         setLifeCost(1);
+		cost = 5;
     }
 
 	public void LoadPrefabs()
 	{
 		id = "infamousCrate";
 		name = "Infamous Crate";
+		cost = 5;
+		bounty = 1;
 		prefab = Resources.Load ("Creeps/InfamousCrate") as GameObject;
 		if(prefab != null)
 			Debug.Log ("Loaded InfamousCrate prefab");
