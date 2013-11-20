@@ -60,7 +60,7 @@ public abstract class Projectile : Unit
             base.FixedUpdate();
             if(target == null)
             {
-                Destroy(this.gameObject);
+                Network.Destroy(this.gameObject);
             }
         }
     }

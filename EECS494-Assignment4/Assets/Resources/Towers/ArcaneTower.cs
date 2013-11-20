@@ -34,7 +34,7 @@ public class ArcaneTower : Tower
     protected override void fire()
     {
         base.fire();
-        GameObject proj = Instantiate(magicMissile, transform.position, transform.rotation) as GameObject;
+        GameObject proj = Network.Instantiate(magicMissile, transform.position, transform.rotation, 0) as GameObject;
         MagicMissile p = proj.GetComponent<MagicMissile>();
         p.Init(target, this);
     }
