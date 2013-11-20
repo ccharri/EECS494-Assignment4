@@ -11,6 +11,7 @@ public class ArcaneTower : Tower
 		setName("Arcane Tower");
         setCooldown(1);
         setRange(10);
+		cost = 10;
 	}
 
 	public void LoadPrefabs()

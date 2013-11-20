@@ -388,7 +388,9 @@ public class GameState : MonoBehaviour
 		//if(!canBuild(t, buildpos) {Debug.Log("Cannot build tower at this location!"); return;}
 		t = ((GameObject)Network.Instantiate(t.prefab, buildpos, Quaternion.identity, 0)).GetComponent<Tower>();
 		ps.gold -= t.cost;
-		networkView.RPC("setGold", player_, ps.gold, player_.guid);
+
+		if(!Network.player == player_)
+			networkView.RPC("setGold", player_, ps.gold, player_.guid);
 		
 		//Add tower to tower lists
 		addTower (t.networkView.viewID, player_.guid);
@@ -425,11 +427,15 @@ public class GameState : MonoBehaviour
 		//Spawn creep and set destination afterwards
 		//c = ((GameObject)Network.Instantiate(t.gameObject, SPAWNERPOSITION, Quaternion.identity, 0)).GetComponent<Creep>();
 		ps.gold -= c.cost;
-		networkView.RPC("setGold", player_, ps.gold, player_.guid);
+
+		if(!Network.player == player_)
+			networkView.RPC("setGold", player_, ps.gold, player_.guid);
 		
 		//Increase player income
 		ps.income += c.bounty;
-		networkView.RPC ("setIncome", player_, ps.income, player_.guid);
+
+		if(!Network.player == player_)
+			networkView.RPC ("setIncome", player_, ps.income, player_.guid);
 		
 		//Add creep to creep lists, however it is we do it
 		//addCreep(c.networkView.viewID, player_.guid);
@@ -438,11 +444,15 @@ public class GameState : MonoBehaviour
 		if(us.currentStock == us.maxStock)
 		{
 			us.lastRestock = time;
-			networkView.RPC("setStockTimer", player_, us.lastRestock, player_.guid, creepName_);
+
+			if(!Network.player == player_)
+				networkView.RPC("setStockTimer", player_, us.lastRestock, player_.guid, creepName_);
 		}
 		
 		us.currentStock -= 1;
-		networkView.RPC ("setStock", player_, us.currentStock, player_.guid, creepName_);
+
+		if(!Network.player == player_)
+			networkView.RPC ("setStock", player_, us.currentStock, player_.guid, creepName_);
 	}
 
 	//-----------------------------------------------------
