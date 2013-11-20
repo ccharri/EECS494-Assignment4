@@ -45,7 +45,7 @@ public abstract class Creep : Spawnable, Selectable
     {
         GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
         g.getEnemyCreeps(ownerGUID).Remove(this);
-        Destroy(this.gameObject);
+        Network.Destroy(this.gameObject);
     }
 
     public virtual bool isAlive()
