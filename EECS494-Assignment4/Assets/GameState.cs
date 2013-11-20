@@ -334,6 +334,7 @@ public class GameState : MonoBehaviour
         towersByPlayer.Add(player.guid, new List<Tower>());
         players.Add(player.guid, new PlayerState(player));
 		spawns.Add (player.guid, new SpawnerState(player));
+		playerNums.Add(player.guid);
     }
 
     public int getPlayerNum(string pid)
