@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class PlacementManager : MonoBehaviour {
-	public GameObject placePrefab;
 	public bool placing = false;
 	private GameObject placeObject;
 
@@ -22,9 +21,8 @@ public class PlacementManager : MonoBehaviour {
 
 	public void beginPlacing(GameObject placePrefab_)
 	{
-		placePrefab = placePrefab_;
 		placing = true;
-		placeObject = (GameObject)Instantiate(placePrefab);
+		placeObject = Instantiate(placePrefab_) as GameObject;
 		placeObject.layer = 2;
 	}
 	

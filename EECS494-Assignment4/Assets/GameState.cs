@@ -275,9 +275,9 @@ public class GameState : MonoBehaviour
 	
 	public List<Creep> getEnemyCreeps(string pid)
     {
-     //   if(creepsByArena.ContainsKey(pid))
+        if(creepsByArena.ContainsKey(pid))
             return creepsByArena[pid];
-      //  return null; //TODO: Throw an exception?
+        return null; //TODO: Throw an exception?
     }
 
 	public void addPlayer(NetworkPlayer player)
@@ -348,6 +348,12 @@ public class GameState : MonoBehaviour
 	{
 		Tower t;
 		PlayerState ps;
+
+		foreach(var entry in players)
+		{
+			Debug.Log ("Key = " + entry.Key + ", Value = " + entry.Value);
+		}
+
 		if(null == (ps = players[player_.guid])) {Debug.Log ("Player " + player_ + " does not exist!"); return;}
 		foreach(var entry in ps.race.towerMap)
 		{
@@ -365,7 +371,7 @@ public class GameState : MonoBehaviour
 		//from start to finish
 		
 		//if(!canBuild(t, buildpos) {Debug.Log("Cannot build tower at this location!"); return;}
-		t = ((GameObject)Network.Instantiate(t.gameObject, buildpos, Quaternion.identity, 0)).GetComponent<Tower>();
+		t = ((GameObject)Network.Instantiate(t.prefab, buildpos, Quaternion.identity, 0)).GetComponent<Tower>();
 		ps.gold -= t.cost;
 		networkView.RPC("setGold", player_, ps.gold, player_.guid);
 		
