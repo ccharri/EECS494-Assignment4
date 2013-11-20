@@ -5,8 +5,15 @@ public class PlacementManager : MonoBehaviour {
 	public GameObject placePrefab;
 	public bool placing = false;
 	private GameObject placeObject;
-	
+
+	GameState gstate;
+
 	public float gridSize = .5f;
+
+	void Awake() 
+	{
+		gstate = GetComponent<GameState>();
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -42,8 +49,16 @@ public class PlacementManager : MonoBehaviour {
 	void place(Vector3 point)
 	{
 		Destroy(placeObject);
+		if(Network.isServer)
+		{
+			gstate.tryTowerSpawn(placeObject.name, point, Network.player);
+		}
+		else
+		{
+			networkView.RPC("tryTowerSpawn", RPCMode.Server, placeObject.name, point, Network.player);
+		}
 		placeObject = null;
-		Instantiate(placePrefab, alignToGrid(point), Quaternion.identity);
+//		Instantiate(placePrefab, alignToGrid(point), Quaternion.identity);
 		placing = false;
 		enabled = false;
 	}

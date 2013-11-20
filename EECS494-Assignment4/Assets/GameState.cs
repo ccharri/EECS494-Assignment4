@@ -196,7 +196,7 @@ public class GameState : MonoBehaviour
 		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap)
 		{
 			rowCount++;
-			if (GUILayout.Button(entry.Key)) //use entry.Value.name after towers have a name defined (maybe)
+			if (GUILayout.Button(entry.Value.name)) //use entry.Value.name after towers have a name defined (maybe)
 			{
 				pMan.enabled = true;
 				pMan.beginPlacing(entry.Value.prefab);
@@ -344,7 +344,7 @@ public class GameState : MonoBehaviour
 		tryTowerSpawn(towerName_, position_, player_);
 	}
 
-	void tryTowerSpawn(string towerName_, Vector3 position_, NetworkPlayer player_)
+	public void tryTowerSpawn(string towerName_, Vector3 position_, NetworkPlayer player_)
 	{
 		Tower t;
 		PlayerState ps;
@@ -353,15 +353,15 @@ public class GameState : MonoBehaviour
 		if(t.cost > ps.gold) {Debug.Log ("Player does not have enough money to build this tower!"); return;}
 		
 		//Pseudocode for constraint checking
-		
-		//Vector3 buildpos = constraintToGrid(position_);
+		Vector3 buildpos = position_;
+//		Vector3 buildpos = constraintToGrid(position_);
 		
 		//canBuild encapsulates checking for collisions with creeps and other towers, checking that
 		//the tower is inside the buildable area of the player, and that it does not block a path
 		//from start to finish
 		
 		//if(!canBuild(t, buildpos) {Debug.Log("Cannot build tower at this location!"); return;}
-		//t = ((GameObject)Network.Instantiate(t.gameObject, buildpos, Quaternion.identity, 0)).GetComponent<Tower>();
+		t = ((GameObject)Network.Instantiate(t.gameObject, buildpos, Quaternion.identity, 0)).GetComponent<Tower>();
 		ps.gold -= t.cost;
 		networkView.RPC("setGold", player_, ps.gold, player_.guid);
 		
@@ -383,7 +383,7 @@ public class GameState : MonoBehaviour
 		tryCreepSpawn(creepName_, player_);
 	}
 
-	void tryCreepSpawn(string creepName_, NetworkPlayer player_)
+	public void tryCreepSpawn(string creepName_, NetworkPlayer player_)
 	{
 		Creep c;
 		PlayerState ps;

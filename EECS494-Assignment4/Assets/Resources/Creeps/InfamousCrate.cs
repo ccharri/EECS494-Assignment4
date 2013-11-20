@@ -5,6 +5,8 @@ public class InfamousCrate : Creep
 {
 	public void LoadPrefabs()
 	{
+		id = "infamousCrate";
+		name = "Infamous Crate";
 		prefab = Resources.Load ("Creeps/InfamousCrate") as GameObject;
 		if(prefab != null)
 			Debug.Log ("Loaded InfamousCrate prefab");

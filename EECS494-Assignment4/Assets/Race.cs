@@ -15,8 +15,8 @@ public class Race{
 		InfamousCrate icrate = new InfamousCrate();
 		icrate.LoadPrefabs();
 
-        towerMap.Add("Arcane Tower", atower);
-        creepMap.Add("Infamous Crate",  icrate);
+        towerMap.Add(atower.id, atower);
+        creepMap.Add(icrate.id, icrate);
     }
 
 	public Tower getTower(string tower)

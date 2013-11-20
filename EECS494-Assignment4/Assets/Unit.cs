@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public abstract class Unit : MonoBehaviour 
 {
 	public string name; //This is an internal name used for mapping and RPC calls
+	public string id;
 	protected string ownerGUID;
     protected List<Buff<Unit>> buffs = new List<Buff<Unit>>();
     //TODO: Consider changing this to a map from BuffTag (string) to Buff for faster lookup

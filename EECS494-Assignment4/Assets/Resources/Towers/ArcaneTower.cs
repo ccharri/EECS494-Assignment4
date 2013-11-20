@@ -7,6 +7,8 @@ public class ArcaneTower : Tower
 
 	public void LoadPrefabs()
 	{
+		id = "arcaneTower";
+		name = "Arcane Tower";
 		prefab = Resources.Load ("Towers/ArcaneTower") as GameObject;
 		if(prefab != null)
 			Debug.Log ("Loaded ArcaneTower prefab " + prefab);
