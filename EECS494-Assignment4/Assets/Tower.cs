@@ -37,7 +37,7 @@ public abstract class Tower : Spawnable, Selectable
             // Cooldown elapsed, Fire!
             if((lastFired + cooldown.get()) <= g.getGameTime())
             {
-                if(target == null)
+                if(target == null || canFire(target) == false)
                     target = findTarget();
                 if(target != null)
                     fire();
@@ -48,7 +48,6 @@ public abstract class Tower : Spawnable, Selectable
 	
 	protected virtual void fire()
 	{
-        print("LAUNCHED");
 		lastFired = g.getGameTime();
 	}
 	
@@ -57,7 +56,6 @@ public abstract class Tower : Spawnable, Selectable
         List<Creep> arenaCreeps = g.getEnemyCreeps(ownerGUID);
         if(arenaCreeps.Count == 0)
             return null;
-        Creep target = arenaCreeps[0];
         foreach(Creep c in arenaCreeps)
         {
             if(canFire(c))
