@@ -57,9 +57,12 @@ public abstract class Creep : Spawnable, Selectable
 
     protected override void FixedUpdate()
     {
-        base.FixedUpdate();
+		if(Network.isServer)
+		{
+        	base.FixedUpdate();
 
-        navAgent.speed = speed.get();
+        	navAgent.speed = speed.get();
+		}
     }
 
     public string getDescription()
