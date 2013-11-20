@@ -30,6 +30,7 @@ public abstract class Tower : Spawnable, Selectable
 	}
 	protected override void FixedUpdate() 
 	{
+        g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
         if(Network.isServer)
         {
             base.FixedUpdate();
