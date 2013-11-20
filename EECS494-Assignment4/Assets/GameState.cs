@@ -442,12 +442,12 @@ public class GameState : MonoBehaviour
 		c = ps.race.getCreep(creepName_);
 		if(c.cost > ps.gold) {Debug.Log ("Player does not have enough money to build this creep!"); return;}
 		
-		SpawnerState ss = spawns[player_.guid];
+		/*SpawnerState ss = spawns[player_.guid];
 		UnitSpawn us;
 		if(!ss.hasSpawn(creepName_)) {Debug.Log ("Player's Spawner does not have creeps of this type!"); return;}
 		us = ss.getSpawn(creepName_);
 		if(us.currentStock == 0) {Debug.Log("Player's Spawner does not have enough stock!"); return;}
-		
+*/
 		//Spawn creep and set destination afterwards
 		c = ((GameObject)Network.Instantiate(c.prefab, spawnLocation, Quaternion.identity, 0)).GetComponent<Creep>();
 		ps.gold -= c.cost;
@@ -464,7 +464,7 @@ public class GameState : MonoBehaviour
 		//Add creep to creep lists, however it is we do it
 		//addCreep(c.networkView.viewID, player_.guid);
 		//networkView.RPC ("addCreep", RPCMode.OthersBuffered, c.networkView.viewID, player_.guid);
-		
+		/*
 		if(us.currentStock == us.maxStock)
 		{
 			us.lastRestock = time;
@@ -477,6 +477,7 @@ public class GameState : MonoBehaviour
 
 		if(!(Network.player == player_))
 			networkView.RPC ("setStock", player_, us.currentStock, player_.guid, creepName_);
+		*/
 	}
 
 	//-----------------------------------------------------
