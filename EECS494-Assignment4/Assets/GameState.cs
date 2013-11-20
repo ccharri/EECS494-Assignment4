@@ -410,7 +410,7 @@ public class GameState : MonoBehaviour
 		
 		SpawnerState ss = spawns[player_.guid];
 		UnitSpawn us;
-		if(null == ss.getSpawn(creepName_)) {Debug.Log ("Player's Spawner does not have creeps of this type!"); return;}
+		if(null == ss.hasSpawn(creepName_)) {Debug.Log ("Player's Spawner does not have creeps of this type!"); return;}
 		us = ss.getSpawn(creepName_);
 		if(us.currentStock == 0) {Debug.Log("Player's Spawner does not have enough stock!"); return;}
 		
