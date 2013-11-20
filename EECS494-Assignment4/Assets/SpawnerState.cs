@@ -18,6 +18,11 @@ public class SpawnerState
 	//Disable default construction
 	private SpawnerState() {}
 
+	public bool hasSpawn(string name)
+	{
+		return unitSpawnStateMap.ContainsKey(name);
+	}
+
 	public UnitSpawn getSpawn(Spawnable u)
 	{
 		return unitSpawnStateMap[u.name];

@@ -198,6 +198,11 @@ public class GameState : MonoBehaviour
 			rowCount++;
 			if (GUILayout.Button(entry.Value.name)) //use entry.Value.name after towers have a name defined (maybe)
 			{
+				foreach(var e in pState.race.towerMap)
+				{
+					Debug.Log ("Key = " + e.Key + ", Value = " + e.Value);
+					Debug.Log (e.Value.name + ", " + e.Value.id);
+				}
 				pMan.enabled = true;
 				pMan.beginPlacing(entry.Value.prefab);
 			}
@@ -363,8 +368,10 @@ public class GameState : MonoBehaviour
 		foreach(var entry in ps.race.towerMap)
 		{
 			Debug.Log ("Key = " + entry.Key + ", Value = " + entry.Value);
+			Debug.Log (entry.Value.name + ", " + entry.Value.id);
 		}
-		if(null == (t = ps.race.getTower(towerName_))) {Debug.Log ("Player's Race cannot build a tower of type " + towerName_ + "!"); return;}
+		if(null == ps.race.towerMap.ContainsKey(towerName_))  {Debug.Log ("Player's Race cannot build a tower of type " + towerName_ + "!"); return;}
+		t = ps.race.getTower(towerName_);
 		if(t.cost > ps.gold) {Debug.Log ("Player does not have enough money to build this tower!"); return;}
 		
 		//Pseudocode for constraint checking
@@ -408,7 +415,8 @@ public class GameState : MonoBehaviour
 		
 		SpawnerState ss = spawns[player_.guid];
 		UnitSpawn us;
-		if(null == (us = ss.getSpawn(creepName_))) {Debug.Log ("Player's Spawner does not have creeps of this type!"); return;}
+		if(null == ss.hasSpawn(creepName_)) {Debug.Log ("Player's Spawner does not have creeps of this type!"); return;}
+		us = ss.getSpawn(creepName_);
 		if(us.currentStock == 0) {Debug.Log("Player's Spawner does not have enough stock!"); return;}
 		
 		//Spawn creep and set destination afterwards
