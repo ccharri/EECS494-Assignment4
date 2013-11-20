@@ -24,6 +24,7 @@ public class PlacementManager : MonoBehaviour {
 		placing = true;
 		placeObject = Instantiate(placePrefab_) as GameObject;
 		placeObject.GetComponent<Tower>().enabled = false;
+		placeObject.GetComponent<NavMeshObstacle>().enabled = false;
 		placeObject.layer = 2;
 	}
 	

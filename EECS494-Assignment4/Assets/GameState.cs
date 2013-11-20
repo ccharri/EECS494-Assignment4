@@ -484,25 +484,29 @@ public class GameState : MonoBehaviour
 		if(us.currentStock == 0) {Debug.Log("Player's Spawner does not have enough stock!"); return;}
 */
 		//Spawn creep and set destination afterwards
-		c = ((GameObject)Network.Instantiate(c.prefab, spawnLocation, Quaternion.identity, 0)).GetComponent<Creep>();
+		foreach(NetworkPlayer player in Network.connections)
+		{
+			if(player == player_) return;
 
-		ps.gold -= c.cost;
+			c = ((GameObject)Network.Instantiate(c.prefab, spawnLocation, Quaternion.identity, 0)).GetComponent<Creep>();
 
-		if(!(Network.player == player_))
-			networkView.RPC("setGold", player_, ps.gold, player_.guid);
-		
-		//Increase player income
-		ps.income += c.bounty;
+			ps.gold -= c.cost;
 
-		if(!(Network.player == player_))
-			networkView.RPC ("setIncome", player_, ps.income, player_.guid);
-		
-		//Add creep to creep lists, however it is we do it
-		addCreep(c.networkView.viewID, player_.guid);
-		networkView.RPC ("addCreep", RPCMode.OthersBuffered, c.networkView.viewID, player_.guid);
+			if(!(Network.player == player_))
+				networkView.RPC("setGold", player_, ps.gold, player_.guid);
+			
+			//Increase player income
+			ps.income += c.bounty;
 
-		c.updateDestination();
+			if(!(Network.player == player_))
+				networkView.RPC ("setIncome", player_, ps.income, player_.guid);
+			
+			//Add creep to creep lists, however it is we do it
+			addCreep(c.networkView.viewID, player.guid);
+			networkView.RPC ("addCreep", RPCMode.OthersBuffered, c.networkView.viewID, player.guid);
 
+			c.updateDestination();
+		}
 		/*
 		if(us.currentStock == us.maxStock)
 		{
