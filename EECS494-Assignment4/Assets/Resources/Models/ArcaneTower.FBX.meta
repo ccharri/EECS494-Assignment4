@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 49a2189109164354e8b84a93d2b22051
+guid: 478b25f5ae2c5054a8c885389ea97157
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -23,7 +23,7 @@ ModelImporter:
     4300002: Box001
     4300004: Cylinder001
     4300006: Sphere001
-    7400000: Idle
+    7400000: Take 001
     9500000: //RootNode
     11100000: //RootNode
   materials:
@@ -32,7 +32,7 @@ ModelImporter:
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
-    bakeSimulation: 1
+    bakeSimulation: 0
     optimizeGameObjects: 0
     animationCompression: 1
     animationRotationError: .5
@@ -42,7 +42,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: Take 001
       takeName: Take 001
       firstFrame: 0
       lastFrame: 40
@@ -51,10 +51,10 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 1
-      loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
