@@ -25,6 +25,7 @@ public class GameState : MonoBehaviour
 	public Vector3 spawnLocation;
 
 	public PlacementManager pMan;
+	public Camera mainCamera;
 	
 	void Awake()
 	{
@@ -38,6 +39,7 @@ public class GameState : MonoBehaviour
 		spawns = new Dictionary<string, SpawnerState>();
 		pMan = GetComponent<PlacementManager>();
 		spawnLocation = GameObject.FindGameObjectWithTag("SpawnLocation").transform.position;
+		mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 		playerNums = new List<string>();
 	}
 
@@ -52,6 +54,13 @@ public class GameState : MonoBehaviour
 		foreach(NetworkPlayer player in Network.connections)
 		{
 			initializePlayer(player);
+		}
+
+		if(getPlayerNum(Network.player.guid) == 2)
+		{
+			Transform newPos = mainCamera.transform;
+			newPos.position =  new Vector3(-newPos.position.x, newPos.position.y, newPos.position.z);
+			newPos.Rotate(-270,-180,0);
 		}
     }
 
