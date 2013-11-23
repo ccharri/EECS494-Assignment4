@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class GameState : MonoBehaviour
 {
+
+
 	Dictionary<string, List<Creep>> creepsByArena;
     //NOTE: Returns the creeps in a player's arena. Indexed by pid
 
@@ -56,7 +58,7 @@ public class GameState : MonoBehaviour
 			initializePlayer(player);
 		}
 
-		if(getPlayerNum(Network.player.guid) == 2)
+		if(getPlayerNum(Network.player.guid) != 1)
 		{
 			Transform newPos = mainCamera.transform;
 			newPos.position =  new Vector3(-newPos.position.x, newPos.position.y, newPos.position.z);
@@ -151,7 +153,13 @@ public class GameState : MonoBehaviour
 
 		GUILayout.FlexibleSpace();
 
-		if(GUILayout.Button ("Exit"))
+		if(GUILayout.Button ("Main Menu"))
+		{
+			Network.Disconnect ();
+			Application.LoadLevel("MainScene");
+		}
+
+		if(GUILayout.Button ("Quit Game"))
 		{
 			Application.Quit();
 		}

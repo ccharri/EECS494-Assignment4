@@ -46,6 +46,7 @@ public class GameNetworkManager : MonoBehaviour {
 		string myname = PlayerPrefs.GetString("userName");
 		NameDatabase.addName(Network.player.guid, myname);
 		networkView.RPC ("registerName", RPCMode.Server, myname, Network.player.guid);
+		networkView.RPC ("requestNames", RPCMode.Server);
 	}
 
 	void OnMasterServerEvent(MasterServerEvent mse)
@@ -67,11 +68,7 @@ public class GameNetworkManager : MonoBehaviour {
 
 	void OnPlayerConnected(NetworkPlayer player)
 	{
-		foreach(string key in NameDatabase.getKeys())
-		{
-			//Register other users
-			networkView.RPC ("registerName", player, NameDatabase.getName(key), key);
-		}
+
 	}
 
 	void OnPlayerDisconnected(NetworkPlayer player)
@@ -301,6 +298,18 @@ public class GameNetworkManager : MonoBehaviour {
 	{
 		Debug.Log ("launchGameScene RPC Call received from " + info);
 		Application.LoadLevel("GameScene");
+	}
+
+	[RPC]
+	void requestNames(NetworkMessageInfo info)
+	{
+		Debug.Log ("requestNames received from " + info);
+
+		foreach(string key in NameDatabase.getKeys())
+		{
+			//Register other users
+			networkView.RPC ("registerName", info.sender, NameDatabase.getName(key), key);
+		}
 	}
 
 	[RPC]
