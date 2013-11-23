@@ -9,13 +9,11 @@ public class PlayerState{
 		gold = 25;
 		income = 25;
 		lives = 10;
-
-		race = new Race();
 	}
 
 	public NetworkPlayer player;
 	public int gold;
 	public int income;
 	public int lives;
-	public Race race;
+	public Race race = new Race();
 }

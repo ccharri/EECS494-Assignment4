@@ -6,9 +6,9 @@ public abstract class Buff<T> where T : Unit
 //NOTE: Buffs aren't explicitly required to have owners!
 //NOTE: Buffs DO NOT add themselves to the target (yet?)
 {
-	protected double duration;
-    protected Unit owner;
-    protected T target;
+	public double duration;
+    public Unit owner;
+    public T target;
 
     public Buff(T target_)
     {
