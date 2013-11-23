@@ -9,7 +9,7 @@ public class RaceManager : MonoBehaviour {
 	public List<Race> raceMapValues = new List<Race>();
 	//
 
-	Dictionary<string, Race> raceMap = new Dictionary<string, Race>();
+	public Dictionary<string, Race> raceMap = new Dictionary<string, Race>();
 
 	void Awake()
 	{
