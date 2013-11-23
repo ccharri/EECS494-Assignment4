@@ -52,11 +52,11 @@ public class RacePropertyDrawer : PropertyDrawer {
 			for(int i = 0; i < towerKeys.arraySize; i++)
 			{
 				position.y += 16f;
-				string key = towerKeys.GetArrayElementAtIndex(i).stringValue;
-				key = EditorGUI.TextField(position, key);
+				SerializedProperty key = towerKeys.GetArrayElementAtIndex(i);
+				key.stringValue = EditorGUI.TextField(position, key.stringValue);
 				position.x += position.width;
-				Object value = towerValues.GetArrayElementAtIndex(i).objectReferenceValue;
-				value = EditorGUI.ObjectField(position, value, typeof(Tower), false);
+				SerializedProperty value = towerValues.GetArrayElementAtIndex(i);
+				value.objectReferenceValue = EditorGUI.ObjectField(position, value.objectReferenceValue, typeof(Tower), false);
 				position.x -= position.width;
 			}
 		}
@@ -82,11 +82,11 @@ public class RacePropertyDrawer : PropertyDrawer {
 			for(int i = 0; i < creepKeys.arraySize; i++)
 			{
 				position.y += 16f;
-				string key = creepKeys.GetArrayElementAtIndex(i).stringValue;
-				key = EditorGUI.TextField(position, key);
+				SerializedProperty key = creepKeys.GetArrayElementAtIndex(i);
+				key.stringValue = EditorGUI.TextField(position, key.stringValue);
 				position.x += position.width;
-				Object value = creepValues.GetArrayElementAtIndex(i).objectReferenceValue;
-				value = EditorGUI.ObjectField(position, value, typeof(Creep), false);
+				SerializedProperty value = creepValues.GetArrayElementAtIndex(i);
+				value.objectReferenceValue = EditorGUI.ObjectField(position, value.objectReferenceValue, typeof(Creep), false);
 				position.x -= position.width;
 			}
 		}
