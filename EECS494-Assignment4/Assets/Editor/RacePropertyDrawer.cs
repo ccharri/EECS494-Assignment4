@@ -20,8 +20,9 @@ public class RacePropertyDrawer : PropertyDrawer {
 	{
 		position.height = 16f;
 		Rect foldoutPosition = position;
-		foldoutPosition.x -= 14f;
-		foldoutPosition.width += 14f;
+		int indent = EditorGUI.indentLevel;
+		foldoutPosition.x -= 14f - 14f*indent;
+		foldoutPosition.width += 14f - 14f*indent;
 
 		label = EditorGUI.BeginProperty(position, label, property);
 		property.isExpanded = EditorGUI.Foldout(foldoutPosition, property.isExpanded, label, true);
@@ -33,6 +34,10 @@ public class RacePropertyDrawer : PropertyDrawer {
 		SerializedProperty towerKeys = property.FindPropertyRelative("towerMapKey");
 		SerializedProperty towerValues = property.FindPropertyRelative("towerMapValue");
 
+		position = foldoutPosition;
+		position.x += 14f;
+		position.width -= 14f;
+
 		position.y += 16f;
 		position.width /= 2f;
 
@@ -43,11 +48,8 @@ public class RacePropertyDrawer : PropertyDrawer {
 			position.y += 16f;
 			EditorGUI.LabelField(position, "Size");
 			position.x += position.width;
-			int size = EditorGUI.IntField(position, towerKeys.arraySize);
+			towerKeys.arraySize = towerValues.arraySize = EditorGUI.IntField(position, towerKeys.arraySize);
 			position.x -= position.width;
-
-			towerKeys.arraySize = size;
-			towerValues.arraySize = size;
 
 			for(int i = 0; i < towerKeys.arraySize; i++)
 			{
@@ -73,11 +75,8 @@ public class RacePropertyDrawer : PropertyDrawer {
 			position.y += 16f;
 			EditorGUI.LabelField(position, "Size");
 			position.x += position.width;
-			int size = EditorGUI.IntField(position, creepKeys.arraySize);
+			creepKeys.arraySize = creepValues.arraySize = EditorGUI.IntField(position, creepKeys.arraySize);
 			position.x -= position.width;
-
-			creepKeys.arraySize = size;
-			creepValues.arraySize = size;
 
 			for(int i = 0; i < creepKeys.arraySize; i++)
 			{
