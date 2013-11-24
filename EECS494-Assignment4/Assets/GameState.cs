@@ -86,9 +86,10 @@ public class GameState : MonoBehaviour
 				}
 	            nextIncomeTime += incomeTimeIncrement;
 
+				networkView.RPC ("setTime", RPCMode.Others, time);
 				//Update everyone else's timer.  We don't want to have to rely on messages passed back in,
 				//	in case a User can fabricate setIncomeTimer messages from the server itself
-				networkView.RPC("setIncomeTimer", RPCMode.OthersBuffered, nextIncomeTime);
+				networkView.RPC("setIncomeTimer", RPCMode.Others, nextIncomeTime);
 	        }
 
 			//Update SpawnerStates
@@ -685,10 +686,23 @@ public class GameState : MonoBehaviour
 		removeCreepForPlayer(ownerGUID_, view.gameObject.GetComponent<Creep>());
 	}
 
+	//-----------------------------------------------------
+	//GameState setters
+	//-----------------------------------------------------
 
-	//-----------------------------------------------------
-	//PlayerState setters
-	//-----------------------------------------------------
+	//setTime
+	[RPC]
+	void setTime(float time_, NetworkMessageInfo info_)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive setTime RPC calls!");
+			return;
+		}
+
+		Debug.Log ("Received setTime from " + info_ + ", time = " + time_);
+		time = time_;
+	}
 
 	//setIncomeTimer
 	[RPC]
@@ -699,9 +713,16 @@ public class GameState : MonoBehaviour
 			Debug.Log ("Server should not receive setIncomeTimer RPC calls!");
 			return;
 		}
+
+		Debug.Log ("Received setIncomeTimer from " + info_ + ", time = " + time_);
 		nextIncomeTime = time_;
 	}
-	
+
+
+	//-----------------------------------------------------
+	//PlayerState setters
+	//-----------------------------------------------------
+
 	//setGold
 	[RPC]
 	void setGold(int gold_, string guid_, NetworkMessageInfo info)

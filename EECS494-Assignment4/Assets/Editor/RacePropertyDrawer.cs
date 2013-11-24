@@ -21,7 +21,7 @@ public class RacePropertyDrawer : PropertyDrawer {
 		position.height = 16f;
 		Rect foldoutPosition = position;
 		int indent = EditorGUI.indentLevel;
-		foldoutPosition.x -= 14f - 14f*indent;
+		foldoutPosition.x += -14f + 14f*indent;
 		foldoutPosition.width += 14f - 14f*indent;
 
 		label = EditorGUI.BeginProperty(position, label, property);
