@@ -259,7 +259,7 @@ public class GameState : MonoBehaviour
 					Debug.Log (e.Value.name + ", " + e.Value.id);
 				}
 				pMan.enabled = true;
-				pMan.beginPlacing(entry.Value.prefab);
+				pMan.beginPlacing(entry.Value.prefab, entry.Key);
 			}
 			if (rowCount == 4)
 			{
@@ -453,7 +453,7 @@ public class GameState : MonoBehaviour
 		foreach(var entry in ps.race.towerMap)
 		{
 			Debug.Log ("Key = " + entry.Key + ", Value = " + entry.Value);
-			Debug.Log (entry.Value.name + ", " + entry.Value.id);
+			Debug.Log (entry.Value.name + ", " + entry.Key);
 		}
 		if(!ps.race.towerMap.ContainsKey(towerName_))  {Debug.Log ("Player's Race cannot build a tower of type " + towerName_ + "!"); return;}
 		t = ps.race.getTower(towerName_);
