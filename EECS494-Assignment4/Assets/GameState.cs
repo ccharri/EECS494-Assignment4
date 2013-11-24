@@ -251,13 +251,8 @@ public class GameState : MonoBehaviour
 		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap)
 		{
 			rowCount++;
-			if (GUILayout.Button(entry.Value.name)) //use entry.Value.name after towers have a name defined (maybe)
+			if (GUILayout.Button(entry.Key)) //use entry.Value.name after towers have a name defined (maybe)
 			{
-				foreach(var e in pState.race.towerMap)
-				{
-					Debug.Log ("Key = " + e.Key + ", Value = " + e.Value);
-					Debug.Log (e.Value.name + ", " + e.Value.id);
-				}
 				pMan.enabled = true;
 				pMan.beginPlacing(entry.Value.prefab, entry.Key);
 			}
@@ -282,15 +277,15 @@ public class GameState : MonoBehaviour
 		foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap)
 		{
 			rowCount++;
-			if (GUILayout.Button(entry.Value.name)) //use entry.Value.name, after creeps have a name defined (maybe)
+			if (GUILayout.Button(entry.Key)) //use entry.Value.name, after creeps have a name defined (maybe)
 			{
 				if (Network.isServer)
 				{
-					tryCreepSpawn(entry.Value.id, Network.player);
+					tryCreepSpawn(entry.Key, Network.player);
 				}
 				else
 				{
-					networkView.RPC("tryCreepSpawn", RPCMode.Server, entry.Value.id, Network.player);
+					networkView.RPC("tryCreepSpawn", RPCMode.Server, entry.Key, Network.player);
 				}
 			}
 			if (rowCount == 4)
