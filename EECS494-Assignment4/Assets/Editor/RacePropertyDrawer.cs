@@ -89,6 +89,5 @@ public class RacePropertyDrawer : PropertyDrawer {
 				position.x -= position.width;
 			}
 		}
-
 	}
 }

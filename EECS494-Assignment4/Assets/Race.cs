@@ -3,8 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-[Serializable]
-public class Race{
+[System.Serializable]
+public class Race {
 	//Dictionary Workaround
 	//
 	public List<string> towerMapKey = new List<string>();
@@ -19,8 +19,8 @@ public class Race{
 	public Dictionary<string, Tower> towerMap = new Dictionary<string, Tower>();
 	public Dictionary<string, Creep> creepMap = new Dictionary<string, Creep>();
 
-    public Race()
-    {
+	void Awake()
+	{
 		//Zip up lists into Dictionary
 		//
 		//TowerMap
@@ -34,15 +34,32 @@ public class Race{
 			creepMap.Add(creepMapKey[0], creepMapValue[0]);
 		}
 		//
+	}
 
-		ArcaneTower atower = new ArcaneTower();
-		atower.LoadPrefabs();
-
-		InfamousCrate icrate = new InfamousCrate();
-		icrate.LoadPrefabs();
-
-        towerMap.Add(atower.id, atower);
-        creepMap.Add(icrate.id, icrate);
+    public Race()
+    {
+//		//Zip up lists into Dictionary
+//		//
+//		//TowerMap
+//		for(int i = 0; i < towerMapKey.Count; i++)
+//		{
+//			towerMap.Add(towerMapKey[0], towerMapValue[0]);
+//		}
+//		//CreepMap
+//		for(int i = 0; i < creepMapKey.Count; i++)
+//		{
+//			creepMap.Add(creepMapKey[0], creepMapValue[0]);
+//		}
+		//
+//
+//		ArcaneTower atower = new ArcaneTower();
+//		atower.LoadPrefabs();
+//
+//		InfamousCrate icrate = new InfamousCrate();
+//		icrate.LoadPrefabs();
+//
+//        towerMap.Add(atower.id, atower);
+//        creepMap.Add(icrate.id, icrate);
     }
 
 	public Tower getTower(string tower)

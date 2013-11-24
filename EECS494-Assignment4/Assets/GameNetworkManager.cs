@@ -278,7 +278,7 @@ public class GameNetworkManager : MonoBehaviour {
 	{
 		GUILayout.BeginHorizontal(GUILayout.Height(50));
 		
-		GUILayout.Label(NameDatabase.getName(player.guid), GUILayout.Width(300));
+		GUILayout.Label(player.guid + "-" + NameDatabase.getName(player.guid), GUILayout.Width(300));
 		GUILayout.FlexibleSpace();
 		GUILayout.Label (Network.GetAveragePing(player).ToString(), GUILayout.Width(50));
 		GUILayout.FlexibleSpace();
@@ -308,6 +308,7 @@ public class GameNetworkManager : MonoBehaviour {
 		foreach(string key in NameDatabase.getKeys())
 		{
 			//Register other users
+			Debug.Log ("Sent name= " + NameDatabase.getName(key) + ", key = " + key);
 			networkView.RPC ("registerName", info.sender, NameDatabase.getName(key), key);
 		}
 	}

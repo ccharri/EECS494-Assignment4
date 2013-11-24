@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ public class RaceManager : MonoBehaviour {
 	public List<Race> raceMapValues = new List<Race>();
 	//
 
-	public Dictionary<string, Race> raceMap = new Dictionary<string, Race>();
+	Dictionary<string, Race> raceMap = new Dictionary<string, Race>();
 
 	void Awake()
 	{
