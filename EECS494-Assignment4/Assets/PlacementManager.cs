@@ -23,6 +23,7 @@ public class PlacementManager : MonoBehaviour {
 	{
 		placing = true;
 		placeObject = Instantiate(placePrefab_) as GameObject;
+		placeObject.networkView.enabled = false;
 		placeObject.GetComponent<Tower>().enabled = false;
 		placeObject.GetComponent<NavMeshObstacle>().enabled = false;
 		placeObject.layer = 2;
