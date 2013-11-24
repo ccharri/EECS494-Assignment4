@@ -311,7 +311,7 @@ public class GameNetworkManager : MonoBehaviour {
 			Debug.Log ("Sent name= " + NameDatabase.getName(key) + ", key = " + key);
 			if(Network.isServer && key == Network.player.guid)
 			{
-				networkView.RPC("registerName", info.sender, NameDatabase.getName(key), 0);
+				networkView.RPC("registerName", info.sender, NameDatabase.getName(key), "0");
 			}
 			else
 			{
