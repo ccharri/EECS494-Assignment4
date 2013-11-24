@@ -278,7 +278,7 @@ public class GameNetworkManager : MonoBehaviour {
 	{
 		GUILayout.BeginHorizontal(GUILayout.Height(50));
 
-		GUILayout.Label(player.guid + "-" + NameDatabase.getName(player.guid), GUILayout.Width(300));
+		GUILayout.Label(NameDatabase.getName(player.guid), GUILayout.Width(300));
 		GUILayout.FlexibleSpace();
 		GUILayout.Label (Network.GetAveragePing(player).ToString(), GUILayout.Width(50));
 		GUILayout.FlexibleSpace();
