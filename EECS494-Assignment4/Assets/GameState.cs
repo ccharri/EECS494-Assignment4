@@ -28,6 +28,7 @@ public class GameState : MonoBehaviour
 
 	public PlacementManager pMan;
 	public Camera mainCamera;
+	public RaceManager raceMan;
 	
 	void Awake()
 	{
@@ -42,6 +43,7 @@ public class GameState : MonoBehaviour
 		pMan = GetComponent<PlacementManager>();
 		spawnLocation = GameObject.FindGameObjectWithTag("SpawnLocation").transform.position;
 		mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+		raceMan = GameObject.FindGameObjectWithTag("RaceManager").GetComponent<RaceManager>();
 		playerNums = new List<string>();
 	}
 
@@ -355,7 +357,7 @@ public class GameState : MonoBehaviour
     {
         creepsByArena.Add(player.guid, new List<Creep>());
         towersByPlayer.Add(player.guid, new List<Tower>());
-        players.Add(player.guid, new PlayerState(player));
+        players.Add(player.guid, new PlayerState(player, raceMan.raceMap["Arcane"]));
 		spawns.Add (player.guid, new SpawnerState(player));
 		playerNums.Add(player.guid);
     }
@@ -570,7 +572,7 @@ public class GameState : MonoBehaviour
 
 	void initializePlayer(NetworkPlayer player)
 	{
-		players.Add (player.guid, new PlayerState(player));
+		players.Add (player.guid, new PlayerState(player, raceMan.raceMap["Arcane"]));
 		creepsByArena.Add(player.guid, new List<Creep>());
 		towersByPlayer.Add(player.guid, new List<Tower>());
 		spawns.Add(player.guid, new SpawnerState(player));

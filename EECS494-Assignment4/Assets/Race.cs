@@ -19,38 +19,34 @@ public class Race {
 	public Dictionary<string, Tower> towerMap = new Dictionary<string, Tower>();
 	public Dictionary<string, Creep> creepMap = new Dictionary<string, Creep>();
 
-	void Awake()
-	{
+	public void Zip()
+	{		
 		//Zip up lists into Dictionary
 		//
 		//TowerMap
+		
+		//
 		for(int i = 0; i < towerMapKey.Count; i++)
 		{
+			Debug.Log ("Adding Tower {"+towerMapKey[i]+":"+towerMapValue[i]+"}");
 			towerMap.Add(towerMapKey[0], towerMapValue[0]);
 		}
 		//CreepMap
 		for(int i = 0; i < creepMapKey.Count; i++)
 		{
+			Debug.Log ("Adding Creep {"+creepMapKey[i]+":"+creepMapValue[i]+"}");
 			creepMap.Add(creepMapKey[0], creepMapValue[0]);
 		}
-		//
+	}
+
+	void Awake()
+	{
+		Zip ();
 	}
 
     public Race()
     {
-//		//Zip up lists into Dictionary
-//		//
-//		//TowerMap
-//		for(int i = 0; i < towerMapKey.Count; i++)
-//		{
-//			towerMap.Add(towerMapKey[0], towerMapValue[0]);
-//		}
-//		//CreepMap
-//		for(int i = 0; i < creepMapKey.Count; i++)
-//		{
-//			creepMap.Add(creepMapKey[0], creepMapValue[0]);
-//		}
-		//
+		Zip();
 //
 //		ArcaneTower atower = new ArcaneTower();
 //		atower.LoadPrefabs();
@@ -78,5 +74,22 @@ public class Race {
 			return creepMap[creep];
 		}
 		return null;
+	}
+
+	public override string ToString ()
+	{
+		string val = "{Towers:";
+		foreach(string key in towerMap.Keys)
+		{
+			val += "{"+key+":"+towerMap[key] != null ? towerMap[key].ToString() : "null"+"}";
+		}
+		val += "},{Creeps:";
+		foreach(string key in creepMap.Keys)
+		{
+			val += "{"+key+":"+creepMap[key]!= null ? creepMap[key].ToString() : "null"+"}";
+		}
+		val += "}";
+
+		return val;
 	}
 }

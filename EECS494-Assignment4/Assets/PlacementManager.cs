@@ -34,7 +34,8 @@ public class PlacementManager : MonoBehaviour {
 		if(placing)
 		{
 			RaycastHit rhit;
-			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit))
+			int layerMask = LayerMask.NameToLayer("Creep") | LayerMask.NameToLayer("Tower");
+			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit, layerMask))
 			{
 				Vector3 point = alignToGrid (rhit.point);
 				placeObject.transform.position = point;
