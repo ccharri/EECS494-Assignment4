@@ -28,6 +28,7 @@ public class GameState : MonoBehaviour
 
 	public PlacementManager pMan;
 	public Camera mainCamera;
+	public RaceManager raceMan;
 	
 	void Awake()
 	{
@@ -42,6 +43,7 @@ public class GameState : MonoBehaviour
 		pMan = GetComponent<PlacementManager>();
 		spawnLocation = GameObject.FindGameObjectWithTag("SpawnLocation").transform.position;
 		mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+		raceMan = GameObject.FindGameObjectWithTag("RaceManager").GetComponent<RaceManager>();
 		playerNums = new List<string>();
 	}
 
@@ -249,15 +251,10 @@ public class GameState : MonoBehaviour
 		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap)
 		{
 			rowCount++;
-			if (GUILayout.Button(entry.Value.name)) //use entry.Value.name after towers have a name defined (maybe)
+			if (GUILayout.Button(entry.Key)) //use entry.Value.name after towers have a name defined (maybe)
 			{
-				foreach(var e in pState.race.towerMap)
-				{
-					Debug.Log ("Key = " + e.Key + ", Value = " + e.Value);
-					Debug.Log (e.Value.name + ", " + e.Value.id);
-				}
 				pMan.enabled = true;
-				pMan.beginPlacing(entry.Value.prefab);
+				pMan.beginPlacing(entry.Value.prefab, entry.Key);
 			}
 			if (rowCount == 4)
 			{
@@ -280,15 +277,15 @@ public class GameState : MonoBehaviour
 		foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap)
 		{
 			rowCount++;
-			if (GUILayout.Button(entry.Value.name)) //use entry.Value.name, after creeps have a name defined (maybe)
+			if (GUILayout.Button(entry.Key)) //use entry.Value.name, after creeps have a name defined (maybe)
 			{
 				if (Network.isServer)
 				{
-					tryCreepSpawn(entry.Value.id, Network.player);
+					tryCreepSpawn(entry.Key, Network.player);
 				}
 				else
 				{
-					networkView.RPC("tryCreepSpawn", RPCMode.Server, entry.Value.id, Network.player);
+					networkView.RPC("tryCreepSpawn", RPCMode.Server, entry.Key, Network.player);
 				}
 			}
 			if (rowCount == 4)
@@ -355,7 +352,7 @@ public class GameState : MonoBehaviour
     {
         creepsByArena.Add(player.guid, new List<Creep>());
         towersByPlayer.Add(player.guid, new List<Tower>());
-        players.Add(player.guid, new PlayerState(player));
+        players.Add(player.guid, new PlayerState(player, raceMan.raceMap["Arcane"]));
 		spawns.Add (player.guid, new SpawnerState(player));
 		playerNums.Add(player.guid);
     }
@@ -451,7 +448,7 @@ public class GameState : MonoBehaviour
 		foreach(var entry in ps.race.towerMap)
 		{
 			Debug.Log ("Key = " + entry.Key + ", Value = " + entry.Value);
-			Debug.Log (entry.Value.name + ", " + entry.Value.id);
+			Debug.Log (entry.Value.name + ", " + entry.Key);
 		}
 		if(!ps.race.towerMap.ContainsKey(towerName_))  {Debug.Log ("Player's Race cannot build a tower of type " + towerName_ + "!"); return;}
 		t = ps.race.getTower(towerName_);
@@ -468,7 +465,7 @@ public class GameState : MonoBehaviour
 		//if(!canBuild(t, buildpos) {Debug.Log("Cannot build tower at this location!"); return;}
 		ps.gold -= t.cost;
 
-		t = ((GameObject)Network.Instantiate(t.prefab, buildpos, Quaternion.identity, 0)).GetComponent<Tower>();
+		t = ((GameObject)Network.Instantiate(t.prefab, buildpos, t.prefab.transform.rotation, 0)).GetComponent<Tower>();
 
 		if(!(Network.player == player_))
 			networkView.RPC("setGold", player_, ps.gold, player_.guid);
@@ -570,7 +567,7 @@ public class GameState : MonoBehaviour
 
 	void initializePlayer(NetworkPlayer player)
 	{
-		players.Add (player.guid, new PlayerState(player));
+		players.Add (player.guid, new PlayerState(player, raceMan.raceMap["Arcane"]));
 		creepsByArena.Add(player.guid, new List<Creep>());
 		towersByPlayer.Add(player.guid, new List<Tower>());
 		spawns.Add(player.guid, new SpawnerState(player));
