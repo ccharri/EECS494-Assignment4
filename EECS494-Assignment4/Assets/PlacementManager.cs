@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlacementManager : MonoBehaviour {
 	public bool placing = false;
+	public bool ready = false;
+	public bool shift = false;
 	private GameObject placeObject;
 
 	GameState gstate;
@@ -22,6 +24,8 @@ public class PlacementManager : MonoBehaviour {
 	public void beginPlacing(GameObject placePrefab_)
 	{
 		placing = true;
+		ready = false;
+		shift = (Input.GetKeyDown("shift"));
 		placeObject = Instantiate(placePrefab_) as GameObject;
 		placeObject.networkView.enabled = false;
 		placeObject.GetComponent<Tower>().enabled = false;
@@ -33,13 +37,18 @@ public class PlacementManager : MonoBehaviour {
 	void Update () {
 		if(placing)
 		{
+			if(Input.GetMouseButtonUp(0))
+			{
+				ready = true;
+			}
+			shift = Input.GetKeyDown("shift");
 			RaycastHit rhit;
 			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit))
 			{
 				Vector3 point = alignToGrid (rhit.point);
 				placeObject.transform.position = point;
 				
-				if(Input.GetMouseButtonDown(0))
+				if(Input.GetMouseButtonDown(0) && ready)
 				{
 					place(alignToGrid(rhit.point));
 				}
@@ -60,7 +69,11 @@ public class PlacementManager : MonoBehaviour {
 		Destroy(placeObject);
 		
 		//		Instantiate(placePrefab, alignToGrid(point), Quaternion.identity);
-		placing = false;
+		if(!shift)
+		{
+			placing = false;
+		}
+		ready = false;
 		enabled = false;
 
 		if(Network.isServer)
