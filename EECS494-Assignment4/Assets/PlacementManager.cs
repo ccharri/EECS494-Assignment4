@@ -3,7 +3,10 @@ using System.Collections;
 
 public class PlacementManager : MonoBehaviour {
 	public bool placing = false;
+	public bool ready = false;
+	public bool shift = false;
 	private GameObject placeObject;
+	private string id;
 
 	GameState gstate;
 
@@ -19,27 +22,36 @@ public class PlacementManager : MonoBehaviour {
 	
 	}
 
-	public void beginPlacing(GameObject placePrefab_)
+	public void beginPlacing(GameObject placePrefab_, string id_)
 	{
 		placing = true;
+		ready = false;
+		shift = (Input.GetKeyDown("shift"));
 		placeObject = Instantiate(placePrefab_) as GameObject;
 		placeObject.networkView.enabled = false;
 		placeObject.GetComponent<Tower>().enabled = false;
 		placeObject.GetComponent<NavMeshObstacle>().enabled = false;
 		placeObject.layer = 2;
+		id = id_;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(placing)
 		{
+			if(Input.GetMouseButtonUp(0))
+			{
+				ready = true;
+			}
+			shift = Input.GetKeyDown("shift");
 			RaycastHit rhit;
-			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit))
+			//int layerMask = LayerMask.NameToLayer("IgnoreRaycast")| LayerMask.NameToLayer("Creep") | LayerMask.NameToLayer("Tower");
+			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit/*, layerMask*/))
 			{
 				Vector3 point = alignToGrid (rhit.point);
 				placeObject.transform.position = point;
 				
-				if(Input.GetMouseButtonDown(0))
+				if(Input.GetMouseButtonDown(0) && ready)
 				{
 					place(alignToGrid(rhit.point));
 				}
@@ -55,21 +67,25 @@ public class PlacementManager : MonoBehaviour {
 		if (t == null)
 		Debug.Log ("t == null");
 
-		Debug.Log ("t.id = " + tid);
+		Debug.Log ("t.id = " + id);
 
 		Destroy(placeObject);
 		
 		//		Instantiate(placePrefab, alignToGrid(point), Quaternion.identity);
-		placing = false;
+		if(!shift)
+		{
+			placing = false;
+		}
+		ready = false;
 		enabled = false;
 
 		if(Network.isServer)
 		{
-			gstate.tryTowerSpawn(tid, point, Network.player);
+			gstate.tryTowerSpawn(id, point, Network.player);
 		}
 		else
 		{
-			networkView.RPC("tryTowerSpawn", RPCMode.Server, tid, point, Network.player);
+			networkView.RPC("tryTowerSpawn", RPCMode.Server, id, point, Network.player);
 		}
 	}
 	
