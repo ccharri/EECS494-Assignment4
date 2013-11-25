@@ -26,7 +26,7 @@ public class PlacementManager : MonoBehaviour {
 	{
 		placing = true;
 		ready = false;
-		shift = (Input.GetKeyDown("shift"));
+//		shift = (Input.GetKeyDown("shift"));
 		placeObject = Instantiate(placePrefab_) as GameObject;
 		placeObject.networkView.enabled = false;
 		placeObject.GetComponent<Tower>().enabled = false;
@@ -43,7 +43,7 @@ public class PlacementManager : MonoBehaviour {
 			{
 				ready = true;
 			}
-			shift = Input.GetKeyDown("shift");
+//			shift = Input.GetKeyDown("shift");
 			RaycastHit rhit;
 			//int layerMask = LayerMask.NameToLayer("IgnoreRaycast")| LayerMask.NameToLayer("Creep") | LayerMask.NameToLayer("Tower");
 			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit/*, layerMask*/))
