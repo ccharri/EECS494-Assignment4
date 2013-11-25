@@ -465,7 +465,7 @@ public class GameState : MonoBehaviour
 		//if(!canBuild(t, buildpos) {Debug.Log("Cannot build tower at this location!"); return;}
 		ps.gold -= t.cost;
 
-		t = ((GameObject)Network.Instantiate(t.prefab, buildpos, Quaternion.identity, 0)).GetComponent<Tower>();
+		t = ((GameObject)Network.Instantiate(t.prefab, buildpos, t.prefab.transform.rotation, 0)).GetComponent<Tower>();
 
 		if(!(Network.player == player_))
 			networkView.RPC("setGold", player_, ps.gold, player_.guid);
