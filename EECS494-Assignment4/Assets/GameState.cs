@@ -239,7 +239,11 @@ public class GameState : MonoBehaviour
 
         //TOWER PLACEMENT BUTTONS
         GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3), GUILayout.Height(Screen.height / 5));
-	
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Towers");
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
 		GUILayout.BeginHorizontal();
 		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap)
 		{
@@ -264,7 +268,11 @@ public class GameState : MonoBehaviour
 
         //CREEP PLACEMENT BUTTONS
         GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3 - 30), GUILayout.Height(Screen.height / 5));
-
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Creeps");
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
 		rowCount = 0;
 		GUILayout.BeginHorizontal();
 		foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap)
