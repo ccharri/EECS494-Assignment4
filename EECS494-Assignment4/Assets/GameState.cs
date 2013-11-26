@@ -59,13 +59,6 @@ public class GameState : MonoBehaviour
 		{
 			initializePlayer(player);
 		}
-
-		if(getPlayerNum(Network.player.guid) != 1)
-		{
-			Transform newPos = mainCamera.transform;
-			newPos.position =  new Vector3(-newPos.position.x, newPos.position.y, newPos.position.z);
-			newPos.Rotate(-270,-180,0);
-		}
     }
 
     void FixedUpdate()
