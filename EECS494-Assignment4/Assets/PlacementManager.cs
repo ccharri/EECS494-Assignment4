@@ -33,7 +33,6 @@ public class PlacementManager : MonoBehaviour {
 		placeObject = Instantiate(placePrefab_) as GameObject;
 		placeObject.networkView.enabled = false;
 		placeObject.GetComponent<Tower>().enabled = false;
-		placeObject.GetComponent<NavMeshObstacle>().enabled = false;
 		helper = placeObject.AddComponent<PlacementHelper>();
 		helper.validMaterial = validMaterial;
 		helper.invalidMaterial = invalidMaterial;
@@ -43,6 +42,7 @@ public class PlacementManager : MonoBehaviour {
 		{
 			obs.enabled = false;
 		}
+
 		placeObject.layer = 2;
 		id = id_;
 	}

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PlacementHelper : MonoBehaviour {
-	public bool valid = true;
+	public bool valid;
 	public Material validMaterial;
 	public Material invalidMaterial;
 	public int collisionCount = 0;
@@ -19,31 +19,43 @@ public class PlacementHelper : MonoBehaviour {
 
 	void OnCollisionEnter(Collision info)
 	{
+		if(info.gameObject.tag == "Buildable") return;
+
 		addCollision();
 	}
 
 	void OnCollisionExit(Collision info)
 	{
+		if(info.gameObject.tag == "Buildable") return;
+
 		removeCollision();
 	}
 
 	void OnCollisionStay(Collision info)
 	{
+		if(info.gameObject.tag == "Buildable") return;
+
 		markInvalid();
 	}
 
 	void OnTriggerEnter(Collider info)
 	{
+		if(info.gameObject.tag == "Buildable") return;
+
 		addCollision();
 	}
 
 	void OnTriggerExit(Collider info)
 	{
+		if(info.gameObject.tag == "Buildable") return;
+
 		removeCollision();
 	}
 
 	void OnTriggerStay(Collider info)
 	{
+		if(info.gameObject.tag == "Buildable") return;
+
 		markInvalid();
 	}
 
@@ -67,7 +79,6 @@ public class PlacementHelper : MonoBehaviour {
 	void markValid()
 	{
 		valid = true;
-		gameObject.GetComponent<MeshRenderer>().material = validMaterial;
 		var renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
 		foreach(MeshRenderer render in renderers)
 		{
@@ -78,7 +89,6 @@ public class PlacementHelper : MonoBehaviour {
 	void markInvalid()
 	{
 		valid = false;
-		gameObject.GetComponent<MeshRenderer>().material = invalidMaterial;
 		var renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
 		foreach(MeshRenderer render in renderers)
 		{
