@@ -1,14 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\CameraMovement.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlacementManager.cs">
     <Files>
-      <File FileName="Assets\GameNetworkManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Creep.cs" Line="1" Column="1" />
-      <File FileName="Assets\PlacementManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\GameState.cs" Line="61" Column="4" />
-      <File FileName="Assets\PlayerState.cs" Line="1" Column="1" />
-      <File FileName="Assets\RaceManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\CameraMovement.cs" Line="29" Column="68" />
+      <File FileName="Assets/GameNetworkManager.cs" Line="281" Column="19" />
+      <File FileName="Assets/Creep.cs" Line="1" Column="1" />
+      <File FileName="Assets/PlacementManager.cs" Line="46" Column="40" />
+      <File FileName="Assets/GameState.cs" Line="469" Column="1" />
+      <File FileName="Assets/PlayerState.cs" Line="1" Column="1" />
+      <File FileName="Assets/RaceManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Race.cs" Line="1" Column="1" />
+      <File FileName="Assets/ZGridMaker.cs" Line="8" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

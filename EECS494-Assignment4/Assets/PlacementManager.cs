@@ -50,8 +50,8 @@ public class PlacementManager : MonoBehaviour {
 			}
 //			shift = Input.GetKeyDown("shift");
 			RaycastHit rhit;
-			//int layerMask = LayerMask.NameToLayer("IgnoreRaycast")| LayerMask.NameToLayer("Creep") | LayerMask.NameToLayer("Tower");
-			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit/*, layerMask*/))
+			int layerMask = LayerMask.NameToLayer("Buildable");
+			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit, Camera.main.farClipPlane, layerMask))
 			{
 				Vector3 point = alignToGrid (rhit.point);
 				placeObject.transform.position = point;
