@@ -5,6 +5,9 @@ public class PlacementManager : MonoBehaviour {
 	public bool placing = false;
 	public bool ready = false;
 	public bool shift = false;
+	public PlacementHelper helper;
+	public Material validMaterial;
+	public Material invalidMaterial;
 	private GameObject placeObject;
 	private string id;
 
@@ -31,6 +34,10 @@ public class PlacementManager : MonoBehaviour {
 		placeObject.networkView.enabled = false;
 		placeObject.GetComponent<Tower>().enabled = false;
 		placeObject.GetComponent<NavMeshObstacle>().enabled = false;
+		helper = placeObject.AddComponent<PlacementHelper>();
+		helper.validMaterial = validMaterial;
+		helper.invalidMaterial = invalidMaterial;
+
 		var obstacles = placeObject.GetComponentsInChildren<NavMeshObstacle>();
 		foreach(NavMeshObstacle obs in obstacles)
 		{
@@ -48,15 +55,16 @@ public class PlacementManager : MonoBehaviour {
 			{
 				ready = true;
 			}
+
 //			shift = Input.GetKeyDown("shift");
 			RaycastHit rhit;
-			int layerMask = LayerMask.NameToLayer("Buildable");
-			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit, Camera.main.farClipPlane, layerMask))
+//			int layerMask = LayerMask.NameToLayer("Buildable");
+			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit/*, Camera.main.farClipPlane, layerMask*/))
 			{
 				Vector3 point = alignToGrid (rhit.point);
 				placeObject.transform.position = point;
 				
-				if(Input.GetMouseButtonDown(0) && ready)
+				if(Input.GetMouseButtonDown(0) && ready && helper.valid)
 				{
 					place(alignToGrid(rhit.point));
 				}
