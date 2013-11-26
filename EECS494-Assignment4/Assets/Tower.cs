@@ -15,7 +15,7 @@ public abstract class Tower : Spawnable, Selectable
 
     void Start()
     {
-        g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
+		g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
     }
 
     public void setRange(float range_)          { range = new Attribute(range_); }
@@ -28,9 +28,16 @@ public abstract class Tower : Spawnable, Selectable
 	{
 		base.Update();
 	}
+
+	public GameState getGameState()
+	{
+		if(g) return g;
+		return g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
+	}
+
 	protected override void FixedUpdate() 
 	{
-        g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
+		g = getGameState();
         if(Network.isServer)
         {
             base.FixedUpdate();
