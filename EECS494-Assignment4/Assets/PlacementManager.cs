@@ -31,6 +31,11 @@ public class PlacementManager : MonoBehaviour {
 		placeObject.networkView.enabled = false;
 		placeObject.GetComponent<Tower>().enabled = false;
 		placeObject.GetComponent<NavMeshObstacle>().enabled = false;
+		var obstacles = placeObject.GetComponentsInChildren<NavMeshObstacle>();
+		foreach(NavMeshObstacle obs in obstacles)
+		{
+			obs.enabled = false;
+		}
 		placeObject.layer = 2;
 		id = id_;
 	}
