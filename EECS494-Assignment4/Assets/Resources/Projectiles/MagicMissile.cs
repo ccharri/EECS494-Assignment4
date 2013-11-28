@@ -8,7 +8,7 @@ public class MagicMissile : Projectile
     {
         setTarget(target_);
         setOwner(owner_);
-        setSpeed(750);
+        setSpeed(7.50);
     }
 
     protected override void FixedUpdate()
