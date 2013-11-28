@@ -16,7 +16,7 @@ public class MagicMissile : Projectile
         if(Network.isServer)
         {
             base.FixedUpdate();
-            transform.rigidbody.velocity = calculateHome();
+            transform.rigidbody.transform += calculateHome();
         }
     }
 

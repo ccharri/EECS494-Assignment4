@@ -39,8 +39,8 @@ public abstract class Projectile : Unit
         targetPos = target.transform.position;
         Vector3 newVel = (targetPos - transform.position);
         newVel.Normalize();
-        float scaleFactor = (float)speed.get() * Time.deltaTime;
-        newVel.Scale(new Vector3(scaleFactor, scaleFactor, scaleFactor));
+        float scaleFactor = (float)speed.get() * Time.fixedDeltaTime;
+		newVel *= scaleFactor;
         return newVel;
     }
 
