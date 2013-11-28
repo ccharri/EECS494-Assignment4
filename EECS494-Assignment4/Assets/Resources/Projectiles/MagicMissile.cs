@@ -8,7 +8,7 @@ public class MagicMissile : Projectile
     {
         setTarget(target_);
         setOwner(owner_);
-        setSpeed(7.50);
+        setSpeed(7.50f);
     }
 
     protected override void FixedUpdate()
@@ -16,7 +16,7 @@ public class MagicMissile : Projectile
         if(Network.isServer)
         {
             base.FixedUpdate();
-            transform.rigidbody.transform += calculateHome();
+            transform.rigidbody.transform.position += calculateHome();
         }
     }
 
