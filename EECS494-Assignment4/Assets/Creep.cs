@@ -22,13 +22,13 @@ public abstract class Creep : Spawnable, Selectable
 	public void updateDestination()
 	{
 		GameState gstate = GameState.getInstance();
-		if (gstate.getPlayerNum(getOwner()) == 1)
+		if (!Network.isServer)
 		{
-			getAgent().SetDestination(new Vector3(110, 0, 0));
+			getAgent().SetDestination(new Vector3(44, 0, 0));
 		}
 		else
 		{
-			getAgent().SetDestination(new Vector3(-110, 0, 0));
+			getAgent().SetDestination(new Vector3(-44, 0, 0));
 		}
 	}
 
