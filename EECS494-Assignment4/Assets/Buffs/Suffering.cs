@@ -30,8 +30,8 @@ public class Suffering : Buff<Creep>
 		if (!target.isAlive())
 			if (owner != null)
 		{
-			float mismult = MULTPERPERCMISSING * (1f - (target.getHealth()/target.getHealthMax()));
-			float damage = DPS * Time.fixedDeltaTime * (1f + mismult);
+			float missMult = MULTPERPERCMISSING * (1f - (target.getHealth()/target.getHealthMax()) * 100f);
+			float damage = (DPS*(1f + missMult)) * Time.fixedDeltaTime;
 			target.onDamage(damage);
 		}
 		return base.FixedUpdate();
