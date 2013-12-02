@@ -63,6 +63,9 @@ public abstract class Creep : Spawnable, Selectable
     public void setBounty(int bounty_)      { bounty = bounty_; }
     public void setLifeCost(int lifeCost_)  { lifeCost = lifeCost_;}
 
+	public float getHealth() 				{ return health.get();};
+	public float getHealthMax()				{ return health.getBase();};
+
     protected override void FixedUpdate()
     {
 		if(Network.isServer)
