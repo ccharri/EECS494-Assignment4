@@ -6,7 +6,7 @@ public class PlayerState{
 	{;
 		player = player_;
 		gold = 25;
-		income = 25;
+		income = 10;
 		lives = 10;
 		race = race_;
 	}

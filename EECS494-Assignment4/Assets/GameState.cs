@@ -30,6 +30,9 @@ public class GameState : MonoBehaviour
 	public Camera mainCamera;
 	public RaceManager raceMan;
 
+	public GameObject player1Terrain;
+	public GameObject player2Terrain;
+
 	public static GameState getInstance()
 	{
 		if(instance == null)
@@ -54,6 +57,18 @@ public class GameState : MonoBehaviour
 		mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 		raceMan = GameObject.FindGameObjectWithTag("RaceManager").GetComponent<RaceManager>();
 		playerNums = new List<string>();
+
+		Vector3 pos = Camera.main.transform.position;
+		if(Network.isServer)
+		{
+			Camera.main.transform.position = new Vector3(25, pos.y, pos.z);
+			player2Terrain.tag = "Unbuildable";
+		}
+		else
+		{
+			Camera.main.transform.position = new Vector3(-25, pos.y, pos.z);
+			player1Terrain.tag = "Unbuildable";
+		}
 	}
 
   void OnLevelWasLoaded(int level)
