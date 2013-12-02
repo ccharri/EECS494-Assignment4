@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class GameState : MonoBehaviour
 {
-
+	private static GameState instance = null;
 
 	Dictionary<string, List<Creep>> creepsByArena;
     //NOTE: Returns the creeps in a player's arena. Indexed by pid
@@ -29,6 +29,15 @@ public class GameState : MonoBehaviour
 	public PlacementManager pMan;
 	public Camera mainCamera;
 	public RaceManager raceMan;
+
+	public static GameState getInstance()
+	{
+		if(instance == null)
+		{
+			instance = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
+		}
+		return instance;
+	}
 	
 	void Awake()
 	{
@@ -77,7 +86,7 @@ public class GameState : MonoBehaviour
 
 					//We know we're the server, so if the player we're updating isn't us, go ahead and RPC
 					if(ps.player != Network.player)
-						networkView.RPC ("setGold", ps.player, ps.gold, ps.player.guid);
+						networkView.RPC ("setGold", ps.player, ps.gold, ps.player);
 				}
 	            nextIncomeTime += incomeTimeIncrement;
 
@@ -110,8 +119,8 @@ public class GameState : MonoBehaviour
 						//If it's not us
 						if(p != Network.player)
 						{
-							networkView.RPC ("setStock", p, u.currentStock, p.guid, k);
-							networkView.RPC ("setStockTimer", p, u.lastRestock, p.guid, k);
+							networkView.RPC ("setStock", p, u.currentStock, p, k);
+							networkView.RPC ("setStockTimer", p, u.lastRestock, p, k);
 						}
 					}
 				}
@@ -209,15 +218,14 @@ public class GameState : MonoBehaviour
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
 
+		string scoreBoardString = NameDatabase.getName(Network.player.guid) + "'s Lives: " + players[Network.player.guid].lives;
+
         foreach (var p in players)
         {
-            if (p.Value.player.Equals(Network.player))
-                friendlyLives = p.Value.lives;
-            else
-                opponentLives = p.Value.lives;
+			if(p.Value.player == Network.player) continue;
+			scoreBoardString += "\n" + NameDatabase.getName(p.Value.player.guid) + "'s Lives: " + p.Value.lives;
         }
 
-        var scoreBoardString = "Your Lives: " + friendlyLives + "\nOpponent's Lives: " + opponentLives;
         GUILayout.Box(scoreBoardString);
 
         GUILayout.EndHorizontal();
@@ -308,6 +316,11 @@ public class GameState : MonoBehaviour
 
         GUILayout.EndHorizontal();
     }
+
+	public NetworkPlayer getPlayer(string pid)
+	{
+		return players[pid].player;
+	}
 
 	public void addCreepForPlayer(string pid, Creep c) //TODO: fix params? make it a prefab? change the method name?
     {
@@ -408,11 +421,11 @@ public class GameState : MonoBehaviour
 
 	public void onCreepLeaked(Creep creep)
 	{
-		removeCreep(creep.networkView.viewID, creep.getOwner());
-		networkView.RPC ("removeCreep", RPCMode.OthersBuffered, creep.networkView.viewID, creep.getOwner ());
+		removeCreep(creep.networkView.viewID, getPlayer(creep.getOwner()));
+		networkView.RPC ("removeCreep", RPCMode.OthersBuffered, creep.networkView.viewID, players[creep.getOwner()].player);
 
 		players[creep.getOwner ()].lives -= creep.lifeCost;
-		networkView.RPC ("setLives", RPCMode.OthersBuffered, players[creep.getOwner()].lives, creep.getOwner ());
+		networkView.RPC ("setLives", RPCMode.OthersBuffered, players[creep.getOwner()].lives, players[creep.getOwner()].player);
 
 		Network.Destroy(creep.gameObject);
 	}
@@ -469,11 +482,11 @@ public class GameState : MonoBehaviour
 		t = ((GameObject)Network.Instantiate(t.prefab, buildpos, t.prefab.transform.rotation, 0)).GetComponent<Tower>();
 
 		if(!(Network.player == player_))
-			networkView.RPC("setGold", player_, ps.gold, player_.guid);
+			networkView.RPC("setGold", player_, ps.gold, player_);
 		
 		//Add tower to tower lists
-		addTower (t.networkView.viewID, player_.guid);
-		networkView.RPC ("addTower", RPCMode.OthersBuffered, t.networkView.viewID, player_.guid);
+		addTower (t.networkView.viewID, player_);
+		networkView.RPC ("addTower", RPCMode.OthersBuffered, t.networkView.viewID, player_);
 	}
 
 	[RPC]
@@ -515,17 +528,17 @@ public class GameState : MonoBehaviour
 			ps.gold -= c.cost;
 
 			if(!(Network.player == player_))
-				networkView.RPC("setGold", player_, ps.gold, player_.guid);
+				networkView.RPC("setGold", player_, ps.gold, player_);
 			
 			//Increase player income
 			ps.income += c.bounty;
 
 			if(!(Network.player == player_))
-				networkView.RPC ("setIncome", player_, ps.income, player_.guid);
+				networkView.RPC ("setIncome", player_, ps.income, player_);
 			
 			//Add creep to creep lists, however it is we do it
-			addCreep(c.networkView.viewID, player.guid);
-			networkView.RPC ("addCreep", RPCMode.OthersBuffered, c.networkView.viewID, player.guid);
+			addCreep(c.networkView.viewID, player);
+			networkView.RPC ("addCreep", RPCMode.OthersBuffered, c.networkView.viewID, player);
 
 			c.updateDestination();
 		}
@@ -578,7 +591,7 @@ public class GameState : MonoBehaviour
 	//Player removing
 
 	[RPC]
-	void removePlayer(string playerID, NetworkMessageInfo info_)
+	void removePlayer(NetworkPlayer player_, NetworkMessageInfo info_)
 	{
 		if(Network.isServer)
 		{
@@ -586,16 +599,16 @@ public class GameState : MonoBehaviour
 			return;
 		}
 
-		Debug.Log ("removePlayer received from " + info_.sender + ", player = " + playerID);
-		removePlayer (playerID);
+		Debug.Log ("removePlayer received from " + info_.sender + ", player = " + player_);
+		removePlayer (player_);
 	}
 
-	void removePlayer(string playerID)
+	void removePlayer(NetworkPlayer player_)
 	{
-		players.Remove(playerID);
-		creepsByArena.Remove(playerID);
-		towersByPlayer.Remove(playerID);
-		spawns.Remove(playerID);
+		players.Remove(player_.guid);
+		creepsByArena.Remove(player_.guid);
+		towersByPlayer.Remove(player_.guid);
+		spawns.Remove(player_.guid);
 	}
 
 	//-----------------------------------------------------
@@ -605,7 +618,7 @@ public class GameState : MonoBehaviour
 	//Add Tower
 
 	[RPC]
-	void addTower(NetworkViewID networkViewID, string ownerGUID_, NetworkMessageInfo info_)
+	void addTower(NetworkViewID networkViewID, NetworkPlayer player_, NetworkMessageInfo info_)
 	{
 		if(Network.isServer)
 		{
@@ -613,20 +626,20 @@ public class GameState : MonoBehaviour
 			return;
 		}
 
-		Debug.Log ("addTower received from " + info_.sender + ", owner = " + ownerGUID_ + ", NetworkViewID = " + networkViewID);
-		addTower (networkViewID, ownerGUID_);
+		Debug.Log ("addTower received from " + info_.sender + ", owner = " + player_ + ", NetworkViewID = " + networkViewID);
+		addTower (networkViewID, player_);
 	}
 
-	void addTower(NetworkViewID networkViewID, string ownerGUID_)
+	void addTower(NetworkViewID networkViewID, NetworkPlayer player_)
 	{
 		NetworkView view = NetworkView.Find(networkViewID);
-		addTowerForPlayer(ownerGUID_, view.gameObject.GetComponent<Tower>());
+		addTowerForPlayer(player_.guid, view.gameObject.GetComponent<Tower>());
 	}
 
 	//Add Creep
 
 	[RPC]
-	void addCreep(NetworkViewID networkViewID, string ownerGUID_, NetworkMessageInfo info_)
+	void addCreep(NetworkViewID networkViewID, NetworkPlayer player_, NetworkMessageInfo info_)
 	{
 		if(Network.isServer)
 		{
@@ -634,19 +647,19 @@ public class GameState : MonoBehaviour
 			return;
 		}
 		
-		Debug.Log ("addCreep received from " + info_.sender + ", owner = " + ownerGUID_ + ", NetworkViewID = " + networkViewID);
-		addCreep (networkViewID, ownerGUID_);
+		Debug.Log ("addCreep received from " + info_.sender + ", owner = " + player_ + ", NetworkViewID = " + networkViewID);
+		addCreep (networkViewID, player_);
 	}
 	
-	void addCreep(NetworkViewID networkViewID, string ownerGUID_)
+	void addCreep(NetworkViewID networkViewID, NetworkPlayer player_)
 	{
 		NetworkView view = NetworkView.Find(networkViewID);
-		addCreepForPlayer(ownerGUID_, view.gameObject.GetComponent<Creep>());
+		addCreepForPlayer(player_.guid, view.gameObject.GetComponent<Creep>());
 	}
 
 	//Remove Tower
 	[RPC]
-	void removeTower(NetworkViewID networkViewID, string ownerGUID_, NetworkMessageInfo info_)
+	void removeTower(NetworkViewID networkViewID, NetworkPlayer player_, NetworkMessageInfo info_)
 	{
 		if(Network.isServer)
 		{
@@ -654,19 +667,19 @@ public class GameState : MonoBehaviour
 			return;
 		}
 
-		Debug.Log ("removeTower recieved from " + info_.sender + ", owner = " + ownerGUID_ + ", NetworkViewID = " + networkViewID);
-		removeTower (networkViewID, ownerGUID_);
+		Debug.Log ("removeTower recieved from " + info_.sender + ", owner = " + player_ + ", NetworkViewID = " + networkViewID);
+		removeTower (networkViewID, player_);
 	}
 
-	public void removeTower(NetworkViewID networkViewID, string ownerGUID_)
+	public void removeTower(NetworkViewID networkViewID, NetworkPlayer player_)
 	{
 		NetworkView view = NetworkView.Find (networkViewID);
-		removeTowerForPlayer(ownerGUID_, view.gameObject.GetComponent<Tower>());
+		removeTowerForPlayer(player_.guid, view.gameObject.GetComponent<Tower>());
 	}
 
 	//Remove Creep
 	[RPC]
-	void removeCreep(NetworkViewID networkViewID, string ownerGUID_, NetworkMessageInfo info_)
+	void removeCreep(NetworkViewID networkViewID, NetworkPlayer player_, NetworkMessageInfo info_)
 	{
 		if(Network.isServer)
 		{
@@ -674,14 +687,14 @@ public class GameState : MonoBehaviour
 			return;
 		}
 		
-		Debug.Log ("removeCreep recieved from " + info_.sender + ", owner = " + ownerGUID_ + ", NetworkViewID = " + networkViewID);
-		removeCreep (networkViewID, ownerGUID_);
+		Debug.Log ("removeCreep recieved from " + info_.sender + ", owner = " + player_ + ", NetworkViewID = " + networkViewID);
+		removeCreep (networkViewID, player_);
 	}
 	
-	public void removeCreep(NetworkViewID networkViewID, string ownerGUID_)
+	public void removeCreep(NetworkViewID networkViewID, NetworkPlayer player_)
 	{
 		NetworkView view = NetworkView.Find (networkViewID);
-		removeCreepForPlayer(ownerGUID_, view.gameObject.GetComponent<Creep>());
+		removeCreepForPlayer(player_.guid, view.gameObject.GetComponent<Creep>());
 	}
 
 	//-----------------------------------------------------
@@ -723,57 +736,57 @@ public class GameState : MonoBehaviour
 
 	//setGold
 	[RPC]
-	void setGold(int gold_, string guid_, NetworkMessageInfo info)
+	void setGold(int gold_, NetworkPlayer player_, NetworkMessageInfo info)
 	{
 		if(Network.isServer)
 		{
 			Debug.Log ("Server should not receive setGold RPC calls!");
 			return;
 		}
-		if(Network.isClient && (guid_ != Network.player.guid))
+		if(Network.isClient && (player_ != Network.player))
 		{
 			Debug.Log ("Received setGold for wrong player!");
 			return;
 		}
-		Debug.Log ("setGold received from " + info.sender + ", amount = " + gold_ + ", player = " + guid_);	
-		setGold(gold_, guid_);
+		Debug.Log ("setGold received from " + info.sender + ", amount = " + gold_ + ", player = " + player_);	
+		setGold(gold_, player_);
 	}
 
-	void setGold(int gold_, string guid_)
+	void setGold(int gold_, NetworkPlayer player_)
 	{
-		PlayerState state = players[guid_];
-		if(state == null) {Debug.Log("Player " + guid_ + " not found!"); return;}
+		PlayerState state = players[player_.guid];
+		if(state == null) {Debug.Log("Player " + player_ + " not found!"); return;}
 		state.gold = gold_;
 	}
 	
 	//setIncome
 	[RPC]
-	void setIncome(int income_, string guid_, NetworkMessageInfo info)
+	void setIncome(int income_, NetworkPlayer player_, NetworkMessageInfo info)
 	{
 		if(Network.isServer)
 		{
 			Debug.Log ("Server should not receive setIncome RPC calls!");
 			return;
 		}
-		if(Network.isClient && (guid_ != Network.player.guid))
+		if(Network.isClient && (player_ != Network.player))
 		{
 			Debug.Log ("Received setIncome for wrong player!");
 			return;
 		}
-		Debug.Log ("setIncome received from " + info.sender + ", income = " + income_ + ", player = " + guid_);
-		setIncome (income_, guid_);
+		Debug.Log ("setIncome received from " + info.sender + ", income = " + income_ + ", player = " + player_);
+		setIncome (income_, player_);
 	}
 	
-	void setIncome(int income_, string guid_)
+	void setIncome(int income_, NetworkPlayer player_)
 	{
-		PlayerState state = players[guid_];
-		if(state == null) {Debug.Log("Player " + guid_ + " not found!"); return;}
+		PlayerState state = players[player_.guid];
+		if(state == null) {Debug.Log("Player " + player_ + " not found!"); return;}
 		state.income = income_;
 	}
 	
 	//setLives
 	[RPC]
-	void setLives(int lives_, string guid_, NetworkMessageInfo info)
+	void setLives(int lives_, NetworkPlayer player_, NetworkMessageInfo info)
 	{
 		if(Network.isServer)
 		{
@@ -781,14 +794,14 @@ public class GameState : MonoBehaviour
 			return;
 		}
 		
-		Debug.Log ("setLives received from " + info.sender + ", lives = " + lives_ + ", player = " + guid_);
-		setLives(lives_, guid_);
+		Debug.Log ("setLives received from " + info.sender + ", lives = " + lives_ + ", player = " + player_);
+		setLives(lives_, player_);
 	}
 	
-	void setLives(int lives_, string guid_)
+	void setLives(int lives_, NetworkPlayer player_)
 	{
-		PlayerState state = players[guid_];
-		if(state == null) {Debug.Log("Player " + guid_ + " not found!"); return;}
+		PlayerState state = players[player_.guid];
+		if(state == null) {Debug.Log("Player " + player_ + " not found!"); return;}
 		state.lives = lives_;
 	}
 
@@ -799,7 +812,7 @@ public class GameState : MonoBehaviour
 
 	//setStock
 	[RPC]
-	void setStock(int stock_, string guid_, string creepName_, NetworkMessageInfo info)
+	void setStock(int stock_, NetworkPlayer player_, string creepName_, NetworkMessageInfo info)
 	{
 		if(Network.isServer)
 		{
@@ -807,18 +820,18 @@ public class GameState : MonoBehaviour
 			return;
 		}
 
-		Debug.Log ("setStock received from " + info.sender + ", stock = " + stock_ + ", player = " + guid_ + ", creepName = " + creepName_);
-		setStock (stock_, guid_, creepName_);
+		Debug.Log ("setStock received from " + info.sender + ", stock = " + stock_ + ", player = " + player_ + ", creepName = " + creepName_);
+		setStock (stock_, player_, creepName_);
 	}
 
-	void setStock(int stock_, string guid_, string creepName_)
+	void setStock(int stock_, NetworkPlayer player_, string creepName_)
 	{
-		spawns[guid_].getSpawn(creepName_).currentStock = stock_;
+		spawns[player_.guid].getSpawn(creepName_).currentStock = stock_;
 	}
 
 	//setStockTimer
 	[RPC]
-	void setStockTimer(float lastTime_, string guid_, string creepName_, NetworkMessageInfo info)
+	void setStockTimer(float lastTime_, NetworkPlayer player_, string creepName_, NetworkMessageInfo info)
 	{
 		if(Network.isServer)
 		{
@@ -826,13 +839,13 @@ public class GameState : MonoBehaviour
 			return;
 		}
 		
-		Debug.Log ("setStockTimer received from " + info.sender + ", lastRestock = " + lastTime_ + ", player = " + guid_ + ", creepName = " + creepName_);
-		setStockTimer (lastTime_, guid_, creepName_);
+		Debug.Log ("setStockTimer received from " + info.sender + ", lastRestock = " + lastTime_ + ", player = " + player_ + ", creepName = " + creepName_);
+		setStockTimer (lastTime_, player_, creepName_);
 	}
 
-	void setStockTimer(float lastTime_, string guid_, string creepName_)
+	void setStockTimer(float lastTime_, NetworkPlayer player_, string creepName_)
 	{
-		spawns[guid_].getSpawn(creepName_).lastRestock = lastTime_;
+		spawns[player_.guid].getSpawn(creepName_).lastRestock = lastTime_;
 	}
 
 }

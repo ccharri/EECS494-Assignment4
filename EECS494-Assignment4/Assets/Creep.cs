@@ -11,8 +11,6 @@ public abstract class Creep : Spawnable, Selectable
 
 	NavMeshAgent navAgent;
 
-	GameState gstate;
-
     void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -21,7 +19,7 @@ public abstract class Creep : Spawnable, Selectable
 
 	public void updateDestination()
 	{
-		gstate = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
+		GameState gstate = GameState.getInstance();
 		navAgent = GetComponent<NavMeshAgent>();
 
 		if (gstate.getPlayerNum(getOwner()) == 1)
@@ -44,9 +42,12 @@ public abstract class Creep : Spawnable, Selectable
     }
     public virtual void onDeath()
     {
-        GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
-		g.removeCreep(networkView.viewID, getOwner());
-		g.networkView.RPC("removeCreep", RPCMode.OthersBuffered, networkView.viewID, getOwner());
+		GameState g = GameState.getInstance();
+		g.removeCreep(networkView.viewID, g.getPlayer(getOwner()));
+		g.networkView.RPC("removeCreep", RPCMode.OthersBuffered, networkView.viewID,  g.getPlayer(getOwner()));
+
+		if(Network.isClient) return;
+
         Network.Destroy(this.gameObject);
     }
 
@@ -76,8 +77,7 @@ public abstract class Creep : Spawnable, Selectable
 
 			if((transform.position - navAgent.destination).magnitude < .75)
 			{
-				GameState g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
-				g.onCreepLeaked(this);
+				GameState.getInstance().onCreepLeaked(this);
 			}
 		}
     }

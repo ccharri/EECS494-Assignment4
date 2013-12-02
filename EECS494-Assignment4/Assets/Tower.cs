@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 public abstract class Tower : Spawnable, Selectable 
 {
-    protected GameState g;
-
 	protected List<Projectile> projectiles;
 	protected Creep target;
 	protected TargetingBehavior behavior = Closest.getInstance();
@@ -15,7 +13,6 @@ public abstract class Tower : Spawnable, Selectable
 
     void Start()
     {
-		g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
     }
 
     public void setRange(float range_)          { range = new Attribute(range_); }
@@ -28,16 +25,10 @@ public abstract class Tower : Spawnable, Selectable
 	{
 		base.Update();
 	}
-
-	public GameState getGameState()
-	{
-		if(g) return g;
-		return g = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameState>();
-	}
-
+	
 	protected override void FixedUpdate() 
 	{
-		g = getGameState();
+		GameState g = GameState.getInstance();
         if(Network.isServer)
         {
             base.FixedUpdate();
@@ -55,12 +46,12 @@ public abstract class Tower : Spawnable, Selectable
 	
 	protected virtual void fire()
 	{
-		lastFired = g.getGameTime();
+		lastFired = GameState.getInstance().getGameTime();
 	}
 	
 	protected virtual Creep findTarget()
 	{
-        List<Creep> arenaCreeps = g.getEnemyCreeps(ownerGUID);
+        List<Creep> arenaCreeps = GameState.getInstance().getEnemyCreeps(ownerGUID);
         if(arenaCreeps.Count == 0)
             return null;
         Creep newTarget = null;
