@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof (NavMeshAgent))]
+
 public abstract class Creep : Spawnable, Selectable 
 {
 	Attribute health = new Attribute(1);
@@ -20,15 +22,13 @@ public abstract class Creep : Spawnable, Selectable
 	public void updateDestination()
 	{
 		GameState gstate = GameState.getInstance();
-		navAgent = GetComponent<NavMeshAgent>();
-
 		if (gstate.getPlayerNum(getOwner()) == 1)
 		{
-			navAgent.SetDestination(new Vector3(110, 0, 0));
+			getAgent().SetDestination(new Vector3(110, 0, 0));
 		}
 		else
 		{
-			navAgent.SetDestination(new Vector3(-110, 0, 0));
+			getAgent().SetDestination(new Vector3(-110, 0, 0));
 		}
 	}
 
@@ -71,19 +71,27 @@ public abstract class Creep : Spawnable, Selectable
 		if(Network.isServer)
 		{
         	base.FixedUpdate();
-            navAgent = GetComponent<NavMeshAgent>();
 //        	navAgent.speed = speed.get();
 
-			Vector3 dest = navAgent.path.corners[0];
+			Vector3 dest = getAgent().path.corners[0];
 
 			transform.position += (dest - transform.position).normalized * speed.get () * Time.fixedDeltaTime;
 
-			if((transform.position - navAgent.destination).magnitude < .75)
+			if((transform.position - getAgent ().destination).magnitude < .75)
 			{
 				GameState.getInstance().onCreepLeaked(this);
 			}
 		}
     }
+
+	private NavMeshAgent getAgent()
+	{
+		if(navAgent == null)
+		{
+			navAgent = GetComponent<NavMeshAgent>();
+		}
+		return navAgent;
+	}
 
     public string getDescription()
     {
