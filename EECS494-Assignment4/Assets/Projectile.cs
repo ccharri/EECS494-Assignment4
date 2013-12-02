@@ -3,18 +3,26 @@ using System.Collections.Generic;
 
 public abstract class Projectile : Unit 
 {
+    //External Editor Attributes (ONLY VALID FOR AWAKE)
+    public float damageBase = 10;
+    public float speedBase;
+
+    //Internal Attributes
     protected Attribute speed = new Attribute(1);
+    protected Attribute damage = new Attribute(1);
     protected Tower owner = null;
     protected Creep target = null;
     protected Vector3 targetPos = new Vector3(0,0,0);
     protected double birthTime = 0;
 
-    public void setSpeed(float speed_)              { speed = new Attribute(speed_); }
+    public void setSpeed(float speed_)              { speed.setBase(speed_); }
+    public void setDamage(float damage_)            { damage.setBase(damage_); }
     public void setTarget(Creep target_)            { target = target_; setTargetPos(target.transform.position); }
     public void setOwner(Tower owner_)              { owner = owner_; }
     public void setTargetPos(Vector3 targetPos_)    { targetPos = targetPos_; }
 
     public float getSpeed()         { return speed.get(); }
+    public float getDamage()        { return damage.get(); }
     public Creep getTarget()        { return target;}
     public Tower getOwner()         { return owner;}
     public Vector3 getTargetPos()   { return targetPos;}
@@ -23,6 +31,8 @@ public abstract class Projectile : Unit
     void Awake()
     {
         birthTime = Time.time;
+        setDamage(damageBase);
+        setSpeed(speedBase);
     }
 
     public void replace(Projectile p_)

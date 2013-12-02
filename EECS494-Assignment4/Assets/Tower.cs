@@ -3,20 +3,27 @@ using System.Collections.Generic;
 
 public abstract class Tower : Spawnable, Selectable 
 {
+    //External Editor Attributess
+    public float rangeBase = 10;
+    public float cooldownBase = 1;
+    public Projectile toFire;
+
+    //Internal Attribues
+    protected Attribute range = new Attribute(1);
+    protected Attribute cooldown = new Attribute(1);
+
+    //Internal Book-Keeping
 	protected List<Projectile> projectiles;
 	protected Creep target;
 	protected TargetingBehavior behavior = Closest.getInstance();
-	
-	protected Attribute range = new Attribute(1);
-	protected Attribute cooldown = new Attribute(1);
 	protected double lastFired = 0;
 
     void Start()
     {
     }
 
-    public void setRange(float range_)          { range = new Attribute(range_); }
-    public void setCooldown(float cooldown_)    { cooldown = new Attribute(cooldown_); }
+    public void setRange(float range_)          { range.setBase(range_); }
+    public void setCooldown(float cooldown_)    { cooldown.setBase(cooldown_); }
 
     public float getRange()                     { return range.get(); }
     public float getCooldown()                  { return cooldown.get(); }

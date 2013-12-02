@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MagicMissile : Projectile
+public class Fireball : Projectile
 {
+    float damage = 10;
     public void Init(Creep target_, Tower owner_)
     {
         setTarget(target_);
         setOwner(owner_);
         setSpeed(7.50f);
-        setDamage(10.0f);
+        damage = 10;
     }
 
     public void Init(Creep target_, Tower owner_, float damage_, float speed_)
@@ -16,7 +17,7 @@ public class MagicMissile : Projectile
         setTarget(target_);
         setOwner(owner_);
         setSpeed(speed_);
-        setDamage(damage_);
+        damage = damage_;
     }
 
     protected override void FixedUpdate()
@@ -32,9 +33,9 @@ public class MagicMissile : Projectile
     {
         if(Network.isServer)
         {
-			if( target != null && c.gameObject.GetComponent<Creep>() == target)
+            if(target != null && c.gameObject.GetComponent<Creep>() == target)
             {
-                target.onDamage(getDamage());
+                target.onDamage(damage);
                 destroy();
             }
         }
