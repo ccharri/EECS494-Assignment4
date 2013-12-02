@@ -8,12 +8,13 @@ public class Suffering : Buff<Creep>
 	
 	public Suffering(Creep target_, float duration_, float dps_, float mult_) : base(target_) 
 	{
-		duraiton = duration_;
+		duration = duration_;
 		DPS = dps_;
 		MULTPERPERCMISSING = mult_;
 	}
 
-	public Suffering(Creep target_, Unit owner_, float duration_, float dps_, float mult_) : base(target_, owner_) {
+	public Suffering(Creep target_, Unit owner_, float duration_, float dps_, float mult_) : base(target_, owner_) 
+	{
 		duration = duration_;
 		DPS = dps_;
 		MULTPERPERCMISSING = mult_;
