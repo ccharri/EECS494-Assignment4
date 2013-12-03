@@ -127,10 +127,10 @@ public class GameState : MonoBehaviour
                       u.lastRestock = time;
 
                       //If it's not us
-                      if (ps.player != Network.player)
-                      {
-                          //do the RPC calls
-                      }
+                      //if (ps.player != Network.player)
+                      //{
+                          //networkView.RPC("setStock", p, u.currentStock, p, p.Key);
+                      //}
                   }
               }
           }
@@ -343,10 +343,10 @@ public class GameState : MonoBehaviour
       if(us == null) {Debug.Log("Not UnitSpawn found for creep: " + entry.Key + "!");}
       else
       {
-          GUILayout.Label("Initial Stock: " + us.initialStockTime);
-          GUILayout.Label("Restock: " + us.restockTime);
-          GUILayout.Label("Current Stock: " + us.currentStock);
-          GUILayout.Label("Max Stock: " + us.maxStock);
+          if (time < us.initialStockTime)
+              GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + us.initialStockTime);
+          else
+              GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + us.restockTime);
       }
 
       GUILayout.EndVertical();
