@@ -81,8 +81,9 @@ public class Projectile : Unit
         if(Network.isServer)
         {
             if(target == null)
-                Network.Destroy(this.gameObject);
-
+                destroy();
+            if(transform.position.y < -1)
+                destroy();
             base.FixedUpdate();
             if(homing)
                 targetPos = target.transform.position;
