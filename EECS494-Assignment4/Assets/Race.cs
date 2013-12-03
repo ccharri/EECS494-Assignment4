@@ -20,7 +20,7 @@ public class Race {
 	public Dictionary<string, Creep> creepMap = new Dictionary<string, Creep>();
 
   public Dictionary<string, UnitSpawn> unitSpawnMap = new Dictionary<string, UnitSpawn>();
-  public Dictionary<string, Dictionary<string, UnitSpawn>> playerUnitSpawnMap = new Dictionary<string, Dictionary<string, UnitSpawn>>();
+  public static Dictionary<string, Dictionary<string, UnitSpawn>> playerUnitSpawnMap = new Dictionary<string, Dictionary<string, UnitSpawn>>();
 
 	public void Zip()
 	{		
@@ -76,6 +76,13 @@ public class Race {
             usm.Add(creepMapKey[i], new UnitSpawn(creepMapValue[i].GetComponent<SpawnerInfo>()));
         }
         playerUnitSpawnMap.Add(player_, usm);
+    }
+
+    public static Dictionary<string, UnitSpawn> getUnitSpawnMap(string player_)
+    {
+        if (playerUnitSpawnMap.ContainsKey(player_))
+            return playerUnitSpawnMap[player_];
+        return null;
     }
 
     public Tower getTower(string tower)

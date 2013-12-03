@@ -9,6 +9,7 @@ public class PlayerState{
 		income = 10;
 		lives = 10;
 		race = race_;
+    race.addUnitSpawnMap(player_.guid);
 	}
 
 	public NetworkPlayer player;
