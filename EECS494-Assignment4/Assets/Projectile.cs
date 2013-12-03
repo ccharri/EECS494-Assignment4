@@ -86,10 +86,11 @@ public class Projectile : Unit
     {
         if(Network.isServer)
         {
-            if(target == null)
+            if(target == null || transform.position.y < -1)
+            {
                 destroy();
-            if(transform.position.y < -1)
-                destroy();
+                return;
+            }
             base.FixedUpdate();
             if(homing)
             {
