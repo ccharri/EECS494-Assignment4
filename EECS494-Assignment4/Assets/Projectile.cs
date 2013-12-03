@@ -93,10 +93,16 @@ public class Projectile : Unit
             base.FixedUpdate();
             if(homing)
             {
+<<<<<<< HEAD
                 Vector3 pos = target.transform.position;
                 targetPos = new Vector3(pos.x, pos.y, pos.z);
                 transform.position += calculateVelocity();
+=======
+				targetPos = target.transform.position;
+>>>>>>> 4825cab7738dd49d475fbfb2cf9daf3a07e4b45e
             }
+
+			transform.position += calculateVelocity();
             //NOTE: This can skip over enemies
         }
     }
