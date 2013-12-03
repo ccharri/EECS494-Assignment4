@@ -88,7 +88,7 @@ public class Projectile : Unit
             base.FixedUpdate();
             if(homing)
                 targetPos = target.transform.position;
-            transform.rigidbody.transform.position += calculateVelocity();
+            transform.transform.position += calculateVelocity();
             //NOTE: This can skip over enemies
         }
     }
