@@ -73,7 +73,7 @@ public class Projectile : Unit
         Vector3 newVel = (targetPos - transform.position);
         newVel.Normalize();
         float scaleFactor = (float)speed.get() * Time.fixedDeltaTime;
-		newVel *= scaleFactor;
+		newVel = new Vector3(newVel.x * scaleFactor, newVel.y * scaleFactor, newVel.z * scaleFactor);
         return newVel;
     }
     protected override void FixedUpdate()
