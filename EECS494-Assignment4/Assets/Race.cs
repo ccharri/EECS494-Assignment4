@@ -42,11 +42,11 @@ public class Race {
 		}
     
 	    //UnitSpawn
-      //for (int i = 0; i < creepMapKey.Count; i++)
-      //{
-      //    Debug.Log("Adding Unitspawn for: " + creepMapKey[i]);
-      //    unitSpawnMap.Add(creepMapKey[i], new UnitSpawn(creepMapValue[i].GetComponent<SpawnerInfo>()));
-      //}
+    for (int i = 0; i < creepMapKey.Count; i++)
+    {
+        Debug.Log("Adding Unitspawn for: " + creepMapKey[i]);
+        unitSpawnMap.Add(creepMapKey[i], new UnitSpawn(creepMapValue[i].GetComponent<SpawnerInfo>()));
+    }
 	}
 
   void Awake()
