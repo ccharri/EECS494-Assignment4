@@ -68,6 +68,14 @@ public class PlacementManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			Destroy(placeObject);
+			placing = false;
+			//ready = false;
+			//enabled = false;
+		}
+
 		if(placing)
 		{
 			renderer.enabled = true;
@@ -96,6 +104,12 @@ public class PlacementManager : MonoBehaviour {
 		}
 	}
 
+	void OnGUI()
+	{
+		shift = Input.GetKey(KeyCode.LeftShift);
+		Debug.Log ("shift = " + shift);
+	}
+
 	void place(Vector3 point)
 	{
 		Tower t = placeObject.GetComponent<Tower>();
@@ -106,15 +120,15 @@ public class PlacementManager : MonoBehaviour {
 
 		Debug.Log ("t.id = " + id);
 
-		Destroy(placeObject);
-		
-		//		Instantiate(placePrefab, alignToGrid(point), Quaternion.identity);
+		//		Instantiate(placePrefab, alignToGrid(point), Quaternion.identity);		
+
 		if(!shift)
 		{
+			Destroy(placeObject);
 			placing = false;
+			ready = false;
+			enabled = false;
 		}
-		ready = false;
-		enabled = false;
 
 		if(Network.isServer)
 		{

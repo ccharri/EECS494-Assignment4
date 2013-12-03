@@ -30,7 +30,7 @@ public class RaceManager : MonoBehaviour {
 		{
 			Debug.Log ("Adding {"+raceMapKeys[i]+":"+raceMapValues[i]+"}");
 			raceMapValues[i].Zip();
-			raceMap.Add (raceMapKeys[0], raceMapValues[0]);
+			raceMap.Add (raceMapKeys[i], raceMapValues[i]);
 		}
 
 		Debug.Log("RaceManager created dictionary = " + raceMap);

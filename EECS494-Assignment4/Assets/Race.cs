@@ -29,13 +29,13 @@ public class Race {
 		for(int i = 0; i < towerMapKey.Count; i++)
 		{
 			Debug.Log ("Adding Tower {"+towerMapKey[i]+":"+towerMapValue[i]+"}");
-			towerMap.Add(towerMapKey[0], towerMapValue[0]);
+			towerMap.Add(towerMapKey[i], towerMapValue[i]);
 		}
 		//CreepMap
 		for(int i = 0; i < creepMapKey.Count; i++)
 		{
 			Debug.Log ("Adding Creep {"+creepMapKey[i]+":"+creepMapValue[i]+"}");
-			creepMap.Add(creepMapKey[0], creepMapValue[0]);
+			creepMap.Add(creepMapKey[i], creepMapValue[i]);
 		}
 	}
 
