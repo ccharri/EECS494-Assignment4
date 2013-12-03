@@ -45,44 +45,52 @@ public class PlacementHelper : MonoBehaviour {
 		return GameState.getInstance().getEndPoint();
 	}
 
+	bool filterOut(string tag)
+	{
+		if(tag == "Buildable") return true;
+		if(tag == "Creep") return true;
+		if(tag == "Projectile") return true;
+		return false;
+	}
+
 	void OnCollisionEnter(Collision info)
 	{
-		if(info.gameObject.tag == "Buildable") return;
+		if(filterOut(info.gameObject.tag)) return;
 
 		addCollision();
 	}
 
 	void OnCollisionExit(Collision info)
 	{
-		if(info.gameObject.tag == "Buildable") return;
+		if(filterOut(info.gameObject.tag)) return;
 
 		removeCollision();
 	}
 
 	void OnCollisionStay(Collision info)
 	{
-		if(info.gameObject.tag == "Buildable") return;
+		if(filterOut(info.gameObject.tag)) return;
 
 		markInvalid();
 	}
 
 	void OnTriggerEnter(Collider info)
 	{
-		if(info.gameObject.tag == "Buildable") return;
+		if(filterOut(info.gameObject.tag)) return;
 
 		addCollision();
 	}
 
 	void OnTriggerExit(Collider info)
 	{
-		if(info.gameObject.tag == "Buildable") return;
+		if(filterOut(info.gameObject.tag)) return;
 
 		removeCollision();
 	}
 
 	void OnTriggerStay(Collider info)
 	{
-		if(info.gameObject.tag == "Buildable") return;
+		if(filterOut(info.gameObject.tag)) return;
 
 		validCollision = false;
 	}
