@@ -3,6 +3,15 @@ using System.Collections;
 
 public class UnitSpawn 
 {
+	public UnitSpawn(SpawnerInfo info)
+	{
+		initialStockTime = info.initialTimer;
+		restockTime = info.restockTimer;
+		maxStock = info.maxStock;
+		currentStock = 0;
+		spawn = info.gameObject.GetComponent<Creep>();
+	}
+
 	public Spawnable spawn;
 	public float initialStockTime;
 	public float restockTime;

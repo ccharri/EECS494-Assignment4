@@ -40,12 +40,12 @@ public class Race {
 			creepMap.Add(creepMapKey[i], creepMapValue[i]);
 		}
     
-    //UnitSpawn
-    for (int i = 0; i < creepMapKey.Count; i++)
-    {
-        Debug.Log("Adding Unitspawn for: " + creepMapKey[i]);
-        unitSpawnMap.Add(creepMapKey[i], new UnitSpawn());
-    }
+	    //UnitSpawn
+	    for (int i = 0; i < creepMapKey.Count; i++)
+	    {
+	        Debug.Log("Adding Unitspawn for: " + creepMapKey[i]);
+	        unitSpawnMap.Add(creepMapKey[i], new UnitSpawn(creepMapValue[i].GetComponent<SpawnerInfo>()));
+	    }
 	}
 
   void Awake()
