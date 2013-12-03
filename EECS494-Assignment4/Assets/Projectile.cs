@@ -75,7 +75,7 @@ public class Projectile : Unit
     protected virtual Vector3 calculateVelocity()
     //DOES: Makes the projectile home on the target. Changes targetPos.
     {
-        Vector3 newVel = (targetPos - transform.position);
+		Vector3 newVel = new Vector3(targetPos.x - transform.position.x, targetPos.y - transform.position.y, targetPos.z - transform.position.z);
         newVel.Normalize();
         float scaleFactor = (float)speed.get() * Time.fixedDeltaTime;
 		newVel = new Vector3(newVel.x * scaleFactor, newVel.y * scaleFactor, newVel.z * scaleFactor);
