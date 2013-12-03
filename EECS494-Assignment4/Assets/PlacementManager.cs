@@ -10,6 +10,7 @@ public class PlacementManager : MonoBehaviour {
 	public Material invalidMaterial;
 	private GameObject placeObject;
 	private string id;
+	public LineRenderer renderer = new LineRenderer();
 
 	GameState gstate;
 
@@ -18,6 +19,22 @@ public class PlacementManager : MonoBehaviour {
 	void Awake() 
 	{
 		gstate = GetComponent<GameState>();
+		NavMeshAgent spawnAgent = gstate.spawnLocation.GetComponent<NavMeshAgent>();
+		spawnAgent.ResetPath();
+		NavMeshPath path = new NavMeshPath();
+		spawnAgent.CalculatePath(gstate.getEndPoint(), path);
+		
+		while(spawnAgent.pathPending)
+		{
+		}
+		
+		Vector3[] p = path.corners;
+		renderer.SetVertexCount(p.Length);
+		for(int i = 0 ; i < p.Length; i++)
+		{
+			renderer.SetPosition(i, p[i]);
+		}
+
 	}
 
 	// Use this for initialization
@@ -53,6 +70,7 @@ public class PlacementManager : MonoBehaviour {
 	void Update () {
 		if(placing)
 		{
+			renderer.enabled = true;
 			if(Input.GetMouseButtonUp(0))
 			{
 				ready = true;
@@ -71,6 +89,10 @@ public class PlacementManager : MonoBehaviour {
 					place(alignToGrid(rhit.point));
 				}
 			}
+		}
+		else
+		{
+			renderer.enabled = false;
 		}
 	}
 

@@ -19,17 +19,22 @@ public abstract class Creep : Spawnable, Selectable
 		navAgent.speed = 0;
     }
 
-	public void updateDestination()
+	public Vector3 getDestination()
 	{
 		GameState gstate = GameState.getInstance();
 		if (!Network.isServer)
 		{
-			getAgent().SetDestination(new Vector3(44, 0, 0));
+			return new Vector3(44, 0, 0);
 		}
 		else
 		{
-			getAgent().SetDestination(new Vector3(-44, 0, 0));
+			return new Vector3(-44, 0, 0);
 		}
+	}
+
+	public void updateDestination()
+	{
+		getAgent().SetDestination(getDestination());
 	}
 
     public virtual bool onDamage(float damage)

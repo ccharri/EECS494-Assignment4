@@ -5,7 +5,7 @@ public class PlayerState{
 	public PlayerState(NetworkPlayer player_, Race race_)
 	{;
 		player = player_;
-		gold = 25;
+		gold = 250;
 		income = 10;
 		lives = 10;
 		race = race_;

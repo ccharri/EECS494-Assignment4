@@ -24,7 +24,7 @@ public class GameState : MonoBehaviour
 
 	bool showMenu = false;
 
-	public Vector3 spawnLocation;
+	public GameObject spawnLocation;
 
 	public PlacementManager pMan;
 	public Camera mainCamera;
@@ -53,7 +53,7 @@ public class GameState : MonoBehaviour
 		players = new Dictionary<string, PlayerState>();
 		spawns = new Dictionary<string, SpawnerState>();
 		pMan = GetComponent<PlacementManager>();
-		spawnLocation = GameObject.FindGameObjectWithTag("SpawnLocation").transform.position;
+		spawnLocation = GameObject.FindGameObjectWithTag("SpawnLocation");
 		mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 		raceMan = GameObject.FindGameObjectWithTag("RaceManager").GetComponent<RaceManager>();
 		playerNums = new List<string>();
@@ -332,6 +332,20 @@ public class GameState : MonoBehaviour
         GUILayout.EndHorizontal();
     }
 
+	public Vector3 getEndPoint()
+	{
+		GameState gstate = GameState.getInstance();
+		if (Network.isServer)
+		{
+			return new Vector3(43.75f, .5f, 0);
+		}
+		else
+		{
+			return new Vector3(-43.75f, .5f, 0);
+		}
+	}
+
+
 	public NetworkPlayer getPlayer(string pid)
 	{
 		return players[pid].player;
@@ -538,7 +552,7 @@ public class GameState : MonoBehaviour
 			NetworkPlayer player = pstate.player;
 			if(player == player_) continue;
 
-			c = ((GameObject)Network.Instantiate(c.prefab, spawnLocation, Quaternion.identity, 0)).GetComponent<Creep>();
+			c = ((GameObject)Network.Instantiate(c.prefab, spawnLocation.transform.position, Quaternion.identity, 0)).GetComponent<Creep>();
 
 			ps.gold -= c.cost;
 
