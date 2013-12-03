@@ -57,7 +57,7 @@ public class Projectile : Unit
     protected virtual List<T> getAllTypesInRadius<T>(Vector3 origin, float radius) where T : Unit
     {
         List<T> objects = new List<T>();
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(origin.x, origin.y), radius);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(origin.x, origin.z), radius);
         foreach(Collider2D c in colliders)
         {
             GameObject o = c.attachedRigidbody.gameObject;
@@ -67,6 +67,7 @@ public class Projectile : Unit
         }
         return objects;
     }
+
     protected virtual Vector3 calculateVelocity()
     //DOES: Makes the projectile home on the target. Changes targetPos.
     {
