@@ -16,7 +16,7 @@ public class Projectile : Unit
     protected Attribute speed = new Attribute(1);
     protected Attribute damage = new Attribute(1);
     protected Attribute splash = new Attribute(1);
-    protected Tower owner = null;
+    protected Tower owningTower = null;
     protected Creep target = null;
     protected Vector3 targetPos = new Vector3(0,0,0);
     protected double birthTime = 0;
@@ -25,7 +25,7 @@ public class Projectile : Unit
     public void setDamage(float damage_)            { damage.setBase(damage_); }
     public void setSplash(float splash_)            { splash.setBase(splash_); }
     public void setTarget(Creep target_)            { target = target_; setTargetPos(target.transform.position); }
-    public void setOwner(Tower owner_)              { owner = owner_; }
+    public void setOwningTower(Tower owner_)        { owningTower = owner_; }
     public void setTargetPos(Vector3 targetPos_)    { targetPos = targetPos_; }
 
     public float getSpeed()         { return speed.get(); }
@@ -33,7 +33,7 @@ public class Projectile : Unit
     public float getDamage()        { return damage.get(); }
     public float getSplash()        { return splash.get(); }
     public Creep getTarget()        { return target; }
-    public Tower getOwner()         { return owner; }
+    public Tower getOwningTower()   { return owningTower; }
     public Vector3 getTargetPos()   { return targetPos; }
 
 
