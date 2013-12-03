@@ -24,11 +24,11 @@ public abstract class Creep : Spawnable, Selectable
 		GameState gstate = GameState.getInstance();
 		if (!Network.isServer)
 		{
-			return new Vector3(44, 0, 0);
+			return new Vector3(43.8, 0, 0);
 		}
 		else
 		{
-			return new Vector3(-44, 0, 0);
+			return new Vector3(-43.8, 0, 0);
 		}
 	}
 

@@ -374,7 +374,10 @@ public class GameState : MonoBehaviour
 	{
 		List<Creep> list = creepsByArena[pid];
 		if(list != null)
-			list.Remove(c);
+		{
+			if(list.Contains(c))
+				list.Remove(c);
+		}
 	}
 
 	public void removeTowerForPlayer(string pid, Tower t)
