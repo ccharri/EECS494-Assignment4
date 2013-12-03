@@ -95,7 +95,10 @@ public class Projectile : Unit
     {
         if(Network.isServer)
         {
-            if(target != null && c.gameObject.GetComponent<Creep>() == target)
+            if(target != null &&  
+                ((homing && c.gameObject.GetComponent<Creep>() == target) ||
+                (!homing && c.gameObject.GetComponent<Creep>() != null))
+            )
             {
                 if(splash.get() <= 0)
                 {
