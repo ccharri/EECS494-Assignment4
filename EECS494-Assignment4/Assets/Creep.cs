@@ -22,7 +22,10 @@ public abstract class Creep : Spawnable, Selectable
 	public Vector3 getDestination()
 	{
 		GameState gstate = GameState.getInstance();
-		if (!Network.isServer)
+
+		bool sendToPlayerOne = (Network.isClient) ||(Network.isServer && (getOwner() != Network.player.guid));
+
+		if (sendToPlayerOne)
 		{
 			return new Vector3(43.8f, 0, 0);
 		}
