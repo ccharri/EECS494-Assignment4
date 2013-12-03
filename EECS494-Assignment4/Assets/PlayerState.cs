@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerState{
 	public PlayerState(NetworkPlayer player_, Race race_)
-	{;
+	{
 		player = player_;
 		gold = 250;
 		income = 10;
