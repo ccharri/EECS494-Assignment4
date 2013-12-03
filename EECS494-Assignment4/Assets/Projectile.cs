@@ -15,10 +15,11 @@ public class Projectile : Unit
     protected Attribute speed = new Attribute(1);
     protected Attribute damage = new Attribute(1);
     protected Attribute splash = new Attribute(1);
-    protected Tower owningTower = null;
-    protected Creep target = null;
-    protected Vector3 targetPos = new Vector3(0,0,0);
-    protected double birthTime = 0;
+    public Tower owningTower = null;
+    public Creep target = null;
+	public Transform targetTrans;
+    public Vector3 targetPos = new Vector3(0,0,0);
+    public double birthTime = 0;
 
     public void setSpeed(float speed_)              { speed.setBase(speed_); }
     public void setDamage(float damage_)            { damage.setBase(damage_); }
@@ -27,10 +28,12 @@ public class Projectile : Unit
     { 
         target = target_;
         Vector3 pos = target.gameObject.transform.position;
+		Debug.Log ("Target position = " + pos);
         setTargetPos(new Vector3(pos.x, pos.y, pos.z)); 
+		targetTrans = target.gameObject.transform;
     }
     public void setOwningTower(Tower owner_)        { owningTower = owner_; }
-    public void setTargetPos(Vector3 targetPos_)    { targetPos = targetPos_; }
+	public void setTargetPos(Vector3 targetPos_)    { targetPos = targetPos_; Debug.Log ("Target position = " + targetPos_);}
 
     public float getSpeed()         { return speed.get(); }
     public float getSpeedBase()     { return speed.getBase(); }
@@ -76,9 +79,14 @@ public class Projectile : Unit
     //DOES: Makes the projectile home on the target. Changes targetPos.
     {
 		Vector3 newVel = new Vector3(targetPos.x - transform.position.x, targetPos.y - transform.position.y, targetPos.z - transform.position.z);
+		Debug.Log ("newVel = " + newVel);
         newVel.Normalize();
-        float scaleFactor = (float)speed.get() * Time.fixedDeltaTime;
+		Debug.Log ("newVelNormalized = " + newVel);
+        float scaleFactor = speed.get() * Time.fixedDeltaTime;
+		Debug.Log ("scaleFactor = " +  scaleFactor);
+		Debug.Log ("x = " + newVel.x * scaleFactor + ", y = " + newVel.y * scaleFactor + ", z = " + newVel.z * scaleFactor);
 		newVel = new Vector3(newVel.x * scaleFactor, newVel.y * scaleFactor, newVel.z * scaleFactor);
+		Debug.Log ("NewVel Final = x = " + newVel.x  + ", y = " + newVel.y + ", z = " + newVel.z );
         return newVel;
     }
 
@@ -94,10 +102,10 @@ public class Projectile : Unit
             if(homing)
             {
                 Vector3 pos = target.transform.position;
-                targetPos = new Vector3(pos.x, pos.y, pos.z);
+				targetPos = targetTrans.position;
             }
 
-			transform.position += calculateVelocity();
+			transform.position += (new Vector3(targetPos.x, .5f, targetPos.z) - transform.position).normalized * speed.get () * Time.fixedDeltaTime;
             //NOTE: This can skip over enemies
         }
     }
