@@ -1,16 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameState.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlacementHelper.cs">
     <Files>
-      <File FileName="EECS494-Assignment4.sln" Line="52" Column="1" />
-      <File FileName="Assets\GameState.cs" Line="335" Column="28" />
-      <File FileName="Assets\Buffs\OnFire.cs" Line="1" Column="1" />
-      <File FileName="Assets\Buffs\Suffering.cs" Line="28" Column="2" />
-      <File FileName="Assets\Buff.cs" Line="1" Column="1" />
-      <File FileName="Assets\PlacementManager.cs" Line="28" Column="4" />
-      <File FileName="Assets\PlacementHelper.cs" Line="29" Column="3" />
-      <File FileName="Assets\Creep.cs" Line="17" Column="6" />
-      <File FileName="Assets\PlayerState.cs" Line="8" Column="13" />
+      <File FileName="Assets/Buff.cs" Line="11" Column="21" />
+      <File FileName="Assets/Server_Client_ConnectionManagerWithPlacementIntegration.cs" Line="9" Column="1" />
+      <File FileName="Assets/Unit.cs" Line="1" Column="1" />
+      <File FileName="Assets/Tower.cs" Line="10" Column="8" />
+      <File FileName="Assets/GameState.cs" Line="530" Column="101" />
+      <File FileName="Assets/PlacementHelper.cs" Line="128" Column="21" />
+      <File FileName="Assets/PlayerState.cs" Line="9" Column="13" />
+      <File FileName="Assets/Creep.cs" Line="25" Column="25" />
+      <File FileName="Assets/Projectile.cs" Line="32" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -22,7 +22,7 @@ public class PlacementHelper : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if((position.x != gameObject.transform.position.x) || (position.z != gameObject.transform.position.z))
+//		if((position.x != gameObject.transform.position.x) || (position.z != gameObject.transform.position.z))
 		{
 			refreshBlockingValidity();
 			position = gameObject.transform.position;
@@ -125,11 +125,7 @@ public class PlacementHelper : MonoBehaviour {
 	{
 		if(checking) return;
 
-		var obstacles = gameObject.GetComponentsInChildren<NavMeshObstacle>();
-		foreach(NavMeshObstacle obs in obstacles)
-		{
-			obs.enabled = true;
-		}
+		turnOnColliders();
 		
 		checking = true;
 		
@@ -153,10 +149,7 @@ public class PlacementHelper : MonoBehaviour {
 		hasPath = hasPath && (path.status == NavMeshPathStatus.PathComplete);
 		//Debug.Log("--hasPath = " + hasPath + ", path.status = " + path.status);
 		
-		foreach(NavMeshObstacle obs in obstacles)
-		{
-			//		obs.enabled = false;
-		}
+//		turnOffColliders();
 		
 		validPath = hasPath;
 		
@@ -234,7 +227,7 @@ public class PlacementHelper : MonoBehaviour {
 			render.material = validMaterial;
 		}
 
-		turnOnColliders();
+//		turnOnColliders();
 	}
 
 	void markInvalid()
@@ -246,6 +239,6 @@ public class PlacementHelper : MonoBehaviour {
 			render.material = invalidMaterial;
 		}
 
-		turnOffColliders();
+//		turnOffColliders();
 	}
 }
