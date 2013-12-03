@@ -107,7 +107,7 @@ public class PlacementManager : MonoBehaviour {
 	void OnGUI()
 	{
 		shift = Input.GetKey(KeyCode.LeftShift);
-		Debug.Log ("shift = " + shift);
+//		Debug.Log ("shift = " + shift);
 	}
 
 	void place(Vector3 point)
@@ -116,9 +116,9 @@ public class PlacementManager : MonoBehaviour {
 		string tid = t.id;
 
 		if (t == null)
-		Debug.Log ("t == null");
-
-		Debug.Log ("t.id = " + id);
+//		Debug.Log ("t == null");
+//
+//		Debug.Log ("t.id = " + id);
 
 		//		Instantiate(placePrefab, alignToGrid(point), Quaternion.identity);		
 
