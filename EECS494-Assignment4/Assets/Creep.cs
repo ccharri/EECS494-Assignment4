@@ -61,6 +61,13 @@ public abstract class Creep : Spawnable, Selectable
         return health.get() > 0;
     }
 
+	void OnTriggerEnter(Collider info)
+	{
+		if(!(info.gameObject.tag == "EndPoint")) return;
+		
+		GameState.getInstance().onCreepLeaked(this);
+	}
+
 
     public void setHealth(float health_)    { health = new Attribute(health_); }
     public void setSpeed(float speed_)      { speed = new Attribute(speed_); }
@@ -81,11 +88,6 @@ public abstract class Creep : Spawnable, Selectable
 			Vector3 dest = getAgent().path.corners[0];
 
 			transform.position += (dest - transform.position).normalized * speed.get () * Time.fixedDeltaTime;
-
-			if((transform.position - getAgent ().destination).magnitude < .75)
-			{
-				GameState.getInstance().onCreepLeaked(this);
-			}
 		}
     }
 
