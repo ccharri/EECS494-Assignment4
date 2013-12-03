@@ -11,7 +11,6 @@ public class Projectile : Unit
     public Buff<Creep> appliedBuff = null;
     public bool homing = true;
 
-
     //Internal Attributes
     protected Attribute speed = new Attribute(1);
     protected Attribute damage = new Attribute(1);
