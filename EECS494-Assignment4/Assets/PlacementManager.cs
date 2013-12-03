@@ -27,6 +27,8 @@ public class PlacementManager : MonoBehaviour {
 
 	public void beginPlacing(GameObject placePrefab_, string id_)
 	{
+		if(placing) return;
+
 		placing = true;
 		ready = false;
 //		shift = (Input.GetKeyDown("shift"));
