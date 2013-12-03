@@ -61,7 +61,7 @@ public class Tower : Spawnable, Selectable
         GameObject proj = Network.Instantiate(toFire, transform.position + firePoint, transform.rotation, 0) as GameObject;
         Projectile p = proj.GetComponent<Projectile>();
         p.setTarget(target);
-        p.setOwner(this);
+        p.setOwningTower(this);
 		lastFired = GameState.getInstance().getGameTime();
 	}
 	
