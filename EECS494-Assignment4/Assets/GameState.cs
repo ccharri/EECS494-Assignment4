@@ -127,10 +127,10 @@ public class GameState : MonoBehaviour
                       u.lastRestock = time;
 
                       //If it's not us
-                      //if (ps.player != Network.player)
-                      //{
+                      if (ps.player != Network.player)
+                      {
                           //networkView.RPC("setStock", p, u.currentStock, p, p.Key);
-                      //}
+                      }
                   }
               }
           }
@@ -251,18 +251,18 @@ public class GameState : MonoBehaviour
 
     void OnGUI_ScoreBoard()
     {
-		int friendlyLives = 0;
-		int opponentLives = 0;
+		    int friendlyLives = 0;
+		    int opponentLives = 0;
 
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
 
-		string scoreBoardString = NameDatabase.getName(Network.player.guid) + "'s Lives: " + players[Network.player.guid].lives;
+		    string scoreBoardString = NameDatabase.getName(Network.player.guid) + "'s Lives: " + players[Network.player.guid].lives;
 
         foreach (var p in players)
         {
-			if(p.Value.player == Network.player) continue;
-			scoreBoardString += "\n" + NameDatabase.getName(p.Value.player.guid) + "'s Lives: " + p.Value.lives;
+			      if(p.Value.player == Network.player) continue;
+			      scoreBoardString += "\n" + NameDatabase.getName(p.Value.player.guid) + "'s Lives: " + p.Value.lives;
         }
 
         GUILayout.Box(scoreBoardString);
@@ -344,7 +344,7 @@ public class GameState : MonoBehaviour
       else
       {
           if (time < us.initialStockTime)
-              GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + us.initialStockTime);
+              GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (us.initialStockTime - time));
           else
               GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + us.restockTime);
       }
