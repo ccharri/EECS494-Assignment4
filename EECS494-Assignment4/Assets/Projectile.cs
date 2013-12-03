@@ -24,7 +24,7 @@ public class Projectile : Unit
     public void setSpeed(float speed_)              { speed.setBase(speed_); }
     public void setDamage(float damage_)            { damage.setBase(damage_); }
     public void setSplash(float splash_)            { splash.setBase(splash_); }
-    public void setTarget(Creep target_)            { target = target_; setTargetPos(target.transform.position); }
+    public void setTarget(Creep target_)            { target = target_; setTargetPos(target.gameObject.transform.position); }
     public void setOwningTower(Tower owner_)        { owningTower = owner_; }
     public void setTargetPos(Vector3 targetPos_)    { targetPos = targetPos_; }
 
@@ -76,6 +76,7 @@ public class Projectile : Unit
 		newVel = new Vector3(newVel.x * scaleFactor, newVel.y * scaleFactor, newVel.z * scaleFactor);
         return newVel;
     }
+
     protected override void FixedUpdate()
     {
         if(Network.isServer)
@@ -91,6 +92,7 @@ public class Projectile : Unit
             //NOTE: This can skip over enemies
         }
     }
+
     public virtual void OnTriggerEnter(Collider c)
     {
         if(Network.isServer)
