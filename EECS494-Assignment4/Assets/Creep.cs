@@ -23,9 +23,9 @@ public abstract class Creep : Spawnable, Selectable
 	{
 		GameState gstate = GameState.getInstance();
 
-		bool sendToPlayerOne = (Network.isClient) ||(Network.isServer && (getOwner() != Network.player.guid));
+		bool sendToPlayerTwo = (Network.isClient) ||(Network.isServer && (getOwner() != Network.player.guid));
 
-		if (sendToPlayerOne)
+		if (!sendToPlayerTwo)
 		{
 			return new Vector3(43.8f, 0, 0);
 		}
