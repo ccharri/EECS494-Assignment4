@@ -1,12 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public abstract class Tower : Spawnable, Selectable 
+public class Tower : Spawnable, Selectable 
 {
     //External Editor Attributess
     public float rangeBase = 10;
     public float cooldownBase = 1;
-    public Projectile toFire;
+
+    public Vector3 firePoint = new Vector3(0, 1, 0);
+    public string description = "";
+    public GameObject toFire;
 
     //Internal Attribues
     protected Attribute range = new Attribute(1);
@@ -17,16 +20,18 @@ public abstract class Tower : Spawnable, Selectable
 	protected Creep target;
 	protected TargetingBehavior behavior = Closest.getInstance();
 	protected double lastFired = 0;
-
-    void Start()
-    {
-    }
-
+    
     public void setRange(float range_)          { range.setBase(range_); }
     public void setCooldown(float cooldown_)    { cooldown.setBase(cooldown_); }
 
     public float getRange()                     { return range.get(); }
     public float getCooldown()                  { return cooldown.get(); }
+
+    void Awake()
+    {
+        setRange(rangeBase);
+        setCooldown(cooldownBase);
+    }
 
 	protected override void Update () 
 	{
@@ -53,6 +58,10 @@ public abstract class Tower : Spawnable, Selectable
 	
 	protected virtual void fire()
 	{
+        GameObject proj = Network.Instantiate(toFire, transform.position + firePoint, transform.rotation, 0) as GameObject;
+        Projectile p = proj.GetComponent<Projectile>();
+        p.setTarget(target);
+        p.setOwner(this);
 		lastFired = GameState.getInstance().getGameTime();
 	}
 	
@@ -81,13 +90,16 @@ public abstract class Tower : Spawnable, Selectable
             return false;
         return true;
 	}
-	
-	public abstract string getDescription();
-	public void mouseOverOn()
+
+    public virtual string getDescription()
+    {
+        return description;
+    }
+	public virtual void mouseOverOn()
 	{
 
 	}
-	public void mouseOverOff()
+	public virtual void mouseOverOff()
 	{
 
 	}	
