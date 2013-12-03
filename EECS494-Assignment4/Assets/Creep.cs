@@ -64,6 +64,13 @@ public abstract class Creep : Spawnable, Selectable
         return health.get() > 0;
     }
 
+	void OnCollisionEnter(Collision info)
+	{
+		if(!(info.gameObject.tag == "EndPoint")) return;
+		
+		GameState.getInstance().onCreepLeaked(this);
+	}
+
 	void OnTriggerEnter(Collider info)
 	{
 		if(!(info.gameObject.tag == "EndPoint")) return;
