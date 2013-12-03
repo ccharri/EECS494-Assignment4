@@ -141,7 +141,7 @@ public class PlacementHelper : MonoBehaviour {
 		NavMeshAgent spawnAgent = GameState.getInstance().spawnLocation.GetComponent<NavMeshAgent>();
 		spawnAgent.ResetPath();
 		bool hasPath = spawnAgent.CalculatePath(getDestination(), path);
-		Debug.Log("hasPath = " + hasPath + ", path.status = " + path.status);
+//		Debug.Log("hasPath = " + hasPath + ", path.status = " + path.status);
 		
 		while(spawnAgent.pathPending)
 		{
@@ -176,7 +176,7 @@ public class PlacementHelper : MonoBehaviour {
 		NavMeshAgent spawnAgent = GameState.getInstance().spawnLocation.GetComponent<NavMeshAgent>();
 		spawnAgent.ResetPath();
 		bool hasPath = spawnAgent.CalculatePath(getDestination(), path);
-		Debug.Log("hasPath = " + hasPath + ", path.status = " + path.status);
+//		Debug.Log("hasPath = " + hasPath + ", path.status = " + path.status);
 		
 		while(spawnAgent.pathPending)
 		{
@@ -190,7 +190,7 @@ public class PlacementHelper : MonoBehaviour {
 		}
 
 		hasPath = hasPath && (path.status == NavMeshPathStatus.PathComplete);
-		Debug.Log("--hasPath = " + hasPath + ", path.status = " + path.status);
+//		Debug.Log("--hasPath = " + hasPath + ", path.status = " + path.status);
 		
 		turnOffColliders();
 
