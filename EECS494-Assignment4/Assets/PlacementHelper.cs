@@ -22,7 +22,7 @@ public class PlacementHelper : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//if((position.x != gameObject.transform.position.x) || (position.z != gameObject.transform.position.z))
+		if((position.x != gameObject.transform.position.x) || (position.z != gameObject.transform.position.z))
 		{
 			refreshBlockingValidity();
 			position = gameObject.transform.position;
@@ -167,11 +167,7 @@ public class PlacementHelper : MonoBehaviour {
 
 	IEnumerator checkPath(bool validity)
 	{
-		var obstacles = gameObject.GetComponentsInChildren<NavMeshObstacle>();
-		foreach(NavMeshObstacle obs in obstacles)
-		{
-			obs.enabled = true;
-		}
+		turnOnColliders();
 		
 		checking = true;
 		
@@ -195,11 +191,8 @@ public class PlacementHelper : MonoBehaviour {
 		hasPath = hasPath && (path.status == NavMeshPathStatus.PathComplete);
 		Debug.Log("--hasPath = " + hasPath + ", path.status = " + path.status);
 		
-		foreach(NavMeshObstacle obs in obstacles)
-		{
-			obs.enabled = false;
-		}
-		
+		turnOffColliders();
+
 		if(validity && hasPath)
 		{
 			markValid();
@@ -214,6 +207,24 @@ public class PlacementHelper : MonoBehaviour {
 		yield return new WaitForFixedUpdate();
 	}
 
+	void turnOffColliders()
+	{
+		var obstacles = gameObject.GetComponentsInChildren<NavMeshObstacle>();
+		foreach(NavMeshObstacle obs in obstacles)
+		{
+			obs.enabled = false;
+		}
+	}
+
+	void turnOnColliders()
+	{
+		var obstacles = gameObject.GetComponentsInChildren<NavMeshObstacle>();
+		foreach(NavMeshObstacle obs in obstacles)
+		{
+			obs.enabled = true;
+		}
+	}
+
 	void markValid()
 	{
 		valid = true;
@@ -222,6 +233,8 @@ public class PlacementHelper : MonoBehaviour {
 		{
 			render.material = validMaterial;
 		}
+
+		turnOnColliders();
 	}
 
 	void markInvalid()
@@ -232,5 +245,7 @@ public class PlacementHelper : MonoBehaviour {
 		{
 			render.material = invalidMaterial;
 		}
+
+		turnOffColliders();
 	}
 }
