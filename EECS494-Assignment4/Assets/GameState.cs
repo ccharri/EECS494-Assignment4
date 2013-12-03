@@ -95,51 +95,75 @@ public class GameState : MonoBehaviour
 	        if(time >= nextIncomeTime)
 	        {
 	            foreach(var p in players)
-				{
-					PlayerState ps = p.Value;
+				      {
+					        PlayerState ps = p.Value;
 	               	ps.gold += ps.income;
 
-					//We know we're the server, so if the player we're updating isn't us, go ahead and RPC
-					if(ps.player != Network.player)
-						networkView.RPC ("setGold", ps.player, ps.gold, ps.player);
-				}
+					        //We know we're the server, so if the player we're updating isn't us, go ahead and RPC
+					         if(ps.player != Network.player)
+						          networkView.RPC ("setGold", ps.player, ps.gold, ps.player);
+				      }
 	            nextIncomeTime += incomeTimeIncrement;
 
-				networkView.RPC ("setTime", RPCMode.Others, time);
-				//Update everyone else's timer.  We don't want to have to rely on messages passed back in,
-				//	in case a User can fabricate setIncomeTimer messages from the server itself
-				networkView.RPC("setIncomeTimer", RPCMode.Others, nextIncomeTime);
+				      networkView.RPC ("setTime", RPCMode.Others, time);
+				      //Update everyone else's timer.  We don't want to have to rely on messages passed back in,
+				      //	in case a User can fabricate setIncomeTimer messages from the server itself
+				      networkView.RPC("setIncomeTimer", RPCMode.Others, nextIncomeTime);
 	        }
 
-			//Update SpawnerStates
-			foreach(var s in spawns)
-			{
-				SpawnerState ss = s.Value;
-				NetworkPlayer p = ss.getOwner();
+          foreach (var p in players)
+          {
+              PlayerState ps = p.Value;
+              foreach (var usMap in p.Value.race.unitSpawnMap)
+              {
+                  var u = usMap.Value;
 
-				foreach(var k in ss.getKeys())
-				{
-					//Need to know key, for RPC calls
-					var u = ss.getSpawn(k);
+                  if (u.currentStock == u.maxStock) continue;
+                  if (time < u.initialStockTime) continue;
 
-					if(u.currentStock == u.maxStock) continue;
+                  if (time >= (u.lastRestock + u.restockTime))
+                  {
+                      u.currentStock += 1;
+                      u.lastRestock = time;
 
-					if(time < u.initialStockTime) continue;
+                      //If it's not us
+                      if (ps.player != Network.player)
+                      {
+                          //do the RPC calls
+                      }
+                  }
+              }
+          }
 
-					if(time >= (u.lastRestock + u.restockTime))
-					{
-						u.currentStock += 1;
-						u.lastRestock = time;
+      ////Update SpawnerStates
+      //foreach(var s in spawns)
+      //{
+      //  SpawnerState ss = s.Value;
+      //  NetworkPlayer p = ss.getOwner();
 
-						//If it's not us
-						if(p != Network.player)
-						{
-							networkView.RPC ("setStock", p, u.currentStock, p, k);
-							networkView.RPC ("setStockTimer", p, u.lastRestock, p, k);
-						}
-					}
-				}
-			}
+      //  foreach(var k in ss.getKeys())
+      //  {
+      //    //Need to know key, for RPC calls
+      //    var u = ss.getSpawn(k);
+
+      //    if(u.currentStock == u.maxStock) continue;
+
+      //    if(time < u.initialStockTime) continue;
+
+      //    if(time >= (u.lastRestock + u.restockTime))
+      //    {
+      //      u.currentStock += 1;
+      //      u.lastRestock = time;
+
+      //      //If it's not us
+      //      if(p != Network.player)
+      //      {
+      //        networkView.RPC ("setStock", p, u.currentStock, p, k);
+      //        networkView.RPC ("setStockTimer", p, u.lastRestock, p, k);
+      //      }
+      //    }
+      //  }
+      //}
 
 		}
     }
@@ -300,6 +324,8 @@ public class GameState : MonoBehaviour
 		GUILayout.BeginHorizontal();
 		foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap)
 		{
+      GUILayout.BeginVertical("box");
+
 			rowCount++;
 			if (GUILayout.Button(entry.Key)) //use entry.Value.name, after creeps have a name defined (maybe)
 			{
@@ -312,6 +338,18 @@ public class GameState : MonoBehaviour
 					networkView.RPC("tryCreepSpawn", RPCMode.Server, entry.Key, Network.player);
 				}
 			}
+
+      UnitSpawn us = pState.race.getUnitSpawn(entry.Key);
+      if(us == null) {Debug.Log("Not UnitSpawn found for creep: " + entry.Key + "!");}
+      else
+      {
+          GUILayout.Label("Initial Stock: " + us.initialStockTime);
+          GUILayout.Label("Restock: " + us.restockTime);
+          GUILayout.Label("Current Stock: " + us.currentStock);
+          GUILayout.Label("Max Stock: " + us.maxStock);
+      }
+
+      GUILayout.EndVertical();
 			if (rowCount == 4)
 			{
 				GUILayout.EndHorizontal();
@@ -549,6 +587,19 @@ public class GameState : MonoBehaviour
 		us = ss.getSpawn(creepName_);
 		if(us.currentStock == 0) {Debug.Log("Player's Spawner does not have enough stock!"); return;}
 */
+
+    UnitSpawn us;
+    if (null == (us = ps.race.getUnitSpawn(creepName_)))
+    {
+        Debug.Log("Player's Race UnitSpawnMap does not have creeps of type " + creepName_ + "!");
+        return;
+    }
+    if (us.currentStock == 0)
+    {
+        Debug.Log("Player's Spawner does not have enough stock!");
+        return;
+    }
+
 		//Spawn creep and set destination afterwards
 		foreach(PlayerState pstate in players.Values)
 		{
@@ -574,6 +625,21 @@ public class GameState : MonoBehaviour
 
 			c.updateDestination();
 		}
+
+    if (us.currentStock == us.maxStock)
+    {
+        us.lastRestock = time;
+        //if(!(Network.player == player_)
+            //RPC call
+    }
+
+    us.currentStock -= 1;
+
+    //if(!(Network.player == player_))
+        //RPC
+    
+
+    //old stock code
 		/*
 		if(us.currentStock == us.maxStock)
 		{

@@ -19,6 +19,8 @@ public class Race {
 	public Dictionary<string, Tower> towerMap = new Dictionary<string, Tower>();
 	public Dictionary<string, Creep> creepMap = new Dictionary<string, Creep>();
 
+  public Dictionary<string, UnitSpawn> unitSpawnMap = new Dictionary<string, UnitSpawn>();
+
 	public void Zip()
 	{		
 		//Zip up lists into Dictionary
@@ -37,9 +39,16 @@ public class Race {
 			Debug.Log ("Adding Creep {"+creepMapKey[i]+":"+creepMapValue[i]+"}");
 			creepMap.Add(creepMapKey[i], creepMapValue[i]);
 		}
+    
+    //UnitSpawn
+    for (int i = 0; i < creepMapKey.Count; i++)
+    {
+        Debug.Log("Adding Unitspawn for: " + creepMapKey[i]);
+        unitSpawnMap.Add(creepMapKey[i], new UnitSpawn());
+    }
 	}
 
-	void Awake()
+  void Awake()
 	{
 		Zip ();
 	}
@@ -75,6 +84,13 @@ public class Race {
 		}
 		return null;
 	}
+
+  public UnitSpawn getUnitSpawn(string creep)
+  {
+      if (unitSpawnMap.ContainsKey(creep))
+          return unitSpawnMap[creep];
+      return null;
+  }
 
 	public override string ToString ()
 	{
