@@ -102,6 +102,7 @@ public class Projectile : Unit
 
     public virtual void destroy()
     {
+		Debug.Log ("Projectile destroy");
         Network.Destroy(this.gameObject);
     }
 
