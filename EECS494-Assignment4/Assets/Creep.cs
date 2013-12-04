@@ -100,8 +100,7 @@ public class Creep : Spawnable, Selectable
 
 	bool shouldFilter(string tag)
 	{
-		if(tag == "EndPoint") return true;
-		if(tag == "Projectile") return true;
+		if(tag != "EndPoint") return true;
 		return false;
 	}
     
