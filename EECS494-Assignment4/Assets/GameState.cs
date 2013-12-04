@@ -130,7 +130,7 @@ public class GameState : MonoBehaviour
 						//If it's not us
 						if (usm.Key != Network.player.guid)
 						{
-							networkView.RPC("setStock", players[usm.Key].player, u.currentStock, usm.Key);
+							networkView.RPC("setStock", players[usm.Key].player, u.currentStock, players[usm.Key].player, usm.Key);
 							networkView.RPC ("setStockTimer", players[usm.Key].player, u.lastRestock, usm.Key);
 						}
 					}
@@ -968,7 +968,7 @@ public class GameState : MonoBehaviour
 	{
 		//spawns[player_.guid].getSpawn(creepName_).lastRestock = lastTime_;
 
-     	 Race.getUnitSpawnMap(player_.guid)[creepName_].lastRestock = lastTime_;
+     	Race.getUnitSpawnMap(player_.guid)[creepName_].lastRestock = lastTime_;
 	}
 
 }
