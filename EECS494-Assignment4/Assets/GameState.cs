@@ -131,7 +131,7 @@ public class GameState : MonoBehaviour
 						if (usm.Key != Network.player.guid)
 						{
 							networkView.RPC("setStock", players[usm.Key].player, u.currentStock, players[usm.Key].player, usm.Key);
-							networkView.RPC ("setStockTimer", players[usm.Key].player, u.lastRestock, usm.Key);
+							networkView.RPC ("setStockTimer", players[usm.Key].player, u.lastRestock, players[usm.Key].player, usm.Key);
 						}
 					}
 				}
