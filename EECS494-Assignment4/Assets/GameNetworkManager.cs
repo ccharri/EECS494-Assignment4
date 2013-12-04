@@ -8,6 +8,12 @@ public class GameNetworkManager : MonoBehaviour {
 	private string serverGUIDText = "Server GUID";
 	private HostData[] hostData;
 	private string gameName = "Game Name";
+
+	private bool raceListShow = false;
+	private int raceListEntry = 0;
+	private GUIContent[] raceList;
+	private GUIStyle raceListStyle;
+	private bool racePicked = false;
 	
 	void Awake() {
 		Refresh ();
@@ -16,6 +22,27 @@ public class GameNetworkManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		// Make some content for the popup list
+		raceList = new GUIContent[2];
+		raceList[0] = new GUIContent("Undead");
+		raceList[1] = new GUIContent("Arcane");
+	 
+		// Make a GUIStyle that has a solid white hover/onHover background to indicate highlighted items
+		raceListStyle = new GUIStyle();
+		raceListStyle.normal.textColor = Color.white;
+		var tex = new Texture2D(2, 2);
+		var colors = new Color[4];
+
+		for (int i = 0; i < 4; i++)
+			colors[i] = Color.white;
+		//foreach (Color temp in colors) 
+		//	temp = Color.white;
+
+		tex.SetPixels(colors);
+		tex.Apply();
+		raceListStyle.hover.background = tex;
+		raceListStyle.onHover.background = tex;
+		raceListStyle.padding.left = raceListStyle.padding.right = raceListStyle.padding.top = raceListStyle.padding.bottom = 4;
 	}
 	
 	// Update is called once per frame
@@ -278,8 +305,15 @@ public class GameNetworkManager : MonoBehaviour {
 	{
 		GUILayout.BeginHorizontal(GUILayout.Height(50));
 
-		GUILayout.Label(NameDatabase.getName(player.guid), GUILayout.Width(300));
+		GUILayout.Label(NameDatabase.getName(player.guid), GUILayout.Width(50));
 		GUILayout.FlexibleSpace();
+
+		if (Popup.List(new Rect(50, 100, 100, 20), ref raceListShow, ref raceListEntry, new GUIContent("Click me!"), raceList, raceListStyle)) {
+			racePicked = true;
+		}
+
+		GUILayout.FlexibleSpace();
+
 		GUILayout.Label (Network.GetAveragePing(player).ToString(), GUILayout.Width(50));
 		GUILayout.FlexibleSpace();
 		if(Network.isServer && player != Network.player)
