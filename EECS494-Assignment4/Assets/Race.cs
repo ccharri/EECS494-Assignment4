@@ -103,13 +103,6 @@ public class Race {
 		return null;
 	}
 
-  public UnitSpawn getUnitSpawn(string creep)
-  {
-      if (unitSpawnMap.ContainsKey(creep))
-          return unitSpawnMap[creep];
-      return null;
-  }
-
 	public override string ToString ()
 	{
 		string val = "{Towers:";
