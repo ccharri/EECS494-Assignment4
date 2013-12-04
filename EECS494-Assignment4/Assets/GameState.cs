@@ -111,27 +111,26 @@ public class GameState : MonoBehaviour
 				      networkView.RPC("setIncomeTimer", RPCMode.Others, nextIncomeTime);
 	        }
 
-          foreach (var p in players)
+
+          var usm = Race.getUnitSpawnMap(Network.player.guid);
+
+          foreach (var us in usm)
           {
-              PlayerState ps = p.Value;
-              foreach (var usMap in p.Value.race.unitSpawnMap)
+              var u = us.Value;
+
+              if (u.currentStock == u.maxStock) continue;
+              if (time < u.initialStockTime) continue;
+
+              if (time >= (u.lastRestock + u.restockTime))
               {
-                  var u = usMap.Value;
+                  u.currentStock += 1;
+                  u.lastRestock = time;
 
-                  if (u.currentStock == u.maxStock) continue;
-                  if (time < u.initialStockTime) continue;
-
-                  if (time >= (u.lastRestock + u.restockTime))
-                  {
-                      u.currentStock += 1;
-                      u.lastRestock = time;
-
-                      //If it's not us
-                      //if (ps.player != Network.player)
-                      //{
-                          //networkView.RPC("setStock", p, u.currentStock, p, p.Key);
-                      //}
-                  }
+                  //If it's not us
+                  //if (ps.player != Network.player)
+                  //{
+                  //networkView.RPC("setStock", p, u.currentStock, p, p.Key);
+                  //}
               }
           }
 
@@ -339,14 +338,16 @@ public class GameState : MonoBehaviour
 				}
 			}
 
-      UnitSpawn us = pState.race.getUnitSpawn(entry.Key);
+      //UnitSpawn us = pState.race.getUnitSpawn(entry.Key);
+      var usm = Race.getUnitSpawnMap(Network.player.guid);
+      UnitSpawn us = usm[entry.Key];
       if(us == null) {Debug.Log("Not UnitSpawn found for creep: " + entry.Key + "!");}
       else
       {
           if (time < us.initialStockTime)
-              GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + us.initialStockTime);
+              GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.initialStockTime - time));
           else
-              GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + us.restockTime);
+              GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.restockTime - ((time - us.initialStockTime) % us.restockTime)));
       }
 
       GUILayout.EndVertical();
@@ -589,7 +590,7 @@ public class GameState : MonoBehaviour
 */
 
     UnitSpawn us;
-    if (null == (us = ps.race.getUnitSpawn(creepName_)))
+    if (null == (us = Race.getUnitSpawnMap(player_.guid)[creepName_]))
     {
         Debug.Log("Player's Race UnitSpawnMap does not have creeps of type " + creepName_ + "!");
         return;

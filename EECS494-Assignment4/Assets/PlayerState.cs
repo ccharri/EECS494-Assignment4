@@ -3,12 +3,13 @@ using System.Collections;
 
 public class PlayerState{
 	public PlayerState(NetworkPlayer player_, Race race_)
-	{;
+	{
 		player = player_;
 		gold = 250;
 		income = 10;
 		lives = 10;
 		race = race_;
+    race.addUnitSpawnMap(player_.guid);
 	}
 
 	public NetworkPlayer player;

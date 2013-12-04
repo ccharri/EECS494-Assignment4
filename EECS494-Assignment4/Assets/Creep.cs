@@ -3,18 +3,38 @@ using System.Collections;
 
 [RequireComponent(typeof (NavMeshAgent))]
 
-public abstract class Creep : Spawnable, Selectable 
+public class Creep : Spawnable, Selectable 
 {
-	Attribute health = new Attribute(1);
-	Attribute speed = new Attribute(200);
-	Attribute mana = new Attribute(1);
-	public int bounty = 1;
-	public int lifeCost = 1;
+    public float healthBase = 1;
+    public float speedBase = 1;
+    public float manaBase = 1;
+    public int bounty = 1;
+    public int lifeCost = 1;
+
+	protected Attribute health = new Attribute(1);
+	protected Attribute speed = new Attribute(200);
+	protected Attribute mana = new Attribute(1);
+
+    public void setHealth(float health_)    { health = new Attribute(health_); }
+    public void setSpeed(float speed_)      { speed = new Attribute(speed_); }
+    public void setMana(float mana_)        { mana = new Attribute(mana_); }
+    public void setBounty(int bounty_)      { bounty = bounty_; }
+    public void setLifeCost(int lifeCost_)  { lifeCost = lifeCost_; }
+
+    public float getHealth()    { return health.get(); }
+    public float getHealthMax() { return health.getBase(); }
+    public float getSpeed()     { return speed.get(); }
+    public float getMana()      { return mana.get(); }
+    public int getBounty()      { return bounty; }
+    public int getLifeCost()    { return lifeCost; }
 
 	NavMeshAgent navAgent;
 
     void Awake()
     {
+        setHealth(healthBase);
+        setSpeed(speedBase);
+        setMana(manaBase);
         navAgent = GetComponent<NavMeshAgent>();
 		navAgent.speed = 0;
     }
@@ -50,11 +70,11 @@ public abstract class Creep : Spawnable, Selectable
     }
     public virtual void onDeath()
     {
+		if(Network.isClient) return;
+
 		GameState g = GameState.getInstance();
 		g.removeCreep(networkView.viewID, g.getPlayer(getOwner()));
 		g.networkView.RPC("removeCreep", RPCMode.OthersBuffered, networkView.viewID,  g.getPlayer(getOwner()));
-
-		if(Network.isClient) return;
 
         Network.Destroy(this.gameObject);
     }
@@ -66,27 +86,24 @@ public abstract class Creep : Spawnable, Selectable
 
 	void OnCollisionEnter(Collision info)
 	{
-		if(!(info.gameObject.tag == "EndPoint")) return;
+		if(shouldFilter(info.gameObject.tag)) return;
 		
 		GameState.getInstance().onCreepLeaked(this);
 	}
 
 	void OnTriggerEnter(Collider info)
 	{
-		if(!(info.gameObject.tag == "EndPoint")) return;
+		if(shouldFilter(info.gameObject.tag)) return;
 		
 		GameState.getInstance().onCreepLeaked(this);
 	}
 
-
-    public void setHealth(float health_)    { health = new Attribute(health_); }
-    public void setSpeed(float speed_)      { speed = new Attribute(speed_); }
-    public void setMana(float mana_)        { mana = new Attribute(mana_); }
-    public void setBounty(int bounty_)      { bounty = bounty_; }
-    public void setLifeCost(int lifeCost_)  { lifeCost = lifeCost_;}
-
-	public float getHealth() 				{ return health.get();}
-	public float getHealthMax()				{ return health.getBase();}
+	bool shouldFilter(string tag)
+	{
+		if(tag != "EndPoint") return true;
+		return false;
+	}
+    
 
     protected override void FixedUpdate()
     {
