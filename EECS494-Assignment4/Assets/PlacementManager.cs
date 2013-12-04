@@ -19,6 +19,10 @@ public class PlacementManager : MonoBehaviour {
 	void Awake() 
 	{
 		gstate = GetComponent<GameState>();
+	}
+
+	// Use this for initialization
+	void Start () {
 		NavMeshAgent spawnAgent = gstate.spawnLocation.GetComponent<NavMeshAgent>();
 		spawnAgent.ResetPath();
 		NavMeshPath path = new NavMeshPath();
@@ -35,11 +39,6 @@ public class PlacementManager : MonoBehaviour {
 			renderer.SetPosition(i, p[i]);
 		}
 
-	}
-
-	// Use this for initialization
-	void Start () {
-	
 	}
 
 	public void beginPlacing(GameObject placePrefab_, string id_)
