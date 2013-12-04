@@ -113,7 +113,7 @@ public class GameState : MonoBehaviour
 
 
 //          var usm = Race.getUnitSpawnMap(Network.player.guid);
-			foreach(var usm in Race.playerUnitSpawnMap)
+          foreach (var usm in players[Network.player.guid].race.playerUnitSpawnMap)
 			{
 				foreach (var us in usm.Value)
 				{
@@ -343,7 +343,7 @@ public class GameState : MonoBehaviour
 			}
 
       //UnitSpawn us = pState.race.getUnitSpawn(entry.Key);
-      var usm = Race.getUnitSpawnMap(Network.player.guid);
+      var usm = players[Network.player.guid].race.getUnitSpawnMap(Network.player.guid);
       UnitSpawn us = usm[entry.Key];
       if(us == null) {Debug.Log("Not UnitSpawn found for creep: " + entry.Key + "!");}
       else
@@ -610,7 +610,7 @@ public class GameState : MonoBehaviour
 */
 
     UnitSpawn us;
-    if (null == (us = Race.getUnitSpawnMap(player_.guid)[creepName_]))
+    if (null == (us = players[Network.player.guid].race.getUnitSpawnMap(player_.guid)[creepName_]))
     {
         Debug.Log("Player's Race UnitSpawnMap does not have creeps of type " + creepName_ + "!");
         return;
@@ -947,7 +947,7 @@ public class GameState : MonoBehaviour
 	{
 		//spawns[player_.guid].getSpawn(creepName_).currentStock = stock_;
 
-   		Race.getUnitSpawnMap(player_.guid)[creepName_].currentStock = stock_;
+   		players[player_.guid].race.getUnitSpawnMap(player_.guid)[creepName_].currentStock = stock_;
 	}
 
 	//setStockTimer
@@ -968,7 +968,7 @@ public class GameState : MonoBehaviour
 	{
 		//spawns[player_.guid].getSpawn(creepName_).lastRestock = lastTime_;
 
-     	Race.getUnitSpawnMap(player_.guid)[creepName_].lastRestock = lastTime_;
+      players[player_.guid].race.getUnitSpawnMap(player_.guid)[creepName_].lastRestock = lastTime_;
 	}
 
 }
