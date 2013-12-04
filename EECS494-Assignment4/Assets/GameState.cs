@@ -947,7 +947,7 @@ public class GameState : MonoBehaviour
 	{
 		//spawns[player_.guid].getSpawn(creepName_).currentStock = stock_;
 
-    var us = Race.getUnitSpawnMap(player_.guid)[creepName_].currentStock = stock_;
+   		Race.getUnitSpawnMap(player_.guid)[creepName_].currentStock = stock_;
 	}
 
 	//setStockTimer
@@ -968,7 +968,7 @@ public class GameState : MonoBehaviour
 	{
 		//spawns[player_.guid].getSpawn(creepName_).lastRestock = lastTime_;
 
-      us = Race.getUnitSpawnMap(player_.guid)[creepName_].lastRestock = lastTime_;
+     	 Race.getUnitSpawnMap(player_.guid)[creepName_].lastRestock = lastTime_;
 	}
 
 }
