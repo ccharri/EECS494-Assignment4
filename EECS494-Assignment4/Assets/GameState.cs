@@ -113,7 +113,7 @@ public class GameState : MonoBehaviour
 
 
           var usm = Race.getUnitSpawnMap(Network.player.guid);
-          Debug.Log("UnitSpawnMapMap.Count = " + Race.playerUnitSpawnMap.Count);
+
           foreach (var us in usm)
           {
               var u = us.Value;
