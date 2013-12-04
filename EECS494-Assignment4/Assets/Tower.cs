@@ -20,6 +20,8 @@ public class Tower : Spawnable, Selectable
 	protected Creep target;
 	protected TargetingBehavior behavior = Closest.getInstance();
 	protected double lastFired = 0;
+
+  protected bool mouseOver = false;
     
     public void setRange(float range_)          { range.setBase(range_); }
     public void setCooldown(float cooldown_)    { cooldown.setBase(cooldown_); }
@@ -93,8 +95,23 @@ public class Tower : Spawnable, Selectable
 
     public virtual string getDescription()
     {
-        return description;
+        return "Name: " + name + "\nDamage: " + toFire.GetComponent<Projectile>().damageBase + "\nRange: " + rangeBase + "\nCooldown: " + cooldownBase;
     }
+
+    public void OnMouseEnter() { mouseOver = true; }
+    public void OnMouseExit() { mouseOver = false; }
+
+    public void OnGUI()
+    {
+        if (mouseOver)
+        {
+            var x = Event.current.mousePosition.x;
+            var y = Event.current.mousePosition.y;
+
+            GUI.Label(new Rect(x - 150, y + 20, 200, 72), getDescription(), "box");
+        }
+    }
+
 	public virtual void mouseOverOn()
 	{
 

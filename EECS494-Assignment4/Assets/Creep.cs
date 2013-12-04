@@ -28,6 +28,8 @@ public class Creep : Spawnable, Selectable
     public int getBounty()      { return bounty; }
     public int getLifeCost()    { return lifeCost; }
 
+    protected bool mouseOver = false;
+
 	NavMeshAgent navAgent;
 
     void Awake()
@@ -130,8 +132,23 @@ public class Creep : Spawnable, Selectable
 
     public string getDescription()
     {
-        return "Health: " + health.get() + "\nMana: " + mana.get() + "\nSpeed: " + speed.get();
+        return "Name: " + name + "\nHealth: " + health.get() + "\nMana: " + mana.get() + "\nSpeed: " + speed.get();
     }
+
+    public void OnMouseEnter()  { mouseOver = true; }
+    public void OnMouseExit()   { mouseOver = false; }
+    
+    public void OnGUI()
+    {
+        if (mouseOver)
+        {
+            var x = Event.current.mousePosition.x;
+            var y = Event.current.mousePosition.y;
+
+            GUI.Label(new Rect(x - 150, y + 20, 200, 72), getDescription(), "box");
+        }
+    }
+
 	public void mouseOverOn()
 	{
 		//TODO: Implement
