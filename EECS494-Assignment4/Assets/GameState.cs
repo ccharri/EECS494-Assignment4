@@ -202,12 +202,21 @@ public class GameState : MonoBehaviour
 
 		if(GUILayout.Button ("Main Menu"))
 		{
-			Network.Disconnect ();
-			Application.LoadLevel("MainScene");
+			if(Network.isServer)
+			{
+				networkView.RPC("endGame", RPCMode.OthersBuffered);
+			}
+			endGame();
 		}
 
 		if(GUILayout.Button ("Quit Game"))
 		{
+			if(Network.isServer)
+			{
+				networkView.RPC("endGame", RPCMode.OthersBuffered);
+			}
+
+			endGame();
 			Application.Quit();
 		}
 		GUILayout.EndVertical();
@@ -496,11 +505,17 @@ public class GameState : MonoBehaviour
 
 	public void onCreepLeaked(Creep creep)
 	{
-		removeCreep(creep.networkView.viewID, getPlayer(creep.getOwner()));
-		networkView.RPC ("removeCreep", RPCMode.OthersBuffered, creep.networkView.viewID, players[creep.getOwner()].player);
+		var ps = players[creep.getOwner ()];
 
-		players[creep.getOwner ()].lives -= creep.lifeCost;
-		networkView.RPC ("setLives", RPCMode.OthersBuffered, players[creep.getOwner()].lives, players[creep.getOwner()].player);
+		removeCreep(creep.networkView.viewID, ps.player);
+		networkView.RPC ("removeCreep", RPCMode.OthersBuffered, creep.networkView.viewID, ps.player);
+
+		if((ps.lives -= creep.lifeCost) <= 0)
+		{
+			networkView.RPC ("endGame", RPCMode.OthersBuffered);
+			endGame ();
+		}
+		networkView.RPC ("setLives", RPCMode.OthersBuffered, ps.lives, ps.player);
 
 		Network.Destroy(creep.gameObject);
 	}
@@ -680,6 +695,24 @@ public class GameState : MonoBehaviour
 	//-----------------------------------------------------
 	//Client RPCs
 	//-----------------------------------------------------
+
+	[RPC]
+	void endGame(NetworkMessageInfo info_)
+	{
+
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive endGame RPC calls!");
+			return;
+		}
+		endGame();
+	}
+
+	void endGame()
+	{
+		Network.Disconnect ();
+		Application.LoadLevel("MainScene");
+	}
 
 	//-----------------------------------------------------
 	//Player adding
