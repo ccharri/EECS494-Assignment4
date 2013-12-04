@@ -298,7 +298,7 @@ public class GameState : MonoBehaviour
 		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap)
 		{
 			rowCount++;
-      if (GUILayout.Button(entry.Key + " :  " + entry.Value.cost + "G")) //use entry.Value.name after towers have a name defined (maybe)
+      if (GUILayout.Button(entry.Key + "\n" + entry.Value.cost + "G")) //use entry.Value.name after towers have a name defined (maybe)
 			{
 				pMan.enabled = true;
 				pMan.beginPlacing(entry.Value.prefab, entry.Key);
@@ -330,7 +330,7 @@ public class GameState : MonoBehaviour
       GUILayout.BeginVertical("box");
 
 			rowCount++;
-			if (GUILayout.Button(entry.Key + " :  " + entry.Value.cost + "G")) //use entry.Value.name, after creeps have a name defined (maybe)
+			if (GUILayout.Button(entry.Key + "\n" + entry.Value.cost + "G")) //use entry.Value.name, after creeps have a name defined (maybe)
 			{
 				if (Network.isServer)
 				{
