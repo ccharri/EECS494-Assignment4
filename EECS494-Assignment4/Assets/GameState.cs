@@ -441,7 +441,7 @@ public class GameState : MonoBehaviour
     {
         creepsByArena.Add(player.guid, new List<Creep>());
         towersByPlayer.Add(player.guid, new List<Tower>());
-        players.Add(player.guid, new PlayerState(player, raceMan.raceMap["Arcane"]));
+        players.Add(player.guid, new PlayerState(player, raceMan.raceMap["Undead"]));
 		spawns.Add (player.guid, new SpawnerState(player));
 		playerNums.Add(player.guid);
     }
