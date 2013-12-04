@@ -70,11 +70,11 @@ public class Creep : Spawnable, Selectable
     }
     public virtual void onDeath()
     {
+		if(Network.isClient) return;
+
 		GameState g = GameState.getInstance();
 		g.removeCreep(networkView.viewID, g.getPlayer(getOwner()));
 		g.networkView.RPC("removeCreep", RPCMode.OthersBuffered, networkView.viewID,  g.getPlayer(getOwner()));
-
-		if(Network.isClient) return;
 
         Network.Destroy(this.gameObject);
     }
@@ -86,19 +86,24 @@ public class Creep : Spawnable, Selectable
 
 	void OnCollisionEnter(Collision info)
 	{
-		if(!(info.gameObject.tag == "EndPoint")) return;
+		if(shouldFilter(info.gameObject.tag)) return;
 		
 		GameState.getInstance().onCreepLeaked(this);
 	}
 
 	void OnTriggerEnter(Collider info)
 	{
-		if(!(info.gameObject.tag == "EndPoint")) return;
+		if(shouldFilter(info.gameObject.tag)) return;
 		
 		GameState.getInstance().onCreepLeaked(this);
 	}
 
-
+	bool shouldFilter(string tag)
+	{
+		if(tag == "EndPoint") return true;
+		if(tag == "Projectile") return true;
+		return false;
+	}
     
 
     protected override void FixedUpdate()
