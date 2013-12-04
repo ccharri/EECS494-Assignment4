@@ -72,10 +72,7 @@ public class Creep : Spawnable, Selectable
 		if(Network.isClient) return;
 
 		GameState g = GameState.getInstance();
-		g.removeCreep(networkView.viewID, g.getPlayer(getOwner()));
-		g.networkView.RPC("removeCreep", RPCMode.OthersBuffered, networkView.viewID,  g.getPlayer(getOwner()));
-
-        Network.Destroy(this.gameObject);
+		g.onCreepDeath(this);
     }
 
     public virtual bool isAlive()

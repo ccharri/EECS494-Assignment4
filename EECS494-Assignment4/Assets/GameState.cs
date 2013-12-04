@@ -127,10 +127,10 @@ public class GameState : MonoBehaviour
                   u.lastRestock = time;
 
                   //If it's not us
-                  //if (ps.player != Network.player)
-                  //{
-                  //networkView.RPC("setStock", p, u.currentStock, p, p.Key);
-                  //}
+                  if (ps.player != Network.player)
+                  {
+                  	networkView.RPC("setStock", p, u.currentStock, p, p.Key);
+                  }
               }
           }
 
@@ -499,6 +499,22 @@ public class GameState : MonoBehaviour
 		networkView.RPC ("setLives", RPCMode.OthersBuffered, players[creep.getOwner()].lives, players[creep.getOwner()].player);
 
 		Network.Destroy(creep.gameObject);
+	}
+
+	public void onCreepDeath(Creep creep)
+	{
+		removeCreep(creep.networkView.viewID, g.getPlayer(creep.getOwner()));
+		networkView.RPC("removeCreep", RPCMode.OthersBuffered, creep.networkView.viewID,  g.getPlayer(creep.getOwner()));
+
+		var ps = players[creep.getOwner()];
+		ps.gold += creep.bounty;
+
+		if(ps.player != Network.player)
+		{
+			networkView.RPC ("setGold", ps.player, ps.gold, ps.player);
+		}
+
+		Network.Destroy(this.gameObject);
 	}
 
 	//RPCs
