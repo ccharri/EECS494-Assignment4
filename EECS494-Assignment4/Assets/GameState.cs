@@ -700,7 +700,7 @@ public class GameState : MonoBehaviour
 
 	void initializePlayer(NetworkPlayer player)
 	{
-		players.Add (player.guid, new PlayerState(player, raceMan.raceMap["Arcane"]));
+		players.Add (player.guid, new PlayerState(player, raceMan.raceMap["Undead"]));
 		creepsByArena.Add(player.guid, new List<Creep>());
 		towersByPlayer.Add(player.guid, new List<Tower>());
 		spawns.Add(player.guid, new SpawnerState(player));
