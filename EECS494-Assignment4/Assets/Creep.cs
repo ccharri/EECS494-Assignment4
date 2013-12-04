@@ -35,8 +35,7 @@ public class Creep : Spawnable, Selectable
         setHealth(healthBase);
         setSpeed(speedBase);
         setMana(manaBase);
-        navAgent = GetComponent<NavMeshAgent>();
-		navAgent.speed = 0;
+		getAgent().speed = 0;
     }
 
 	public Vector3 getDestination()
@@ -113,6 +112,11 @@ public class Creep : Spawnable, Selectable
 //        	navAgent.speed = speed.get();
 
 			Vector3 dest = getAgent().path.corners[0];
+
+			if(dest.x == transform.position.x && dest.z == transform.position.z)
+			{
+				dest = getAgent ().path.corners[1];
+			}
 
 			transform.position += (dest - transform.position).normalized * speed.get () * Time.fixedDeltaTime;
 		}
