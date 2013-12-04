@@ -514,7 +514,7 @@ public class GameState : MonoBehaviour
 			networkView.RPC ("setGold", ps.player, ps.gold, ps.player);
 		}
 
-		Network.Destroy(this.gameObject);
+		Network.Destroy(creep.gameObject);
 	}
 
 	//RPCs
