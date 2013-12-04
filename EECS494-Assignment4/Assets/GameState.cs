@@ -112,27 +112,31 @@ public class GameState : MonoBehaviour
 	        }
 
 
-          var usm = Race.getUnitSpawnMap(Network.player.guid);
-
-          foreach (var us in usm)
-          {
-              var u = us.Value;
-
-              if (u.currentStock == u.maxStock) continue;
-              if (time < u.initialStockTime) continue;
-
-              if (time >= (u.lastRestock + u.restockTime))
-              {
-                  u.currentStock += 1;
-                  u.lastRestock = time;
-
-                  //If it's not us
-                  if (ps.player != Network.player)
-                  {
-                  	networkView.RPC("setStock", p, u.currentStock, p, p.Key);
-                  }
-              }
-          }
+//          var usm = Race.getUnitSpawnMap(Network.player.guid);
+			foreach(var usm in Race.playerUnitSpawnMap)
+			{
+				foreach (var us in usm.Value)
+				{
+					var u = us.Value;
+					
+					if (u.currentStock == u.maxStock) continue;
+					if (time < u.initialStockTime) continue;
+					
+					if (time >= (u.lastRestock + u.restockTime))
+					{
+						u.currentStock += 1;
+						u.lastRestock = time;
+						
+						//If it's not us
+						if (usm.Key != Network.player.guid)
+						{
+							networkView.RPC("setStock", players[usm.Key].player, u.currentStock, usm.Key);
+							networkView.RPC ("setStockTimer", players[usm.Key].player, u.lastRestock, usm.Key);
+						}
+					}
+				}
+			}
+          
 
       ////Update SpawnerStates
       //foreach(var s in spawns)
@@ -503,8 +507,8 @@ public class GameState : MonoBehaviour
 
 	public void onCreepDeath(Creep creep)
 	{
-		removeCreep(creep.networkView.viewID, g.getPlayer(creep.getOwner()));
-		networkView.RPC("removeCreep", RPCMode.OthersBuffered, creep.networkView.viewID,  g.getPlayer(creep.getOwner()));
+		removeCreep(creep.networkView.viewID, getPlayer(creep.getOwner()));
+		networkView.RPC("removeCreep", RPCMode.OthersBuffered, creep.networkView.viewID,  getPlayer(creep.getOwner()));
 
 		var ps = players[creep.getOwner()];
 		ps.gold += creep.bounty;
@@ -646,14 +650,14 @@ public class GameState : MonoBehaviour
     if (us.currentStock == us.maxStock)
     {
         us.lastRestock = time;
-        //if(!(Network.player == player_)
-            //RPC call
+        if(!(Network.player == player_))
+		   networkView.RPC("setStockTimer", player_, us.lastRestock, player_.guid, creepName_);
     }
 
     us.currentStock -= 1;
 
-    //if(!(Network.player == player_))
-        //RPC
+    if(!(Network.player == player_))
+		   networkView.RPC ("setStock", player_, us.currentStock, player_.guid, creepName_);
     
 
     //old stock code
