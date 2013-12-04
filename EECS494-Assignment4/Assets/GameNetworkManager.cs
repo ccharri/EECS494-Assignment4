@@ -305,12 +305,12 @@ public class GameNetworkManager : MonoBehaviour {
 	{
 		GUILayout.BeginHorizontal(GUILayout.Height(50));
 
-		GUILayout.Label(NameDatabase.getName(player.guid), GUILayout.Width(50));
+		GUILayout.Label(NameDatabase.getName(player.guid), GUILayout.Width(200));
 		GUILayout.FlexibleSpace();
 
-		if (Popup.List(new Rect(50, 100, 100, 20), ref raceListShow, ref raceListEntry, new GUIContent("Click me!"), raceList, raceListStyle)) {
-			racePicked = true;
-		}
+    //if (Popup.List(new Rect(50, 100, 100, 20), ref raceListShow, ref raceListEntry, new GUIContent("Click me!"), raceList, raceListStyle)) {
+    //  racePicked = true;
+    //}
 
 		GUILayout.FlexibleSpace();
 
