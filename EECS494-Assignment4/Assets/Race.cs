@@ -19,7 +19,7 @@ public class Race {
 	public Dictionary<string, Tower> towerMap = new Dictionary<string, Tower>();
 	public Dictionary<string, Creep> creepMap = new Dictionary<string, Creep>();
 
-  public Dictionary<string, UnitSpawn> unitSpawnMap = new Dictionary<string, UnitSpawn>();
+//  public Dictionary<string, UnitSpawn> unitSpawnMap = new Dictionary<string, UnitSpawn>();
   public Dictionary<string, Dictionary<string, UnitSpawn>> playerUnitSpawnMap = new Dictionary<string, Dictionary<string, UnitSpawn>>();
 
 	public void Zip()
@@ -41,12 +41,12 @@ public class Race {
 			creepMap.Add(creepMapKey[i], creepMapValue[i]);
 		}
     
-	    //UnitSpawn
-    for (int i = 0; i < creepMapKey.Count; i++)
-    {
-        Debug.Log("Adding Unitspawn for: " + creepMapKey[i]);
-        unitSpawnMap.Add(creepMapKey[i], new UnitSpawn(creepMapValue[i].GetComponent<SpawnerInfo>()));
-    }
+//	    //UnitSpawn
+//    for (int i = 0; i < creepMapKey.Count; i++)
+//    {
+//        Debug.Log("Adding Unitspawn for: " + creepMapKey[i]);
+//        unitSpawnMap.Add(creepMapKey[i], new UnitSpawn(creepMapValue[i].GetComponent<SpawnerInfo>()));
+//    }
 	}
 
   void Awake()
