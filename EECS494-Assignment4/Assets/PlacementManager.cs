@@ -115,7 +115,7 @@ public class PlacementManager : MonoBehaviour {
 		Tower t = placeObject.GetComponent<Tower>();
 		string tid = t.id;
 
-		if (t == null)
+//		if (t == null)
 //		Debug.Log ("t == null");
 //
 //		Debug.Log ("t.id = " + id);
