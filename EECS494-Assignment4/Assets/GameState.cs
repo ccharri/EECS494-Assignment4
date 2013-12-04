@@ -112,31 +112,32 @@ public class GameState : MonoBehaviour
 	        }
 
 
-//          var usm = Race.getUnitSpawnMap(Network.player.guid);
-          foreach (var usm in players[Network.player.guid].race.playerUnitSpawnMap)
-			{
-				foreach (var us in usm.Value)
-				{
-					var u = us.Value;
-					
-					if (u.currentStock == u.maxStock) continue;
-					if (time < u.initialStockTime) continue;
-					
-					if (time >= (u.lastRestock + u.restockTime))
-					{
-						u.currentStock += 1;
-						u.lastRestock = time;
-						
-						//If it's not us
-						if (usm.Key != Network.player.guid)
-						{
-							networkView.RPC("setStock", players[usm.Key].player, u.currentStock, players[usm.Key].player, usm.Key);
-							networkView.RPC ("setStockTimer", players[usm.Key].player, u.lastRestock, players[usm.Key].player, usm.Key);
-						}
-					}
-				}
-			}
-          
+          foreach (var race in raceMan.raceMapValues)
+          {
+              foreach (var player in race.playerUnitSpawnMap.Keys)
+              {
+                  foreach (var us in race.playerUnitSpawnMap[player])
+                  {
+                      var u = us.Value;
+
+                      if (u.currentStock == u.maxStock) continue;
+                      if (time < u.initialStockTime) continue;
+
+                      if (time >= (u.lastRestock + u.restockTime))
+                      {
+                          u.currentStock += 1;
+                          u.lastRestock = time;
+
+                          //If it's not us
+                          if (player != Network.player.guid)
+                          {
+                              networkView.RPC("setStock", players[player].player, u.currentStock, players[player].player, us.Key);
+                              networkView.RPC("setStockTimer", players[player].player, u.lastRestock, players[player].player, us.Key);
+                          }
+                      }
+                  }
+              }
+          }          
 
       ////Update SpawnerStates
       //foreach(var s in spawns)
