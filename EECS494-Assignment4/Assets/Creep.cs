@@ -45,7 +45,7 @@ public class Creep : Spawnable, Selectable
 
 		if(Network.isServer)
 		{
-			StartCoroutine(beginUpdating());
+			StartCoroutine("beginUpdating");
 		}
     }
 
@@ -181,7 +181,7 @@ public class Creep : Spawnable, Selectable
 	{
 		lerpPos = position_;
 		health.setFlat(damage_);
-		StartCoroutine(lerpPosition());
+		StartCoroutine("lerpPosition");
 	}
 
 	IEnumerator lerpPosition()
