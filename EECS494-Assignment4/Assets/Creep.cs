@@ -169,6 +169,8 @@ public class Creep : Spawnable, Selectable
 
 	IEnumerator beginUpdating()
 	{
+		yield return new WaitForFixedUpdate();
+		Debug.Log ("Begin updating Creep Position");
 		while(health.get() > 0)
 		{
 			networkView.RPC("update", RPCMode.Others, gameObject.transform.position, health.getFlat());
@@ -179,6 +181,7 @@ public class Creep : Spawnable, Selectable
 	[RPC]
 	void update(Vector3 position_, float damage_, NetworkMessageInfo info_)
 	{
+		Debug.Log ("Updating position = " + position_);
 		lerpPos = position_;
 		health.setFlat(damage_);
 		StartCoroutine("lerpPosition");
@@ -186,9 +189,10 @@ public class Creep : Spawnable, Selectable
 
 	IEnumerator lerpPosition()
 	{
+		Debug.Log ("Start Lerping to " + lerpPos);
 		while(transform.position != lerpPos)
 		{
-			Vector3.MoveTowards(transform.position, lerpPos, speed.get()*Time.fixedDeltaTime);
+			transform.position = Vector3.MoveTowards(transform.position, lerpPos, speed.get()*Time.fixedDeltaTime);
 			yield return new WaitForFixedUpdate();
 		}
 	}
