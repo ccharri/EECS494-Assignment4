@@ -11,6 +11,10 @@ public class Creep : Spawnable, Selectable
     public int bounty = 1;
     public int lifeCost = 1;
 
+	public Vector3 lerpPos;
+
+	float updateTimeStep = 0.2f;
+
 	protected Attribute health = new Attribute(1);
 	protected Attribute speed = new Attribute(200);
 	protected Attribute mana = new Attribute(1);
@@ -38,6 +42,11 @@ public class Creep : Spawnable, Selectable
         setSpeed(speedBase);
         setMana(manaBase);
 		getAgent().speed = 0;
+
+		if(Network.isServer)
+		{
+			StartCoroutine(beginUpdating());
+		}
     }
 
 	public Vector3 getDestination()
@@ -157,4 +166,31 @@ public class Creep : Spawnable, Selectable
 	{
 		//TODO: Implement
 	}
+
+	IEnumerator beginUpdating()
+	{
+		while(health.get() > 0)
+		{
+			networkView.RPC("update", RPCMode.Others, gameObject.transform.position, health.getFlat());
+			yield return new WaitForSeconds(updateTimeStep);
+		}
+	}
+
+	[RPC]
+	void update(Vector3 position_, float damage_, NetworkMessageInfo info_)
+	{
+		lerpPos = position_;
+		health.setFlat(damage_);
+		StartCoroutine(lerpPosition());
+	}
+
+	IEnumerator lerpPosition()
+	{
+		while(transform.position != lerpPos)
+		{
+			Vector3.MoveTowards(transform.position, lerpPos, speed.get()*Time.fixedDeltaTime);
+			yield return new WaitForFixedUpdate();
+		}
+	}
+
 }
