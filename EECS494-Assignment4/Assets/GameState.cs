@@ -509,14 +509,14 @@ public class GameState : MonoBehaviour
 		var ps = players[creep.getOwner ()];
 
 		removeCreep(creep.networkView.viewID, ps.player);
-		networkView.RPC ("removeCreep", RPCMode.OthersBuffered, creep.networkView.viewID, ps.player);
+		networkView.RPC ("removeCreep", RPCMode.Others, creep.networkView.viewID, ps.player);
 
 		if((ps.lives -= creep.lifeCost) <= 0)
 		{
-			networkView.RPC ("endGame", RPCMode.OthersBuffered);
+			networkView.RPC ("endGame", RPCMode.Others);
 			endGame ();
 		}
-		networkView.RPC ("setLives", RPCMode.OthersBuffered, ps.lives, ps.player);
+		networkView.RPC ("setLives", RPCMode.Others, ps.lives, ps.player);
 
 		Network.Destroy(creep.gameObject);
 	}
@@ -524,7 +524,7 @@ public class GameState : MonoBehaviour
 	public void onCreepDeath(Creep creep)
 	{
 		removeCreep(creep.networkView.viewID, getPlayer(creep.getOwner()));
-		networkView.RPC("removeCreep", RPCMode.OthersBuffered, creep.networkView.viewID,  getPlayer(creep.getOwner()));
+		networkView.RPC("removeCreep", RPCMode.Others, creep.networkView.viewID,  getPlayer(creep.getOwner()));
 
 		var ps = players[creep.getOwner()];
 		ps.gold += creep.bounty;
@@ -593,7 +593,7 @@ public class GameState : MonoBehaviour
 		
 		//Add tower to tower lists
 		addTower (t.networkView.viewID, player_);
-		networkView.RPC ("addTower", RPCMode.OthersBuffered, t.networkView.viewID, player_);
+		networkView.RPC ("addTower", RPCMode.Others, t.networkView.viewID, player_);
 	}
 
 	[RPC]
@@ -658,7 +658,7 @@ public class GameState : MonoBehaviour
 			
 			//Add creep to creep lists, however it is we do it
 			addCreep(c.networkView.viewID, player);
-			networkView.RPC ("addCreep", RPCMode.OthersBuffered, c.networkView.viewID, player);
+			networkView.RPC ("addCreep", RPCMode.Others, c.networkView.viewID, player);
 
 			c.updateDestination();
 		}
