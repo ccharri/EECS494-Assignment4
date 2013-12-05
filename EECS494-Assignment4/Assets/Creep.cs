@@ -126,7 +126,7 @@ public class Creep : Spawnable, Selectable
 				dest = getAgent ().path.corners[1];
 			}
 
-			transform.position += (dest - transform.position).normalized * speed.get () * Time.fixedDeltaTime;
+			transform.position = Vector3.MoveTowards(transform.position, dest, speed.get()*Time.fixedDeltaTime);
 		}
     }
 

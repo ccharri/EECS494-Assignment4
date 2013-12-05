@@ -92,9 +92,9 @@ public class Projectile : Unit
 
     protected override void FixedUpdate()
     {
-        if(Network.isServer)
+       // if(Network.isServer)
         {
-            if(target == null || transform.position.y < -1)
+            if(targetPos == transform.position || transform.position.y < -1)
             {
                 destroy();
                 return;
@@ -106,53 +106,61 @@ public class Projectile : Unit
 				targetPos = targetTrans.position;
             }
 
-			transform.position += (new Vector3(targetPos.x, .5f, targetPos.z) - transform.position).normalized * speed.get () * Time.fixedDeltaTime;
+			transform.position = Vector3.MoveTowards(transform.position, targetPos, speed.get()*Time.fixedDeltaTime);
             //NOTE: This can skip over enemies
         }
     }
 
     public virtual void OnTriggerEnter(Collider c)
     {
-        if(Network.isServer)
-        {
-            if(target != null &&  
-                ((homing && c.gameObject.GetComponent<Creep>() == target) ||
-                (!homing && c.gameObject.GetComponent<Creep>() != null))
-            )
-            {
-                if(splash.get() <= 0)
-                {
-                    target.onDamage(getDamage());
-                    if(appliedBuff != null)
-                    {
-                        //ADD BUFF TO TARGET HERE
-                    }
-                }
-                else
-                {
-                    List<Creep> victims = getAllTypesInRadius<Creep>(transform.position, splash.get());
-                    foreach(Creep victim in victims)
-                    {
-                        victim.onDamage(getDamage());
-                        if(appliedBuff != null)
-                        {
-                            //APPLY BUFF HERE?
-                        }
-                    }
-                }
-                destroy();
-            }
-        }
+
+	    if(target != null &&  
+	        ((homing && c.gameObject.GetComponent<Creep>() == target) ||
+	        (!homing && c.gameObject.GetComponent<Creep>() != null))
+	    )
+	    {
+			if(Network.isServer)
+			{
+		        if(splash.get() <= 0)
+		        {
+		            target.onDamage(getDamage());
+		            if(appliedBuff != null)
+		            {
+		                //ADD BUFF TO TARGET HERE
+		            }
+		        }
+		        else
+		        {
+		            List<Creep> victims = getAllTypesInRadius<Creep>(transform.position, splash.get());
+		            foreach(Creep victim in victims)
+		            {
+		                victim.onDamage(getDamage());
+		                if(appliedBuff != null)
+		                {
+		                    //APPLY BUFF HERE?
+		                }
+		            }
+		        }
+			}
+	        destroy();
+	    }
+
     }
 
     public virtual void destroy()
     {
 		Debug.Log ("Projectile destroy");
-        Network.Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     protected override void Update()
     {
         base.Update();
     }
+
+	[RPC]
+	void setTargetRPC(NetworkViewID networkViewID_, NetworkMessageInfo info_)
+	{
+		setTarget(NetworkView.Find(networkViewID_).gameObject.GetComponent<Creep>());
+	}
 }
