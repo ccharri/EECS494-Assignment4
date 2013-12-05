@@ -102,8 +102,11 @@ public class Projectile : Unit
             base.FixedUpdate();
             if(homing)
             {
-                Vector3 pos = target.transform.position;
-				targetPos = targetTrans.position;
+				if(target != null)
+				{
+	                Vector3 pos = target.transform.position;
+					targetPos = targetTrans.position;
+				}
             }
 
 			transform.position = Vector3.MoveTowards(transform.position, targetPos, speed.get()*Time.fixedDeltaTime);
