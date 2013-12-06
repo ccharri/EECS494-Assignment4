@@ -1,29 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OnFire : Buff<Creep> 
+public class OnFire : Buff
 {
-    private static float DURATION = 10;
-    private static float BURN_DAMAGE = 10;
+    private static float BURN_DAMAGE;
 
-    public OnFire(Creep target_) : base(target_) {}
-    public OnFire(Creep target_, Unit owner_) : base(target_, owner_) {}
-
-    public override void onApplication() 
+    public override void Awake()
     {
-        duration = DURATION;
+        base.Awake();
+        Init(1);
     }
 
+    public override void Init(int level_)
+    {
+        base.Init(level_);
+        duration = 10;
+        BURN_DAMAGE = 10 * level_;
+    }
+
+    public override void onApplication()
+    {
+        OnFire oldBuff = GetComponent<OnFire>();
+        if(oldBuff != null & oldBuff.getLevel() == getLevel())
+        {
+            oldBuff.setDuration(oldBuff.getDuration() + getDuration());
+            Destroy(this);
+        }
+    }
     public override void onRemoval() {}
 
-    public override bool FixedUpdate()
+    public override void FixedUpdate()
     {
-        target.onDamage(BURN_DAMAGE);
-        if (!target.isAlive())
+        if(!enabled)
+            return;
+        Creep c = GetComponent<Creep>();
+        if(c == null)
+            return;
+
+        c.onDamage(BURN_DAMAGE);
+        if (!c.isAlive())
             if (owner != null)
             {
                 //TODO: Add bounty? Claim
             }
-        return base.FixedUpdate();
+        base.FixedUpdate();
     }
 }

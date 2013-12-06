@@ -8,7 +8,6 @@ public class Projectile : Unit
     public float speedBase = 7.5f;
     public float splashBase = 0;
 
-    public Buff appliedBuff = null;
     public bool homing = true;
 
     //Internal Attributes
@@ -79,14 +78,9 @@ public class Projectile : Unit
     //DOES: Makes the projectile home on the target. Changes targetPos.
     {
 		Vector3 newVel = new Vector3(targetPos.x - transform.position.x, targetPos.y - transform.position.y, targetPos.z - transform.position.z);
-		Debug.Log ("newVel = " + newVel);
         newVel.Normalize();
-		Debug.Log ("newVelNormalized = " + newVel);
         float scaleFactor = speed.get() * Time.fixedDeltaTime;
-		Debug.Log ("scaleFactor = " +  scaleFactor);
-		Debug.Log ("x = " + newVel.x * scaleFactor + ", y = " + newVel.y * scaleFactor + ", z = " + newVel.z * scaleFactor);
 		newVel = new Vector3(newVel.x * scaleFactor, newVel.y * scaleFactor, newVel.z * scaleFactor);
-		Debug.Log ("NewVel Final = x = " + newVel.x  + ", y = " + newVel.y + ", z = " + newVel.z );
         return newVel;
     }
 
@@ -116,21 +110,16 @@ public class Projectile : Unit
 
     public virtual void OnTriggerEnter(Collider c)
     {
-
 	    if(target != null &&  
 	        ((homing && c.gameObject.GetComponent<Creep>() == target) ||
-	        (!homing && c.gameObject.GetComponent<Creep>() != null))
-	    )
+	        (!homing && c.gameObject.GetComponent<Creep>() != null)))
 	    {
 			if(Network.isServer)
 			{
 		        if(splash.get() <= 0)
 		        {
 		            target.onDamage(getDamage());
-		            if(appliedBuff != null)
-		            {
-		                //ADD BUFF TO TARGET HERE
-		            }
+                    applyBuff(target);
 		        }
 		        else
 		        {
@@ -138,17 +127,15 @@ public class Projectile : Unit
 		            foreach(Creep victim in victims)
 		            {
 		                victim.onDamage(getDamage());
-		                if(appliedBuff != null)
-		                {
-		                    //APPLY BUFF HERE?
-		                }
+                        applyBuff(victim);
 		            }
 		        }
 			}
 	        destroy();
 	    }
-
     }
+
+    public virtual void applyBuff(Creep c) {}
 
     public virtual void destroy()
     {
