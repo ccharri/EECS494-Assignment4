@@ -8,7 +8,7 @@ public class Projectile : Unit
     public float speedBase = 7.5f;
     public float splashBase = 0;
 
-    public Buff<Creep> appliedBuff = null;
+    public Buff appliedBuff = null;
     public bool homing = true;
 
     //Internal Attributes
