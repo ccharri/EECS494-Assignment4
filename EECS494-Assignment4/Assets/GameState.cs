@@ -184,7 +184,9 @@ public class GameState : MonoBehaviour
         OnGUI_TopBar();
         OnGUI_ScoreBoard();
         GUILayout.FlexibleSpace();
-        OnGUI_BottomBar();
+		OnGUI_TowerBar();
+		OnGUI_StatusBarTower();
+		OnGUI_CreepBar();
 
         GUILayout.EndVertical();
         GUILayout.EndArea();
@@ -286,6 +288,115 @@ public class GameState : MonoBehaviour
 
         GUILayout.EndHorizontal();
     }
+
+	void OnGUI_TowerBar()
+	{
+		PlayerState pState = players[Network.player.guid];
+
+		GUILayout.BeginArea(new Rect(0, 50, 200, (Screen.height)/2f - 50));
+
+		//TOWER PLACEMENT BUTTONS
+		GUILayout.BeginVertical("box");
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Towers");
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+		GUILayout.BeginHorizontal();
+		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap)
+		{
+			if (GUILayout.Button(entry.Key + "\n" + entry.Value.cost + "G")) //use entry.Value.name after towers have a name defined (maybe)
+			{
+				pMan.enabled = true;
+				pMan.beginPlacing(entry.Value.prefab, entry.Key);
+			}
+				GUILayout.EndHorizontal();
+				GUILayout.BeginHorizontal();
+		}
+		GUILayout.EndHorizontal();
+
+		GUILayout.FlexibleSpace();
+
+		GUILayout.EndArea();
+	}
+
+	void OnGUI_StatusBarTower()
+	{
+		GUILayout.BeginArea(new Rect(0, Screen.height/2f, 200, Screen.height/2f));
+		GUILayout.BeginVertical("box");
+
+		if(GUILayout.Button ("Upgrade to ??? - " + "GOLD"))
+		{
+
+		}
+
+		GUILayout.FlexibleSpace();
+
+		if(GUILayout.Button ("Sell for " + "GOLD"))
+		{
+
+		}
+
+		GUILayout.EndVertical();
+		GUILayout.EndArea();
+	}
+
+	void OnGUI_CreepBar()
+	{
+		GUILayout.BeginArea(new Rect(Screen.width - 200, 50, 200, Screen.height - 50));
+		PlayerState pState = players[Network.player.guid];
+
+		GUILayout.BeginVertical("box");
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Creeps");
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+
+		foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap)
+		{
+			GUILayout.BeginHorizontal("box");
+
+			if (GUILayout.Button(entry.Key + "\n" + entry.Value.cost + "G")) //use entry.Value.name, after creeps have a name defined (maybe)
+			{
+				if (Network.isServer)
+				{
+					tryCreepSpawn(entry.Key, Network.player);
+				}
+				else
+				{
+					networkView.RPC("tryCreepSpawn", RPCMode.Server, entry.Key, Network.player);
+				}
+			}
+			
+			//UnitSpawn us = pState.race.getUnitSpawn(entry.Key);
+			var usm = players[Network.player.guid].race.getUnitSpawnMap(Network.player.guid);
+			UnitSpawn us = usm[entry.Key];
+			if(us == null) {Debug.Log("Not UnitSpawn found for creep: " + entry.Key + "!");}
+			else
+			{
+				if (time < us.initialStockTime)
+					GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.initialStockTime - time));
+				else
+					GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.restockTime - ((time - us.initialStockTime) % us.restockTime)));
+			}
+
+			GUILayout.EndHorizontal();
+		}
+
+		
+		//Upgrade Buttons
+		GUILayout.FlexibleSpace();
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Button("Upgrade Creeps");
+		GUILayout.EndHorizontal();
+		GUILayout.EndVertical();
+		
+		GUILayout.EndHorizontal();
+
+		GUILayout.EndArea();
+	}
 
     void OnGUI_BottomBar()
     {
