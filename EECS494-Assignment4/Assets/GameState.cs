@@ -194,7 +194,6 @@ public class GameState : MonoBehaviour
         OnGUI_ScoreBoard();
         GUILayout.FlexibleSpace();
 		OnGUI_TowerBar();
-		OnGUI_StatusBarTower();
 		OnGUI_CreepBar();
 
         GUILayout.EndVertical();
@@ -302,7 +301,7 @@ public class GameState : MonoBehaviour
 	{
 		PlayerState pState = players[Network.player.guid];
 
-		GUILayout.BeginArea(new Rect(0, 50, 200, (Screen.height)/2f - 50));
+		GUILayout.BeginArea(new Rect(0, 50, 200, Screen.height - 75));
 
 		//TOWER PLACEMENT BUTTONS
 		GUILayout.BeginVertical("box");
@@ -311,15 +310,23 @@ public class GameState : MonoBehaviour
 		GUILayout.Label("Towers");
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
-		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap)
+		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap.Reverse())
 		{
 			GUILayout.BeginVertical("box");
+			Color oldColor = GUI.color;
+			bool canUse = entry.Value.cost <= pState.gold;
+			if(!canUse) 
+			{	
+				GUI.color = Color.red;
+				GUI.enabled = false;
+			}
+
 			if (GUILayout.Button(entry.Key)) //use entry.Value.name after towers have a name defined (maybe)
 			{
 				pMan.enabled = true;
 				pMan.beginPlacing(entry.Value.prefab, entry.Key);
 			}
-			Color oldColor = GUI.color;
+			GUI.enabled = true;
 			GUI.color = Color.yellow;
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
@@ -330,15 +337,14 @@ public class GameState : MonoBehaviour
 			GUILayout.EndVertical();
 		}
 
-		GUILayout.FlexibleSpace();
+		OnGUI_StatusBarTower();
 
 		GUILayout.EndArea();
 	}
 
 	void OnGUI_StatusBarTower()
 	{
-		GUILayout.BeginArea(new Rect(0, Screen.height/2f, 200, Screen.height/2f));
-		GUILayout.BeginVertical("box");
+		GUILayout.BeginVertical("box", GUILayout.ExpandHeight(true));
 
 		if(GUILayout.Button ("Upgrade to ??? - " + "GOLD"))
 		{
@@ -353,12 +359,11 @@ public class GameState : MonoBehaviour
 		}
 
 		GUILayout.EndVertical();
-		GUILayout.EndArea();
 	}
 
 	void OnGUI_CreepBar()
 	{
-		GUILayout.BeginArea(new Rect(Screen.width - 320, 50, 300, Screen.height - 50));
+		GUILayout.BeginArea(new Rect(Screen.width - 320, 50, 300, Screen.height - 75));
 		PlayerState pState = players[Network.player.guid];
 
 		GUILayout.BeginVertical("box");
@@ -371,6 +376,13 @@ public class GameState : MonoBehaviour
 		foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap.Reverse())
 		{
 			GUILayout.BeginHorizontal("box");
+			Color oldColor = GUI.color;
+			bool canUse = entry.Value.cost <= pState.gold;
+			if(!canUse)
+			{
+				GUI.color = Color.red;
+				GUI.enabled = false;
+			}
 
 			if (GUILayout.Button(entry.Key, GUILayout.ExpandHeight(true), GUILayout.Width(150))) //use entry.Value.name, after creeps have a name defined (maybe)
 			{
@@ -383,9 +395,11 @@ public class GameState : MonoBehaviour
 					networkView.RPC("tryCreepSpawn", RPCMode.Server, entry.Key, Network.player);
 				}
 			}
+			GUI.enabled = true;
+
 			GUILayout.BeginVertical();
 			GUILayout.BeginHorizontal();
-			Color oldColor = GUI.color;
+
 			GUI.color = Color.yellow;
 			GUILayout.Label(entry.Value.cost + " Gold");
 			GUI.color = Color.green;
