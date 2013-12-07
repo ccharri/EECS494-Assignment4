@@ -303,18 +303,24 @@ public class GameState : MonoBehaviour
 		GUILayout.Label("Towers");
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
-		GUILayout.BeginHorizontal();
 		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap)
 		{
-			if (GUILayout.Button(entry.Key + "\n" + entry.Value.cost + "G")) //use entry.Value.name after towers have a name defined (maybe)
+			GUILayout.BeginVertical("box");
+			if (GUILayout.Button(entry.Key)) //use entry.Value.name after towers have a name defined (maybe)
 			{
 				pMan.enabled = true;
 				pMan.beginPlacing(entry.Value.prefab, entry.Key);
 			}
-				GUILayout.EndHorizontal();
-				GUILayout.BeginHorizontal();
+			Color oldColor = GUI.color;
+			GUI.color = Color.yellow;
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			GUILayout.Label(entry.Value.cost + " Gold");
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
+			GUI.color = oldColor;
+			GUILayout.EndVertical();
 		}
-		GUILayout.EndHorizontal();
 
 		GUILayout.FlexibleSpace();
 
@@ -344,7 +350,7 @@ public class GameState : MonoBehaviour
 
 	void OnGUI_CreepBar()
 	{
-		GUILayout.BeginArea(new Rect(Screen.width - 200, 50, 200, Screen.height - 50));
+		GUILayout.BeginArea(new Rect(Screen.width - 320, 50, 300, Screen.height - 50));
 		PlayerState pState = players[Network.player.guid];
 
 		GUILayout.BeginVertical("box");
@@ -358,7 +364,7 @@ public class GameState : MonoBehaviour
 		{
 			GUILayout.BeginHorizontal("box");
 
-			if (GUILayout.Button(entry.Key + "\n" + entry.Value.cost + "G")) //use entry.Value.name, after creeps have a name defined (maybe)
+			if (GUILayout.Button(entry.Key, GUILayout.ExpandHeight(true), GUILayout.Width(150))) //use entry.Value.name, after creeps have a name defined (maybe)
 			{
 				if (Network.isServer)
 				{
@@ -369,18 +375,33 @@ public class GameState : MonoBehaviour
 					networkView.RPC("tryCreepSpawn", RPCMode.Server, entry.Key, Network.player);
 				}
 			}
-			
+			GUILayout.BeginVertical();
+			GUILayout.BeginHorizontal();
+			Color oldColor = GUI.color;
+			GUI.color = Color.yellow;
+			GUILayout.Label(entry.Value.cost + " Gold");
+			GUI.color = Color.green;
+			GUILayout.Label ("+"+entry.Value.bounty + " Income");
+			GUILayout.EndHorizontal();
+
 			//UnitSpawn us = pState.race.getUnitSpawn(entry.Key);
 			var usm = players[Network.player.guid].race.getUnitSpawnMap(Network.player.guid);
 			UnitSpawn us = usm[entry.Key];
 			if(us == null) {Debug.Log("Not UnitSpawn found for creep: " + entry.Key + "!");}
 			else
 			{
+				if(us.currentStock > 0)
+					GUI.color = Color.white;
+				else
+					GUI.color = Color.red;
+
 				if (time < us.initialStockTime)
 					GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.initialStockTime - time));
 				else
 					GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.restockTime - ((time - us.initialStockTime) % us.restockTime)));
 			}
+			GUI.color = oldColor;
+			GUILayout.EndVertical();
 
 			GUILayout.EndHorizontal();
 		}
