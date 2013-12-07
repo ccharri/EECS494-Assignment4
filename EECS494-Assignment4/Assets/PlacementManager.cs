@@ -14,7 +14,7 @@ public class PlacementManager : MonoBehaviour {
 
 	GameState gstate;
 
-	public float gridSize = .5f;
+	public float gridSize = 0.5f;
 
 	void Awake() 
 	{
@@ -85,15 +85,24 @@ public class PlacementManager : MonoBehaviour {
 
 //			shift = Input.GetKeyDown("shift");
 			RaycastHit rhit;
-//			int layerMask = LayerMask.NameToLayer("Buildable");
-			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit/*, Camera.main.farClipPlane, layerMask*/))
+			int layerMask = LayerMask.NameToLayer("Buildable");
+			layerMask = ~layerMask;
+
+			Camera cam = Camera.main;
+
+			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit, Camera.main.farClipPlane, layerMask))
 			{
 				Vector3 point = alignToGrid (rhit.point);
 				placeObject.transform.position = point;
 				
 				if(Input.GetMouseButtonDown(0) && ready && helper.valid)
 				{
-					place(alignToGrid(rhit.point));
+					Debug.Log("ray x: " + rhit.point.x);
+					Debug.Log("ray z: " + rhit.point.z);
+					Debug.Log("aligned x: " + point.x);
+					Debug.Log("aligned z: " + point.z);
+					place(point);
+					//place(alignToGrid(rhit.point));
 				}
 			}
 		}
@@ -143,6 +152,8 @@ public class PlacementManager : MonoBehaviour {
 	{
 		Vector3 rval;
 		rval.y = 0;
+		//rval.x = (int)(point.x );
+		//rval.z = (int)(point.z );
 		rval.x = ((int)((Mathf.Abs(point.x) / gridSize) + .5)) * gridSize * (Mathf.Abs (point.x)/point.x) ;
 		rval.z = ((int)((Mathf.Abs(point.z) / gridSize) + .5)) * gridSize * (Mathf.Abs(point.z)/point.z) ;
 		return rval;
