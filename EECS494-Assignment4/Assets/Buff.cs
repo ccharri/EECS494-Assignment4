@@ -6,18 +6,18 @@ public abstract class Buff : MonoBehaviour
 //      A buff without a target is automatically a factoy class.
 //      This doesn't mean that an active buff can't be a factory.
 {
-    private bool enabled;
+    private bool buffEnabled;
 	public float duration;
     public int level;
     public Unit owner;
     public GameObject effect;
 
-    public void setEnabled(bool enabled_)       { enabled = enabled_; }
+    public void setEnabled(bool enabled_)       { buffEnabled = enabled_; }
     public void setDuration(float duration_)    { duration = duration_; }
     public void setOwner(Unit owner_)           { owner = owner_; }
     public void setLevel(int level_)            { level = level_; }
 
-    public bool getEnabled()    { return enabled; }
+    public bool getEnabled()    { return buffEnabled; }
     public float getDuration()  { return duration; }
     public Unit getOwner()      { return owner; }
     public int getLevel()       { return level; }
@@ -25,7 +25,7 @@ public abstract class Buff : MonoBehaviour
 
     public virtual void Awake()
     {
-        enabled = false;
+        buffEnabled = false;
     }
 
     public virtual void Init(int level_)
@@ -40,12 +40,12 @@ public abstract class Buff : MonoBehaviour
     }
     public virtual void onApplication()
     {
-        enabled = true;
+        buffEnabled = true;
     }
 
     public virtual void FixedUpdate()
     {
-        if(!enabled)
+        if(!buffEnabled)
             return;
 
         duration -= Time.deltaTime;

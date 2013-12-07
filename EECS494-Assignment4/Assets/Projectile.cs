@@ -18,7 +18,7 @@ public class Projectile : Unit
     public Creep target = null;
 	public Transform targetTrans;
     public Vector3 targetPos = new Vector3(0,0,0);
-    public double birthTime = 0;
+    protected double birthTime = 0;
 
     public void setSpeed(float speed_)              { speed.setBase(speed_); }
     public void setDamage(float damage_)            { damage.setBase(damage_); }
@@ -27,7 +27,6 @@ public class Projectile : Unit
     { 
         target = target_;
         Vector3 pos = target.gameObject.transform.position;
-		Debug.Log ("Target position = " + pos);
         setTargetPos(new Vector3(pos.x, pos.y, pos.z)); 
 		targetTrans = target.gameObject.transform;
     }

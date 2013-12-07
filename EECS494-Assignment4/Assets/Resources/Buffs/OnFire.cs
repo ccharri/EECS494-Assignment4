@@ -31,7 +31,7 @@ public class OnFire : Buff
 
     public override void FixedUpdate()
     {
-        if(!enabled)
+        if(!getEnabled())
             return;
         Creep c = GetComponent<Creep>();
         if(c == null)
