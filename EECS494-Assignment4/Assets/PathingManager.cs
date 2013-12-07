@@ -30,8 +30,8 @@ public class PathingManager : MonoBehaviour {
 		player1Spawn = player1Zone[25][12];
 		
 		//Player 2
-        player2Zone = makeNodes(-25, 25, -2, -22);
-        player2ZoneShadow = makeNodes(-25, 25, -2, -22);
+        player2Zone = makeNodes(-25, 25, -22, -2);
+        player2ZoneShadow = makeNodes(-25, 25, -22, -2);
 		player2End = player2Zone[25][-12];
 		player2Spawn = player2Zone[-25][-12];
 		
