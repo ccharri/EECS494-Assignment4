@@ -24,16 +24,16 @@ public class PathingManager : MonoBehaviour {
 		//Create zones
 		
 		//Player 1
-		player1Zone = makeNodes (0, 44, -10, 10);
-		player1ZoneShadow = makeNodes (0, 44, -10, 10);
-		player1End = player1Zone[44][0];
-		player1Spawn = player1Zone[0][0];
+		player1Zone = makeNodes (-25, 25, 2, 22);
+        player1ZoneShadow = makeNodes(-25, 25, 2, 22);
+		player1End = player1Zone[-25][12];
+		player1Spawn = player1Zone[25][12];
 		
 		//Player 2
-		player2Zone = makeNodes (-44, 0, -10, 10);
-		player2ZoneShadow = makeNodes (-44, 0, -10, 10);
-		player2End = player2Zone[-44][0];
-		player2Spawn = player2Zone[0][0];
+        player2Zone = makeNodes(-25, 25, -2, -22);
+        player2ZoneShadow = makeNodes(-25, 25, -2, -22);
+		player2End = player2Zone[25][-12];
+		player2Spawn = player2Zone[-25][-12];
 		
 		
 		//Calculate
@@ -79,13 +79,13 @@ public class PathingManager : MonoBehaviour {
 		int xmin, xmax;
 		if(grid == player1Zone || grid == player1ZoneShadow)
 		{
-			xmin = 0;
-			xmax = 44;
+			xmin = -25;
+			xmax = 25;
 		}
 		else
 		{
-			xmin = -44;
-			xmax = 0;
+			xmin = -25;
+			xmax = 25;
 		}
 
 		Dictionary<int, Dictionary<int, PathingNode>> visitedNodes = new Dictionary<int, Dictionary<int, PathingNode>>();
