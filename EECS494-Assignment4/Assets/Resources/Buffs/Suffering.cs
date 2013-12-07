@@ -21,12 +21,6 @@ public class Suffering : Buff
         MISSING_HEALTH_MULTIPLIER = level * 0.1f + 0.20f;
     }
 
-	public override void onApplication() 
-    {
-        base.onApplication();
-    }
-	public override void onRemoval() {}
-
     public override void FixedUpdate()
     {
         if(!getEnabled())

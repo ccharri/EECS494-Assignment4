@@ -34,13 +34,17 @@ public abstract class Buff : MonoBehaviour
     }
 
     public virtual void onRemoval()
-    {
-        Destroy(effect);
+    { 
         Destroy(this);
     }
     public virtual void onApplication()
     {
         buffEnabled = true;
+    }
+
+    public void OnDestroy()
+    {
+        Destroy(effect);
     }
 
     public virtual void FixedUpdate()
