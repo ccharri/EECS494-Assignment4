@@ -3,11 +3,11 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameState.cs">
     <Files>
       <File FileName="Assets\PlacementManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\PathingNode.cs" Line="1" Column="1" />
+      <File FileName="Assets\PathingNode.cs" Line="17" Column="3" />
       <File FileName="Assets\PathingManager.cs" Line="1" Column="1" />
       <File FileName="Assets\PathingAgent.cs" Line="1" Column="1" />
       <File FileName="Assets\Creep.cs" Line="1" Column="1" />
-      <File FileName="Assets\GameState.cs" Line="694" Column="3" />
+      <File FileName="Assets\GameState.cs" Line="318" Column="16" />
       <File FileName="Assets\Anchor.cs" Line="1" Column="1" />
       <File FileName="Assets\NameDatabase.cs" Line="1" Column="1" />
       <File FileName="Assets\PlacementHelper.cs" Line="1" Column="1" />

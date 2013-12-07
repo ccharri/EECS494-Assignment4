@@ -384,6 +384,16 @@ public class GameState : MonoBehaviour
 				GUI.enabled = false;
 			}
 
+			
+			//UnitSpawn us = pState.race.getUnitSpawn(entry.Key);
+			var usm = players[Network.player.guid].race.getUnitSpawnMap(Network.player.guid);
+			UnitSpawn us = usm[entry.Key];
+
+			if(us.currentStock <= 0)
+			{
+				GUI.enabled = false;
+			}
+
 			if (GUILayout.Button(entry.Key, GUILayout.ExpandHeight(true), GUILayout.Width(150))) //use entry.Value.name, after creeps have a name defined (maybe)
 			{
 				if (Network.isServer)
@@ -406,9 +416,6 @@ public class GameState : MonoBehaviour
 			GUILayout.Label ("+"+entry.Value.bounty + " Income");
 			GUILayout.EndHorizontal();
 
-			//UnitSpawn us = pState.race.getUnitSpawn(entry.Key);
-			var usm = players[Network.player.guid].race.getUnitSpawnMap(Network.player.guid);
-			UnitSpawn us = usm[entry.Key];
 			if(us == null) {Debug.Log("Not UnitSpawn found for creep: " + entry.Key + "!");}
 			else
 			{
