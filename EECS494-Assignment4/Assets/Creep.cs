@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof (NavMeshAgent))]
+[RequireComponent(typeof (PathingAgent))]
 
 public class Creep : Spawnable, Selectable 
 {
@@ -34,7 +34,7 @@ public class Creep : Spawnable, Selectable
 
     protected bool mouseOver = false;
 
-	NavMeshAgent navAgent;
+	PathingAgent navAgent;
 
     void Awake()
     {
@@ -51,18 +51,7 @@ public class Creep : Spawnable, Selectable
 
 	public Vector3 getDestination()
 	{
-		GameState gstate = GameState.getInstance();
-
-		bool sendToPlayerTwo = (Network.isClient) ||(Network.isServer && (getOwner() != Network.player.guid));
-
-		if (!sendToPlayerTwo)
-		{
-			return new Vector3(43.8f, 0, 0);
-		}
-		else
-		{
-			return new Vector3(-43.8f, 0, 0);
-		}
+		navAgent.getNextPos();
 	}
 
 	public void updateDestination()
@@ -119,22 +108,17 @@ public class Creep : Spawnable, Selectable
         	base.FixedUpdate();
 //        	navAgent.speed = speed.get();
 
-			Vector3 dest = getAgent().path.corners[0];
-
-			if(dest.x == transform.position.x && dest.z == transform.position.z)
-			{
-				dest = getAgent ().path.corners[1];
-			}
+			Vector3 dest = getDestination();
 
 			transform.position = Vector3.MoveTowards(transform.position, dest, speed.get()*Time.fixedDeltaTime);
 		}
     }
 
-	private NavMeshAgent getAgent()
+	private PathingAgent getAgent()
 	{
 		if(navAgent == null)
 		{
-			navAgent = GetComponent<NavMeshAgent>();
+			navAgent = GetComponent<PathingAgent>();
 		}
 		return navAgent;
 	}
