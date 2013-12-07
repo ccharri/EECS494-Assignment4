@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -353,7 +354,7 @@ public class GameState : MonoBehaviour
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 
-		foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap)
+		foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap.Reverse())
 		{
 			GUILayout.BeginHorizontal("box");
 
@@ -420,7 +421,7 @@ public class GameState : MonoBehaviour
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 		GUILayout.BeginHorizontal();
-		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap)
+		foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap.Reverse())
 		{
 			rowCount++;
       if (GUILayout.Button(entry.Key + "\n" + entry.Value.cost + "G")) //use entry.Value.name after towers have a name defined (maybe)
