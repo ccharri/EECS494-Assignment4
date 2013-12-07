@@ -139,21 +139,21 @@ public class PlacementHelper : MonoBehaviour {
 
 //		Debug.Log("hasPath = " + hasPath + ", path.status = " + path.status);
 		
-		while(spawnAgent.pathPending)
-		{
-		}
-		
-		Vector3[] p = path.corners;
-		renderer.SetVertexCount(p.Length);
-		for(int i = 0 ; i < p.Length; i++)
-		{
-			renderer.SetPosition(i, p[i]);
-		}
-
+//		while(spawnAgent.pathPending)
+//		{
+//		}
+//		
+//		Vector3[] p = path.corners;
+//		renderer.SetVertexCount(p.Length);
+//		for(int i = 0 ; i < p.Length; i++)
+//		{
+//			renderer.SetPosition(i, p[i]);
+//		}
+//
 		
 //		turnOffColliders();
 		
-		validPath = hasPath;
+//		validPath = hasPath;
 		
 		checking = false;
 

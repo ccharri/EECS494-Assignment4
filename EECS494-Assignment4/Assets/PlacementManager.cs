@@ -16,7 +16,7 @@ public class PlacementManager : MonoBehaviour {
 
 	GameState gstate;
 
-	public float gridSize = 0.5f;
+	public float gridSize = 1f;
 
 	void Awake() 
 	{
@@ -25,34 +25,7 @@ public class PlacementManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		PathingNode start;
-		PathingNode end;
-
-		if(Network.isServer)
-		{
-			start = GameState.getInstance().pathMan.player1Spawn;
-			end = GameState.getInstance().pathMan.player1End;
-		}
-		else
-		{
-			start = GameState.getInstance().pathMan.player2Spawn;
-			end = GameState.getInstance().pathMan.player2End;
-		}
-
-		path = new List<PathingNode>();
-		PathingNode next = start.bestNode;
-		path.Add(next);
-//		while(next != end)
-//		{
-//			next = next.bestNode;
-//			path.Add(next);
-//		}
-
-		renderer.SetVertexCount(path.Count);
-		for(int i = 0 ; i < path.Count; i++)
-		{
-			renderer.SetPosition(i, new Vector3(path[i].x, 0, path[i].z));
-		}
+		updatePath();
 
 	}
 
@@ -66,6 +39,7 @@ public class PlacementManager : MonoBehaviour {
 		placeObject = Instantiate(placePrefab_) as GameObject;
 		placeObject.networkView.enabled = false;
 		placeObject.GetComponent<Tower>().enabled = false;
+		placeObject.GetComponent<PathingObstacle>().enabled = false;
 		helper = placeObject.AddComponent<PlacementHelper>();
 		helper.validMaterial = validMaterial;
 		helper.invalidMaterial = invalidMaterial;
@@ -78,6 +52,38 @@ public class PlacementManager : MonoBehaviour {
 
 		placeObject.layer = 2;
 		id = id_;
+	}
+
+	void updatePath()
+	{
+		PathingNode start;
+		PathingNode end;
+		
+		if(Network.isServer)
+		{
+			start = GameState.getInstance().pathMan.player1Spawn;
+			end = GameState.getInstance().pathMan.player1End;
+		}
+		else
+		{
+			start = GameState.getInstance().pathMan.player2Spawn;
+			end = GameState.getInstance().pathMan.player2End;
+		}
+		
+		path = new List<PathingNode>();
+		PathingNode next = start.bestNode;
+		path.Add(next);
+		while(next != end)
+		{
+			next = next.bestNode;
+			path.Add(next);
+		}
+		
+		renderer.SetVertexCount(path.Count);
+		for(int i = 0 ; i < path.Count; i++)
+		{
+			renderer.SetPosition(i, new Vector3(path[i].x, 0, path[i].z));
+		}
 	}
 	
 	// Update is called once per frame
@@ -123,7 +129,8 @@ public class PlacementManager : MonoBehaviour {
 		}
 		else
 		{
-			renderer.enabled = false;
+			updatePath();
+//			renderer.enabled = false;
 		}
 	}
 
@@ -150,7 +157,6 @@ public class PlacementManager : MonoBehaviour {
 			Destroy(placeObject);
 			placing = false;
 			ready = false;
-			enabled = false;
 		}
 
 		if(Network.isServer)
@@ -169,8 +175,8 @@ public class PlacementManager : MonoBehaviour {
 		rval.y = 0;
 		//rval.x = (int)(point.x );
 		//rval.z = (int)(point.z );
-		rval.x = ((int)((Mathf.Abs(point.x) / gridSize) + .5)) * gridSize * (Mathf.Abs (point.x)/point.x) ;
-		rval.z = ((int)((Mathf.Abs(point.z) / gridSize) + .5)) * gridSize * (Mathf.Abs(point.z)/point.z) ;
+		rval.x = ((int)((Mathf.Abs(point.x) / gridSize) + .5)) * gridSize * (Mathf.Abs (point.x)/point.x) + .5f ;
+		rval.z = ((int)((Mathf.Abs(point.z) / gridSize) + .5)) * gridSize * (Mathf.Abs(point.z)/point.z)  + .5f;
 		return rval;
 	}
 }

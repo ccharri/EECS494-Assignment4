@@ -154,9 +154,59 @@ public class PathingManager : MonoBehaviour {
 	}
 
 
-	bool pathExists(PathingNode[] transientNodes, int playerNum)
+	public bool pathExists(PathingNode[] transientNodes, int playerNum)
 	{
 		return true;
+	}
+
+	public void turnOn(float x, float z)
+	{
+		Debug.Log("Turning on nodes near ("+x+","+z+")");
+		int xmin = Mathf.FloorToInt(x);
+		int xmax = Mathf.CeilToInt(x);
+		int zmin = Mathf.FloorToInt(z);
+		int zmax = Mathf.CeilToInt(z);
+
+		Dictionary<int, Dictionary<int, PathingNode>> dict = x > 0 ? player1Zone : player2Zone;
+		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = x > 0 ? player1ZoneShadow : player2ZoneShadow;
+		PathingNode end = x > 0 ? player1End : player2End;
+
+		for(int i = xmin; i <= xmax; i++)
+		{
+			for(int j = zmin; j <= zmax; j++)
+			{
+				dict[i][j].pathable = true;
+				dictShadow[i][j].pathable = true;
+			}
+		}
+
+		recalculate(dict, end);
+		recalculate(dictShadow, end);
+	}
+
+	public void turnOff(float x, float z)
+	{
+		Debug.Log("Turning off nodes near ("+x+","+z+")");
+		int xmin = Mathf.FloorToInt(x);
+		int xmax = Mathf.CeilToInt(x);
+		int zmin = Mathf.FloorToInt(z);
+		int zmax = Mathf.CeilToInt(z);
+		
+		Dictionary<int, Dictionary<int, PathingNode>> dict = x > 0 ? player1Zone : player2Zone;
+		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = x > 0 ? player1ZoneShadow : player2ZoneShadow;
+		PathingNode end = x > 0 ? player1End : player2End;
+		
+		for(int i = xmin; i <= xmax; i++)
+		{
+			for(int j = zmin; j <= zmax; j++)
+			{
+				dict[i][j].pathable = false;
+				dictShadow[i][j].pathable = false;
+			}
+		}
+		
+		recalculate(dict, end);
+		recalculate(dictShadow, end);
 	}
 
 //	PathingNode getNode(int x, int z, PathingNode[][] grid)
