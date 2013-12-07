@@ -12,7 +12,7 @@ public class PathingAgent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if((transform.position.x == nextNode.x) && (transform.z == nextNode.z))
+		if((transform.position.x == nextNode.x) && (transform.position.z == nextNode.z))
 		{
 			lastNode = nextNode;
 			nextNode = lastNode.bestNode;

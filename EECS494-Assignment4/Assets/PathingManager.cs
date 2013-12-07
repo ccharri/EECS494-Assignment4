@@ -102,6 +102,7 @@ public class PathingManager : MonoBehaviour {
 			int z = evalNode.z;
 
 			if(visitedNodes[x].ContainsKey(z)) continue;
+            if (!evalNode.pathable) continue;
 
 			visitedNodes[evalNode.x][evalNode.z] = evalNode;
 
