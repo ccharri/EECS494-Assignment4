@@ -9,8 +9,8 @@ public class CameraMovement : MonoBehaviour {
 	float scrollSpeed = 25.0f;
     float rotationSpeed = 0.50f;
 
-    float maxY = 5;
-    float minY = -5;
+    float maxY = 25;
+    float minY = -25;
     float maxX = 25;
     float minX = -25;
 

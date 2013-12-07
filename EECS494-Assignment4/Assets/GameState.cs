@@ -61,14 +61,16 @@ public class GameState : MonoBehaviour
 		playerNums = new List<string>();
 
 		Vector3 pos = Camera.main.transform.position;
+        Quaternion quat = Camera.main.transform.rotation;
 		if(Network.isServer)
 		{
-			Camera.main.transform.position = new Vector3(25, pos.y, pos.z);
+			//Camera.main.transform.position = new Vector3(25, pos.y, pos.z);
 			player2Terrain.tag = "Unbuildable";
 		}
 		else
 		{
-			Camera.main.transform.position = new Vector3(-25, pos.y, pos.z);
+			Camera.main.transform.position = new Vector3(-30.0f, pos.y, pos.z);
+            Camera.main.transform.rotation = new Quaternion(quat.x, 90.0f, quat.z, quat.w);
 			player1Terrain.tag = "Unbuildable";
 		}
 	}
