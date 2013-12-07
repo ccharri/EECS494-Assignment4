@@ -70,7 +70,7 @@ public class GameState : MonoBehaviour
 		}
 		else
 		{
-			Camera.main.transform.position = new Vector3(-30.0f, pos.y, pos.z);
+			Camera.main.transform.position = new Vector3(-20.0f, pos.y, pos.z);
             Camera.main.transform.rotation = new Quaternion(quat.x, 90.0f, quat.z, quat.w);
 			player1Terrain.tag = "Unbuildable";
 		}

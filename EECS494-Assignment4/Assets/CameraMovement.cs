@@ -6,7 +6,8 @@ public class CameraMovement : MonoBehaviour {
 	bool rightDown;
 	GameObject mainCamera;
 	float scrollArea = 25.0f;
-	float scrollSpeed = 25.0f;
+	//float scrollSpeed = 25.0f;
+	float scrollSpeed = 0.0f;
     float rotationSpeed = 0.50f;
 
     float maxY = 25;
