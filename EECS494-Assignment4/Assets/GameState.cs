@@ -29,6 +29,7 @@ public class GameState : MonoBehaviour
 	public PlacementManager pMan;
 	public Camera mainCamera;
 	public RaceManager raceMan;
+	public PathingManager pathMan;
 
 	public GameObject player1Terrain;
 	public GameObject player2Terrain;
@@ -56,6 +57,7 @@ public class GameState : MonoBehaviour
 		spawnLocation = GameObject.FindGameObjectWithTag("SpawnLocation");
 		mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 		raceMan = GameObject.FindGameObjectWithTag("RaceManager").GetComponent<RaceManager>();
+		pathMan = GetComponent<PathingManager>();
 		playerNums = new List<string>();
 
 		Vector3 pos = Camera.main.transform.position;
@@ -659,6 +661,8 @@ public class GameState : MonoBehaviour
 			//Add creep to creep lists, however it is we do it
 			addCreep(c.networkView.viewID, player);
 			networkView.RPC ("addCreep", RPCMode.Others, c.networkView.viewID, player);
+
+			c.gameObject.GetComponent<PathingAgent>().lastNode = c.getOwner() == Network.player.guid ? pathMan.player2Spawn : pathMan.player1Spawn;
 		}
 
     if (us.currentStock == us.maxStock)

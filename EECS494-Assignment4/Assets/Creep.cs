@@ -48,7 +48,7 @@ public class Creep : Spawnable, Selectable
 
 	public Vector3 getDestination()
 	{
-		return navAgent.getNextPos();
+		return getAgent().getNextPos();
 	}
 
     public virtual bool onDamage(float damage)

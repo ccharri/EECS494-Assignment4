@@ -6,6 +6,7 @@ public class PathingNode {
 	public int x;
 	public int z;
 	public PathingNode bestNode;
+	public int dir;
 
 	public PathingNode(int x_, int z_)
 	{

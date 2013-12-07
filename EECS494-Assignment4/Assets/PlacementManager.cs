@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlacementManager : MonoBehaviour {
 	public bool placing = false;
@@ -11,6 +12,7 @@ public class PlacementManager : MonoBehaviour {
 	private GameObject placeObject;
 	private string id;
 	public LineRenderer renderer = new LineRenderer();
+	public List<PathingNode> path;
 
 	GameState gstate;
 
@@ -23,20 +25,33 @@ public class PlacementManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		NavMeshAgent spawnAgent = gstate.spawnLocation.GetComponent<NavMeshAgent>();
-		spawnAgent.ResetPath();
-		NavMeshPath path = new NavMeshPath();
-		spawnAgent.CalculatePath(gstate.getEndPoint(), path);
-		
-		while(spawnAgent.pathPending)
+		PathingNode start;
+		PathingNode end;
+
+		if(Network.isServer)
 		{
+			start = GameState.getInstance().pathMan.player1Spawn;
+			end = GameState.getInstance().pathMan.player1End;
 		}
-		
-		Vector3[] p = path.corners;
-		renderer.SetVertexCount(p.Length);
-		for(int i = 0 ; i < p.Length; i++)
+		else
 		{
-			renderer.SetPosition(i, p[i]);
+			start = GameState.getInstance().pathMan.player2Spawn;
+			end = GameState.getInstance().pathMan.player2End;
+		}
+
+		path = new List<PathingNode>();
+		PathingNode next = start.bestNode;
+		path.Add(next);
+//		while(next != end)
+//		{
+//			next = next.bestNode;
+//			path.Add(next);
+//		}
+
+		renderer.SetVertexCount(path.Count);
+		for(int i = 0 ; i < path.Count; i++)
+		{
+			renderer.SetPosition(i, new Vector3(path[i].x, 0, path[i].z));
 		}
 
 	}
