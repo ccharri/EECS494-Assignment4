@@ -10,6 +10,7 @@ public abstract class Buff : MonoBehaviour
 	public float duration;
     public int level;
     public Unit owner;
+    public GameObject effect;
 
     public void setEnabled(bool enabled_)       { enabled = enabled_; }
     public void setDuration(float duration_)    { duration = duration_; }
@@ -32,7 +33,11 @@ public abstract class Buff : MonoBehaviour
         level = level_;   
     }
 
-    public abstract void onRemoval();
+    public virtual void onRemoval()
+    {
+        Destroy(effect);
+        Destroy(this);
+    }
     public virtual void onApplication()
     {
         enabled = true;
@@ -48,5 +53,8 @@ public abstract class Buff : MonoBehaviour
         {
             onRemoval();
         }
+
+        if(effect != null)
+            effect.transform.position = gameObject.transform.position;
     }
 }
