@@ -410,12 +410,9 @@ public class GameState : MonoBehaviour
 		//Upgrade Buttons
 		GUILayout.FlexibleSpace();
 		GUILayout.BeginHorizontal();
-		GUILayout.FlexibleSpace();
-		GUILayout.Button("Upgrade Creeps");
+		GUILayout.Button("Upgrade Creeps", GUILayout.ExpandWidth(true));
 		GUILayout.EndHorizontal();
 		GUILayout.EndVertical();
-		
-		GUILayout.EndHorizontal();
 
 		GUILayout.EndArea();
 	}
