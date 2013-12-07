@@ -659,8 +659,6 @@ public class GameState : MonoBehaviour
 			//Add creep to creep lists, however it is we do it
 			addCreep(c.networkView.viewID, player);
 			networkView.RPC ("addCreep", RPCMode.Others, c.networkView.viewID, player);
-
-			c.updateDestination();
 		}
 
     if (us.currentStock == us.maxStock)

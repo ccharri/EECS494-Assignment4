@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof (PathingAgent))]
-
 public class Creep : Spawnable, Selectable 
 {
     public float healthBase = 1;
@@ -41,7 +39,6 @@ public class Creep : Spawnable, Selectable
         setHealth(healthBase);
         setSpeed(speedBase);
         setMana(manaBase);
-		getAgent().speed = 0;
 
 		if(Network.isServer)
 		{
@@ -51,12 +48,7 @@ public class Creep : Spawnable, Selectable
 
 	public Vector3 getDestination()
 	{
-		navAgent.getNextPos();
-	}
-
-	public void updateDestination()
-	{
-		getAgent().SetDestination(getDestination());
+		return navAgent.getNextPos();
 	}
 
     public virtual bool onDamage(float damage)
