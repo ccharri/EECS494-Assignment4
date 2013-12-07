@@ -175,6 +175,11 @@ public class PathingManager : MonoBehaviour {
 		{
 			for(int j = zmin; j <= zmax; j++)
 			{
+				Dictionary<int, PathingNode> inDict;
+
+				if(!dict.TryGetValue(i, out inDict)) continue;
+				if(!inDict.ContainsKey(j)) continue;
+
 				dict[i][j].pathable = true;
 				dictShadow[i][j].pathable = true;
 			}
@@ -200,6 +205,11 @@ public class PathingManager : MonoBehaviour {
 		{
 			for(int j = zmin; j <= zmax; j++)
 			{
+				Dictionary<int, PathingNode> inDict;
+				
+				if(!dict.TryGetValue(i, out inDict)) continue;
+				if(!inDict.ContainsKey(j)) continue;
+
 				dict[i][j].pathable = false;
 				dictShadow[i][j].pathable = false;
 			}
