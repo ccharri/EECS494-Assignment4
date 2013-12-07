@@ -35,6 +35,8 @@ public class GameState : MonoBehaviour
 	public GameObject player1Terrain;
 	public GameObject player2Terrain;
 
+	public TextMesh incomeTimer;
+
 	public static GameState getInstance()
 	{
 		if(instance == null)
@@ -59,6 +61,8 @@ public class GameState : MonoBehaviour
 		mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 		raceMan = GameObject.FindGameObjectWithTag("RaceManager").GetComponent<RaceManager>();
 		pathMan = GetComponent<PathingManager>();
+		incomeTimer = GameObject.FindGameObjectWithTag("IncomeTimer").GetComponent<TextMesh>();
+		incomeTimer.gameObject.GetComponent<ParticleSystem>().Stop();
 		playerNums = new List<string>();
 
 		Vector3 pos = Camera.main.transform.position;
@@ -74,6 +78,8 @@ public class GameState : MonoBehaviour
             Camera.main.transform.rotation = new Quaternion(quat.x, 90.0f, quat.z, quat.w);
 			player1Terrain.tag = "Unbuildable";
 		}
+
+		StartCoroutine("decrementTimer", nextIncomeTime - getGameTime());
 	}
 
   void OnLevelWasLoaded(int level)
@@ -100,20 +106,22 @@ public class GameState : MonoBehaviour
 	        if(time >= nextIncomeTime)
 	        {
 	            foreach(var p in players)
-				      {
-					        PlayerState ps = p.Value;
-	               	ps.gold += ps.income;
+			      {
+				        PlayerState ps = p.Value;
+	       			ps.gold += ps.income;
 
-					        //We know we're the server, so if the player we're updating isn't us, go ahead and RPC
-					         if(ps.player != Network.player)
-						          networkView.RPC ("setGold", ps.player, ps.gold, ps.player);
-				      }
-	            nextIncomeTime += incomeTimeIncrement;
+				        //We know we're the server, so if the player we're updating isn't us, go ahead and RPC
+				        if(ps.player != Network.player)
+					         networkView.RPC ("setGold", ps.player, ps.gold, ps.player);
+					    }
+	  				nextIncomeTime += incomeTimeIncrement;
 
-				      networkView.RPC ("setTime", RPCMode.Others, time);
-				      //Update everyone else's timer.  We don't want to have to rely on messages passed back in,
-				      //	in case a User can fabricate setIncomeTimer messages from the server itself
-				      networkView.RPC("setIncomeTimer", RPCMode.Others, nextIncomeTime);
+						StartCoroutine("decrementTimer", nextIncomeTime - getGameTime());
+						
+					    networkView.RPC ("setTime", RPCMode.Others, time);
+					    //Update everyone else's timer.  We don't want to have to rely on messages passed back in,
+					    //	in case a User can fabricate setIncomeTimer messages from the server itself
+					    networkView.RPC("setIncomeTimer", RPCMode.Others, nextIncomeTime);
 	        }
 
 
@@ -671,6 +679,31 @@ public class GameState : MonoBehaviour
 		Network.Destroy(creep.gameObject);
 	}
 
+	//Co-routines
+
+	//Income Timer Text Helper
+
+	IEnumerator decrementTimer(int i)
+	{
+		while(i > 0)
+		{
+			incomeTimer.text = i.ToString();
+			i--;
+			yield return new WaitForSeconds(1f);
+		}
+
+		incomeTimer.text = i.ToString();
+		StartCoroutine("incomeParticles");
+	}
+
+	IEnumerator incomeParticles()
+	{
+		incomeTimer.gameObject.GetComponent<ParticleSystem>().Play();
+		incomeTimer.gameObject.GetComponent<AudioSource>().Play();
+		yield return new WaitForSeconds(2.5f);
+		incomeTimer.gameObject.GetComponent<ParticleSystem>().Stop();
+	}
+
 	//RPCs
 
 	//-----------------------------------------------------
@@ -777,7 +810,7 @@ public class GameState : MonoBehaviour
 			NetworkPlayer player = pstate.player;
 			if(player == player_ && players.Count > 1) continue;
 
-			c = ((GameObject)Network.Instantiate(c.prefab, spawnLocation.transform.position, Quaternion.identity, 0)).GetComponent<Creep>();
+			c = ((GameObject)Network.Instantiate(c.prefab, player == Network.player ? pathMan.player2Spawn.getPos() : pathMan.player1Spawn.getPos(), Quaternion.identity, 0)).GetComponent<Creep>();
 
 			ps.gold -= c.cost;
 
@@ -1069,6 +1102,7 @@ public class GameState : MonoBehaviour
 		PlayerState state = players[player_.guid];
 		if(state == null) {Debug.Log("Player " + player_ + " not found!"); return;}
 		state.income = income_;
+		StartCoroutine("decrementTimer", nextIncomeTime - getGameTime());
 	}
 	
 	//setLives

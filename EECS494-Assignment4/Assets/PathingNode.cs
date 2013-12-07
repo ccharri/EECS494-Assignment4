@@ -15,4 +15,9 @@ public class PathingNode {
 		pathable = true;
 		bestNode = this;
 	}
+
+	public Vector3 getPos()
+	{
+		return new Vector3(x, 0, z);
+	}
 }
