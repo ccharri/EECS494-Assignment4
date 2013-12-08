@@ -15,9 +15,13 @@ public class PathingManager : MonoBehaviour {
 
 	public PathingNode player1End;
 	public PathingNode player2End;
+	public PathingNode player1EndShadow;
+	public PathingNode player2EndShadow;
 
 	public PathingNode player1Spawn;
 	public PathingNode player2Spawn;
+	public PathingNode player1SpawnShadow;
+	public PathingNode player2SpawnShadow;
 
 	public bool recalculateNow = true;
 
@@ -27,16 +31,21 @@ public class PathingManager : MonoBehaviour {
 		
 		//Player 1
 		player1Zone = makeNodes (-25, 25, 2, 22);
-        player1ZoneShadow = makeNodes(-25, 25, 2, 22);
 		player1End = player1Zone[-25][12];
 		player1Spawn = player1Zone[25][12];
+
+		player1ZoneShadow = makeNodes(-25, 25, 2, 22);
+		player1EndShadow = player1ZoneShadow[-25][12];
+		player1SpawnShadow = player1ZoneShadow[25][12];
 		
 		//Player 2
         player2Zone = makeNodes(-25, 25, -22, -2);
-        player2ZoneShadow = makeNodes(-25, 25, -22, -2);
 		player2End = player2Zone[25][-12];
 		player2Spawn = player2Zone[-25][-12];
-		
+
+		player2ZoneShadow = makeNodes(-25, 25, -22, -2);
+		player2EndShadow = player2ZoneShadow[25][-12];
+		player2SpawnShadow = player2ZoneShadow[-25][-12];
 		
 		//Calculate
 		recalculate(player1Zone, player1End);
@@ -185,6 +194,7 @@ public class PathingManager : MonoBehaviour {
 		Dictionary<int, Dictionary<int, PathingNode>> dict =  isPlayer1 ? player1Zone : player2Zone;
 		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = isPlayer1 ? player1ZoneShadow : player2ZoneShadow;
 		PathingNode end = isPlayer1 ? player1End : player2End;
+		PathingNode endShadow = isPlayer1 ? player1EndShadow : player2EndShadow;
 
 		for(int i = xmin; i <= xmax; i++)
 		{
@@ -203,7 +213,7 @@ public class PathingManager : MonoBehaviour {
 		if(recalculateNow)
 		{
 			recalculate(dict, end);
-			recalculate(dictShadow, end);
+			recalculate(dictShadow, endShadow);
 		}
 	}
 
@@ -220,6 +230,7 @@ public class PathingManager : MonoBehaviour {
 		Dictionary<int, Dictionary<int, PathingNode>> dict = isPlayer1 ? player1Zone : player2Zone;
 		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = isPlayer1 ? player1ZoneShadow : player2ZoneShadow;
 		PathingNode end = isPlayer1 ? player1End : player2End;
+		PathingNode endShadow = isPlayer1 ? player1EndShadow : player2EndShadow;
 		
 		for(int i = xmin; i <= xmax; i++)
 		{
@@ -238,7 +249,7 @@ public class PathingManager : MonoBehaviour {
 		if(recalculateNow)
 		{
 			recalculate(dict, end);
-			recalculate(dictShadow, end);
+			recalculate(dictShadow, endShadow);
 		}
 	}
 
@@ -254,7 +265,7 @@ public class PathingManager : MonoBehaviour {
 		
 		Dictionary<int, Dictionary<int, PathingNode>> dict = isPlayer1 ? player1Zone : player2Zone;
 		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = isPlayer1 ? player1ZoneShadow : player2ZoneShadow;
-		PathingNode end = x > 0 ? player1End : player2End;
+		PathingNode endShadow = isPlayer1 ? player1EndShadow : player2EndShadow;
 		
 		for(int i = xmin; i <= xmax; i++)
 		{
@@ -269,7 +280,7 @@ public class PathingManager : MonoBehaviour {
 			}
 		}
 
-		if(recalculateNow) recalculate(dictShadow, end);
+		if(recalculateNow) recalculate(dictShadow, endShadow);
 	}
 	
 	public void turnOffShadow(float x, float z)
@@ -283,7 +294,7 @@ public class PathingManager : MonoBehaviour {
 		bool isPlayer1 = z > 0;
 
 		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = isPlayer1 ? player1ZoneShadow : player2ZoneShadow;
-		PathingNode end = isPlayer1 ? player1End : player2End;
+		PathingNode end = isPlayer1 ? player1EndShadow : player2EndShadow;
 		
 		for(int i = xmin; i <= xmax; i++)
 		{

@@ -146,8 +146,8 @@ public class PlacementHelper : MonoBehaviour {
 
 		bool isPlayer1 = Network.isServer;
 		var grid = isPlayer1 ? pMan.player1ZoneShadow : pMan.player2ZoneShadow;
-		var start = isPlayer1 ? pMan.player1Spawn : pMan.player2Spawn;
-		var end = isPlayer1 ? pMan.player1End : pMan.player2End;
+		var start = isPlayer1 ? pMan.player1SpawnShadow : pMan.player2SpawnShadow;
+		var end = isPlayer1 ? pMan.player1EndShadow : pMan.player2EndShadow;
 
 		validPath = pMan.pathExists(grid, start, end);
 

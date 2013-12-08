@@ -65,22 +65,24 @@ public class PlacementManager : MonoBehaviour {
 		
 		if(Network.isServer)
 		{
-			start = GameState.getInstance().pathMan.player1Spawn;
-			end = GameState.getInstance().pathMan.player1End;
+			start = GameState.getInstance().pathMan.player1SpawnShadow;
+			end = GameState.getInstance().pathMan.player1EndShadow;
 		}
 		else
 		{
-			start = GameState.getInstance().pathMan.player2Spawn;
-			end = GameState.getInstance().pathMan.player2End;
+			start = GameState.getInstance().pathMan.player2SpawnShadow;
+			end = GameState.getInstance().pathMan.player2EndShadow;
 		}
 		
 		path = new List<PathingNode>();
 		PathingNode next = start.bestNode;
 		path.Add(next);
-		while(next != end)
+		int count = 0;
+		while(next != end && count < 1000)
 		{
 			next = next.bestNode;
 			path.Add(next);
+			count++;
 		}
 		
 		renderer.SetVertexCount(path.Count);
