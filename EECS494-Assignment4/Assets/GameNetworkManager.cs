@@ -20,6 +20,7 @@ public class GameNetworkManager : MonoBehaviour {
 	void Awake() {
 		Refresh ();
 		NameDatabase.clearNames();
+		gameName = PlayerPrefs.GetString("userName") + gameName;
     }
 	
 	// Use this for initialization
@@ -154,7 +155,7 @@ public class GameNetworkManager : MonoBehaviour {
 
 		GUILayout.Label ("Host a Game", GUILayout.ExpandWidth(true));
 
-		gameName = GUILayout.TextField (NameDatabase.getName(Network.player.guid) + gameName,  GUILayout.ExpandWidth(false), GUILayout.Width (200), GUILayout.Height (20));
+		gameName = GUILayout.TextField (gameName,  GUILayout.ExpandWidth(false), GUILayout.Width (200), GUILayout.Height (20));
 
 		if(GUILayout.Button("Host", GUILayout.ExpandWidth(true), GUILayout.Height(100)))
 		{
