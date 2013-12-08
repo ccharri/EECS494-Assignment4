@@ -255,10 +255,6 @@ public class GameState : MonoBehaviour
         {
             showMenu = true;
         }
-        if (GUILayout.Button("EDIT", layoutOptions))
-        {
-
-        }
 
         GUILayout.FlexibleSpace();
 
