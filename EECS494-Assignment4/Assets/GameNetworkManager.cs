@@ -150,7 +150,11 @@ public class GameNetworkManager : MonoBehaviour {
 		GUILayout.BeginHorizontal();
 		GUILayout.BeginVertical("window",  GUILayout.ExpandWidth(false), GUILayout.Width (200));
 
-		gameName = GUILayout.TextField (gameName,  GUILayout.ExpandWidth(false), GUILayout.Width (200), GUILayout.Height (50));
+		GUILayout.Space(45);
+
+		GUILayout.Label ("Host a Game", GUILayout.ExpandWidth(true));
+
+		gameName = GUILayout.TextField (gameName,  GUILayout.ExpandWidth(false), GUILayout.Width (200), GUILayout.Height (20));
 
 		if(GUILayout.Button("Host", GUILayout.ExpandWidth(true), GUILayout.Height(100)))
 		{
@@ -167,9 +171,13 @@ public class GameNetworkManager : MonoBehaviour {
 				Debug.Log(error);
 			}
 		}
+
+		GUILayout.FlexibleSpace();
+
+		GUILayout.Label ("Join a Game", GUILayout.ExpandWidth(true));
 		
-		serverIPText = GUILayout.TextField(serverIPText, GUILayout.ExpandWidth(false),GUILayout.Width (200), GUILayout.Height(50));
-		serverPortText = GUILayout.TextField ( serverPortText, GUILayout.ExpandWidth(false),GUILayout.Width (200),GUILayout.Height(50));
+		serverIPText = GUILayout.TextField(serverIPText, GUILayout.ExpandWidth(false),GUILayout.Width (200), GUILayout.Height(20));
+		serverPortText = GUILayout.TextField ( serverPortText, GUILayout.ExpandWidth(false),GUILayout.Width (200),GUILayout.Height(20));
 		
 		if(GUILayout.Button("Connect with IP", GUILayout.ExpandWidth(true), GUILayout.Height(100)))
 		{	
@@ -184,7 +192,7 @@ public class GameNetworkManager : MonoBehaviour {
 			}
 		}
 		
-		serverGUIDText = GUILayout.TextField (serverGUIDText, GUILayout.ExpandWidth(false),GUILayout.Width (200), GUILayout.Height(50));
+		serverGUIDText = GUILayout.TextField (serverGUIDText, GUILayout.ExpandWidth(false),GUILayout.Width (200), GUILayout.Height(20));
 		
 		if(GUILayout.Button ( "Connect with GUID", GUILayout.ExpandWidth(true), GUILayout.Height(100)))
 		{
