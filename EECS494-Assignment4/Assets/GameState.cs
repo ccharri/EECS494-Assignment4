@@ -864,7 +864,7 @@ public class GameState : MonoBehaviour
             NetworkPlayer player = pstate.player;
             if (player == player_ && players.Count > 1) continue;
 
-            c = ((GameObject)Network.Instantiate(c.prefab, player == Network.player ? pathMan.player2Spawn.getPos() : pathMan.player1Spawn.getPos(), Quaternion.identity, 0)).GetComponent<Creep>();
+            c = ((GameObject)Network.Instantiate(c.prefab, player == Network.player ? pathMan.player1Spawn.getPos() : pathMan.player2Spawn.getPos(), Quaternion.identity, 0)).GetComponent<Creep>();
 
             ps.gold -= c.cost;
 
@@ -881,7 +881,7 @@ public class GameState : MonoBehaviour
             addCreep(c.networkView.viewID, player);
             networkView.RPC("addCreep", RPCMode.Others, c.networkView.viewID, player);
 
-            c.gameObject.GetComponent<PathingAgent>().lastNode = c.getOwner() == Network.player.guid ? pathMan.player2Spawn : pathMan.player1Spawn;
+            c.gameObject.GetComponent<PathingAgent>().lastNode = c.getOwner() == Network.player.guid ? pathMan.player1Spawn : pathMan.player2Spawn;
         }
 
         if (us.currentStock == us.maxStock)
