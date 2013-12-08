@@ -1,18 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Creep.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlacementManager.cs">
     <Files>
-      <File FileName="Assets/PathingNode.cs" Line="9" Column="17" />
-      <File FileName="Assets/PathingManager.cs" Line="211" Column="41" />
-      <File FileName="Assets/PlacementManager.cs" Line="1" Column="19" />
-      <File FileName="Assets/PathingAgent.cs" Line="1" Column="1" />
-      <File FileName="Assets/Creep.cs" Line="51" Column="20" />
-      <File FileName="Assets/GameState.cs" Line="413" Column="67" />
-      <File FileName="Assets/Anchor.cs" Line="1" Column="1" />
-      <File FileName="Assets/NameDatabase.cs" Line="1" Column="1" />
-      <File FileName="Assets/PlacementHelper.cs" Line="156" Column="25" />
-      <File FileName="Assets/PathingObstacle.cs" Line="14" Column="2" />
-      <File FileName="Assets/MainMenuManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/PathingManager.cs" Line="267" Column="112" />
+      <File FileName="Assets/PlacementHelper.cs" Line="38" Column="21" />
+      <File FileName="Assets/PlacementManager.cs" Line="48" Column="21" />
+      <File FileName="Assets/GameState.cs" Line="44" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
