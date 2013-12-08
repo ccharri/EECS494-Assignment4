@@ -154,8 +154,6 @@ public class PlacementHelper : MonoBehaviour {
 		Debug.Log ("Path Exists = " + validPath);
 		
 		checking = false;
-
-		//StartCoroutine("checkPath", (valid));
 	}
 
 //	IEnumerator checkPath(bool validity)

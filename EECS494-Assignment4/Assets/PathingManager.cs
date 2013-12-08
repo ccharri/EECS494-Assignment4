@@ -165,6 +165,7 @@ public class PathingManager : MonoBehaviour {
 		while(count <= numNodes)
 		{
 			if(next == end) return true;
+			if(!next.pathable) return false;
 			next = next.bestNode;
 			count++;
 		}
@@ -183,7 +184,7 @@ public class PathingManager : MonoBehaviour {
 
 		Dictionary<int, Dictionary<int, PathingNode>> dict =  isPlayer1 ? player1Zone : player2Zone;
 		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = isPlayer1 ? player1ZoneShadow : player2ZoneShadow;
-		PathingNode end = x > isPlayer1 ? player1End : player2End;
+		PathingNode end = isPlayer1 ? player1End : player2End;
 
 		for(int i = xmin; i <= xmax; i++)
 		{
