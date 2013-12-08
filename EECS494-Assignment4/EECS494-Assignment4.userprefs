@@ -1,16 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameState.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GameNetworkManager.cs">
     <Files>
-      <File FileName="Assets\PlacementManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\PathingNode.cs" Line="17" Column="3" />
-      <File FileName="Assets\PathingManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\PathingAgent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Creep.cs" Line="1" Column="1" />
-      <File FileName="Assets\GameState.cs" Line="318" Column="16" />
-      <File FileName="Assets\Anchor.cs" Line="1" Column="1" />
-      <File FileName="Assets\NameDatabase.cs" Line="1" Column="1" />
-      <File FileName="Assets\PlacementHelper.cs" Line="1" Column="1" />
+      <File FileName="Assets/PathingManager.cs" Line="267" Column="112" />
+      <File FileName="Assets/PlacementHelper.cs" Line="38" Column="21" />
+      <File FileName="Assets/PlacementManager.cs" Line="48" Column="21" />
+      <File FileName="Assets/GameState.cs" Line="44" Column="1" />
+      <File FileName="Assets/MainMenuManager.cs" Line="14" Column="1" />
+      <File FileName="Assets/GameNetworkManager.cs" Line="206" Column="52" />
+      <File FileName="Assets/Necromancer GUI/GUITestScript.js" Line="212" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

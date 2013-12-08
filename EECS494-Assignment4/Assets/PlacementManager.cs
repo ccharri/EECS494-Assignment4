@@ -38,47 +38,46 @@ public class PlacementManager : MonoBehaviour {
 		placing = true;
 		ready = false;
 //		shift = (Input.GetKeyDown("shift"));
+		GameState.getInstance().pathMan.recalculateNow = false;
 		placeObject = Instantiate(placePrefab_) as GameObject;
 		placeObject.networkView.enabled = false;
 		placeObject.GetComponent<Tower>().enabled = false;
 		placeObject.GetComponent<PathingObstacle>().enabled = false;
+		GameState.getInstance().pathMan.recalculateNow = true;
 		helper = placeObject.AddComponent<PlacementHelper>();
+		helper.man = this;
 		helper.validMaterial = validMaterial;
 		helper.invalidMaterial = invalidMaterial;
-
-		var obstacles = placeObject.GetComponentsInChildren<NavMeshObstacle>();
-		foreach(NavMeshObstacle obs in obstacles)
-		{
-			obs.enabled = false;
-		}
 
 		placeObject.layer = 2;
 		id = id_;
 	}
 
-	void updatePath()
+	public void updatePath()
 	{
 		PathingNode start;
 		PathingNode end;
 		
 		if(Network.isServer)
 		{
-			start = GameState.getInstance().pathMan.player1Spawn;
-			end = GameState.getInstance().pathMan.player1End;
+			start = GameState.getInstance().pathMan.player1SpawnShadow;
+			end = GameState.getInstance().pathMan.player1EndShadow;
 		}
 		else
 		{
-			start = GameState.getInstance().pathMan.player2Spawn;
-			end = GameState.getInstance().pathMan.player2End;
+			start = GameState.getInstance().pathMan.player2SpawnShadow;
+			end = GameState.getInstance().pathMan.player2EndShadow;
 		}
 		
 		path = new List<PathingNode>();
 		PathingNode next = start.bestNode;
 		path.Add(next);
-		while(next != end)
+		int count = 0;
+		while(next != end && count < 1000)
 		{
 			next = next.bestNode;
 			path.Add(next);
+			count++;
 		}
 		
 		renderer.SetVertexCount(path.Count);

@@ -14,6 +14,8 @@ public class GameNetworkManager : MonoBehaviour {
 	private GUIContent[] raceList;
 	private GUIStyle raceListStyle;
 	private bool racePicked = false;
+
+	public GUISkin skin;
 	
 	void Awake() {
 		Refresh ();
@@ -130,6 +132,8 @@ public class GameNetworkManager : MonoBehaviour {
 	}
 
 	void OnGUI() {
+		GUI.skin = skin;
+
 		if(!connected)
 		{	
 			OnGUI_Unconnected();
@@ -142,24 +146,17 @@ public class GameNetworkManager : MonoBehaviour {
 
 	void OnGUI_Unconnected()
 	{
-
-		if(GUI.Button (new Rect(Screen.width - 300, Screen.height - 100, 200, 50), "Back"))
-		{
-			this.enabled = false;
-		}
-
-		if(GUI.Button (new Rect((Screen.width - 200)/2, Screen.height - 100, 200, 50), "Refresh"))
-		{
-			Refresh ();
-		}
-
-		GUILayout.BeginArea(new Rect(50, 50, Screen.width - 50, Screen.height - 50));
+		GUILayout.BeginArea(new Rect(50, 50, Screen.width - 100, Screen.height - 100));
 		GUILayout.BeginHorizontal();
-		GUILayout.BeginVertical();
+		GUILayout.BeginVertical("window",  GUILayout.ExpandWidth(false), GUILayout.Width (200));
 
-		gameName = GUILayout.TextField (gameName, GUILayout.Width (200), GUILayout.Height (50));
+		GUILayout.Space(45);
 
-		if(GUILayout.Button("Host", GUILayout.Width(100), GUILayout.Height(100)))
+		GUILayout.Label ("Host a Game", GUILayout.ExpandWidth(true));
+
+		gameName = GUILayout.TextField (gameName,  GUILayout.ExpandWidth(false), GUILayout.Width (200), GUILayout.Height (20));
+
+		if(GUILayout.Button("Host", GUILayout.ExpandWidth(true), GUILayout.Height(100)))
 		{
 			NetworkConnectionError error;
 			bool useNat = !Network.HavePublicAddress();
@@ -174,11 +171,15 @@ public class GameNetworkManager : MonoBehaviour {
 				Debug.Log(error);
 			}
 		}
+
+		GUILayout.FlexibleSpace();
+
+		GUILayout.Label ("Join a Game", GUILayout.ExpandWidth(true));
 		
-		serverIPText = GUILayout.TextField(serverIPText, GUILayout.Width(200), GUILayout.Height(50));
-		serverPortText = GUILayout.TextField ( serverPortText, GUILayout.Width(200), GUILayout.Height(50));
+		serverIPText = GUILayout.TextField(serverIPText, GUILayout.ExpandWidth(false),GUILayout.Width (200), GUILayout.Height(20));
+		serverPortText = GUILayout.TextField ( serverPortText, GUILayout.ExpandWidth(false),GUILayout.Width (200),GUILayout.Height(20));
 		
-		if(GUILayout.Button("Connect with IP", GUILayout.Width(200), GUILayout.Height(100)))
+		if(GUILayout.Button("Connect with IP", GUILayout.ExpandWidth(true), GUILayout.Height(100)))
 		{	
 			NetworkConnectionError error;
 			error = Network.Connect (serverIPText, int.Parse(serverPortText));
@@ -191,9 +192,9 @@ public class GameNetworkManager : MonoBehaviour {
 			}
 		}
 		
-		serverGUIDText = GUILayout.TextField (serverGUIDText, GUILayout.Width(200), GUILayout.Height(50));
+		serverGUIDText = GUILayout.TextField (serverGUIDText, GUILayout.ExpandWidth(false),GUILayout.Width (200), GUILayout.Height(20));
 		
-		if(GUILayout.Button ( "Connect with GUID", GUILayout.Width(200), GUILayout.Height(100)))
+		if(GUILayout.Button ( "Connect with GUID", GUILayout.ExpandWidth(true), GUILayout.Height(100)))
 		{
 			NetworkConnectionError error;
 			error = Network.Connect(serverGUIDText);
@@ -207,9 +208,10 @@ public class GameNetworkManager : MonoBehaviour {
 		}
 		
 		GUILayout.EndVertical();
-		
+
+		GUILayout.BeginVertical(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 		Vector2 scrollPosition = new Vector2(0, 0);
-		GUILayout.BeginScrollView(scrollPosition,GUILayout.Width(Screen.width - 400), GUILayout.Height(Screen.height - 300));
+		GUILayout.BeginScrollView(scrollPosition, "window", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 		GUILayout.Label("Game List");
 		
 		HostData[] data = hostData = MasterServer.PollHostList();
@@ -219,18 +221,17 @@ public class GameNetworkManager : MonoBehaviour {
 			HostData element = data[i];
 			
 			GUILayout.BeginHorizontal();	
-			string name = element.gameName + " " + element.connectedPlayers + " / " + element.playerLimit;
+			string name = element.gameName;
 			GUILayout.Label(name);	
-			GUILayout.Space(5);
+			GUILayout.FlexibleSpace();
+			GUILayout.Label (element.connectedPlayers + " / " + element.playerLimit);
+			GUILayout.FlexibleSpace();
 			string hostInfo = "[";
 			string[] info = element.ip;
 			for (int j = 0; j < info.Length; j++)
 				hostInfo = hostInfo + info[j] + ":" + element.port + " ";
 			hostInfo = hostInfo + "]";
 			GUILayout.Label(hostInfo);	
-			GUILayout.Space(5);
-			GUILayout.Label(element.comment);
-			GUILayout.Space(5);
 			GUILayout.FlexibleSpace();
 			if (GUILayout.Button("Connect"))
 			{
@@ -240,6 +241,26 @@ public class GameNetworkManager : MonoBehaviour {
 			GUILayout.EndHorizontal();	
 		}
 		GUILayout.EndScrollView();
+
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		
+		
+		if(GUILayout.Button("Refresh"))
+		{
+			Refresh ();
+		}
+		
+		GUILayout.FlexibleSpace();
+		
+		if(GUILayout.Button ("Back"))
+		{
+			this.enabled = false;
+		}
+		GUILayout.EndHorizontal();
+
+		GUILayout.EndVertical();
+
 		GUILayout.EndHorizontal();
 		GUILayout.EndArea();
 	}

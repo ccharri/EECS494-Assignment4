@@ -5,6 +5,7 @@ public class MainMenuManager : MonoBehaviour {
 	private string userName;
 	private bool showingNameWindow;
 	private GameNetworkManager man;
+	public GUISkin skin;
 
 	// Use this for initialization
 	void Start () {
@@ -19,9 +20,11 @@ public class MainMenuManager : MonoBehaviour {
 
 	void OnGUI()
 	{
+		GUI.skin = skin;
 		if(man.enabled) return;
 
 		GUILayout.BeginArea(new Rect((Screen.width - 600)/2, Screen.height/2, 600, Screen.height/2 - 50));
+		GUILayout.BeginVertical("window");
 
 		GUILayout.Label(userName, GUILayout.Height(50));
 
@@ -37,26 +40,29 @@ public class MainMenuManager : MonoBehaviour {
 
 		if(showingNameWindow)
 		{
-			GUILayout.Window(0, new Rect(Screen.width/2 - 100, Screen.height/2 - 50, 200, 100), ChangeNameFunc, "Enter Username", GUILayout.Width (200), GUILayout.Height(100));
+			GUILayout.Window(0, new Rect(Screen.width/2 - 150, Screen.height/2 - 50, 300, 100), ChangeNameFunc, "", GUILayout.Width (300), GUILayout.Height(100));
 		}
 
 		if(GUILayout.Button ("Exit", GUILayout.Height (50)))
 		{
 			Application.Quit();
 		}
-
+		GUILayout.EndVertical();
 
 		GUILayout.EndArea();
 	}
 
 	void ChangeNameFunc(int windowid)
 	{
+		GUILayout.BeginVertical();
+		GUILayout.Label("Change Username", GUILayout.ExpandWidth(true));
 		userName = GUILayout.TextArea(userName);
-		if(GUILayout.Button ("Ok", GUILayout.Width (50)))
+		if(GUILayout.Button ("Ok", GUILayout.ExpandWidth(true)))
 		{
 			showingNameWindow = false;
 			PlayerPrefs.SetString("userName", userName);
 			PlayerPrefs.Save();
 		}
+		GUILayout.EndVertical();
 	}
 }

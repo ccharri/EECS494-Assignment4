@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class PlacementHelper : MonoBehaviour {
+	public PlacementManager man;
+
 	public bool valid;
 	public Material validMaterial;
 	public Material invalidMaterial;
@@ -16,16 +18,24 @@ public class PlacementHelper : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		validCollision = true;
-		validPath = true;
+		validPath = false;
 		renderer = GameState.getInstance().pMan.GetComponent<LineRenderer>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-//		if((position.x != gameObject.transform.position.x) || (position.z != gameObject.transform.position.z))
+		if((position.x != gameObject.transform.position.x) || (position.z != gameObject.transform.position.z))
 		{
+			PathingManager pman = GameState.getInstance().pathMan;
+			pman.recalculateNow = false;
+			pman.turnOnShadow(position.x, position.z);
+			pman.recalculateNow = true;
+			pman.turnOffShadow(gameObject.transform.position.x, gameObject.transform.position.z);
+
 			refreshBlockingValidity();
+
 			position = gameObject.transform.position;
+			man.updatePath();
 		}
 
 		valid = validCollision && validPath;
@@ -133,16 +143,38 @@ public class PlacementHelper : MonoBehaviour {
 	{
 		if(checking) return;
 
-		turnOnColliders();
-		
 		checking = true;
 
-//		Debug.Log("hasPath = " + hasPath + ", path.status = " + path.status);
+		var pMan = GameState.getInstance().pathMan;
+
+		bool isPlayer1 = Network.isServer;
+		var grid = isPlayer1 ? pMan.player1ZoneShadow : pMan.player2ZoneShadow;
+		var start = isPlayer1 ? pMan.player1SpawnShadow : pMan.player2SpawnShadow;
+		var end = isPlayer1 ? pMan.player1EndShadow : pMan.player2EndShadow;
+
+		validPath = pMan.pathExists(grid, start, end);
+
+		Debug.Log ("Path Exists = " + validPath);
 		
+		checking = false;
+	}
+
+//	IEnumerator checkPath(bool validity)
+//	{
+//		turnOnColliders();
+//		
+//		checking = true;
+//		
+//		NavMeshPath path = new NavMeshPath();
+//		NavMeshAgent spawnAgent = GameState.getInstance().spawnLocation.GetComponent<NavMeshAgent>();
+//		spawnAgent.ResetPath();
+//		bool hasPath = spawnAgent.CalculatePath(getDestination(), path);
+////		Debug.Log("hasPath = " + hasPath + ", path.status = " + path.status);
+//		
 //		while(spawnAgent.pathPending)
 //		{
 //		}
-//		
+//
 //		Vector3[] p = path.corners;
 //		renderer.SetVertexCount(p.Length);
 //		for(int i = 0 ; i < p.Length; i++)
@@ -150,75 +182,42 @@ public class PlacementHelper : MonoBehaviour {
 //			renderer.SetPosition(i, p[i]);
 //		}
 //
-		
+//		hasPath = hasPath && (path.status == NavMeshPathStatus.PathComplete);
+////		Debug.Log("--hasPath = " + hasPath + ", path.status = " + path.status);
+//		
 //		turnOffColliders();
-		
-//		validPath = hasPath;
-		
-		checking = false;
+//
+//		if(validity && hasPath)
+//		{
+//			markValid();
+//		}
+//		else 
+//		{
+//			markInvalid();
+//		}
+//		
+//		checking = false;
+//
+//		yield return new WaitForFixedUpdate();
+//	}
 
-		//StartCoroutine("checkPath", (valid));
-	}
-
-	IEnumerator checkPath(bool validity)
-	{
-		turnOnColliders();
-		
-		checking = true;
-		
-		NavMeshPath path = new NavMeshPath();
-		NavMeshAgent spawnAgent = GameState.getInstance().spawnLocation.GetComponent<NavMeshAgent>();
-		spawnAgent.ResetPath();
-		bool hasPath = spawnAgent.CalculatePath(getDestination(), path);
-//		Debug.Log("hasPath = " + hasPath + ", path.status = " + path.status);
-		
-		while(spawnAgent.pathPending)
-		{
-		}
-
-		Vector3[] p = path.corners;
-		renderer.SetVertexCount(p.Length);
-		for(int i = 0 ; i < p.Length; i++)
-		{
-			renderer.SetPosition(i, p[i]);
-		}
-
-		hasPath = hasPath && (path.status == NavMeshPathStatus.PathComplete);
-//		Debug.Log("--hasPath = " + hasPath + ", path.status = " + path.status);
-		
-		turnOffColliders();
-
-		if(validity && hasPath)
-		{
-			markValid();
-		}
-		else 
-		{
-			markInvalid();
-		}
-		
-		checking = false;
-
-		yield return new WaitForFixedUpdate();
-	}
-
-	void turnOffColliders()
-	{
-		var obstacles = gameObject.GetComponentsInChildren<NavMeshObstacle>();
-		foreach(NavMeshObstacle obs in obstacles)
-		{
-			obs.enabled = false;
-		}
-	}
-
-	void turnOnColliders()
-	{
-		var obstacles = gameObject.GetComponentsInChildren<NavMeshObstacle>();
-		foreach(NavMeshObstacle obs in obstacles)
-		{
-			obs.enabled = true;
-		}
-	}
+//	void turnOffColliders()
+//	{
+//		var obstacles = gameObject.GetComponentsInChildren<NavMeshObstacle>();
+//		foreach(NavMeshObstacle obs in obstacles)
+//		{
+//			obs.enabled = false;
+//		}
+//	}
+//
+//	void turnOnColliders()
+//	{
+//		var obstacles = gameObject.GetComponentsInChildren<NavMeshObstacle>();
+//		foreach(NavMeshObstacle obs in obstacles)
+//		{
+//			obs.enabled = true;
+//		}
+//	}
 
 	void markValid()
 	{
