@@ -179,9 +179,11 @@ public class PathingManager : MonoBehaviour {
 		int zmin = Mathf.FloorToInt(z);
 		int zmax = Mathf.CeilToInt(z);
 
-		Dictionary<int, Dictionary<int, PathingNode>> dict = x > 0 ? player1Zone : player2Zone;
-		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = x > 0 ? player1ZoneShadow : player2ZoneShadow;
-		PathingNode end = x > 0 ? player1End : player2End;
+		bool isPlayer1 = z > 0;
+
+		Dictionary<int, Dictionary<int, PathingNode>> dict =  isPlayer1 ? player1Zone : player2Zone;
+		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = isPlayer1 ? player1ZoneShadow : player2ZoneShadow;
+		PathingNode end = x > isPlayer1 ? player1End : player2End;
 
 		for(int i = xmin; i <= xmax; i++)
 		{
@@ -211,10 +213,12 @@ public class PathingManager : MonoBehaviour {
 		int xmax = Mathf.CeilToInt(x);
 		int zmin = Mathf.FloorToInt(z);
 		int zmax = Mathf.CeilToInt(z);
+
+		bool isPlayer1 = z > 0;
 		
-		Dictionary<int, Dictionary<int, PathingNode>> dict = x > 0 ? player1Zone : player2Zone;
-		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = x > 0 ? player1ZoneShadow : player2ZoneShadow;
-		PathingNode end = x > 0 ? player1End : player2End;
+		Dictionary<int, Dictionary<int, PathingNode>> dict = isPlayer1 ? player1Zone : player2Zone;
+		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = isPlayer1 ? player1ZoneShadow : player2ZoneShadow;
+		PathingNode end = isPlayer1 ? player1End : player2End;
 		
 		for(int i = xmin; i <= xmax; i++)
 		{
@@ -244,9 +248,11 @@ public class PathingManager : MonoBehaviour {
 		int xmax = Mathf.CeilToInt(x);
 		int zmin = Mathf.FloorToInt(z);
 		int zmax = Mathf.CeilToInt(z);
+
+		bool isPlayer1 = z > 0;
 		
-		Dictionary<int, Dictionary<int, PathingNode>> dict = x > 0 ? player1Zone : player2Zone;
-		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = x > 0 ? player1ZoneShadow : player2ZoneShadow;
+		Dictionary<int, Dictionary<int, PathingNode>> dict = isPlayer1 ? player1Zone : player2Zone;
+		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = isPlayer1 ? player1ZoneShadow : player2ZoneShadow;
 		PathingNode end = x > 0 ? player1End : player2End;
 		
 		for(int i = xmin; i <= xmax; i++)
@@ -273,8 +279,10 @@ public class PathingManager : MonoBehaviour {
 		int zmin = Mathf.FloorToInt(z);
 		int zmax = Mathf.CeilToInt(z);
 
-		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = x > 0 ? player1ZoneShadow : player2ZoneShadow;
-		PathingNode end = x > 0 ? player1End : player2End;
+		bool isPlayer1 = z > 0;
+
+		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = isPlayer1 ? player1ZoneShadow : player2ZoneShadow;
+		PathingNode end = isPlayer1 ? player1End : player2End;
 		
 		for(int i = xmin; i <= xmax; i++)
 		{
