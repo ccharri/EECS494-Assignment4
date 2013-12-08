@@ -8,8 +8,10 @@ public class Amplifer : Spawnable, Selectable
     public float rangeBase = 10;
     public float cooldownBase = 1;
 
+    public string buffApplied = "Damage";
+    public int buffAppliedLevel = 1;
+
     public string description = "";
-    public GameObject toFire;
 
     //Internal Attribues
     protected Attribute range = new Attribute(1);
@@ -65,7 +67,12 @@ public class Amplifer : Spawnable, Selectable
     }
 
     protected virtual void fire()
-    {   
+    {
+        Projectile p = findTarget();
+        Buff b = p.gameObject.AddComponent(buffApplied) as Buff;
+        b.Init(buffAppliedLevel);
+        b.onApplication();
+        //b.effect = Instantiate(sufferingEffect, buff.gameObject.transform.position, new Quaternion()) as GameObject;
         lastFired = GameState.getInstance().getGameTime();
     }
 
@@ -87,7 +94,7 @@ public class Amplifer : Spawnable, Selectable
 
     public virtual string getDescription()
     {
-        return "Name: " + name + "\nDamage: " + toFire.GetComponent<Projectile>().damageBase + "\nRange: " + rangeBase + "\nCooldown: " + cooldownBase;
+        return "Name: " + name + "\nDamage: +10" + "\nRange: " + rangeBase + "\nCooldown: " + cooldownBase;
     }
 
     public void OnMouseEnter() { mouseOver = true; }
