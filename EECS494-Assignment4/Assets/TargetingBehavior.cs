@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public interface TargetingBehavior 
+interface TargetingBehavior 
 {
     //NOTE: All children of TargetingBehavior should define a "static T getInstance()"
 
