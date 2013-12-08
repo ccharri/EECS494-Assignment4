@@ -148,7 +148,7 @@ public class GameNetworkManager : MonoBehaviour {
 	{
 		GUILayout.BeginArea(new Rect(50, 50, Screen.width - 100, Screen.height - 100));
 		GUILayout.BeginHorizontal();
-		GUILayout.BeginVertical("box",  GUILayout.ExpandWidth(false), GUILayout.Width (200));
+		GUILayout.BeginVertical("window",  GUILayout.ExpandWidth(false), GUILayout.Width (200));
 
 		gameName = GUILayout.TextField (gameName,  GUILayout.ExpandWidth(false), GUILayout.Width (200), GUILayout.Height (50));
 
@@ -203,7 +203,7 @@ public class GameNetworkManager : MonoBehaviour {
 
 		GUILayout.BeginVertical(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 		Vector2 scrollPosition = new Vector2(0, 0);
-		GUILayout.BeginScrollView(scrollPosition, "box", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+		GUILayout.BeginScrollView(scrollPosition, "window", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 		GUILayout.Label("Game List");
 		
 		HostData[] data = hostData = MasterServer.PollHostList();
