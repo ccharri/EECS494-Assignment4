@@ -692,7 +692,7 @@ public class GameState : MonoBehaviour
     {
 		NetworkPlayer owner = getPlayer (creep.getOwner());
         removeCreep(creep.networkView.viewID, owner);
-        networkView.RPC("removeCreep", RPCMode.Others, creep.networkView.viewID, owner));
+        networkView.RPC("removeCreep", RPCMode.Others, creep.networkView.viewID, owner);
 
         var ps = players[creep.getOwner()];
         ps.gold += creep.bounty;
