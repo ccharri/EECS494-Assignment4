@@ -7,7 +7,7 @@ public class GameNetworkManager : MonoBehaviour {
 	private string serverPortText = "Server Port";
 	private string serverGUIDText = "Server GUID";
 	private HostData[] hostData;
-	private string gameName = "Game Name";
+	private string gameName = "'s Game";
 
 	private bool raceListShow = false;
 	private int raceListEntry = 0;
@@ -20,6 +20,7 @@ public class GameNetworkManager : MonoBehaviour {
 	void Awake() {
 		Refresh ();
 		NameDatabase.clearNames();
+		gameName = PlayerPrefs.GetString("userName") + gameName;
     }
 	
 	// Use this for initialization
@@ -174,7 +175,7 @@ public class GameNetworkManager : MonoBehaviour {
 
 		GUILayout.FlexibleSpace();
 
-		GUILayout.Label ("Join a Game", GUILayout.ExpandWidth(true));
+		GUILayout.Label ("Direct Connect", GUILayout.ExpandWidth(true));
 		
 		serverIPText = GUILayout.TextField(serverIPText, GUILayout.ExpandWidth(false),GUILayout.Width (200), GUILayout.Height(20));
 		serverPortText = GUILayout.TextField ( serverPortText, GUILayout.ExpandWidth(false),GUILayout.Width (200),GUILayout.Height(20));
@@ -278,7 +279,7 @@ public class GameNetworkManager : MonoBehaviour {
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
 			GUILayout.BeginVertical("window");
-			GUILayout.Label ("Hosting Information", GUILayout.ExpandWidth(true), GUILayout.Height (50));
+			GUILayout.Label ("Hosting Information", GUILayout.ExpandWidth(true));
 			GUILayout.BeginHorizontal();
 			if(Network.HavePublicAddress())
 			{
