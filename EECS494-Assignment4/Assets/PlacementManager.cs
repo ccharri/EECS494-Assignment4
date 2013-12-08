@@ -45,20 +45,15 @@ public class PlacementManager : MonoBehaviour {
 		placeObject.GetComponent<PathingObstacle>().enabled = false;
 		GameState.getInstance().pathMan.recalculateNow = true;
 		helper = placeObject.AddComponent<PlacementHelper>();
+		helper.man = this;
 		helper.validMaterial = validMaterial;
 		helper.invalidMaterial = invalidMaterial;
-
-		var obstacles = placeObject.GetComponentsInChildren<NavMeshObstacle>();
-		foreach(NavMeshObstacle obs in obstacles)
-		{
-			obs.enabled = false;
-		}
 
 		placeObject.layer = 2;
 		id = id_;
 	}
 
-	void updatePath()
+	public void updatePath()
 	{
 		PathingNode start;
 		PathingNode end;

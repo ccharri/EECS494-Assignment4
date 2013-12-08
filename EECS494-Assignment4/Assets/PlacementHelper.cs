@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class PlacementHelper : MonoBehaviour {
+	public PlacementManager man;
+
 	public bool valid;
 	public Material validMaterial;
 	public Material invalidMaterial;
@@ -33,6 +35,7 @@ public class PlacementHelper : MonoBehaviour {
 			refreshBlockingValidity();
 
 			position = gameObject.transform.position;
+			man.updatePath();
 		}
 
 		valid = validCollision && validPath;
