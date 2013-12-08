@@ -212,6 +212,7 @@ public class GameState : MonoBehaviour
 	void WindowGUI(int windowID)
 	{
 		GUILayout.BeginVertical();
+		GUILayout.Label ("Menu", GUILayout.Height(50));
 		if(GUILayout.Button ("Back"))
 		{
 			showMenu = false;

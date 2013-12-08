@@ -174,7 +174,7 @@ public class GameNetworkManager : MonoBehaviour {
 
 		GUILayout.FlexibleSpace();
 
-		GUILayout.Label ("Join a Game", GUILayout.ExpandWidth(true));
+		GUILayout.Label ("Direct Connect", GUILayout.ExpandWidth(true));
 		
 		serverIPText = GUILayout.TextField(serverIPText, GUILayout.ExpandWidth(false),GUILayout.Width (200), GUILayout.Height(20));
 		serverPortText = GUILayout.TextField ( serverPortText, GUILayout.ExpandWidth(false),GUILayout.Width (200),GUILayout.Height(20));
@@ -278,7 +278,7 @@ public class GameNetworkManager : MonoBehaviour {
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
 			GUILayout.BeginVertical("window");
-			GUILayout.Label ("Hosting Information", GUILayout.ExpandWidth(true), GUILayout.Height (50));
+			GUILayout.Label ("Hosting Information", GUILayout.ExpandWidth(true));
 			GUILayout.BeginHorizontal();
 			if(Network.HavePublicAddress())
 			{
