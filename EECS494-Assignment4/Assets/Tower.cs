@@ -11,6 +11,8 @@ public class Tower : Spawnable, Selectable
     public string description = "";
     public GameObject toFire;
 
+    public bool selected;
+
     //Internal Attribues
     protected Attribute range = new Attribute(1);
     protected Attribute cooldown = new Attribute(1);
@@ -33,6 +35,10 @@ public class Tower : Spawnable, Selectable
     {
         setRange(rangeBase);
         setCooldown(cooldownBase);
+    }
+
+    void Start () {
+        selected = false;
     }
 
 	protected override void Update () 
@@ -110,6 +116,16 @@ public class Tower : Spawnable, Selectable
             var y = Event.current.mousePosition.y;
 
             GUI.Label(new Rect(x - 150, y + 20, 200, 72), getDescription(), "box");
+
+
+            if(Input.GetMouseButtonDown(0))
+            {
+                selected = true;
+            }
+        }
+        else
+        {
+            selected = false;
         }
     }
 
