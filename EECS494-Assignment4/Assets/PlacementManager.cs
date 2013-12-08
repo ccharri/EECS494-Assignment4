@@ -38,10 +38,12 @@ public class PlacementManager : MonoBehaviour {
 		placing = true;
 		ready = false;
 //		shift = (Input.GetKeyDown("shift"));
+		GameState.getInstance().pathMan.recalculateNow = false;
 		placeObject = Instantiate(placePrefab_) as GameObject;
 		placeObject.networkView.enabled = false;
 		placeObject.GetComponent<Tower>().enabled = false;
 		placeObject.GetComponent<PathingObstacle>().enabled = false;
+		GameState.getInstance().pathMan.recalculateNow = true;
 		helper = placeObject.AddComponent<PlacementHelper>();
 		helper.validMaterial = validMaterial;
 		helper.invalidMaterial = invalidMaterial;

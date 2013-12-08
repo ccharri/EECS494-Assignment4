@@ -7,8 +7,8 @@ public class PathingManager : MonoBehaviour {
 	public Dictionary<int, Dictionary<int, PathingNode>> player1Zone;
 	public Dictionary<int, Dictionary<int, PathingNode>> player2Zone;
 
-	private Dictionary<int, Dictionary<int, PathingNode>> player1ZoneShadow;
-	private Dictionary<int, Dictionary<int, PathingNode>> player2ZoneShadow;
+	public Dictionary<int, Dictionary<int, PathingNode>> player1ZoneShadow;
+	public Dictionary<int, Dictionary<int, PathingNode>> player2ZoneShadow;
 
 	public int player1ZoneSize;
 	public int player2ZoneSize;
@@ -18,6 +18,8 @@ public class PathingManager : MonoBehaviour {
 
 	public PathingNode player1Spawn;
 	public PathingNode player2Spawn;
+
+	public bool recalculateNow = true;
 
 	void Awake()
 	{
@@ -157,7 +159,7 @@ public class PathingManager : MonoBehaviour {
 	public bool pathExists(Dictionary<int, Dictionary<int, PathingNode>> grid, PathingNode start, PathingNode end)
 	{
 		int count = 0;
-		int numNodes = (grid.Count * grid.Values.GetEnumerator().Current.Count());
+		int numNodes = 1000;
 		PathingNode next = start;
 
 		while(count <= numNodes)
@@ -195,8 +197,11 @@ public class PathingManager : MonoBehaviour {
 			}
 		}
 
-		recalculate(dict, end);
-		recalculate(dictShadow, end);
+		if(recalculateNow)
+		{
+			recalculate(dict, end);
+			recalculate(dictShadow, end);
+		}
 	}
 
 	public void turnOff(float x, float z)
@@ -224,9 +229,12 @@ public class PathingManager : MonoBehaviour {
 				dictShadow[i][j].pathable = false;
 			}
 		}
-		
-		recalculate(dict, end);
-		recalculate(dictShadow, end);
+
+		if(recalculateNow)
+		{
+			recalculate(dict, end);
+			recalculate(dictShadow, end);
+		}
 	}
 
 	public void turnOnShadow(float x, float z)
@@ -254,7 +262,7 @@ public class PathingManager : MonoBehaviour {
 			}
 		}
 
-		recalculate(dictShadow, end);
+		if(recalculateNow) recalculate(dictShadow, end);
 	}
 	
 	public void turnOffShadow(float x, float z)
@@ -281,7 +289,7 @@ public class PathingManager : MonoBehaviour {
 			}
 		}
 
-		recalculate(dictShadow, end);
+		if(recalculateNow) recalculate(dictShadow, end);
 	}
 
 

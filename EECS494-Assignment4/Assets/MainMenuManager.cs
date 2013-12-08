@@ -11,7 +11,6 @@ public class MainMenuManager : MonoBehaviour {
 	void Start () {
 		man = gameObject.GetComponent<GameNetworkManager>();
 		userName = PlayerPrefs.GetString("userName", "Player");
-		GUI.skin = skin;
 	}
 	
 	// Update is called once per frame
@@ -21,6 +20,7 @@ public class MainMenuManager : MonoBehaviour {
 
 	void OnGUI()
 	{
+		GUI.skin = skin;
 		if(man.enabled) return;
 
 		GUILayout.BeginArea(new Rect((Screen.width - 600)/2, Screen.height/2, 600, Screen.height/2 - 50));
