@@ -690,8 +690,9 @@ public class GameState : MonoBehaviour
 
     public void onCreepDeath(Creep creep)
     {
-        removeCreep(creep.networkView.viewID, getPlayer(creep.getOwner()));
-        networkView.RPC("removeCreep", RPCMode.Others, creep.networkView.viewID, getPlayer(creep.getOwner()));
+		NetworkPlayer owner = getPlayer (creep.getOwner());
+        removeCreep(creep.networkView.viewID, owner);
+        networkView.RPC("removeCreep", RPCMode.Others, creep.networkView.viewID, owner));
 
         var ps = players[creep.getOwner()];
         ps.gold += creep.bounty;
@@ -701,21 +702,17 @@ public class GameState : MonoBehaviour
             networkView.RPC("setGold", ps.player, ps.gold, ps.player);
         }
 
-        TextMesh creepBounty = (Instantiate(bountyPrefab, creep.transform.position, Quaternion.identity) as GameObject).GetComponent<TextMesh>();
-        creepBounty.gameObject.transform.position = creep.transform.position + new Vector3(0, 2, 0);
-        creepBounty.text = "+" + creep.getBounty().ToString();
+		Vector3 pos = creep.transform.position;
+		int bounty = creep.getBounty();
 
-        float rotation;
-        if (Network.isServer)
-        {
-            rotation = 270;
-        }
-        else
-        {
-            rotation = 90;
-        }
-        creepBounty.gameObject.transform.Rotate(Vector3.up, rotation);
-        StartCoroutine("creepBountyEffect", creepBounty);
+		if(Network.player == owner)
+		{
+			showCreepGold(pos, bounty);
+		}
+		else
+		{
+			networkView.RPC ("showCreepGold", owner, pos, bounty);
+		}
 
         Network.Destroy(creep.gameObject);
     }
@@ -935,6 +932,32 @@ public class GameState : MonoBehaviour
         Network.Disconnect();
         Application.LoadLevel("MainScene");
     }
+
+	[RPC]
+	void showCreepGold(Vector3 pos, int amount, NetworkMessageInfo info_)
+	{
+		showCreepGold(pos, amount);
+	}
+
+	void showCreepGold(Vector3 pos, int amount)
+	{
+		
+		TextMesh creepBounty = (Instantiate(bountyPrefab, pos, Quaternion.identity) as GameObject).GetComponent<TextMesh>();
+		creepBounty.gameObject.transform.position = pos + new Vector3(0, 2, 0);
+		creepBounty.text = "+" + amount;
+		
+		float rotation;
+		if (Network.isServer)
+		{
+			rotation = 270;
+		}
+		else
+		{
+			rotation = 90;
+		}
+		creepBounty.gameObject.transform.Rotate(Vector3.up, rotation);
+		StartCoroutine("creepBountyEffect", creepBounty);
+	}
 
     //-----------------------------------------------------
     //Player adding
