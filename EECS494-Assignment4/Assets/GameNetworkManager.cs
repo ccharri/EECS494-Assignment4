@@ -279,10 +279,11 @@ public class GameNetworkManager : MonoBehaviour {
 			GUILayout.FlexibleSpace();
 			GUILayout.BeginVertical("window");
 			GUILayout.Label ("Hosting Information", GUILayout.ExpandWidth(true), GUILayout.Height (50));
+			GUILayout.BeginHorizontal();
 			if(Network.HavePublicAddress())
 			{
 				NetworkPlayer thisPlayer = Network.player;
-				
+
 				GUILayout.Label ("Public IP Address:");
 				GUILayout.Label (Network.player.ipAddress + ":" + Network.player.port);
 				//GUI.Label(new Rect(20, 70, 100, 30), Network.proxyIP + ":" + Network.proxyPort);
@@ -295,6 +296,7 @@ public class GameNetworkManager : MonoBehaviour {
 				GUILayout.Label ("NAT Facilitator IP:");
 				GUILayout.Label(Network.natFacilitatorIP + ":" + Network.natFacilitatorPort);
 			}
+			GUILayout.EndHorizontal();
 			GUILayout.EndVertical();
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
@@ -336,7 +338,7 @@ public class GameNetworkManager : MonoBehaviour {
 			connected = false;
 		}
 		GUILayout.EndHorizontal();
-
+		GUILayout.FlexibleSpace();
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}
