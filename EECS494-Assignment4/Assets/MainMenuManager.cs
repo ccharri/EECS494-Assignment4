@@ -5,11 +5,13 @@ public class MainMenuManager : MonoBehaviour {
 	private string userName;
 	private bool showingNameWindow;
 	private GameNetworkManager man;
+	public GUISkin skin;
 
 	// Use this for initialization
 	void Start () {
 		man = gameObject.GetComponent<GameNetworkManager>();
 		userName = PlayerPrefs.GetString("userName", "Player");
+		GUI.skin = skin;
 	}
 	
 	// Update is called once per frame
