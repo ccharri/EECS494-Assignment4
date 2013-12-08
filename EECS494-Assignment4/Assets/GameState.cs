@@ -707,18 +707,7 @@ public class GameState : MonoBehaviour
 
         TextMesh creepBounty = (Instantiate(bountyPrefab, creep.transform.position, Quaternion.identity) as GameObject).GetComponent<TextMesh>();
         creepBounty.gameObject.transform.position = creep.transform.position + new Vector3(0, 2, 0);
-        creepBounty.text = creep.getBounty().ToString();
-        //creepBounty.offsetZ = 0;
-        //creepBounty.characterSize = 1;
-        //creepBounty.lineSpacing = 1;
-        //creepBounty.anchor = TextAnchor.MiddleCenter;
-        //creepBounty.alignment = TextAlignment.Center;
-        //creepBounty.tabSize = 4;
-        //creepBounty.fontSize = 12;
-        //creepBounty.fontStyle = FontStyle.Normal;
-        //creepBounty.richText = true;
-        //creepBounty.font = globalFont;
-        //creepBounty.color = Color.yellow;
+        creepBounty.text = "+" + creep.getBounty().ToString();
 
         float rotation;
         if (Network.isServer)
