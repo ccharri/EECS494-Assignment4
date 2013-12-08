@@ -154,9 +154,19 @@ public class PathingManager : MonoBehaviour {
 	}
 
 
-	public bool pathExists(PathingNode[] transientNodes, int playerNum)
+	public bool pathExists(Dictionary<int, Dictionary<int, PathingNode>> grid, PathingNode start, PathingNode end)
 	{
-		return true;
+		int count = 0;
+		int numNodes = (grid.Count * grid.Values.GetEnumerator().Current.Count());
+		PathingNode next = start;
+
+		while(count <= numNodes)
+		{
+			if(next == end) return true;
+			next = next.bestNode;
+			count++;
+		}
+		return false;
 	}
 
 	public void turnOn(float x, float z)
@@ -218,6 +228,62 @@ public class PathingManager : MonoBehaviour {
 		recalculate(dict, end);
 		recalculate(dictShadow, end);
 	}
+
+	public void turnOnShadow(float x, float z)
+	{
+		Debug.Log("Turning on nodes near ("+x+","+z+")");
+		int xmin = Mathf.FloorToInt(x);
+		int xmax = Mathf.CeilToInt(x);
+		int zmin = Mathf.FloorToInt(z);
+		int zmax = Mathf.CeilToInt(z);
+		
+		Dictionary<int, Dictionary<int, PathingNode>> dict = x > 0 ? player1Zone : player2Zone;
+		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = x > 0 ? player1ZoneShadow : player2ZoneShadow;
+		PathingNode end = x > 0 ? player1End : player2End;
+		
+		for(int i = xmin; i <= xmax; i++)
+		{
+			for(int j = zmin; j <= zmax; j++)
+			{
+				Dictionary<int, PathingNode> inDict;
+				
+				if(!dict.TryGetValue(i, out inDict)) continue;
+				if(!inDict.ContainsKey(j)) continue;
+				
+				dictShadow[i][j].pathable = dict[i][j].pathable;
+			}
+		}
+
+		recalculate(dictShadow, end);
+	}
+	
+	public void turnOffShadow(float x, float z)
+	{
+		Debug.Log("Turning off nodes near ("+x+","+z+")");
+		int xmin = Mathf.FloorToInt(x);
+		int xmax = Mathf.CeilToInt(x);
+		int zmin = Mathf.FloorToInt(z);
+		int zmax = Mathf.CeilToInt(z);
+
+		Dictionary<int, Dictionary<int, PathingNode>> dictShadow = x > 0 ? player1ZoneShadow : player2ZoneShadow;
+		PathingNode end = x > 0 ? player1End : player2End;
+		
+		for(int i = xmin; i <= xmax; i++)
+		{
+			for(int j = zmin; j <= zmax; j++)
+			{
+				Dictionary<int, PathingNode> inDict;
+				
+				if(!dictShadow.TryGetValue(i, out inDict)) continue;
+				if(!inDict.ContainsKey(j)) continue;
+
+				dictShadow[i][j].pathable = false;
+			}
+		}
+
+		recalculate(dictShadow, end);
+	}
+
 
 //	PathingNode getNode(int x, int z, PathingNode[][] grid)
 //	{
