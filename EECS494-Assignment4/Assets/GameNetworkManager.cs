@@ -209,9 +209,10 @@ public class GameNetworkManager : MonoBehaviour {
 		
 		GUILayout.EndVertical();
 
-		GUILayout.BeginVertical(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+		GUILayout.BeginVertical("window", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 		Vector2 scrollPosition = new Vector2(0, 0);
-		GUILayout.BeginScrollView(scrollPosition, "window", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+		GUILayout.Space (50);
+		GUILayout.BeginScrollView(scrollPosition, "box", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 		GUILayout.Label("Game List");
 		
 		HostData[] data = hostData = MasterServer.PollHostList();
@@ -246,14 +247,14 @@ public class GameNetworkManager : MonoBehaviour {
 		GUILayout.FlexibleSpace();
 		
 		
-		if(GUILayout.Button("Refresh"))
+		if(GUILayout.Button("Refresh", GUILayout.Width (80), GUILayout.Height (50)))
 		{
 			Refresh ();
 		}
 		
 		GUILayout.FlexibleSpace();
 		
-		if(GUILayout.Button ("Back"))
+		if(GUILayout.Button ("Back", GUILayout.Width (80), GUILayout.Height (50)))
 		{
 			this.enabled = false;
 		}

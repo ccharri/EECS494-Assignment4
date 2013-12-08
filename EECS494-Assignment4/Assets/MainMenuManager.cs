@@ -23,8 +23,12 @@ public class MainMenuManager : MonoBehaviour {
 		GUI.skin = skin;
 		if(man.enabled) return;
 
-		GUILayout.BeginArea(new Rect((Screen.width - 600)/2, Screen.height/2, 600, Screen.height/2 - 50));
-		GUILayout.BeginVertical("window");
+		GUILayout.BeginArea(new Rect(50, 50, Screen.width - 100, Screen.height - 100));
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.BeginVertical();
+		GUILayout.FlexibleSpace();
+		GUILayout.BeginVertical("window", GUILayout.Width(600));
 
 		GUILayout.Label(userName, GUILayout.Height(50));
 
@@ -48,6 +52,9 @@ public class MainMenuManager : MonoBehaviour {
 			Application.Quit();
 		}
 		GUILayout.EndVertical();
+		GUILayout.EndVertical();
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
 
 		GUILayout.EndArea();
 	}
