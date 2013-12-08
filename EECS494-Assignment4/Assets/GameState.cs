@@ -78,7 +78,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            Camera.main.transform.position = new Vector3(-pos.x, pos.y, pos.z);
+            Camera.main.transform.position = new Vector3(50, pos.y, pos.z);
             Camera.main.transform.Rotate(Vector3.up, 180.0f);
             incomeTimer.gameObject.transform.Rotate(Vector3.up, 180.0f);
             player1Terrain.tag = "Unbuildable";
@@ -949,11 +949,11 @@ public class GameState : MonoBehaviour
 		float rotation;
 		if (Network.isServer)
 		{
-			rotation = 270;
+			rotation = 90;
 		}
 		else
 		{
-			rotation = 90;
+			rotation = 270;
 		}
 		creepBounty.gameObject.transform.Rotate(Vector3.up, rotation);
 		StartCoroutine("creepBountyEffect", creepBounty);
