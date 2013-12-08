@@ -63,7 +63,7 @@ public class MainMenuManager : MonoBehaviour {
 	{
 		GUILayout.BeginVertical();
 		GUILayout.Label("Change Username", GUILayout.ExpandWidth(true));
-		userName = GUILayout.TextArea(userName);
+		userName = GUILayout.TextArea(userName).Replace('\n', ' ');
 		if(GUILayout.Button ("Ok", GUILayout.ExpandWidth(true)))
 		{
 			showingNameWindow = false;
