@@ -5,6 +5,6 @@ public interface TargetingBehaviorProjectile
 {
     //NOTE: All children of TargetingBehavior should define a "static T getInstance()"
 
-    bool compare(Projectile a, Projectile b, Tower c);
+    bool compare(Projectile a, Projectile b, Amplifer c);
     //DOES: Returns true if a is better than b. > operator
 }

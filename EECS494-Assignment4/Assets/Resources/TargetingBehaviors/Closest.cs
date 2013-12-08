@@ -17,7 +17,7 @@ public class Closest : TargetingBehavior, TargetingBehaviorProjectile
         double distB = (a.transform.position - c.transform.position).sqrMagnitude;
         return distA <= distB;
     }
-    public bool compare(Projectile a, Projectile b, Tower c)
+    public bool compare(Projectile a, Projectile b, Amplifer c)
     {
         double distA = (a.transform.position - c.transform.position).sqrMagnitude;
         double distB = (a.transform.position - c.transform.position).sqrMagnitude;

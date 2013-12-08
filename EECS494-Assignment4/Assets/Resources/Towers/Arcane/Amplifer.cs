@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class AmpliferTower : Spawnable, Selectable 
+public class Amplifer : Spawnable, Selectable 
 {
     //External Editor Attributess
     public float rangeBase = 10;
@@ -71,7 +71,18 @@ public class AmpliferTower : Spawnable, Selectable
 
     protected virtual Projectile findTarget()
     {
-        return getAllProjectilesInRadius(gameObject.transform.position, range.get())[0];
+        List<Projectile> projectiles = getAllProjectilesInRadius(gameObject.transform.position, range.get());
+        if(projectiles.Count == 0)
+            return null;
+        Projectile newTarget = null;
+        foreach(Projectile p in projectiles)
+        {
+            if(newTarget == null)
+                newTarget = p;
+            else if(behavior.compare(p, newTarget, this))
+                newTarget = p;
+        }
+        return newTarget;
     }
 
     public virtual string getDescription()
