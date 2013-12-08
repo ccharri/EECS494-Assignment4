@@ -36,16 +36,16 @@ public class PathingManager : MonoBehaviour {
 
 		player1ZoneShadow = makeNodes(-25, 25, 2, 22);
 		player1EndShadow = player1ZoneShadow[-25][12];
-		player1SpawnShadow = player1ZoneShadow[25][12];
+        player1SpawnShadow = player1ZoneShadow[25][12];
 		
 		//Player 2
         player2Zone = makeNodes(-25, 25, -22, -2);
 		player2End = player2Zone[25][-12];
-		player2Spawn = player2Zone[-25][-12];
+        player2Spawn = player2Zone[-25][-12];
 
 		player2ZoneShadow = makeNodes(-25, 25, -22, -2);
 		player2EndShadow = player2ZoneShadow[25][-12];
-		player2SpawnShadow = player2ZoneShadow[-25][-12];
+        player2SpawnShadow = player2ZoneShadow[-25][-12];
 		
 		//Calculate
 		recalculate(player1Zone, player1End);

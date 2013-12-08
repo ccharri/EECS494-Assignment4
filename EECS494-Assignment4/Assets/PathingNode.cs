@@ -5,7 +5,6 @@ public class PathingNode {
 	public bool pathable;
 	public int x;
 	public int z;
-    public int heu;
 	public PathingNode bestNode;
 	public int dir;
 

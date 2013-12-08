@@ -174,7 +174,7 @@ public class GameNetworkManager : MonoBehaviour {
 
 		GUILayout.FlexibleSpace();
 
-		GUILayout.Label ("Join a Game", GUILayout.ExpandWidth(true));
+		GUILayout.Label ("Direct Connect", GUILayout.ExpandWidth(true));
 		
 		serverIPText = GUILayout.TextField(serverIPText, GUILayout.ExpandWidth(false),GUILayout.Width (200), GUILayout.Height(20));
 		serverPortText = GUILayout.TextField ( serverPortText, GUILayout.ExpandWidth(false),GUILayout.Width (200),GUILayout.Height(20));
@@ -268,49 +268,85 @@ public class GameNetworkManager : MonoBehaviour {
 
 	void OnGUI_Connected()
 	{
-		if(GUI.Button (new Rect(Screen.width - 300, Screen.height-100, 200, 50), "Disconnect"))
-		{
-			Network.Disconnect();
-			connected = false;
-		}
+		//Screen area
+		GUILayout.BeginArea(new Rect(50, 50, Screen.width - 100, Screen.height - 100));
 
+		//Begin top section
+		GUILayout.BeginVertical();
 		if(Network.isServer)
 		{
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			GUILayout.BeginVertical("window");
+			GUILayout.Label ("Hosting Information", GUILayout.ExpandWidth(true));
+			GUILayout.BeginHorizontal();
 			if(Network.HavePublicAddress())
 			{
 				NetworkPlayer thisPlayer = Network.player;
-				
-				GUI.Label (new Rect(20,20, 125, 50), "Public IP Address");
-				GUI.Label (new Rect(20,70,125,30), Network.player.ipAddress + ":" + Network.player.port);
+
+				GUILayout.Label ("Public IP Address:");
+				GUILayout.Label (Network.player.ipAddress + ":" + Network.player.port);
 				//GUI.Label(new Rect(20, 70, 100, 30), Network.proxyIP + ":" + Network.proxyPort);
-				
-				GUI.Label (new Rect(20, 120, 1250, 30), Network.player.guid);
+				GUILayout.FlexibleSpace();
+				GUILayout.Label("GUID:");
+				GUILayout.Label (Network.player.guid);
 			}
 			else
 			{
-				GUI.Label (new Rect(20,20, 125, 50), "NAT Facilitator IP");
-				GUI.Label(new Rect(20, 70, 125, 30), Network.natFacilitatorIP + ":" + Network.natFacilitatorPort);
+				GUILayout.Label ("NAT Facilitator IP:");
+				GUILayout.Label(Network.natFacilitatorIP + ":" + Network.natFacilitatorPort);
 			}
+			GUILayout.EndHorizontal();
+			GUILayout.EndVertical();
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
+		}
 
-			if(GUI.Button (new Rect((Screen.width - 100)/2, Screen.height - 300, 200, 200), "Start"))
+		GUILayout.FlexibleSpace();
+
+		//Vertically middle section begin
+
+		//Begin player layout
+		GUILayout.BeginHorizontal();
+		//Shift to middle
+		GUILayout.FlexibleSpace();
+
+
+		OnGUI_DisplayPlayers();
+
+
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+
+		//Vertically bottom section begin
+		GUILayout.FlexibleSpace();
+
+		GUILayout.BeginHorizontal();
+		if(Network.isServer)
+		{
+			GUILayout.FlexibleSpace();
+			if(GUILayout.Button ("Start", GUILayout.Width(100)))
 			{
 				MasterServer.UnregisterHost();
 				networkView.RPC ("launchGameScene", RPCMode.AllBuffered);
 			}
-
-			OnGUI_DisplayPlayers();
 		}
-		else
+		GUILayout.FlexibleSpace();
+		if(GUILayout.Button ("Disconnect"))
 		{
-			OnGUI_DisplayPlayers();
+			Network.Disconnect();
+			connected = false;
 		}
+		GUILayout.EndHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.EndVertical();
+		GUILayout.EndArea();
 	}
 
 	void OnGUI_DisplayPlayers()
 	{
-		Rect playerArea = new Rect(200, 200, Screen.width - 300, (Screen.height/2) - 100);
-		GUILayout.BeginArea(playerArea);
-		GUILayout.BeginVertical();
+		GUILayout.BeginVertical("window");
+		GUILayout.Label("Players", GUILayout.ExpandWidth(true));
 
 		OnGUI_DisplayPlayer(Network.player);
 
@@ -320,32 +356,29 @@ public class GameNetworkManager : MonoBehaviour {
 		}
 
 		GUILayout.EndVertical();
-		GUILayout.EndArea();
 	}
 
 	void OnGUI_DisplayPlayer(NetworkPlayer player)
 	{
-		GUILayout.BeginHorizontal(GUILayout.Height(50));
+		GUILayout.BeginHorizontal("box", GUILayout.Height(50));
 
 		GUILayout.Label(NameDatabase.getName(player.guid), GUILayout.Width(200));
+		if(Network.isServer && player != Network.player)
+		{
+			if(GUILayout.Button ("Kick"))
+			{
+				Network.CloseConnection(player, true);
+			}
+		}
 		GUILayout.FlexibleSpace();
+
 
     //if (Popup.List(new Rect(50, 100, 100, 20), ref raceListShow, ref raceListEntry, new GUIContent("Click me!"), raceList, raceListStyle)) {
     //  racePicked = true;
     //}
 
-		GUILayout.FlexibleSpace();
+		GUILayout.Label ("Ping: " + Network.GetAveragePing(player), GUILayout.Width(150));
 
-		GUILayout.Label (Network.GetAveragePing(player).ToString(), GUILayout.Width(50));
-		GUILayout.FlexibleSpace();
-		if(Network.isServer && player != Network.player)
-		{
-			if(GUILayout.Button ("Kick", GUILayout.Width(50), GUILayout.Height(50)))
-			{
-				Network.CloseConnection(player, true);
-			}
-		}
-		
 		GUILayout.EndHorizontal();
 	}
 

@@ -37,6 +37,8 @@ public class GameState : MonoBehaviour
 
 	public TextMesh incomeTimer;
 
+	public GUISkin skin;
+
 	public static GameState getInstance()
 	{
 		if(instance == null)
@@ -187,6 +189,8 @@ public class GameState : MonoBehaviour
 
     void OnGUI()
     {
+		GUI.skin = skin;
+
         GUILayout.BeginArea(new Rect(10, 5, Screen.width - 15, Screen.height - 5));
         GUILayout.BeginVertical();
 
@@ -208,6 +212,7 @@ public class GameState : MonoBehaviour
 	void WindowGUI(int windowID)
 	{
 		GUILayout.BeginVertical();
+		GUILayout.Label ("Menu", GUILayout.Height(50));
 		if(GUILayout.Button ("Back"))
 		{
 			showMenu = false;
