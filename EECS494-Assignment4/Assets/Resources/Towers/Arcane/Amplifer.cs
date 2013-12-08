@@ -16,7 +16,7 @@ public class AmpliferTower : Spawnable, Selectable
     protected Attribute cooldown = new Attribute(1);
 
     //Internal Book-Keeping
-    protected TargetingBehaviorProjectile behavior = Closest.getInstance();
+    private TargetingBehaviorProjectile behavior = Closest.getInstance();
     protected double lastFired = 0;
 
     protected bool mouseOver = false;

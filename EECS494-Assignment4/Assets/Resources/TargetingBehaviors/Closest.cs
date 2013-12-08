@@ -11,13 +11,13 @@ public class Closest : TargetingBehavior, TargetingBehaviorProjectile
             instance = new Closest();
         return instance;
     }
-    public override bool compare(Creep a, Creep b, Tower c)
+    public bool compare(Creep a, Creep b, Tower c)
     {
         double distA = (a.transform.position - c.transform.position).sqrMagnitude;
         double distB = (a.transform.position - c.transform.position).sqrMagnitude;
         return distA <= distB;
     }
-    public override bool compare(Projectile a, Projectile b, Tower c)
+    public bool compare(Projectile a, Projectile b, Tower c)
     {
         double distA = (a.transform.position - c.transform.position).sqrMagnitude;
         double distB = (a.transform.position - c.transform.position).sqrMagnitude;

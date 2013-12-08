@@ -18,7 +18,7 @@ public class Tower : Spawnable, Selectable
     //Internal Book-Keeping
 	protected List<Projectile> projectiles;
 	protected Creep target;
-	protected TargetingBehavior behavior = Closest.getInstance();
+	private TargetingBehavior behavior = Closest.getInstance();
 	protected double lastFired = 0;
 
   protected bool mouseOver = false;
