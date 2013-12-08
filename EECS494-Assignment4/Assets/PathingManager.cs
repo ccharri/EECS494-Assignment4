@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Assets;
 
 public class PathingManager : MonoBehaviour {
 
@@ -33,19 +34,23 @@ public class PathingManager : MonoBehaviour {
 		player1Zone = makeNodes (-25, 25, 2, 22);
 		player1End = player1Zone[-25][12];
 		player1Spawn = player1Zone[25][12];
+        heuSet(player1Zone, -25, 25, 2, 22, player1End, player1Spawn);
 
 		player1ZoneShadow = makeNodes(-25, 25, 2, 22);
 		player1EndShadow = player1ZoneShadow[-25][12];
-		player1SpawnShadow = player1ZoneShadow[25][12];
+        player1SpawnShadow = player1ZoneShadow[25][12];
+        heuSet(player1ZoneShadow, -25, 25, 2, 22, player1EndShadow, player1SpawnShadow);
 		
 		//Player 2
         player2Zone = makeNodes(-25, 25, -22, -2);
 		player2End = player2Zone[25][-12];
-		player2Spawn = player2Zone[-25][-12];
+        player2Spawn = player2Zone[-25][-12];
+        heuSet(player2Zone, -25, 25, 2, 22, player2End, player2Spawn);
 
 		player2ZoneShadow = makeNodes(-25, 25, -22, -2);
 		player2EndShadow = player2ZoneShadow[25][-12];
-		player2SpawnShadow = player2ZoneShadow[-25][-12];
+        player2SpawnShadow = player2ZoneShadow[-25][-12];
+        heuSet(player2ZoneShadow, -25, 25, 2, 22, player2EndShadow, player2SpawnShadow);
 		
 		//Calculate
 		recalculate(player1Zone, player1End);
@@ -84,6 +89,36 @@ public class PathingManager : MonoBehaviour {
 
 		return ret;
 	}
+
+    public void heuSet(Dictionary<int, Dictionary<int, PathingNode>> grid, int xmin, int xmax, int zmin, int zmax, PathingNode endNode, PathingNode startNode)
+    {
+        for (int x = xmin; x <= xmax; x++)
+        {
+            for (int z = zmin; z <= zmax; z++)
+            {
+                grid[x][z].heu = (Mathf.Pow(x,2)+Mathf.Pow(z,2));
+            }
+        }
+    }
+
+    //pass node.heu to this as the key
+    public void aStar(Dictionary<int, Dictionary<int, PathingNode>> grid, PathingNode startNode, PathingNode endNode)
+    {
+        SortedList evalList = new SortedList();
+        evalList.Add(startNode.heu, startNode);
+        Dictionary<int, Dictionary<int, PathingNode>> checkedNodes = new Dictionary<int, Dictionary<int, PathingNode>>();
+
+        
+
+        while (evalList.Count > 0)
+        {
+            PathingNode temp = (PathingNode)evalList.GetByIndex(0);
+            evalList.RemoveAt(0);
+            checkedNodes[temp.x].Add(temp.z, temp);
+            if (!temp.pathable) continue;
+
+        }
+    }
 
 	public void recalculate(Dictionary<int, Dictionary<int, PathingNode>> grid, PathingNode endNode)
 	{
