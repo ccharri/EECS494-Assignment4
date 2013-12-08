@@ -7,7 +7,7 @@ public class GameNetworkManager : MonoBehaviour {
 	private string serverPortText = "Server Port";
 	private string serverGUIDText = "Server GUID";
 	private HostData[] hostData;
-	private string gameName = "Game Name";
+	private string gameName = "'s Game";
 
 	private bool raceListShow = false;
 	private int raceListEntry = 0;
@@ -154,7 +154,7 @@ public class GameNetworkManager : MonoBehaviour {
 
 		GUILayout.Label ("Host a Game", GUILayout.ExpandWidth(true));
 
-		gameName = GUILayout.TextField (gameName,  GUILayout.ExpandWidth(false), GUILayout.Width (200), GUILayout.Height (20));
+		gameName = GUILayout.TextField (NameDatabase.getName(Network.player.guid) + gameName,  GUILayout.ExpandWidth(false), GUILayout.Width (200), GUILayout.Height (20));
 
 		if(GUILayout.Button("Host", GUILayout.ExpandWidth(true), GUILayout.Height(100)))
 		{
