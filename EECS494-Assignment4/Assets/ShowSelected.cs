@@ -8,10 +8,14 @@ public class ShowSelected : MonoBehaviour {
 	float height;
 	public Material selectedMaterial;
 	GameObject selected;
+	MeshFilter mf;
 
 	void Start()
 	{
 		selected = new GameObject("Selected");
+		gameObject.AddComponent("MeshFilter");
+	   	gameObject.AddComponent("MeshRenderer");
+	   	mf = GetComponent<MeshFilter>();
 		width = 2.0f;
 		height = 2.0f;
 	}
@@ -21,7 +25,7 @@ public class ShowSelected : MonoBehaviour {
 		//Debug.Log("Ran Show Selected Script");
 		foreach (GameObject tower in towers)
 		{
-			Debug.Log("Entered Loop in Selected Script");
+			//Debug.Log("Entered Loop in Selected Script");
 
 			Tower towerScript = (Tower)tower.GetComponent("Tower");
 
@@ -32,10 +36,6 @@ public class ShowSelected : MonoBehaviour {
 			
 			tower.transform.parent = selected.transform;
 			
-			gameObject.AddComponent("MeshFilter");
-	   		gameObject.AddComponent("MeshRenderer");
-
-			MeshFilter mf = GetComponent<MeshFilter>();
 			Mesh mesh = new Mesh();
 			mf.mesh = mesh;
 
@@ -46,16 +46,11 @@ public class ShowSelected : MonoBehaviour {
 			Vector3[] vertices = new Vector3[4];
 
 			Vector3 pos = tower.transform.position;
-			vertices[0] = new Vector3(pos.x + width, 4, pos.z - height);
-			vertices[1] = new Vector3(pos.x + width, 4, pos.z + height);
-			vertices[2] = new Vector3(pos.x - width, 4, pos.z - height);
-			vertices[3] = new Vector3(pos.x - width, 4, pos.z + height);
 
-/*
-			vertices[0] = new Vector3(pos.x, 4, pos.z);
-			vertices[1] = new Vector3(pos.x - 5, 4, pos.z + 5);
-			vertices[2] = new Vector3(pos.x - 5, 4, pos.z - 5);
-			vertices[3] = new Vector3(pos.x , 4, pos.z );*/
+			vertices[0] = new Vector3(pos.x + 5, 4, pos.z + 1); //ul
+			vertices[1] = new Vector3(pos.x + 1, 4, pos.z + 1); //ll
+			vertices[2] = new Vector3(pos.x + 5, 4, pos.z - 2.5f); //ur
+			vertices[3] = new Vector3(pos.x + 1, 4, pos.z - 2.5f); //lr
 
 			mesh.vertices = vertices;
 
@@ -83,9 +78,9 @@ public class ShowSelected : MonoBehaviour {
 			Vector2[] uv = new Vector2[4];
 
 			uv[0] = new Vector2(0, 0);
-			uv[1] = new Vector2(1, 0);
-			uv[2] = new Vector2(0, 1);
-			uv[3] = new Vector2(1, 1);
+			uv[1] = new Vector2(1f, 0);
+			uv[2] = new Vector2(0, 1f);
+			uv[3] = new Vector2(1f, 1f);
 
 			mesh.uv = uv;
 		}
