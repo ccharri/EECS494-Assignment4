@@ -25,6 +25,8 @@ public class PathingManager : MonoBehaviour {
 
 	public bool recalculateNow = true;
 
+    public LayerMask towerMask;
+
 	void Awake()
 	{
 		//Create zones
@@ -53,6 +55,12 @@ public class PathingManager : MonoBehaviour {
 		recalculate(player2Zone, player2End);
 		recalculate(player2ZoneShadow, player2End);
 		
+        //Initiate bestNodes
+        initBest(player1Zone, player1End, -25, 25, 2, 22);
+        initBest(player1ZoneShadow, player1EndShadow, -25, 25, 2, 22);
+        initBest(player2Zone, player2End, -25, 25, -22, -2);
+        initBest(player2ZoneShadow, player2EndShadow, -25, 25, -22, -2);
+
 		//For Show
 		player1ZoneSize = player1Zone.Count;
 		player2ZoneSize = player2Zone.Count;
@@ -85,7 +93,16 @@ public class PathingManager : MonoBehaviour {
 		return ret;
 	}
 
-    public LayerMask towerMask;
+    public void initBest(Dictionary<int, Dictionary<int, PathingNode>> grid, PathingNode endNode, int xmin, int xmax, int zmin, int zmax)
+    {
+        for (int x = xmin; x <= xmax; x++)
+        {
+            for (int z = zmin; z <= zmax; z++)
+            {
+                grid[x][z].bestNode = endNode;
+            }
+        }
+    }
 
 	public void recalculate(Dictionary<int, Dictionary<int, PathingNode>> grid, PathingNode endNode)
 	{
@@ -133,9 +150,17 @@ public class PathingManager : MonoBehaviour {
             for (int j = 0; j < visitedNodes[i].Count; j++)
             {
                 if (!visitedNodes[i].ContainsKey(j)) continue;
-                for (PathingNode temp = visitedNodes[i][j].bestNode; ; temp = temp.bestNode)
-                {
 
+                PathingNode temp = visitedNodes[i][j].bestNode;
+                if (Physics.Raycast())
+
+
+
+                PathingNode last = visitedNodes[i][j];
+                for (PathingNode temp = visitedNodes[i][j].bestNode; (!temp.Equals(endNode)); temp = temp.nextNode)
+                {
+                    
+                    last = temp;
                 }
             }
         }
@@ -175,7 +200,7 @@ public class PathingManager : MonoBehaviour {
 		visitedNodes[x][z] = node;
 
 		queue.Enqueue(node);
-		node.bestNode = evalNode;
+		node.nextNode = evalNode;
 		node.dir = dir;
 	}
 
@@ -190,7 +215,7 @@ public class PathingManager : MonoBehaviour {
 		{
 			if(next == end) return true;
 			if(!next.pathable) return false;
-			next = next.bestNode;
+			next = next.nextNode;
 			count++;
 		}
 		return false;
