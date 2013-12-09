@@ -49,6 +49,11 @@ public class Amplifer : Tower
     protected virtual void fire()
     {
         Projectile p = findTarget();
+        if(p == null)
+        {
+            Debug.Log("LISTEN THOMAS, I HAVE SOMETHING: FUCK");
+            return;
+        }
         Buff b = addBuff(p);
         lastFired = GameState.getInstance().getGameTime();
     }
