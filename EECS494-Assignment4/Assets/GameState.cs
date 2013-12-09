@@ -320,7 +320,7 @@ public class GameState : MonoBehaviour
         GUILayout.EndHorizontal();
         foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap.Reverse())
         {
-            GUILayout.BeginVertical();
+            GUILayout.BeginVertical("box");
             Color oldColor = GUI.color;
             bool canUse = entry.Value.cost <= pState.gold;
             if (!canUse)
@@ -335,7 +335,7 @@ public class GameState : MonoBehaviour
                 pMan.beginPlacing(entry.Value.prefab, entry.Key);
             }
             GUI.enabled = true;
-            GUI.color = Color.grey;
+            GUI.color = Color.yellow;
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
             GUILayout.Label(entry.Value.cost + " Gold");
@@ -403,7 +403,7 @@ public class GameState : MonoBehaviour
                 GUI.enabled = false;
             }
 
-            if (GUILayout.Button(entry.Key.Replace(' ', '\n'), GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true))) //use entry.Value.name, after creeps have a name defined (maybe)
+            if (GUILayout.Button(entry.Key.Replace(' ', '\n'), GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true), GUILayout.MinWidth(100))) //use entry.Value.name, after creeps have a name defined (maybe)
             {
                 if (Network.isServer)
                 {
@@ -439,6 +439,8 @@ public class GameState : MonoBehaviour
                     GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.restockTime - ((time - us.initialStockTime) % us.restockTime)));
             }
             GUI.color = oldColor;
+
+			GUILayout.Label("", "Divider");//-------------------------------- custom
             GUILayout.EndVertical();
 
             GUILayout.EndHorizontal();
