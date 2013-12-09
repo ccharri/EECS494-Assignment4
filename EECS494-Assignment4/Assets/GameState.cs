@@ -360,7 +360,7 @@ public class GameState : MonoBehaviour
 		{
 			if(selection.selected.upgrade != null)
 			{
-	        	if (GUILayout.Button("Upgrade to " + selection.selected.upgrade.name + " for " + (selection.selected.upgrade.cost - selection.selected.cost) + " Gold."))
+	        	if (GUILayout.Button("Upgrade to\n" + selection.selected.upgrade.name + "\nfor " + (selection.selected.upgrade.cost - selection.selected.cost) + " Gold."))
 	        	{
 					if(Network.isServer)
 					{
@@ -371,6 +371,12 @@ public class GameState : MonoBehaviour
 						networkView.RPC ("tryUpgradeTower", RPCMode.Server, selection.selected.networkView.viewID);
 					}
 	        	}
+			}
+			else
+			{
+				GUI.enabled = false;
+				GUILayout.Button("This tower cannot upgrade!");
+				GUI.enabled = true;
 			}
 
 	        GUILayout.FlexibleSpace();
