@@ -13,7 +13,8 @@ public class GameNetworkManager : MonoBehaviour {
 	private int raceListEntry = 0;
 	private GUIContent[] raceList;
 	private GUIStyle raceListStyle;
-	private bool racePicked = false;
+	private string[] raceListKey;
+	public string racePicked;
 
 	public GUISkin skin;
 	
@@ -25,11 +26,18 @@ public class GameNetworkManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		raceListKey = new string[2];
+		raceListKey[0] = "Undead";
+		raceListKey[1] = "Arcane";
+
 		// Make some content for the popup list
-		raceList = new GUIContent[2];
-		raceList[0] = new GUIContent("Undead");
-		raceList[1] = new GUIContent("Arcane");
-	 
+		raceList = new GUIContent[raceListKey.Length];
+
+		for(int i = 0; i < raceListKey.Length; i++)
+		{
+			raceList[i] = new GUIContent(raceListKey[i]);
+		}
+
 		// Make a GUIStyle that has a solid white hover/onHover background to indicate highlighted items
 		raceListStyle = new GUIStyle();
 		raceListStyle.normal.textColor = Color.white;
@@ -46,6 +54,8 @@ public class GameNetworkManager : MonoBehaviour {
 		raceListStyle.hover.background = tex;
 		raceListStyle.onHover.background = tex;
 		raceListStyle.padding.left = raceListStyle.padding.right = raceListStyle.padding.top = raceListStyle.padding.bottom = 4;
+
+		racePicked = raceListKey[0];
 	}
 	
 	// Update is called once per frame
@@ -373,10 +383,19 @@ public class GameNetworkManager : MonoBehaviour {
 		}
 		GUILayout.FlexibleSpace();
 
+		GUILayout.Label ("", "", GUILayout.Width (125));
 
-    //if (Popup.List(new Rect(50, 100, 100, 20), ref raceListShow, ref raceListEntry, new GUIContent("Click me!"), raceList, raceListStyle)) {
-    //  racePicked = true;
-    //}
+		Rect popupRect = GUILayoutUtility.GetLastRect();
+
+		if(player == Network.player)
+		{
+			if (Popup.List(popupRect, ref raceListShow, ref raceListEntry, new GUIContent(racePicked), raceList, "button", "box",raceListStyle)) 
+			{
+				racePicked = raceListKey[raceListEntry];
+			}
+		}
+
+		GUILayout.FlexibleSpace();
 
 		GUILayout.Label ("Ping: " + Network.GetAveragePing(player), GUILayout.Width(150));
 
