@@ -42,6 +42,8 @@ public class GameState : MonoBehaviour
 
     public GUISkin skin;
 
+	public Color tintColor;
+
     public static GameState getInstance()
     {
         if (instance == null)
@@ -194,11 +196,13 @@ public class GameState : MonoBehaviour
     {
         GUI.skin = skin;
 
-        GUILayout.BeginArea(new Rect(10, 5, Screen.width - 15, Screen.height - 5));
+        GUILayout.BeginArea(new Rect(5, 5, Screen.width - 10, Screen.height - 10));
         GUILayout.BeginVertical();
-
+		GUILayout.BeginHorizontal();
         OnGUI_TopBar();
+		GUILayout.FlexibleSpace();
         OnGUI_ScoreBoard();
+		GUILayout.EndHorizontal();
         GUILayout.FlexibleSpace();
         OnGUI_TowerBar();
         OnGUI_CreepBar();
@@ -208,14 +212,14 @@ public class GameState : MonoBehaviour
 
         if (showMenu)
         {
-            GUILayout.Window(0, new Rect(Screen.width / 2 - 200, Screen.height / 2 - 200, 400, 400), WindowGUI, "Menu", GUILayout.Width(400), GUILayout.Height(400));
+            GUILayout.Window(0, new Rect(Screen.width / 2 - 200, Screen.height / 2 - 200, 400, 400), WindowGUI, "", GUILayout.Width(400), GUILayout.Height(400));
         }
     }
 
     void WindowGUI(int windowID)
     {
         GUILayout.BeginVertical();
-        GUILayout.Label("Menu", GUILayout.Height(50));
+        GUILayout.Label("Menu");
         if (GUILayout.Button("Back"))
         {
             showMenu = false;
@@ -247,9 +251,9 @@ public class GameState : MonoBehaviour
 
     void OnGUI_TopBar()
     {
-        GUILayout.BeginHorizontal("box", GUILayout.Height(20));
+        GUILayout.BeginHorizontal("box", GUILayout.Height(30));
 
-        var layoutOptions = new GUILayoutOption[] { GUILayout.Height(20) };
+        var layoutOptions = new GUILayoutOption[] { GUILayout.Height(30) };
 
         if (GUILayout.Button("Menu", layoutOptions))
         {
@@ -305,10 +309,10 @@ public class GameState : MonoBehaviour
     {
         PlayerState pState = players[Network.player.guid];
 
-        GUILayout.BeginArea(new Rect(0, 50, 200, Screen.height - 75));
+        GUILayout.BeginArea(new Rect(0, 10, 275, Screen.height - 20));
 
         //TOWER PLACEMENT BUTTONS
-        GUILayout.BeginVertical("box");
+        GUILayout.BeginVertical("window");
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
         GUILayout.Label("Towers");
@@ -316,7 +320,7 @@ public class GameState : MonoBehaviour
         GUILayout.EndHorizontal();
         foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap.Reverse())
         {
-            GUILayout.BeginVertical("box");
+            GUILayout.BeginVertical();
             Color oldColor = GUI.color;
             bool canUse = entry.Value.cost <= pState.gold;
             if (!canUse)
@@ -331,7 +335,7 @@ public class GameState : MonoBehaviour
                 pMan.beginPlacing(entry.Value.prefab, entry.Key);
             }
             GUI.enabled = true;
-            GUI.color = Color.yellow;
+            GUI.color = Color.grey;
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
             GUILayout.Label(entry.Value.cost + " Gold");
@@ -367,10 +371,11 @@ public class GameState : MonoBehaviour
 
     void OnGUI_CreepBar()
     {
-        GUILayout.BeginArea(new Rect(Screen.width - 320, 50, 300, Screen.height - 75));
+		float width = 350;
+        GUILayout.BeginArea(new Rect(Screen.width - (width + 5), 10, width, Screen.height - 20));
         PlayerState pState = players[Network.player.guid];
 
-        GUILayout.BeginVertical("box");
+        GUILayout.BeginVertical("window", GUILayout.ExpandWidth(true));
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
         GUILayout.Label("Creeps");
@@ -379,7 +384,7 @@ public class GameState : MonoBehaviour
 
         foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap.Reverse())
         {
-            GUILayout.BeginHorizontal("box");
+            GUILayout.BeginHorizontal();
             Color oldColor = GUI.color;
             bool canUse = entry.Value.cost <= pState.gold;
             if (!canUse)
@@ -398,7 +403,7 @@ public class GameState : MonoBehaviour
                 GUI.enabled = false;
             }
 
-            if (GUILayout.Button(entry.Key, GUILayout.ExpandHeight(true), GUILayout.Width(150))) //use entry.Value.name, after creeps have a name defined (maybe)
+            if (GUILayout.Button(entry.Key.Replace(' ', '\n'), GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true))) //use entry.Value.name, after creeps have a name defined (maybe)
             {
                 if (Network.isServer)
                 {
@@ -415,9 +420,9 @@ public class GameState : MonoBehaviour
             GUILayout.BeginHorizontal();
 
             GUI.color = Color.yellow;
-            GUILayout.Label(entry.Value.cost + " Gold");
+            GUILayout.Label(entry.Value.cost.ToString()/* + " Gold"*/);
             GUI.color = Color.green;
-            GUILayout.Label("+" + entry.Value.bounty + " Income");
+            GUILayout.Label("+" + entry.Value.bounty.ToString()/* + " Income"*/);
             GUILayout.EndHorizontal();
 
             if (us == null) { Debug.Log("Not UnitSpawn found for creep: " + entry.Key + "!"); }
@@ -449,108 +454,108 @@ public class GameState : MonoBehaviour
 
         GUILayout.EndArea();
     }
-
-    void OnGUI_BottomBar()
-    {
-        GUILayout.BeginHorizontal();
-
-        GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3), GUILayout.Height(Screen.height / 5));
-        GUILayout.Label("Buffs: ");
-        GUILayout.EndVertical();
-
-        //GUILayout.FlexibleSpace();
-
-        //Used to set player's towers and creeps
-        PlayerState pState = players[Network.player.guid];
-        int rowCount = 0;
-
-        //TOWER PLACEMENT BUTTONS
-        GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3), GUILayout.Height(Screen.height / 5));
-        GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
-        GUILayout.Label("Towers");
-        GUILayout.FlexibleSpace();
-        GUILayout.EndHorizontal();
-        GUILayout.BeginHorizontal();
-        foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap.Reverse())
-        {
-            rowCount++;
-            if (GUILayout.Button(entry.Key + "\n" + entry.Value.cost + "G")) //use entry.Value.name after towers have a name defined (maybe)
-            {
-                pMan.enabled = true;
-                pMan.beginPlacing(entry.Value.prefab, entry.Key);
-            }
-            if (rowCount == 4)
-            {
-                GUILayout.EndHorizontal();
-                GUILayout.BeginHorizontal();
-                rowCount = 0;
-            }
-        }
-        GUILayout.EndHorizontal();
-
-        GUILayout.EndVertical();
-
-        //GUILayout.FlexibleSpace();
-
-        //CREEP PLACEMENT BUTTONS
-        GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3 - 30), GUILayout.Height(Screen.height / 5));
-        GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
-        GUILayout.Label("Creeps");
-        GUILayout.FlexibleSpace();
-        GUILayout.EndHorizontal();
-        rowCount = 0;
-        GUILayout.BeginHorizontal();
-        foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap)
-        {
-            GUILayout.BeginVertical("box");
-
-            rowCount++;
-            if (GUILayout.Button(entry.Key + "\n" + entry.Value.cost + "G")) //use entry.Value.name, after creeps have a name defined (maybe)
-            {
-                if (Network.isServer)
-                {
-                    tryCreepSpawn(entry.Key, Network.player);
-                }
-                else
-                {
-                    networkView.RPC("tryCreepSpawn", RPCMode.Server, entry.Key, Network.player);
-                }
-            }
-
-            //UnitSpawn us = pState.race.getUnitSpawn(entry.Key);
-            var usm = players[Network.player.guid].race.getUnitSpawnMap(Network.player.guid);
-            UnitSpawn us = usm[entry.Key];
-            if (us == null) { Debug.Log("Not UnitSpawn found for creep: " + entry.Key + "!"); }
-            else
-            {
-                if (time < us.initialStockTime)
-                    GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.initialStockTime - time));
-                else
-                    GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.restockTime - ((time - us.initialStockTime) % us.restockTime)));
-            }
-
-            GUILayout.EndVertical();
-            if (rowCount == 4)
-            {
-                GUILayout.EndHorizontal();
-                GUILayout.BeginHorizontal();
-                rowCount = 0;
-            }
-        }
-        GUILayout.EndHorizontal();
-
-        //Upgrade Buttons
-        GUILayout.FlexibleSpace();
-        GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
-        GUILayout.Button("Upgrade Creeps");
-        GUILayout.EndHorizontal();
-        GUILayout.EndVertical();
-
-        GUILayout.EndHorizontal();
-    }
+//
+//    void OnGUI_BottomBar()
+//    {
+//        GUILayout.BeginHorizontal();
+//
+//        GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3), GUILayout.Height(Screen.height / 5));
+//        GUILayout.Label("Buffs: ");
+//        GUILayout.EndVertical();
+//
+//        //GUILayout.FlexibleSpace();
+//
+//        //Used to set player's towers and creeps
+//        PlayerState pState = players[Network.player.guid];
+//        int rowCount = 0;
+//
+//        //TOWER PLACEMENT BUTTONS
+//        GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3), GUILayout.Height(Screen.height / 5));
+//        GUILayout.BeginHorizontal();
+//        GUILayout.FlexibleSpace();
+//        GUILayout.Label("Towers");
+//        GUILayout.FlexibleSpace();
+//        GUILayout.EndHorizontal();
+//        GUILayout.BeginHorizontal();
+//        foreach (KeyValuePair<string, Tower> entry in pState.race.towerMap.Reverse())
+//        {
+//            rowCount++;
+//            if (GUILayout.Button(entry.Key + "\n" + entry.Value.cost + "G")) //use entry.Value.name after towers have a name defined (maybe)
+//            {
+//                pMan.enabled = true;
+//                pMan.beginPlacing(entry.Value.prefab, entry.Key);
+//            }
+//            if (rowCount == 4)
+//            {
+//                GUILayout.EndHorizontal();
+//                GUILayout.BeginHorizontal();
+//                rowCount = 0;
+//            }
+//        }
+//        GUILayout.EndHorizontal();
+//
+//        GUILayout.EndVertical();
+//
+//        //GUILayout.FlexibleSpace();
+//
+//        //CREEP PLACEMENT BUTTONS
+//        GUILayout.BeginVertical("box", GUILayout.Width(Screen.width / 3 - 30), GUILayout.Height(Screen.height / 5));
+//        GUILayout.BeginHorizontal();
+//        GUILayout.FlexibleSpace();
+//        GUILayout.Label("Creeps");
+//        GUILayout.FlexibleSpace();
+//        GUILayout.EndHorizontal();
+//        rowCount = 0;
+//        GUILayout.BeginHorizontal();
+//        foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap)
+//        {
+//            GUILayout.BeginVertical("box");
+//
+//            rowCount++;
+//            if (GUILayout.Button(entry.Key + "\n" + entry.Value.cost + "G")) //use entry.Value.name, after creeps have a name defined (maybe)
+//            {
+//                if (Network.isServer)
+//                {
+//                    tryCreepSpawn(entry.Key, Network.player);
+//                }
+//                else
+//                {
+//                    networkView.RPC("tryCreepSpawn", RPCMode.Server, entry.Key, Network.player);
+//                }
+//            }
+//
+//            //UnitSpawn us = pState.race.getUnitSpawn(entry.Key);
+//            var usm = players[Network.player.guid].race.getUnitSpawnMap(Network.player.guid);
+//            UnitSpawn us = usm[entry.Key];
+//            if (us == null) { Debug.Log("Not UnitSpawn found for creep: " + entry.Key + "!"); }
+//            else
+//            {
+//                if (time < us.initialStockTime)
+//                    GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.initialStockTime - time));
+//                else
+//                    GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.restockTime - ((time - us.initialStockTime) % us.restockTime)));
+//            }
+//
+//            GUILayout.EndVertical();
+//            if (rowCount == 4)
+//            {
+//                GUILayout.EndHorizontal();
+//                GUILayout.BeginHorizontal();
+//                rowCount = 0;
+//            }
+//        }
+//        GUILayout.EndHorizontal();
+//
+//        //Upgrade Buttons
+//        GUILayout.FlexibleSpace();
+//        GUILayout.BeginHorizontal();
+//        GUILayout.FlexibleSpace();
+//        GUILayout.Button("Upgrade Creeps");
+//        GUILayout.EndHorizontal();
+//        GUILayout.EndVertical();
+//
+//        GUILayout.EndHorizontal();
+//    }
 
     public Vector3 getEndPoint()
     {

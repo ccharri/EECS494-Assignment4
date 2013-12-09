@@ -127,18 +127,18 @@ public class PathingManager : MonoBehaviour {
 			enqueueNode(enqueuedNodes, visitedNodes, grid, evalNode, x, z - 1, 1);
 		}
 
-        for (int i = 0; i < visitedNodes.Count; i++)
-        {
-            if (!visitedNodes.ContainsKey(i)) continue;
-            for (int j = 0; j < visitedNodes[i].Count; j++)
-            {
-                if (!visitedNodes[i].ContainsKey(j)) continue;
-                for (PathingNode temp = visitedNodes[i][j].bestNode; ; temp = temp.bestNode)
-                {
-
-                }
-            }
-        }
+//        for (int i = 0; i < visitedNodes.Count; i++)
+//        {
+//            if (!visitedNodes.ContainsKey(i)) continue;
+//            for (int j = 0; j < visitedNodes[i].Count; j++)
+//            {
+//                if (!visitedNodes[i].ContainsKey(j)) continue;
+//                for (PathingNode temp = visitedNodes[i][j].bestNode; ; temp = temp.bestNode)
+//                {
+//
+//                }
+//            }
+//        }
 	
 //		if(grid == player1Zone)
 //		{
