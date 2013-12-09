@@ -14,7 +14,6 @@ public class GameNetworkManager : MonoBehaviour {
 	private GUIContent[] raceList;
 	private GUIStyle raceListStyle;
 	private string[] raceListKey;
-	public string racePicked;
 
 	public GUISkin skin;
 	
@@ -54,8 +53,6 @@ public class GameNetworkManager : MonoBehaviour {
 		raceListStyle.hover.background = tex;
 		raceListStyle.onHover.background = tex;
 		raceListStyle.padding.left = raceListStyle.padding.right = raceListStyle.padding.top = raceListStyle.padding.bottom = 4;
-
-		racePicked = raceListKey[0];
 	}
 	
 	// Update is called once per frame
@@ -76,6 +73,7 @@ public class GameNetworkManager : MonoBehaviour {
 		connected = true;
 		NameDatabase.clearNames();
 		NameDatabase.addName(Network.player.guid, PlayerPrefs.GetString("userName"));
+		setRace(Network.player, raceListKey[raceListEntry]);
 	}
  
 	void OnConnectedToServer () 
@@ -85,7 +83,7 @@ public class GameNetworkManager : MonoBehaviour {
 		connected = true;
 		string myname = PlayerPrefs.GetString("userName");
 		NameDatabase.addName(Network.player.guid, myname);
-		RaceDatabase.setRace(Network.player, raceListKey[0]);
+		RaceDatabase.setRace(Network.player, raceListKey[raceListEntry]);
 		networkView.RPC ("registerName", RPCMode.Server, myname, Network.player.guid);
 		networkView.RPC ("requestNames", RPCMode.Server);
 	}
@@ -109,7 +107,8 @@ public class GameNetworkManager : MonoBehaviour {
 
 	void OnPlayerConnected(NetworkPlayer player)
 	{
-		networkView.RPC ("setRace", player, Network.player, racePicked);
+		setRace (player, raceListKey[0]);
+		networkView.RPC ("setRace", player, Network.player, RaceDatabase.getRace(Network.player));
 	}
 
 	void OnPlayerDisconnected(NetworkPlayer player)
@@ -396,9 +395,17 @@ public class GameNetworkManager : MonoBehaviour {
 
 			if(player == Network.player)
 			{
-				if (Popup.List(popupRect, ref raceListShow, ref raceListEntry, new GUIContent(racePicked), raceList, "button", "box",raceListStyle)) 
+				if (Popup.List(popupRect, ref raceListShow, ref raceListEntry, new GUIContent(RaceDatabase.getRace(Network.player)), raceList, "button", "box",raceListStyle)) 
 				{
-					racePicked = raceListKey[raceListEntry];
+					if(Network.isServer)
+					{
+						requestRace(Network.player, raceListKey[raceListEntry]);
+					}
+					else
+					{
+						networkView.RPC("requestRace", RPCMode.Server, Network.player, raceListKey[raceListEntry]);
+					}
+
 				}
 			}
 		}
@@ -488,6 +495,5 @@ public class GameNetworkManager : MonoBehaviour {
 	void setRace(NetworkPlayer player, string race)
 	{
 		RaceDatabase.setRace(player, race);
-		racePicked = race;
 	}
 }

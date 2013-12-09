@@ -12,6 +12,8 @@ public class RaceDatabase {
 
 	public static string getRace(NetworkPlayer player)
 	{
-		return races[player];
+		string race = "";
+		if(races.TryGetValue(player, out race)) return race;
+		else return "";
 	}
 }
