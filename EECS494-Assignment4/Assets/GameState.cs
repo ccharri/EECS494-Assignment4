@@ -879,7 +879,7 @@ public class GameState : MonoBehaviour
     */
 
         UnitSpawn us;
-        if (null == (us = players[Network.player.guid].race.getUnitSpawnMap(player_.guid)[creepName_]))
+        if (null == (us = players[player_.guid].race.getUnitSpawnMap(player_.guid)[creepName_]))
         {
             Debug.Log("Player's Race UnitSpawnMap does not have creeps of type " + creepName_ + "!");
             return;
