@@ -1,8 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GameState.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MainMenuManager.cs">
     <Files>
-      <File FileName="Assets/GameState.cs" Line="201" Column="28" />
+      <File FileName="Assets/GameState.cs" Line="406" Column="145" />
+      <File FileName="Assets/Necromancer GUI/GUITestScript.js" Line="114" Column="3" />
+      <File FileName="Assets/Race.cs" Line="1" Column="1" />
+      <File FileName="Assets/RaceManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/GameNetworkManager.cs" Line="24" Column="66" />
+      <File FileName="Assets/Standard Assets/Scripts/Popup.cs" Line="33" Column="139" />
+      <File FileName="Assets/MainMenuManager.cs" Line="66" Column="62" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

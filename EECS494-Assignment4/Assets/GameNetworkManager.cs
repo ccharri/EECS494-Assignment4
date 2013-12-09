@@ -21,7 +21,7 @@ public class GameNetworkManager : MonoBehaviour {
 	void Awake() {
 		Refresh ();
 		NameDatabase.clearNames();
-		gameName = PlayerPrefs.GetString("userName") + gameName;
+		gameName = PlayerPrefs.GetString("userName").Replace('\n', ' ') + gameName;
     }
 	
 	// Use this for initialization
@@ -383,7 +383,11 @@ public class GameNetworkManager : MonoBehaviour {
 		}
 		GUILayout.FlexibleSpace();
 
-		GUILayout.Label ("", "", GUILayout.Width (125));
+		GUILayout.Label (new GUIContent("",  "Click to pick a Race!"), "", GUILayout.Width (125));
+		if(GUI.tooltip != "")
+		{
+			GUI.Label(new Rect(Input.mousePosition.x - 50, Screen.height - Input.mousePosition.y - 50, 200, 30), "Click to pick a Race!");
+		}
 
 		Rect popupRect = GUILayoutUtility.GetLastRect();
 
