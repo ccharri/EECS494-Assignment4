@@ -106,7 +106,7 @@ public class GameNetworkManager : MonoBehaviour {
 
 	void OnPlayerConnected(NetworkPlayer player)
 	{
-		setRace (player, raceListKey[0]);
+		requestRace (player, raceListKey[0]);
 		networkView.RPC ("setRace", player, Network.player, RaceDatabase.getRace(Network.player));
 	}
 
