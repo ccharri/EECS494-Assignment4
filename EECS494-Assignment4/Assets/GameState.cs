@@ -44,6 +44,8 @@ public class GameState : MonoBehaviour
 
 	public Color tintColor;
 
+	public ShowSelected selection;
+
     public static GameState getInstance()
     {
         if (instance == null)
@@ -354,17 +356,37 @@ public class GameState : MonoBehaviour
     {
         GUILayout.BeginVertical("box", GUILayout.ExpandHeight(true));
 
-        if (GUILayout.Button("Upgrade to ??? - " + "GOLD"))
-        {
+		if(selection.selected != null)
+		{
+			if(selection.selected.upgrade != null)
+			{
+	        	if (GUILayout.Button("Upgrade to " + selection.selected.upgrade.name + " for " + (selection.selected.upgrade.cost - selection.selected.cost) + " Gold."))
+	        	{
+					if(Network.isServer)
+					{
+						tryUpgradeTower(selection.selected.networkView.viewID, Network.player);
+					}
+					else
+					{
+						networkView.RPC ("tryUpgradeTower", RPCMode.Server, selection.selected.networkView.viewID);
+					}
+	        	}
+			}
 
-        }
+	        GUILayout.FlexibleSpace();
 
-        GUILayout.FlexibleSpace();
-
-        if (GUILayout.Button("Sell for " + "GOLD"))
-        {
-
-        }
+	        if (GUILayout.Button("Sell for " + (int)(selection.selected.cost * .7) + " Gold."))
+	        {
+				if(Network.isServer)
+				{
+					trySellTower(selection.selected.networkView.viewID, Network.player);
+				}
+				else
+				{
+					networkView.RPC("trySellTower", RPCMode.Server, selection.selected.networkView.viewID);
+				}
+	        }
+		}
 
         GUILayout.EndVertical();
     }
@@ -918,7 +940,98 @@ public class GameState : MonoBehaviour
         */
     }
 
-    //-----------------------------------------------------
+	[RPC]
+	void trySellTower(NetworkViewID id, NetworkMessageInfo info_)
+	{
+		if(Network.isClient)
+		{
+			Debug.Log ("Client should not receive trySellTower RPC Calls!");
+			return;
+		}
+
+		trySellTower(id, info_.sender);
+	}
+
+	void trySellTower(NetworkViewID id, NetworkPlayer player)
+	{
+		GameObject obj = NetworkView.Find(id).gameObject;
+		Tower t = obj.GetComponent<Tower>();
+
+		if(t.getOwner() != player.guid)
+		{
+			Debug.Log ("Owning player is not sender of sell call!");
+			return;
+		}
+
+		PlayerState ps = players[player.guid];
+		ps.gold += (int)(t.cost*.7);
+		
+		//We know we're the server, so if the player we're updating isn't us, go ahead and RPC
+		if (ps.player != Network.player)
+			networkView.RPC("setGold", ps.player, ps.gold, ps.player);
+
+		Network.Destroy(obj);
+	}
+
+	[RPC]
+	void tryUpgradeTower(NetworkViewID id, NetworkMessageInfo info_)
+	{
+		if(Network.isClient)
+		{
+			Debug.Log("Client should not receive tryUpgradeTower RPC Calls!");
+			return;
+		}
+
+		tryUpgradeTower (id, info_.sender);
+	}
+
+	void tryUpgradeTower(NetworkViewID id, NetworkPlayer player)
+	{
+		GameObject obj = NetworkView.Find(id).gameObject;
+		Tower t = obj.GetComponent<Tower>();
+
+		if(t.getOwner() != player.guid)
+		{
+			Debug.Log ("Owning player is not sender of upgrade call!");
+			return;
+		}
+
+		Tower upgrade = t.upgrade;
+
+		if(upgrade == null)
+		{
+			Debug.Log ("Tower has no upgrade.");
+			return;
+		}
+
+		int cost = upgrade.cost - t.cost;
+
+		PlayerState ps = players[player.guid];
+
+		if(ps.gold < cost)
+		{
+			Debug.Log ("Player does not have enough money!");
+			return;
+		}
+
+		Vector3 pos = t.transform.position;
+
+		ps.gold -= cost;
+
+		t = ((GameObject)Network.Instantiate(upgrade.prefab, pos, upgrade.prefab.transform.rotation, 0)).GetComponent<Tower>();
+		
+		if (!(Network.player == player))
+			networkView.RPC("setGold", player, ps.gold, player);
+		
+		//Add tower to tower lists
+		addTower(t.networkView.viewID, player);
+		networkView.RPC("addTower", RPCMode.Others, t.networkView.viewID, player);
+		
+		
+		Network.Destroy(obj);
+	}
+	
+	//-----------------------------------------------------
     //Client RPCs
     //-----------------------------------------------------
 

@@ -27,6 +27,8 @@ public abstract class Tower: Spawnable, Selectable
     public float getRange() { return range.get(); }
     public float getCooldown() { return cooldown.get(); }
 
+	public Tower upgrade;
+
     protected virtual void Awake()
     {
         setRange(rangeBase);

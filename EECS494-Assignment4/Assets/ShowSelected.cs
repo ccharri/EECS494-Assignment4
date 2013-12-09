@@ -25,7 +25,7 @@ public class ShowSelected : MonoBehaviour {
 		RaycastHit rhit;
 		Renderer renderer = GetComponent<MeshRenderer>().renderer;
 
-		if(!Input.GetMouseButtonDown(0)) //Minor issue: If you place a tower with your mouse over the tower, it is selected immediately
+		if(!Input.GetMouseButtonUp(0)) //Minor issue: If you place a tower with your mouse over the tower, it is selected immediately
 		{
 			return;
 		}
