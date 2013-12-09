@@ -85,6 +85,7 @@ public class GameNetworkManager : MonoBehaviour {
 		connected = true;
 		string myname = PlayerPrefs.GetString("userName");
 		NameDatabase.addName(Network.player.guid, myname);
+		RaceDatabase.setRace(Network.player, raceListKey[0]);
 		networkView.RPC ("registerName", RPCMode.Server, myname, Network.player.guid);
 		networkView.RPC ("requestNames", RPCMode.Server);
 	}
@@ -108,7 +109,7 @@ public class GameNetworkManager : MonoBehaviour {
 
 	void OnPlayerConnected(NetworkPlayer player)
 	{
-
+		networkView.RPC ("setRace", player, Network.player, racePicked);
 	}
 
 	void OnPlayerDisconnected(NetworkPlayer player)
@@ -383,20 +384,27 @@ public class GameNetworkManager : MonoBehaviour {
 		}
 		GUILayout.FlexibleSpace();
 
-		GUILayout.Label (new GUIContent("",  "Click to pick a Race!"), "", GUILayout.Width (125));
-		if(GUI.tooltip != "")
-		{
-			GUI.Label(new Rect(Input.mousePosition.x - 50, Screen.height - Input.mousePosition.y - 50, 200, 30), "Click to pick a Race!");
-		}
-
-		Rect popupRect = GUILayoutUtility.GetLastRect();
-
 		if(player == Network.player)
 		{
-			if (Popup.List(popupRect, ref raceListShow, ref raceListEntry, new GUIContent(racePicked), raceList, "button", "box",raceListStyle)) 
+			GUILayout.Label (new GUIContent("",  "Click to pick a Race!"), "", GUILayout.Width (125));
+			if(GUI.tooltip != "")
 			{
-				racePicked = raceListKey[raceListEntry];
+				GUI.Label(new Rect(Input.mousePosition.x - 50, Screen.height - Input.mousePosition.y - 50, 200, 30), "Click to pick a Race!");
 			}
+
+			Rect popupRect = GUILayoutUtility.GetLastRect();
+
+			if(player == Network.player)
+			{
+				if (Popup.List(popupRect, ref raceListShow, ref raceListEntry, new GUIContent(racePicked), raceList, "button", "box",raceListStyle)) 
+				{
+					racePicked = raceListKey[raceListEntry];
+				}
+			}
+		}
+		else
+		{
+			GUILayout.Label(RaceDatabase.getRace(player));
 		}
 
 		GUILayout.FlexibleSpace();
@@ -447,4 +455,39 @@ public class GameNetworkManager : MonoBehaviour {
 		NameDatabase.removeName(key);
 	}
 
+	[RPC]
+	void requestRace(NetworkPlayer player, string race, NetworkMessageInfo info)
+	{
+		if(Network.isClient)
+		{
+			Debug.Log ("Client should not receive requestRace RPCs!");
+			return;
+		}
+
+		requestRace(player, race);
+	}
+	
+	void requestRace(NetworkPlayer player, string race)
+	{
+		setRace (player, race);
+		networkView.RPC("setRace", RPCMode.Others, player, race);
+	}
+
+	[RPC]
+	void setRace(NetworkPlayer player, string race, NetworkMessageInfo info)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive setRace RPCs!");
+			return;
+		}
+
+		setRace (player, race);
+	}
+
+	void setRace(NetworkPlayer player, string race)
+	{
+		RaceDatabase.setRace(player, race);
+		racePicked = race;
+	}
 }
