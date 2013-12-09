@@ -80,7 +80,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            Camera.main.transform.position = new Vector3(50, pos.y, pos.z);
+            Camera.main.transform.position = new Vector3(-pos.x, pos.y, pos.z);
 			Camera.main.transform.Rotate(120, 180 ,0);
             incomeTimer.gameObject.transform.Rotate(Vector3.up, 180.0f);
             player1Terrain.tag = "Unbuildable";
