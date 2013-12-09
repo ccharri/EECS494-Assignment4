@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class Amplifer : Tower 
 {
     //External Editor Attributess
-    public string buffApplied = "Damage";
     public int buffAppliedLevel = 1;
 
     //Internal Book-Keeping
@@ -16,6 +15,11 @@ public class Amplifer : Tower
         base.Awake();
     }
 
+    protected virtual Buff addBuff(Projectile p) 
+    {
+        return null;
+    }
+    
     protected virtual List<Projectile> getAllProjectilesInRadius(Vector3 origin, float radius)
     {
         List<Projectile> objects = new List<Projectile>();
@@ -45,10 +49,7 @@ public class Amplifer : Tower
     protected virtual void fire()
     {
         Projectile p = findTarget();
-        Buff b = p.gameObject.AddComponent(buffApplied) as Buff;
-        b.Init(buffAppliedLevel);
-        b.onApplication();
-        //b.effect = Instantiate(sufferingEffect, buff.gameObject.transform.position, new Quaternion()) as GameObject;
+        Buff b = addBuff(p);
         lastFired = GameState.getInstance().getGameTime();
     }
 
@@ -70,6 +71,6 @@ public class Amplifer : Tower
 
     public override string getDescription()
     {
-        return "Name: " + name + "\nBuff:" + buffApplied + "\nRange: " + rangeBase + "\nCooldown: " + cooldownBase;
+        return "Name: " + "\nRange: " + rangeBase + "\nCooldown: " + cooldownBase;
     }
 }
