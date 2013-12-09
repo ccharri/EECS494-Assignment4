@@ -83,7 +83,6 @@ public class GameNetworkManager : MonoBehaviour {
 		connected = true;
 		string myname = PlayerPrefs.GetString("userName");
 		NameDatabase.addName(Network.player.guid, myname);
-		RaceDatabase.setRace(Network.player, raceListKey[raceListEntry]);
 		networkView.RPC ("registerName", RPCMode.Server, myname, Network.player.guid);
 		networkView.RPC ("requestNames", RPCMode.Server);
 	}
