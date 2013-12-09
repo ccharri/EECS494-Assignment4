@@ -1014,11 +1014,17 @@ public class GameState : MonoBehaviour
 			return;
 		}
 
+		GameObject prefab = upgrade.prefab;
+
 		Vector3 pos = t.transform.position;
 
+		removeTower(t.networkView.viewID, player);
+		networkView.RPC ("removeTower", RPCMode.Others, t.networkView.viewID, player);
+		Network.Destroy(obj);
+		
 		ps.gold -= cost;
 
-		t = ((GameObject)Network.Instantiate(upgrade.prefab, pos, upgrade.prefab.transform.rotation, 0)).GetComponent<Tower>();
+		t = ((GameObject)Network.Instantiate(prefab, pos, prefab.transform.rotation, 0)).GetComponent<Tower>();
 		
 		if (!(Network.player == player))
 			networkView.RPC("setGold", player, ps.gold, player);
@@ -1026,9 +1032,6 @@ public class GameState : MonoBehaviour
 		//Add tower to tower lists
 		addTower(t.networkView.viewID, player);
 		networkView.RPC("addTower", RPCMode.Others, t.networkView.viewID, player);
-		
-		
-		Network.Destroy(obj);
 	}
 	
 	//-----------------------------------------------------
