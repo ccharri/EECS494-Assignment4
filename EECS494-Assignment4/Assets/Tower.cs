@@ -60,7 +60,9 @@ public abstract class Tower: Spawnable, Selectable
         }
     }
 
-    public virtual void mouseOverOn() { }
-    public virtual void mouseOverOff() { }
+    public virtual void OnMouseEnter() { mouseOver = true; }
+    public virtual void OnMouseExit() { mouseOver = false; }
+    public virtual void mouseOverOn() { mouseOver = true; }
+    public virtual void mouseOverOff() { mouseOver = false; }
 }
 
