@@ -34,6 +34,11 @@ public class ShowSelected : MonoBehaviour {
 		{
 			//selected = rhit.transform.gameObject;
 			selected = rhit.collider.gameObject.GetComponent<Tower>();
+//			if(selected.getOwner() != Network.player.guid)
+//			{
+//				selected = null;
+//				return;
+//			}
 			renderer.enabled = true;
 		}
 		else

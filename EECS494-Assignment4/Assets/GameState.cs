@@ -356,7 +356,7 @@ public class GameState : MonoBehaviour
     {
         GUILayout.BeginVertical("box", GUILayout.ExpandHeight(true));
 
-		if(selection.selected != null)
+		if(selection.selected != null && (selection.selected.getOwner() != Network.player.guid))
 		{
 			if(selection.selected.upgrade != null)
 			{
