@@ -147,7 +147,7 @@ public class PathingManager : MonoBehaviour {
 			enqueueNode(enqueuedNodes, visitedNodes, grid, evalNode, x, z - 1, 1);
 		}
 
-        for (int i = -25; i <= 25; i++)
+        /*for (int i = -25; i <= 25; i++)
         {
             for (int j = zmin; j <= zmax; j++)
             {
@@ -171,24 +171,7 @@ public class PathingManager : MonoBehaviour {
                     }
                     visitedNodes[i][j].bestNode = last;
 
-                    /*path.Clear();
-                    PathingNode prevBest = temp;
-                    last = visitedNodes[i][j].nextNode;
-                    if (temp == last) break;
-                    for (temp = visitedNodes[i][j].nextNode; !temp.Equals(prevBest); temp = temp.nextNode)
-                    {
-                        path.Push(temp);
-                        //Debug.Log("pushing node " + temp.x + "," + temp.z);
-                    }
-                    for (temp = path.Pop(); !temp.Equals(last); temp = path.Pop())
-                    {
-                        //Debug.Log("popped node" + temp.x + "," + temp.z);
-                        dest.x = temp.x;
-                        dest.z = temp.z;
-                        dir = dest - origin;
-                        if (!Physics.Raycast(origin, dir, dir.magnitude, towerMask)) break;
-                    }
-                    visitedNodes[i][j].bestNode = temp;*/
+                    
                 }
                 else //go forward
                 {
@@ -204,7 +187,7 @@ public class PathingManager : MonoBehaviour {
                     visitedNodes[i][j].bestNode = last;
                 }
             }
-        }
+        }*/
 	
 //		if(grid == player1Zone)
 //		{

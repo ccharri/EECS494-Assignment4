@@ -101,6 +101,7 @@ public class Creep : Spawnable, Selectable
 //        	navAgent.speed = speed.get();
 
 			Vector3 dest = getDestination();
+            Debug.Log("dest = " + dest.x + "," + dest.z);
 
 			transform.position = Vector3.MoveTowards(transform.position, dest, speed.get()*Time.fixedDeltaTime);
 		}

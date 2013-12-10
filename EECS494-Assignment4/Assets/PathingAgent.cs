@@ -4,12 +4,20 @@ using System.Collections.Generic;
 
 public class PathingAgent : MonoBehaviour {
     public Dictionary<int, Dictionary<int, PathingNode>> grid;
-	public PathingNode curNode;
+	public PathingNode tempNode;
 	public PathingNode nextNode;
+    public LayerMask towerMask;
+    public Vector3 origin;
+    public Vector3 dir;
+    public Vector3 temp;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start ()
+	{
+        if (Network.isClient) nextNode = new PathingNode(25, -12);
+        else nextNode = new PathingNode(-25, 12);
+	    origin.y = 0.1f;
+	    temp.y = 0.1f;
 	}
 	
 	// Update is called once per frame
@@ -33,8 +41,25 @@ public class PathingAgent : MonoBehaviour {
 
 	public Vector3 getNextPos(Vector3 pos)
 	{
-        curNode = grid[(int)(pos.x + 0.5f)][(int)(pos.z + 0.5f)];
-        nextNode = curNode.bestNode;
-		return new Vector3(nextNode.x, 0, nextNode.z);
+        Debug.Log("pos = " + pos.x + "," + pos.z);
+	    origin.x = pos.x;
+	    origin.z = pos.z;
+	    temp.x = nextNode.x;
+	    temp.z = nextNode.z;
+	    dir = temp - origin;
+	    if (Physics.Raycast(origin, dir, dir.magnitude, towerMask))
+	    {
+	        nextNode = grid[(int) (pos.x + 0.5f)][(int) (pos.z + 0.5f)].nextNode;
+	    }
+	    else
+	    {
+	        for (tempNode = nextNode.nextNode; !nextNode.Equals(tempNode); tempNode = tempNode.nextNode)
+	        {
+	            if (Physics.Raycast(origin, dir, dir.magnitude, towerMask)) break;
+	            nextNode = tempNode;
+	        }
+	    }
+
+	    return new Vector3(nextNode.x, 0, nextNode.z);
 	}
 }

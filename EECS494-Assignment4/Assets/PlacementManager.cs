@@ -70,12 +70,12 @@ public class PlacementManager : MonoBehaviour {
 		}
 		
 		path = new List<PathingNode>();
-		PathingNode next = start.bestNode;
+		PathingNode next = start.nextNode;
 		path.Add(next);
 		int count = 0;
 		while(next != end && count < 1000)
 		{
-			next = next.bestNode;
+			next = next.nextNode;
 			path.Add(next);
 			count++;
 		}
