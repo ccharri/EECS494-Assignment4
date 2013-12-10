@@ -202,8 +202,6 @@ public class GameState : MonoBehaviour
         GUILayout.BeginVertical();
 		GUILayout.BeginHorizontal();
         OnGUI_TopBar();
-		GUILayout.FlexibleSpace();
-        OnGUI_ScoreBoard();
 		GUILayout.EndHorizontal();
         GUILayout.FlexibleSpace();
         OnGUI_TowerBar();
@@ -253,37 +251,59 @@ public class GameState : MonoBehaviour
 
     void OnGUI_TopBar()
     {
-        GUILayout.BeginHorizontal("box", GUILayout.Height(30));
+		GUILayout.BeginArea(new Rect(0, -35, Screen.width, 75));
+		GUILayout.BeginVertical();
+//		GUILayout.FlexibleSpace();
 
-        var layoutOptions = new GUILayoutOption[] { GUILayout.Height(30) };
 
-        if (GUILayout.Button("Menu", layoutOptions))
+        GUILayout.BeginHorizontal("window");
+
+        if (GUILayout.Button("Menu", GUILayout.Width (200)))
         {
             showMenu = true;
         }
 
         GUILayout.FlexibleSpace();
 
-        var incomeTimerString = "Income Timer: " + ((int)(nextIncomeTime + .5) - (int)(time + .5));
-        GUILayout.Label(incomeTimerString, layoutOptions);
+		GUILayout.Label(NameDatabase.getName(Network.player.guid) + "'s Lives: " + players[Network.player.guid].lives);
+
+		int currGold = 0;
+		int currIncome = 0;
+		foreach (var p in players)
+		{
+			if (p.Value.player.Equals(Network.player))
+			{
+				currGold = p.Value.gold;
+				currIncome = p.Value.income;
+			}
+		}
+		Color last = GUI.color;
+		GUI.color = Color.yellow;
+		GUILayout.Label("Gold: " + currGold);
+		GUI.color = Color.green;
+		GUILayout.Label("Income: " + currIncome);
+		GUI.color = last;
+
+		foreach (var p in players)
+		{
+			if (p.Value.player == Network.player) continue;
+			GUILayout.Label (NameDatabase.getName(p.Value.player.guid) + "'s Lives: " + p.Value.lives);
+		}
+
+		if(players.Count == 1)
+		{
+			GUILayout.FlexibleSpace();
+		}
 
         GUILayout.FlexibleSpace();
 
-
-        int currGold = 0;
-        int currIncome = 0;
-        foreach (var p in players)
-        {
-            if (p.Value.player.Equals(Network.player))
-            {
-                currGold = p.Value.gold;
-                currIncome = p.Value.income;
-            }
-        }
-        var goldIncomeString = "Gold + Income: " + currGold + " + " + currIncome;
-        GUILayout.Label(goldIncomeString, layoutOptions);
+		GUILayout.FlexibleSpace();
 
         GUILayout.EndHorizontal();
+
+
+		GUILayout.EndVertical();
+		GUILayout.EndArea();
     }
 
     void OnGUI_ScoreBoard()
