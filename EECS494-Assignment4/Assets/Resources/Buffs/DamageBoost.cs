@@ -21,19 +21,22 @@ public class DamageBoost : Buff
     }
 
     public override void onApplication()
-    { 
-        gameObject.particleSystem.emissionRate += EMISSION_RATE_BOOST;
+    {
+        if(gameObject.particleSystem != null)
+            gameObject.particleSystem.emissionRate += EMISSION_RATE_BOOST;
     }
 
     public override void onProjectile(Projectile p)
     {
-        p.addDamage(-DAMAGE_BOOST);
-        p.gameObject.particleSystem.emissionRate += EMISSION_RATE_BOOST;
+        p.addDamage(DAMAGE_BOOST);
+        if(p.gameObject.particleSystem != null)
+            p.gameObject.particleSystem.emissionRate += EMISSION_RATE_BOOST;
     }
 
     public override void OnDestroy()
     {
-        gameObject.particleSystem.emissionRate -= EMISSION_RATE_BOOST;
+        if(gameObject.particleSystem != null)
+            gameObject.particleSystem.emissionRate -= EMISSION_RATE_BOOST;
         base.OnDestroy();
     }
 
