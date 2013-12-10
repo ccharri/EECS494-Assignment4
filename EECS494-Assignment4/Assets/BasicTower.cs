@@ -41,8 +41,13 @@ public class BasicTower : Tower
         Projectile p = proj.GetComponent<Projectile>();
         p.setTarget(target);
         p.setOwner(getOwner());
-		p.networkView.RPC("setTargetRPC", RPCMode.Others, target.networkView.viewID);
+        p.networkView.RPC("setTargetRPC", RPCMode.Others, target.networkView.viewID);
         p.setOwningTower(this);
+
+        Buff[] buffs = GetComponents<Buff>();
+        foreach(Buff b in buffs) 
+            b.onProjectile(p);
+  
 		lastFired = GameState.getInstance().getGameTime();
 	}
 	

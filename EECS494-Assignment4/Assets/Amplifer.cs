@@ -42,6 +42,14 @@ public class Amplifer : Tower
         lastFired = GameState.getInstance().getGameTime();
     }
 
+    protected Tower findTarget()
+    {
+        List<Tower> towers = GameState.getInstance().getPlayerTowers(getOwner());
+
+        return towers[0];
+        
+    }
+
     public override string getDescription()
     {
         return "Name: " + "\nRange: " + rangeBase + "\nCooldown: " + cooldownBase;

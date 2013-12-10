@@ -666,6 +666,12 @@ public class GameState : MonoBehaviour
             return creepsByArena[pid];
         return new List<Creep>(); //TODO: Throw an exception?
     }
+    public List<Tower> getPlayerTowers(string pid)
+    {
+        if(towersByPlayer.ContainsKey(pid))
+            return towersByPlayer[pid];
+        return new List<Tower>();
+    }
 
     public void addPlayer(NetworkPlayer player)
     {
