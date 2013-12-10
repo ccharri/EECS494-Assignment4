@@ -48,7 +48,7 @@ public abstract class Tower: Spawnable, Selectable
             var x = Event.current.mousePosition.x;
             var y = Event.current.mousePosition.y;
 
-            GUI.Label(new Rect(x - 150, y + 20, 200, 72), getDescription(), "box");
+            GUI.Label(new Rect(x - 150, y + 20, 220, 132), getDescription(), "box");
 
 
             if(Input.GetMouseButtonDown(0))

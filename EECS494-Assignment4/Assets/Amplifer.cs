@@ -83,8 +83,9 @@ public class Amplifer : Tower
 
     public override string getDescription()
     {
-        return "Name: " + "\nRange: " + rangeBase + 
-                "\nCooldown: " + cooldownBase +
+        return "Name: " + getName() + 
+                "\nRange: " + range.get() + 
+                "\nCooldown: " + cooldown.get() +
                 "\nEffect: Buffs the damage of adjacent towers";
     }
 }
