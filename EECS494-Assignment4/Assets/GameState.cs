@@ -356,11 +356,25 @@ public class GameState : MonoBehaviour
     {
         GUILayout.BeginVertical("box", GUILayout.ExpandHeight(true));
 
-		if(selection.selected != null && (selection.selected.getOwner() != Network.player.guid))
+		if(selection.selected != null && (selection.selected.getOwner() == Network.player.guid))
 		{
+			GUILayout.Label(selection.selected.name);
+
+			GUILayout.BeginVertical("box");
+			GUILayout.Label("Upgrade");
+
 			if(selection.selected.upgrade != null)
 			{
-	        	if (GUILayout.Button("Upgrade to\n" + selection.selected.upgrade.name + "\nfor " + (selection.selected.upgrade.cost - selection.selected.cost) + " Gold."))
+				int cost = selection.selected.upgrade.cost - selection.selected.cost;
+				PlayerState pstate = players[Network.player.guid];
+				Color last = GUI.color;
+				if(cost > pstate.gold)
+				{
+					GUI.color = Color.red;
+					GUI.enabled = false;
+				}
+
+	        	if (GUILayout.Button(selection.selected.upgrade.name))
 	        	{
 					if(Network.isServer)
 					{
@@ -371,6 +385,10 @@ public class GameState : MonoBehaviour
 						networkView.RPC ("tryUpgradeTower", RPCMode.Server, selection.selected.networkView.viewID);
 					}
 	        	}
+				GUI.enabled = true;
+				GUI.color = Color.yellow;
+				GUILayout.Label(cost.ToString() + " Gold");
+				GUI.color = last;
 			}
 			else
 			{
@@ -378,7 +396,7 @@ public class GameState : MonoBehaviour
 				GUILayout.Button("This tower cannot upgrade!");
 				GUI.enabled = true;
 			}
-
+			GUILayout.EndVertical();
 	        GUILayout.FlexibleSpace();
 
 	        if (GUILayout.Button("Sell for " + (int)(selection.selected.cost * .7) + " Gold."))
