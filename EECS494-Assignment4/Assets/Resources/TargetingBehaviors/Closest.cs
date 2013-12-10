@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Closest : TargetingBehavior, TargetingBehaviorProjectile 
+public class Closest : TargetingBehavior, TargetingBehaviorTower
 {
     private static Closest instance;
 
@@ -11,17 +11,17 @@ public class Closest : TargetingBehavior, TargetingBehaviorProjectile
             instance = new Closest();
         return instance;
     }
-    public bool compare(Creep a, Creep b, Tower c)
+    public double compare(Creep a, Creep b, Tower c)
     {
         double distA = (a.transform.position - c.transform.position).sqrMagnitude;
         double distB = (a.transform.position - c.transform.position).sqrMagnitude;
-        return distA <= distB;
+        return distA - distB;
     }
-    public bool compare(Projectile a, Projectile b, Amplifer c)
+    public double compare(Tower a, Tower b, Amplifer c)
     {
         double distA = (a.transform.position - c.transform.position).sqrMagnitude;
         double distB = (a.transform.position - c.transform.position).sqrMagnitude;
-        return distA <= distB;
+        return distA - distB;
     }
 
     private Closest() { }

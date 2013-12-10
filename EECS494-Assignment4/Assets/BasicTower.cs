@@ -63,7 +63,7 @@ public class BasicTower : Tower
             {
                 if(newTarget == null)
                     newTarget = c;
-                else if(behavior.compare(c, newTarget, this))
+                else if(behavior.compare(c, newTarget, this) < 0)
                     newTarget = c;
             }
         }
