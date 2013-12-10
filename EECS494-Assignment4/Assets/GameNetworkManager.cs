@@ -13,23 +13,30 @@ public class GameNetworkManager : MonoBehaviour {
 	private int raceListEntry = 0;
 	private GUIContent[] raceList;
 	private GUIStyle raceListStyle;
-	private bool racePicked = false;
+	private string[] raceListKey;
 
 	public GUISkin skin;
 	
 	void Awake() {
 		Refresh ();
 		NameDatabase.clearNames();
-		gameName = PlayerPrefs.GetString("userName") + gameName;
+		gameName = PlayerPrefs.GetString("userName").Replace('\n', ' ') + gameName;
     }
 	
 	// Use this for initialization
 	void Start () {
+		raceListKey = new string[2];
+		raceListKey[0] = "Undead";
+		raceListKey[1] = "Arcane";
+
 		// Make some content for the popup list
-		raceList = new GUIContent[2];
-		raceList[0] = new GUIContent("Undead");
-		raceList[1] = new GUIContent("Arcane");
-	 
+		raceList = new GUIContent[raceListKey.Length];
+
+		for(int i = 0; i < raceListKey.Length; i++)
+		{
+			raceList[i] = new GUIContent(raceListKey[i]);
+		}
+
 		// Make a GUIStyle that has a solid white hover/onHover background to indicate highlighted items
 		raceListStyle = new GUIStyle();
 		raceListStyle.normal.textColor = Color.white;
@@ -66,6 +73,7 @@ public class GameNetworkManager : MonoBehaviour {
 		connected = true;
 		NameDatabase.clearNames();
 		NameDatabase.addName(Network.player.guid, PlayerPrefs.GetString("userName"));
+		setRace(Network.player, raceListKey[raceListEntry]);
 	}
  
 	void OnConnectedToServer () 
@@ -98,7 +106,8 @@ public class GameNetworkManager : MonoBehaviour {
 
 	void OnPlayerConnected(NetworkPlayer player)
 	{
-
+		requestRace (player, raceListKey[0]);
+		networkView.RPC ("setRace", player, Network.player, RaceDatabase.getRace(Network.player));
 	}
 
 	void OnPlayerDisconnected(NetworkPlayer player)
@@ -373,10 +382,38 @@ public class GameNetworkManager : MonoBehaviour {
 		}
 		GUILayout.FlexibleSpace();
 
+		if(player == Network.player)
+		{
+			GUILayout.Label (new GUIContent("",  "Click to pick a Race!"), "", GUILayout.Width (125));
+			if(GUI.tooltip != "")
+			{
+				GUI.Label(new Rect(Input.mousePosition.x - 50, Screen.height - Input.mousePosition.y - 50, 200, 30), "Click to pick a Race!");
+			}
 
-    //if (Popup.List(new Rect(50, 100, 100, 20), ref raceListShow, ref raceListEntry, new GUIContent("Click me!"), raceList, raceListStyle)) {
-    //  racePicked = true;
-    //}
+			Rect popupRect = GUILayoutUtility.GetLastRect();
+
+			if(player == Network.player)
+			{
+				if (Popup.List(popupRect, ref raceListShow, ref raceListEntry, new GUIContent(RaceDatabase.getRace(Network.player)), raceList, "button", "box",raceListStyle)) 
+				{
+					if(Network.isServer)
+					{
+						requestRace(Network.player, raceListKey[raceListEntry]);
+					}
+					else
+					{
+						networkView.RPC("requestRace", RPCMode.Server, Network.player, raceListKey[raceListEntry]);
+					}
+
+				}
+			}
+		}
+		else
+		{
+			GUILayout.Label(RaceDatabase.getRace(player));
+		}
+
+		GUILayout.FlexibleSpace();
 
 		GUILayout.Label ("Ping: " + Network.GetAveragePing(player), GUILayout.Width(150));
 
@@ -424,4 +461,38 @@ public class GameNetworkManager : MonoBehaviour {
 		NameDatabase.removeName(key);
 	}
 
+	[RPC]
+	void requestRace(NetworkPlayer player, string race, NetworkMessageInfo info)
+	{
+		if(Network.isClient)
+		{
+			Debug.Log ("Client should not receive requestRace RPCs!");
+			return;
+		}
+
+		requestRace(player, race);
+	}
+	
+	void requestRace(NetworkPlayer player, string race)
+	{
+		setRace (player, race);
+		networkView.RPC("setRace", RPCMode.Others, player, race);
+	}
+
+	[RPC]
+	void setRace(NetworkPlayer player, string race, NetworkMessageInfo info)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive setRace RPCs!");
+			return;
+		}
+
+		setRace (player, race);
+	}
+
+	void setRace(NetworkPlayer player, string race)
+	{
+		RaceDatabase.setRace(player, race);
+	}
 }

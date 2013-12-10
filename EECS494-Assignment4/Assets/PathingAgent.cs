@@ -14,6 +14,7 @@ public class PathingAgent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {/*
+		if(Network.isClient) return;
 		if(nextNode == null)
 		{
 			nextNode = curNode.bestNode;

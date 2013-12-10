@@ -44,6 +44,8 @@ public class GameState : MonoBehaviour
 
 	public Color tintColor;
 
+	public ShowSelected selection;
+
     public static GameState getInstance()
     {
         if (instance == null)
@@ -80,7 +82,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
-            Camera.main.transform.position = new Vector3(50, pos.y, pos.z);
+            Camera.main.transform.position = new Vector3(-pos.x, pos.y, pos.z);
 			Camera.main.transform.Rotate(120, 180 ,0);
             incomeTimer.gameObject.transform.Rotate(Vector3.up, 180.0f);
             player1Terrain.tag = "Unbuildable";
@@ -354,17 +356,43 @@ public class GameState : MonoBehaviour
     {
         GUILayout.BeginVertical("box", GUILayout.ExpandHeight(true));
 
-        if (GUILayout.Button("Upgrade to ??? - " + "GOLD"))
-        {
+		if(selection.selected != null && (selection.selected.getOwner() != Network.player.guid))
+		{
+			if(selection.selected.upgrade != null)
+			{
+	        	if (GUILayout.Button("Upgrade to\n" + selection.selected.upgrade.name + "\nfor " + (selection.selected.upgrade.cost - selection.selected.cost) + " Gold."))
+	        	{
+					if(Network.isServer)
+					{
+						tryUpgradeTower(selection.selected.networkView.viewID, Network.player);
+					}
+					else
+					{
+						networkView.RPC ("tryUpgradeTower", RPCMode.Server, selection.selected.networkView.viewID);
+					}
+	        	}
+			}
+			else
+			{
+				GUI.enabled = false;
+				GUILayout.Button("This tower cannot upgrade!");
+				GUI.enabled = true;
+			}
 
-        }
+	        GUILayout.FlexibleSpace();
 
-        GUILayout.FlexibleSpace();
-
-        if (GUILayout.Button("Sell for " + "GOLD"))
-        {
-
-        }
+	        if (GUILayout.Button("Sell for " + (int)(selection.selected.cost * .7) + " Gold."))
+	        {
+				if(Network.isServer)
+				{
+					trySellTower(selection.selected.networkView.viewID, Network.player);
+				}
+				else
+				{
+					networkView.RPC("trySellTower", RPCMode.Server, selection.selected.networkView.viewID);
+				}
+	        }
+		}
 
         GUILayout.EndVertical();
     }
@@ -851,7 +879,7 @@ public class GameState : MonoBehaviour
     */
 
         UnitSpawn us;
-        if (null == (us = players[Network.player.guid].race.getUnitSpawnMap(player_.guid)[creepName_]))
+        if (null == (us = players[player_.guid].race.getUnitSpawnMap(player_.guid)[creepName_]))
         {
             Debug.Log("Player's Race UnitSpawnMap does not have creeps of type " + creepName_ + "!");
             return;
@@ -919,7 +947,101 @@ public class GameState : MonoBehaviour
         */
     }
 
-    //-----------------------------------------------------
+	[RPC]
+	void trySellTower(NetworkViewID id, NetworkMessageInfo info_)
+	{
+		if(Network.isClient)
+		{
+			Debug.Log ("Client should not receive trySellTower RPC Calls!");
+			return;
+		}
+
+		trySellTower(id, info_.sender);
+	}
+
+	void trySellTower(NetworkViewID id, NetworkPlayer player)
+	{
+		GameObject obj = NetworkView.Find(id).gameObject;
+		Tower t = obj.GetComponent<Tower>();
+
+		if(t.getOwner() != player.guid)
+		{
+			Debug.Log ("Owning player is not sender of sell call!");
+			return;
+		}
+
+		PlayerState ps = players[player.guid];
+		ps.gold += (int)(t.cost*.7);
+		
+		//We know we're the server, so if the player we're updating isn't us, go ahead and RPC
+		if (ps.player != Network.player)
+			networkView.RPC("setGold", ps.player, ps.gold, ps.player);
+
+		Network.Destroy(obj);
+	}
+
+	[RPC]
+	void tryUpgradeTower(NetworkViewID id, NetworkMessageInfo info_)
+	{
+		if(Network.isClient)
+		{
+			Debug.Log("Client should not receive tryUpgradeTower RPC Calls!");
+			return;
+		}
+
+		tryUpgradeTower (id, info_.sender);
+	}
+
+	void tryUpgradeTower(NetworkViewID id, NetworkPlayer player)
+	{
+		GameObject obj = NetworkView.Find(id).gameObject;
+		Tower t = obj.GetComponent<Tower>();
+
+		if(t.getOwner() != player.guid)
+		{
+			Debug.Log ("Owning player is not sender of upgrade call!");
+			return;
+		}
+
+		Tower upgrade = t.upgrade;
+
+		if(upgrade == null)
+		{
+			Debug.Log ("Tower has no upgrade.");
+			return;
+		}
+
+		int cost = upgrade.cost - t.cost;
+
+		PlayerState ps = players[player.guid];
+
+		if(ps.gold < cost)
+		{
+			Debug.Log ("Player does not have enough money!");
+			return;
+		}
+
+		GameObject prefab = upgrade.prefab;
+
+		Vector3 pos = t.transform.position;
+
+		removeTower(t.networkView.viewID, player);
+		networkView.RPC ("removeTower", RPCMode.Others, t.networkView.viewID, player);
+		Network.Destroy(obj);
+		
+		ps.gold -= cost;
+
+		t = ((GameObject)Network.Instantiate(prefab, pos, prefab.transform.rotation, 0)).GetComponent<Tower>();
+		
+		if (!(Network.player == player))
+			networkView.RPC("setGold", player, ps.gold, player);
+		
+		//Add tower to tower lists
+		addTower(t.networkView.viewID, player);
+		networkView.RPC("addTower", RPCMode.Others, t.networkView.viewID, player);
+	}
+	
+	//-----------------------------------------------------
     //Client RPCs
     //-----------------------------------------------------
 
@@ -986,7 +1108,7 @@ public class GameState : MonoBehaviour
 
     void initializePlayer(NetworkPlayer player)
     {
-        players.Add(player.guid, new PlayerState(player, raceMan.raceMap["Undead"]));
+        players.Add(player.guid, new PlayerState(player, raceMan.raceMap[RaceDatabase.getRace(player)]));
         creepsByArena.Add(player.guid, new List<Creep>());
         towersByPlayer.Add(player.guid, new List<Tower>());
         spawns.Add(player.guid, new SpawnerState(player));
