@@ -1064,6 +1064,9 @@ public class GameState : MonoBehaviour
 
 		PlayerState ps = players[player.guid];
 		ps.gold += (int)(t.cost*.7);
+
+		removeTower(obj.networkView.viewID, getPlayer (t.getOwner()));
+		networkView.RPC ("removeTower", RPCMode.Others, obj.networkView.viewID, t.getOwner());
 		
 		//We know we're the server, so if the player we're updating isn't us, go ahead and RPC
 		if (ps.player != Network.player)
