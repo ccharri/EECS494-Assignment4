@@ -46,6 +46,8 @@ public class GameState : MonoBehaviour
 
 	public ShowSelected selection;
 
+  public Texture hpBar_texture;
+
     public static GameState getInstance()
     {
         if (instance == null)

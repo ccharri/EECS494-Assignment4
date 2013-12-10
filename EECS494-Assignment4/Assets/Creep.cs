@@ -134,6 +134,15 @@ public class Creep : Spawnable, Selectable
 
             GUI.Label(new Rect(x - 150, y + 20, 200, 72), getDescription(), "box");
         }
+
+        if (getHealth() < getHealthMax())
+        {
+            Vector3 pos = GameState.getInstance().mainCamera.WorldToScreenPoint((gameObject.transform.position + new Vector3(0, 3, 0)));
+            var percent_health = getHealth() / getHealthMax();
+            var texture = GameState.getInstance().hpBar_texture;
+
+            GUI.DrawTexture(new Rect(pos.x - 8, Screen.height - pos.y, 25 * percent_health, 3), texture);
+        }
     }
 
 	public void mouseOverOn()
