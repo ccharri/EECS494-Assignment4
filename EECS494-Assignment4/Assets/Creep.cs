@@ -160,7 +160,7 @@ public class Creep : Spawnable, Selectable
 	void update(Vector3 position_, float damage_, NetworkMessageInfo info_)
 	{
 		Debug.Log ("Updating position = " + position_);
-		lerpPos = getDestination();
+		lerpPos = position_
 		health.setFlat(damage_);
 		StartCoroutine("lerpPosition");
 	}
