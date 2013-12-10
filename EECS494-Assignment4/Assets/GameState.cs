@@ -425,6 +425,7 @@ public class GameState : MonoBehaviour
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
         GUILayout.Label("Creeps");
+		GUILayout.Label(pState.creepUpgradeLevel.ToString());
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
 
