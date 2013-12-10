@@ -14,8 +14,8 @@ public class PathingAgent : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-        if (Network.isClient) nextNode = new PathingNode(25, -12);
-        else nextNode = new PathingNode(-25, 12);
+//        if (Network.isClient) nextNode = new PathingNode(25, -12);
+//        else nextNode = new PathingNode(-25, 12);
 	    origin.y = 0.1f;
 	    temp.y = 0.1f;
 	}
