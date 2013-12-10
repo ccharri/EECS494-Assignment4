@@ -104,6 +104,7 @@ public class Creep : Spawnable, Selectable
             Debug.Log("dest = " + dest.x + "," + dest.z);
 
 			transform.position = Vector3.MoveTowards(transform.position, dest, speed.get()*Time.fixedDeltaTime);
+			transform.LookAt(dest);
 		}
     }
 
