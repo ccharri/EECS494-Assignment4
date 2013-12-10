@@ -2,15 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GameState.cs">
     <Files>
-      <File FileName="Assets/PathingManager.cs" Line="267" Column="112" />
-      <File FileName="Assets/PlacementHelper.cs" Line="1" Column="1" />
-      <File FileName="Assets/PlacementManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/GameState.cs" Line="44" Column="1" />
-      <File FileName="Assets/MainMenuManager.cs" Line="31" Column="57" />
-      <File FileName="Assets/GameNetworkManager.cs" Line="214" Column="24" />
-      <File FileName="Assets/Necromancer GUI/GUITestScript.js" Line="1" Column="1" />
-      <File FileName="Assets/TargetingBehavior.cs" Line="1" Column="19" />
-      <File FileName="Assets/TargetingBehaviorProjectile.cs" Line="8" Column="1" />
+      <File FileName="Assets/GameState.cs" Line="201" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

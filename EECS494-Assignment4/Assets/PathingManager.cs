@@ -27,8 +27,12 @@ public class PathingManager : MonoBehaviour {
 
     public LayerMask towerMask;
 
+    public Stack<PathingNode> path;
+
 	void Awake()
 	{
+        towerMask = LayerMask.NameToLayer("Tower");
+        path = new Stack<PathingNode>();
 		//Create zones
 		
 		//Player 1
@@ -106,20 +110,20 @@ public class PathingManager : MonoBehaviour {
 
 	public void recalculate(Dictionary<int, Dictionary<int, PathingNode>> grid, PathingNode endNode)
 	{
-		int xmin, xmax;
+		int zmin, zmax;
 		if(grid == player1Zone || grid == player1ZoneShadow)
 		{
-			xmin = -25;
-			xmax = 25;
+			zmin = 2;
+			zmax = 22;
 		}
 		else
 		{
-			xmin = -25;
-			xmax = 25;
+			zmin = -22;
+            zmax = -2;
 		}
 
 		Dictionary<int, Dictionary<int, PathingNode>> visitedNodes = new Dictionary<int, Dictionary<int, PathingNode>>();
-		for(int i = xmin; i <= xmax; i++)
+		for(int i = -25; i <= 25; i++)
 		{
 			visitedNodes[i] = new Dictionary<int, PathingNode>();
 		}
@@ -144,23 +148,50 @@ public class PathingManager : MonoBehaviour {
 			enqueueNode(enqueuedNodes, visitedNodes, grid, evalNode, x, z - 1, 1);
 		}
 
-        for (int i = 0; i < visitedNodes.Count; i++)
+        for (int i = -25; i <= 25; i++)
         {
-            if (!visitedNodes.ContainsKey(i)) continue;
-            for (int j = 0; j < visitedNodes[i].Count; j++)
+            for (int j = zmin; j <= zmax; j++)
             {
                 if (!visitedNodes[i].ContainsKey(j)) continue;
 
                 PathingNode temp = visitedNodes[i][j].bestNode;
-                if (Physics.Raycast())
-
-
-
                 PathingNode last = visitedNodes[i][j];
-                for (PathingNode temp = visitedNodes[i][j].bestNode; (!temp.Equals(endNode)); temp = temp.nextNode)
+                Vector3 origin = new Vector3(last.x, 0.1f, last.z);
+                Vector3 dest = new Vector3(temp.x, 0.1f, temp.z);
+                Vector3 dir = dest - origin;
+                if (Physics.Raycast(origin, dir, dir.magnitude, towerMask)) //back up
                 {
-                    
+                    path.Clear();
+                    PathingNode prevBest = temp;
+                    last = visitedNodes[i][j].nextNode;
+                    if (temp == last) break;
+                    for (temp = visitedNodes[i][j].nextNode; !temp.Equals(prevBest); temp = temp.nextNode)
+                    {
+                        path.Push(temp);
+                        //Debug.Log("pushing node " + temp.x + "," + temp.z);
+                    }
+                    for (temp = path.Pop(); !temp.Equals(last); temp = path.Pop())
+                    {
+                        //Debug.Log("popped node" + temp.x + "," + temp.z);
+                        dest.x = temp.x;
+                        dest.z = temp.z;
+                        dir = dest - origin;
+                        if (!Physics.Raycast(origin, dir, dir.magnitude, towerMask)) break;
+                    }
+                    visitedNodes[i][j].bestNode = temp;
+                }
+                else //go forward
+                {
                     last = temp;
+                    for (temp = temp.nextNode; (!temp.Equals(endNode)); temp = temp.nextNode)
+                    {
+                        dest.x = temp.x;
+                        dest.z = temp.z;
+                        dir = dest - origin;
+                        if (Physics.Raycast(origin, dir, dir.magnitude, towerMask)) break;
+                        last = temp;
+                    }
+                    visitedNodes[i][j].bestNode = last;
                 }
             }
         }

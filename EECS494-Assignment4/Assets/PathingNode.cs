@@ -15,6 +15,7 @@ public class PathingNode {
 		z = z_;
 		pathable = true;
 		bestNode = this;
+	    nextNode = this;
 	}
 
 	public Vector3 getPos()

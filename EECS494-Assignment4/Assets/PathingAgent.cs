@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PathingAgent : MonoBehaviour {
-	public PathingNode lastNode;
+    public Dictionary<int, Dictionary<int, PathingNode>> grid;
+	public PathingNode curNode;
 	public PathingNode nextNode;
 
 	// Use this for initialization
@@ -11,25 +13,27 @@ public class PathingAgent : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () {/*
 		if(nextNode == null)
 		{
-			nextNode = lastNode.bestNode;
+			nextNode = curNode.bestNode;
 		}
 
 		if((transform.position.x == nextNode.x) && (transform.position.z == nextNode.z))
 		{
-			lastNode = nextNode;
-			nextNode = lastNode.bestNode;
+			curNode = nextNode;
+			nextNode = curNode.bestNode;
 		}
 		else
 		{
-			nextNode = lastNode.bestNode;
-		}
+			nextNode = curNode.bestNode;
+		}*/
 	}
 
-	public Vector3 getNextPos()
+	public Vector3 getNextPos(Vector3 pos)
 	{
+        curNode = grid[(int)(pos.x + 0.5f)][(int)(pos.z + 0.5f)];
+        nextNode = curNode.bestNode;
 		return new Vector3(nextNode.x, 0, nextNode.z);
 	}
 }
