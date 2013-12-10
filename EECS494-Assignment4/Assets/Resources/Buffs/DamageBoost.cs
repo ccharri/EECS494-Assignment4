@@ -28,13 +28,14 @@ public class DamageBoost : Buff
         p.addDamage(DAMAGE_BOOST);
         gameObject.particleSystem.emissionRate += EMISSION_RATE_BOOST;
     }
-    public override void onRemoval() 
+    public override void OnDestroy()
     {
         Projectile p = GetComponent<Projectile>();
         if(p == null)
             return;
         p.addDamage(-DAMAGE_BOOST);
         gameObject.particleSystem.emissionRate -= EMISSION_RATE_BOOST;
+        base.OnDestroy();
     }
 
     public override void FixedUpdate()

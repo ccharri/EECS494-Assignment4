@@ -29,20 +29,22 @@ public abstract class Buff : MonoBehaviour
     }
 
     public virtual void Init(int level_)
+    //DOES: Sets up the intial attributes of the buff
     {
         level = level_;   
     }
 
-    public virtual void onRemoval()
-    { 
-        Destroy(this);
-    }
-    public virtual void onApplication()
+    public virtual void onApplication() 
+    //DOES: Called when the buff should apply to the unit
     {
         buffEnabled = true;
     }
+    
+    public virtual void onProjectile(Projectile p) {} 
+    //DOES: Called by anything which launches a projectile
 
-    public void OnDestroy()
+    public virtual void OnDestroy()
+    //DOES: Called when the buff needs to be cleaned up
     {
         Destroy(effect);
     }
@@ -55,7 +57,7 @@ public abstract class Buff : MonoBehaviour
         duration -= Time.deltaTime;
         if (duration <= 0)
         {
-            onRemoval();
+            Destroy(this);
         }
 
         if(effect != null)

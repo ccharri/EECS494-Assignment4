@@ -40,6 +40,7 @@ public class BasicTower : Tower
         GameObject proj = Network.Instantiate(toFire, transform.position + firePoint, transform.rotation, 0) as GameObject;
         Projectile p = proj.GetComponent<Projectile>();
         p.setTarget(target);
+        p.setOwner(getOwner());
 		p.networkView.RPC("setTargetRPC", RPCMode.Others, target.networkView.viewID);
         p.setOwningTower(this);
 		lastFired = GameState.getInstance().getGameTime();

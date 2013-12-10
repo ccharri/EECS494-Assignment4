@@ -27,7 +27,6 @@ public class OnFire : Buff
             Destroy(this);
         }
     }
-    public override void onRemoval() {}
 
     public override void FixedUpdate()
     {
