@@ -6,6 +6,7 @@ public class Amplifer : Tower
 {
     //External Editor Attributess
     public int buffAppliedLevel = 1;
+    public static float standardCooldown = 5;
 
     //Internal Book-Keeping
     protected TargetingBehaviorTower behavior = Closest.getInstance();
@@ -82,6 +83,8 @@ public class Amplifer : Tower
 
     public override string getDescription()
     {
-        return "Name: " + "\nRange: " + rangeBase + "\nCooldown: " + cooldownBase;
+        return "Name: " + "\nRange: " + rangeBase + 
+                "\nCooldown: " + cooldownBase +
+                "\nEffect: Buffs the damage of adjacent towers";
     }
 }

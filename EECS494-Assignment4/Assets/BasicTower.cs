@@ -79,6 +79,10 @@ public class BasicTower : Tower
 
     public override string getDescription()
     {
-        return "Name: " + name + "\nDamage: " + toFire.GetComponent<Projectile>().damageBase + "\nRange: " + rangeBase + "\nCooldown: " + cooldownBase;
+        return  "Name: " + name + "\nDamage: " + toFire.GetComponent<Projectile>().damageBase + 
+                "\nRange: " + rangeBase + 
+                "\nCooldown: " + cooldownBase +
+                "Buffs: " +
+                getBuffDescription();
     }
 }
