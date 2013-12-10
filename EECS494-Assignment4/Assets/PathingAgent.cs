@@ -50,15 +50,20 @@ public class PathingAgent : MonoBehaviour {
 	    if (Physics.Raycast(origin, dir, dir.magnitude, towerMask))
 	    {
 	        nextNode = grid[(int) (pos.x + 0.5f)][(int) (pos.z + 0.5f)].nextNode;
+			Debug.Log ("Tower found");
 	    }
 	    else
 	    {
+			Debug.Log ("Tower not found");
 	        for (tempNode = nextNode.nextNode; !nextNode.Equals(tempNode); tempNode = tempNode.nextNode)
 	        {
+				dir = tempNode.getPos() - origin;
 	            if (Physics.Raycast(origin, dir, dir.magnitude, towerMask)) break;
 	            nextNode = tempNode;
 	        }
 	    }
+
+		Debug.Log("Next node = {"+nextNode.x+","+nextNode.z+"}");
 
 	    return new Vector3(nextNode.x, 0, nextNode.z);
 	}
