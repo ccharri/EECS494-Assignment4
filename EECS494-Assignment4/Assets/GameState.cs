@@ -431,8 +431,12 @@ public class GameState : MonoBehaviour
         foreach (KeyValuePair<string, Creep> entry in pState.race.creepMap.Reverse())
         {
             GUILayout.BeginHorizontal();
+
+			var usm = players[Network.player.guid].race.getUnitSpawnMap(Network.player.guid);
+			UnitSpawn us = usm[entry.Key];
+
             Color oldColor = GUI.color;
-            bool canUse = entry.Value.cost <= pState.gold;
+            bool canUse = us.cost <= pState.gold;
             if (!canUse)
             {
                 GUI.color = Color.red;
@@ -441,8 +445,7 @@ public class GameState : MonoBehaviour
 
 
             //UnitSpawn us = pState.race.getUnitSpawn(entry.Key);
-            var usm = players[Network.player.guid].race.getUnitSpawnMap(Network.player.guid);
-            UnitSpawn us = usm[entry.Key];
+
 
             if (us.currentStock <= 0)
             {
@@ -466,9 +469,9 @@ public class GameState : MonoBehaviour
             GUILayout.BeginHorizontal();
 
             GUI.color = Color.yellow;
-            GUILayout.Label(entry.Value.cost.ToString()/* + " Gold"*/);
+            GUILayout.Label(us.cost.ToString()/* + " Gold"*/);
             GUI.color = Color.green;
-            GUILayout.Label("+" + entry.Value.bounty.ToString()/* + " Income"*/);
+            GUILayout.Label("+" + us.income.ToString()/* + " Income"*/);
             GUILayout.EndHorizontal();
 
             if (us == null) { Debug.Log("Not UnitSpawn found for creep: " + entry.Key + "!"); }
@@ -482,7 +485,7 @@ public class GameState : MonoBehaviour
                 if (time < us.initialStockTime)
                     GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.initialStockTime - time));
                 else
-                    GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + (int)(us.restockTime - ((time - us.initialStockTime) % us.restockTime)));
+					GUILayout.Label("Stock: " + us.currentStock + " / " + us.maxStock + " : " + ((us.currentStock == us.maxStock) ? "-" : ((int)(((time < us.initialStockTime) ? us.initialStockTime : us.lastRestock + us.restockTime) - time )).ToString()));
             }
             GUI.color = oldColor;
 
@@ -495,9 +498,40 @@ public class GameState : MonoBehaviour
 
         //Upgrade Buttons
         GUILayout.FlexibleSpace();
-        GUILayout.BeginHorizontal();
-        GUILayout.Button("Upgrade Creeps", GUILayout.ExpandWidth(true));
-        GUILayout.EndHorizontal();
+		GUILayout.BeginVertical("box");
+
+		int cost = 500;
+		for(int i = 0; i < pState.creepUpgradeLevel; i++)
+		{
+			cost *= 2;
+		}
+
+		Color last = GUI.color;
+
+		if(cost > pState.gold)
+		{
+			GUI.color = Color.red;
+			GUI.enabled = false;
+		}
+
+        if(GUILayout.Button("Upgrade Creeps", GUILayout.ExpandWidth(true)))
+		{
+			if(Network.isServer)
+			{
+				tryUpgradeCreeps(Network.player);
+			}
+			else
+			{
+				networkView.RPC ("tryUpgradeCreeps", RPCMode.Server);
+			}
+		}
+		GUI.enabled = true;
+
+		GUI.color = Color.yellow;
+		GUILayout.Label(cost.ToString());
+		GUI.color = last;
+
+        GUILayout.EndVertical();
         GUILayout.EndVertical();
 
         GUILayout.EndArea();
@@ -892,8 +926,6 @@ public class GameState : MonoBehaviour
         PlayerState ps;
         if (null == (ps = players[player_.guid])) { Debug.Log("Player " + player_ + " does not exist!"); return; }
         if (!ps.race.creepMap.ContainsKey(creepName_)) { Debug.Log("Player's Race cannot build a creep of type " + creepName_ + "!"); return; }
-        c = ps.race.getCreep(creepName_);
-        if (c.cost > ps.gold) { Debug.Log("Player does not have enough money to build this creep!"); return; }
 
         /*SpawnerState ss = spawns[player_.guid];
         UnitSpawn us;
@@ -914,6 +946,9 @@ public class GameState : MonoBehaviour
             return;
         }
 
+		c = ps.race.getCreep(creepName_);
+		if (us.cost > ps.gold) { Debug.Log("Player does not have enough money to build this creep!"); return; }
+
         //Spawn creep and set destination afterwards
         foreach (PlayerState pstate in players.Values)
         {
@@ -922,13 +957,25 @@ public class GameState : MonoBehaviour
 
             c = ((GameObject)Network.Instantiate(c.prefab, player == Network.player ? pathMan.player1Spawn.getPos() : pathMan.player2Spawn.getPos(), Quaternion.identity, 0)).GetComponent<Creep>();
 
-            ps.gold -= c.cost;
+			int health = (int)c.getHealth();
+			for(int i = 0; i < pstate.creepUpgradeLevel; i++)
+			{
+				health *= 2;
+			}
+
+			c.setHealth(health);
+			c.networkView.RPC("setHealthRPC", RPCMode.Others, health);
+
+			c.setBounty(us.income);
+			c.networkView.RPC("setBountyRPC", RPCMode.Others, us.income);
+
+            ps.gold -= us.cost;
 
             if (!(Network.player == player_))
                 networkView.RPC("setGold", player_, ps.gold, player_);
 
             //Increase player income
-            ps.income += c.bounty;
+            ps.income += us.income;
 
             if (!(Network.player == player_))
                 networkView.RPC("setIncome", player_, ps.income, player_);
@@ -1063,6 +1110,47 @@ public class GameState : MonoBehaviour
 		//Add tower to tower lists
 		addTower(t.networkView.viewID, player);
 		networkView.RPC("addTower", RPCMode.Others, t.networkView.viewID, player);
+	}
+
+	[RPC]
+	void tryUpgradeCreeps(NetworkMessageInfo info_)
+	{
+		if(Network.isClient)
+		{
+			Debug.Log("Client should not receive tryUpgradeCreeps RPCs!");
+			return;
+		}
+
+		tryUpgradeCreeps(info_.sender);
+	}
+
+	void tryUpgradeCreeps(NetworkPlayer player)
+	{
+		int cost = 500;
+
+		PlayerState pstate = players[player.guid];
+
+		for(int i = 0; i < pstate.creepUpgradeLevel; i++)
+		{
+			cost *= 2;
+		}
+
+		if(cost > pstate.gold)
+		{
+			Debug.Log ("Player does not have enough gold to upgrade creeps!");
+			return;
+		}
+
+		pstate.gold -= cost;
+		pstate.creepUpgradeLevel += 1;
+		upgradeCreepLevel(player);
+
+		if(player != Network.player)
+		{
+			networkView.RPC("setGold", player, pstate.gold, player);
+			networkView.RPC("setCreepUpgradeLevel", player, pstate.creepUpgradeLevel, player);
+			networkView.RPC("upgradeCreepLevel", player);
+		}
 	}
 	
 	//-----------------------------------------------------
@@ -1356,6 +1444,50 @@ public class GameState : MonoBehaviour
         if (state == null) { Debug.Log("Player " + player_ + " not found!"); return; }
         state.lives = lives_;
     }
+
+	[RPC]
+	void setCreepUpgradeLevel(int level_, NetworkPlayer player_, NetworkMessageInfo info_)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive setCreepUpgradeLevel RPC calls!");
+			return;
+		}
+
+		setCreepUpgradeLevel(level_, player_);
+	}
+
+	void setCreepUpgradeLevel(int level_, NetworkPlayer player_)
+	{
+		PlayerState state = players[player_.guid];
+		if(state == null) {Debug.Log ("Player " + player_ + " not found!"); return; }
+		state.creepUpgradeLevel = level_;
+	}
+
+	[RPC]
+	void upgradeCreepLevel(NetworkMessageInfo info_)
+	{
+		if(Network.isServer)
+		{
+			Debug.Log ("Server should not receive upgradeCreepLevel RPC calls!");
+			return;
+		}
+
+		upgradeCreepLevel(info_.sender);
+	}
+
+	void upgradeCreepLevel(NetworkPlayer player_)
+	{
+		PlayerState pstate = players[player_.guid];
+		if(pstate == null) {Debug.Log ("Player " + player_ + " not found!"); return; }
+		foreach(var spawn in pstate.race.getUnitSpawnMap(player_.guid))
+		{
+			spawn.Value.currentStock = 0;
+			spawn.Value.maxStock += 1;
+			spawn.Value.cost *= 2;
+			spawn.Value.income *= 2;
+		}
+	}
 
     //-----------------------------------------------------
     //SpawnerState setters

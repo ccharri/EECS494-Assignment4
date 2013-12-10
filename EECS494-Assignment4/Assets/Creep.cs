@@ -175,4 +175,16 @@ public class Creep : Spawnable, Selectable
 		}
 	}
 
+	[RPC]
+	void setHealthRPC(int max)
+	{
+		setHealth(max);
+	}
+
+	[RPC]
+	void setBountyRPC(int bounty)
+	{
+		setBounty(bounty);
+	}
+
 }

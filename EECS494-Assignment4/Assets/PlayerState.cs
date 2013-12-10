@@ -10,6 +10,7 @@ public class PlayerState{
 		lives = 10;
 		race = race_;
    		race.addUnitSpawnMap(player_.guid);
+		creepUpgradeLevel = 0;
 	}
 
 	public NetworkPlayer player;
@@ -17,4 +18,6 @@ public class PlayerState{
 	public int income;
 	public int lives;
 	public Race race;
+
+	public int creepUpgradeLevel;
 }

@@ -9,7 +9,10 @@ public class UnitSpawn
 		restockTime = info.restockTimer;
 		maxStock = info.maxStock;
 		currentStock = 0;
-		spawn = info.gameObject.GetComponent<Creep>();
+		Creep creep = info.gameObject.GetComponent<Creep>();
+		cost = creep.cost;
+		income = creep.bounty;
+		spawn = creep;
 	}
 
 	public Spawnable spawn;
@@ -22,4 +25,7 @@ public class UnitSpawn
 
 	//Needs to be sent to player
 	public int currentStock;
+
+	public int cost;
+	public int income;
 }
