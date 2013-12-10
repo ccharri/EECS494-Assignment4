@@ -30,7 +30,11 @@ public class MainMenuManager : MonoBehaviour {
 		GUILayout.FlexibleSpace();
 		GUILayout.BeginVertical("window", GUILayout.Width(600));
 
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
 		GUILayout.Label(userName);
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
 
 		if(GUILayout.Button ("Play", GUILayout.Height (50)))
 		{
