@@ -1005,7 +1005,7 @@ public class GameState : MonoBehaviour
             addCreep(c.networkView.viewID, player);
             networkView.RPC("addCreep", RPCMode.Others, c.networkView.viewID, player);
 
-            //c.gameObject.GetComponent<PathingAgent>().lastNode = c.getOwner() == Network.player.guid ? pathMan.player1Spawn : pathMan.player2Spawn;
+            c.gameObject.GetComponent<PathingAgent>().nextNode = c.getOwner() == Network.player.guid ? pathMan.player1Spawn : pathMan.player2Spawn;
             c.gameObject.GetComponent<PathingAgent>().grid = c.getOwner() == Network.player.guid ? pathMan.player1Zone : pathMan.player2Zone;
         }
 
