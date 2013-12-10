@@ -31,7 +31,6 @@ public class PathingManager : MonoBehaviour {
 
 	void Awake()
 	{
-        towerMask = LayerMask.NameToLayer("Tower");
         path = new Stack<PathingNode>();
 		//Create zones
 		
@@ -161,7 +160,18 @@ public class PathingManager : MonoBehaviour {
                 Vector3 dir = dest - origin;
                 if (Physics.Raycast(origin, dir, dir.magnitude, towerMask)) //back up
                 {
-                    path.Clear();
+                    last = visitedNodes[i][j].nextNode;
+                    for (temp = last.nextNode; (!temp.Equals(endNode)); temp = temp.nextNode)
+                    {
+                        dest.x = temp.x;
+                        dest.z = temp.z;
+                        dir = dest - origin;
+                        if (Physics.Raycast(origin, dir, dir.magnitude, towerMask)) break;
+                        last = temp;
+                    }
+                    visitedNodes[i][j].bestNode = last;
+
+                    /*path.Clear();
                     PathingNode prevBest = temp;
                     last = visitedNodes[i][j].nextNode;
                     if (temp == last) break;
@@ -178,7 +188,7 @@ public class PathingManager : MonoBehaviour {
                         dir = dest - origin;
                         if (!Physics.Raycast(origin, dir, dir.magnitude, towerMask)) break;
                     }
-                    visitedNodes[i][j].bestNode = temp;
+                    visitedNodes[i][j].bestNode = temp;*/
                 }
                 else //go forward
                 {
