@@ -288,7 +288,11 @@ public class GameNetworkManager : MonoBehaviour {
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
 			GUILayout.BeginVertical("window");
-			GUILayout.Label ("Hosting Information", GUILayout.ExpandWidth(true));
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			GUILayout.Label ("Hosting Information");
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
 			GUILayout.BeginHorizontal();
 			if(Network.HavePublicAddress())
 			{
@@ -316,38 +320,32 @@ public class GameNetworkManager : MonoBehaviour {
 
 		//Vertically middle section begin
 
-		//Begin player layout
+		GUILayout.BeginVertical("window");
 		GUILayout.BeginHorizontal();
-		//Shift to middle
 		GUILayout.FlexibleSpace();
-
-
-		OnGUI_DisplayPlayers();
-
-
+		GUILayout.Label("Game Lobby");
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 
-		//Vertically bottom section begin
-		GUILayout.FlexibleSpace();
+		OnGUI_DisplayPlayers();
 
 		GUILayout.BeginHorizontal();
 		if(Network.isServer)
 		{
-			GUILayout.FlexibleSpace();
-			if(GUILayout.Button ("Start", GUILayout.Width(100)))
+			if(GUILayout.Button ("Start", GUILayout.Width(100), GUILayout.Height(50)))
 			{
 				MasterServer.UnregisterHost();
 				networkView.RPC ("launchGameScene", RPCMode.AllBuffered);
 			}
 		}
 		GUILayout.FlexibleSpace();
-		if(GUILayout.Button ("Disconnect"))
+		if(GUILayout.Button ("Disconnect", GUILayout.Height (50)))
 		{
 			Network.Disconnect();
 			connected = false;
 		}
 		GUILayout.EndHorizontal();
+		GUILayout.EndVertical();
 		GUILayout.FlexibleSpace();
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
@@ -355,8 +353,7 @@ public class GameNetworkManager : MonoBehaviour {
 
 	void OnGUI_DisplayPlayers()
 	{
-		GUILayout.BeginVertical("window");
-		GUILayout.Label("Players", GUILayout.ExpandWidth(true));
+		GUILayout.BeginVertical();
 
 		OnGUI_DisplayPlayer(Network.player);
 
