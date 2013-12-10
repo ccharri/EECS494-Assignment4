@@ -19,20 +19,6 @@ public class Amplifer : Tower
     {
         return null;
     }
-    
-    protected virtual List<Projectile> getAllProjectilesInRadius(Vector3 origin, float radius)
-    {
-        List<Projectile> objects = new List<Projectile>();
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(origin.x, origin.z), radius);
-        foreach(Collider2D c in colliders)
-        {
-            GameObject o = c.attachedRigidbody.gameObject;
-            Projectile p = o.GetComponent<Projectile>();
-            if(p != null && p.getOwner() == getOwner())
-                objects.Add(p);
-        }
-        return objects;
-    }
 
     protected override void FixedUpdate()
     {
@@ -48,30 +34,12 @@ public class Amplifer : Tower
 
     protected virtual void fire()
     {
-        Projectile p = findTarget();
-        if(p == null)
-        {
-            Debug.Log("LISTEN THOMAS, I HAVE SOMETHING: FUCK");
-            return;
-        }
-        Buff b = addBuff(p);
+        //get target tower
+        //if(p == null)
+           //return;
+        //Debug.Log("LISTEN THOMAS, I HAVE SOMETHING: FUCK");
+        //Buff b = addBuff(p);
         lastFired = GameState.getInstance().getGameTime();
-    }
-
-    protected virtual Projectile findTarget()
-    {
-        List<Projectile> projectiles = getAllProjectilesInRadius(gameObject.transform.position, range.get());
-        if(projectiles.Count == 0)
-            return null;
-        Projectile newTarget = null;
-        foreach(Projectile p in projectiles)
-        {
-            if(newTarget == null)
-                newTarget = p;
-            else if(behavior.compare(p, newTarget, this))
-                newTarget = p;
-        }
-        return newTarget;
     }
 
     public override string getDescription()
