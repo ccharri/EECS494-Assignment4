@@ -17,6 +17,18 @@ public abstract class Unit : MonoBehaviour
     public string getOwner()    { return ownerGUID; }
     public string getId()       { return id; }
 
+    public virtual string getBuffDescription()
+    {
+        string ret = "";
+        Buff[] buffs = GetComponents<Buff>();
+        foreach(Buff b in buffs)
+        {
+            ret += b.name + "\n";
+            ret += "\t" + b.description + "\n";
+        }
+        return ret;
+    }
+
 	protected virtual void Update() 
 	{
 		

@@ -10,14 +10,16 @@ public class DamageBoost : Buff
     {
         base.Awake();
         Init(1);
+        name = "Damage Boost";
     }
 
     public override void Init(int level_)
     {
         base.Init(level_);
-        duration = 5;
-        DAMAGE_BOOST = 30 * level_;
-        EMISSION_RATE_BOOST = 30 * level_;
+        duration = Amplifer.standardCooldown;
+        DAMAGE_BOOST = 10 * level_;
+        EMISSION_RATE_BOOST = 10 * level_;
+        description = "+" + DAMAGE_BOOST + " damage";
     }
 
     public override void onApplication()

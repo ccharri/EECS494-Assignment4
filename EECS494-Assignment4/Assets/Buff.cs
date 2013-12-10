@@ -12,6 +12,9 @@ public abstract class Buff : MonoBehaviour
     public Unit owner;
     public GameObject effect;
 
+    public string name;
+    public string description;
+
     public void setEnabled(bool enabled_)       { buffEnabled = enabled_; }
     public void setDuration(float duration_)    { duration = duration_; }
     public void setOwner(Unit owner_)           { owner = owner_; }
