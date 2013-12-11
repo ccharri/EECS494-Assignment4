@@ -6,7 +6,8 @@ public abstract class Buff : MonoBehaviour
 //      A buff without a target is automatically a factoy class.
 //      This doesn't mean that an active buff can't be a factory.
 {
-    private bool buffEnabled;
+    private bool enabled;
+    public float birthTime;
 	public float duration;
     public int level;
     public Unit owner;
@@ -15,34 +16,42 @@ public abstract class Buff : MonoBehaviour
     public string name;
     public string description;
 
-    public void setEnabled(bool enabled_)       { buffEnabled = enabled_; }
     public void setDuration(float duration_)    { duration = duration_; }
     public void setOwner(Unit owner_)           { owner = owner_; }
     public void setLevel(int level_)            { level = level_; }
 
-    public bool getEnabled()    { return buffEnabled; }
     public float getDuration()  { return duration; }
     public Unit getOwner()      { return owner; }
     public int getLevel()       { return level; }
     
 
-    public virtual void Awake()
+    public virtual void Awake() 
     {
-        buffEnabled = false;
+        enabled = false;
     }
 
     public virtual void Init(int level_)
     //DOES: Sets up the intial attributes of the buff
     {
-        level = level_;   
+        level = level_;
+        enabled = true;
     }
 
-    public virtual void onApplication() 
+    public virtual void onApplication()
     //DOES: Called when the buff should apply to the unit
     {
-        buffEnabled = true;
+        birthTime = GameState.getInstance().getGameTime();
     }
-    
+
+    public virtual void onUpdate() 
+    {
+        if(GameState.getInstance().getGameTime() >= birthTime + duration)
+            Destroy(this);
+
+        if(effect != null)
+            effect.transform.position = gameObject.transform.position;
+    }
+
     public virtual void onProjectile(Projectile p) {} 
     //DOES: Called by anything which launches a projectile
 
@@ -52,18 +61,9 @@ public abstract class Buff : MonoBehaviour
         Destroy(effect);
     }
 
-    public virtual void FixedUpdate()
+    public void FixedUpdate()
     {
-        if(!buffEnabled)
-            return;
-
-        duration -= Time.deltaTime;
-        if (duration <= 0)
-        {
-            Destroy(this);
-        }
-
-        if(effect != null)
-            effect.transform.position = gameObject.transform.position;
+        if(enabled)
+            onUpdate();
     }
 }

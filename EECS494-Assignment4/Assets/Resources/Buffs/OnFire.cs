@@ -13,9 +13,9 @@ public class OnFire : Buff
 
     public override void Init(int level_)
     {
-        base.Init(level_);
         duration = 10;
         BURN_DAMAGE = 10 * level_;
+        base.Init(level_);
     }
 
     public override void onApplication()
@@ -26,12 +26,11 @@ public class OnFire : Buff
             oldBuff.setDuration(oldBuff.getDuration() + getDuration());
             Destroy(this);
         }
+        base.onApplication();
     }
 
-    public override void FixedUpdate()
+    public override void onUpdate()
     {
-        if(!getEnabled())
-            return;
         Creep c = GetComponent<Creep>();
         if(c == null)
             return;
@@ -40,8 +39,8 @@ public class OnFire : Buff
         if (!c.isAlive())
             if (owner != null)
             {
-                //TODO: Add bounty? Claim
+                //TODO: Claim kill
             }
-        base.FixedUpdate();
+        base.onUpdate();
     }
 }

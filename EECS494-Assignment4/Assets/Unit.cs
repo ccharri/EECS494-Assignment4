@@ -19,11 +19,11 @@ public abstract class Unit : MonoBehaviour
 
     public virtual string getBuffDescription()
     {
-        string ret = "";
         Buff[] buffs = GetComponents<Buff>();
+        string ret = buffs.GetLength(0) + "\n";
         foreach(Buff b in buffs)
         {
-            ret += b.name + "\n";
+            ret += b.name + ": " + ((b.birthTime + b.duration) + "/" + GameState.getInstance().getGameTime()) + "\n";
             ret += "\t" + b.description + "\n";
         }
         return ret;

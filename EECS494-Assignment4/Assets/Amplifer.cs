@@ -6,7 +6,6 @@ public class Amplifer : Tower
 {
     //External Editor Attributess
     public int buffAppliedLevel = 1;
-    public static float standardCooldown = 5;
 
     //Internal Book-Keeping
     protected TargetingBehaviorTower behavior = Closest.getInstance();
@@ -77,6 +76,8 @@ public class Amplifer : Tower
     protected virtual bool canFire(Tower t)
     {
         if((t.transform.position - transform.position).magnitude > range.get())
+            return false;
+        if(t.gameObject.GetComponent<Amplifer>() != null)
             return false;
         return true;
     }
