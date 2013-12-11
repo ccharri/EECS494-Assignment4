@@ -33,8 +33,11 @@ public class FrostBoost : Buff
 
     public override void onProjectile(Projectile p)
     {
-        
         base.onProjectile(p);
+        FrostProjectile fp = p.gameObject.AddComponent<FrostProjectile>();
+        fp.replace(p);
+        fp.levelOfFrost = level;
+        Destroy(p);
     }
 
     public override void OnDestroy()
