@@ -16,15 +16,20 @@ public class SplitBoost : Buff
     public override void Awake()
     {
         base.Awake();
-
         Init(1);
         name = "Damage Boost";
     }
 
     public override void Init(int level_)
     {
-        duration = 5;
-        SPLITS = level_;
+        SplitBoost sb = gameObject.GetComponent<SplitBoost>();
+        if(sb != null)
+        {
+            SPLITS = level_ + sb.getLevel();
+            float otherBuffDuration = (sb.birthTime + sb.duration) - GameState.getInstance().getGameTime();
+            duration = sb.getLevel() * otherBuffDuration + level_ * 5.0f;
+            Destroy(sb);
+        }
         DAMAGE_PENALTY_FACTOR = 1.0f - (1.0f/level_ + 0.15f);
         SPLASH_PENALTY_FACTOR = 1.0f - (1.0f/level_ + 0.15f);
         description = "+" + SPLITS + " projectiles";
