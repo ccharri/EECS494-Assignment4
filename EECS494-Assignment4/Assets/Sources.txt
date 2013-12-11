@@ -26,3 +26,9 @@ model
 http://opengameart.org/content/ghoul-0
 both by:
 User: riidom
+
+
+
+NecromancerGUI
+Publisher: Enemy Giant
+Unity Asset Store
