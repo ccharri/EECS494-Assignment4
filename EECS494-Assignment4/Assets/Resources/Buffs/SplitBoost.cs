@@ -29,6 +29,8 @@ public class SplitBoost : Buff
             duration = sb.getLevel() * otherBuffDuration + level_ * 5.0f;
             Destroy(sb);
         }
+        else
+            duration = 5.0f;
         description = "+" + SPLITS + " projectiles";
         base.Init(level_);
     }

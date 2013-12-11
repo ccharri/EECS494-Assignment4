@@ -8,9 +8,8 @@ public class FrostProjectile : Projectile
 
     public override void applyBuff(Creep c)
     {
-        Suffering buff = c.gameObject.AddComponent<Suffering>();
+        Slowed buff = c.gameObject.AddComponent<Slowed>();
         buff.Init(levelOfFrost);
         buff.onApplication();
-        buff.effect = Instantiate(frostEffect, buff.gameObject.transform.position, new Quaternion()) as GameObject;
     }
 }

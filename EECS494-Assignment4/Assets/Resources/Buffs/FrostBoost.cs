@@ -23,6 +23,8 @@ public class FrostBoost : Buff
             duration = fb.getLevel() * otherBuffDuration + level_ * 5.0f;
             Destroy(fb);
         }
+        else
+            duration = 5.0f;
         base.Init(level_);
     }
 
