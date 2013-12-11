@@ -41,7 +41,7 @@ public class PathingAgent : MonoBehaviour {
 
 	public Vector3 getNextPos(Vector3 pos)
 	{
-        Debug.Log("pos = " + pos.x + "," + pos.z);
+//        Debug.Log("pos = " + pos.x + "," + pos.z);
 	    origin.x = pos.x;
 	    origin.z = pos.z;
 	    temp.x = nextNode.x;
