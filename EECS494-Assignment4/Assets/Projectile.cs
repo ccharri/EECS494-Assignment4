@@ -23,8 +23,10 @@ public class Projectile : Unit
     public void setSpeed(float speed_)              { speed.setBase(speed_); }
     public void setDamage(float damage_)            { damage.setBase(damage_); }
     public void addDamage(float damage_)            { damage.setFlat(damage.getFlat() + damage_); }
+    public void addDamageFactor(float damagef_)     { damage *= damagef_; }
     public void setSplash(float splash_)            { splash.setBase(splash_); }
     public void addSplash(float damage_)            { splash.setFlat(splash.getFlat() + damage_); }
+    public void addSplashFactor(float splashf_)     { splash *= splashf_; }
     public void setTarget(Creep target_)            
     { 
         target = target_;
