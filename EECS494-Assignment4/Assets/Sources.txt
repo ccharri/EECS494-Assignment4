@@ -1,0 +1,28 @@
+popuplist: http://wiki.unity3d.com/index.php?title=PopupList
+
+Creep models:
+Zombie:
+Company: Mixamo
+Zombie Charcater Pack
+Ghoul
+
+Skeleton: http://opengameart.org/content/low-poly-rigged-skeleton	
+
+Abomination:
+Company: BUMSTRUM
+Monster2, from the Unity Asset store		
+
+Demon: http://opengameart.org/content/lildemon
+User: Enetheru
+
+Ghost:
+http://opengameart.org/content/cute-low-poly-ghost
+User: Gurc
+
+Ghoul:
+texture
+http://opengameart.org/content/seamless-texturebrush-pack-undead1
+model
+http://opengameart.org/content/ghoul-0
+both by:
+User: riidom
