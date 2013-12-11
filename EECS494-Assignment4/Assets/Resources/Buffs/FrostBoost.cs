@@ -27,8 +27,6 @@ public class FrostBoost : Buff
 
     public override void onApplication()
     {
-        if(gameObject.particleSystem != null)
-            gameObject.particleSystem.emissionRate += EMISSION_RATE_BOOST;
         base.onApplication();
     }
 
@@ -42,8 +40,6 @@ public class FrostBoost : Buff
 
     public override void OnDestroy()
     {
-        if(gameObject.particleSystem != null)
-            gameObject.particleSystem.emissionRate -= EMISSION_RATE_BOOST;
         base.OnDestroy();
     }
 }

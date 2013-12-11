@@ -21,10 +21,15 @@ public class SplashBoost : Buff
     {
         duration = 5;
         SPLASH_BOOST = 0.5f * level_;
-        DAMAGE_PENALTY_MULTIPLIER = 1 - Mathf.Pow(0.8f, level_);
+        DAMAGE_PENALTY_MULTIPLIER = 1.0f - Mathf.Pow(0.8f, level_);
         SPEED_BOOST = 2 * level_;
         description = "+" + SPLASH_BOOST + " splash, -" + DAMAGE_PENALTY_MULTIPLIER + "% damage";
         base.Init(level_);
+    }
+
+    public override void onApplication()
+    {
+        base.onApplication();
     }
 
     public override void onProjectile(Projectile p)
@@ -34,5 +39,10 @@ public class SplashBoost : Buff
         if(p.gameObject.particleSystem != null)
             p.gameObject.particleSystem.emissionRate += SPEED_BOOST;
         base.onProjectile(p);
+    }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
     }
 }

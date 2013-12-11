@@ -6,12 +6,17 @@ using System.Collections;
 
 public class SplitBoost : Buff
 {
-    private static float DAMAGE_BOOST;
-    private static float EMISSION_RATE_BOOST;
+    private static int SPLITS;
+    private static float DAMAGE_PENALTY_FACTOR;
+    private static float SPLASH_PENALTY_FACTOR;
+
+    private int spawned;
+    private float oldMult;
 
     public override void Awake()
     {
         base.Awake();
+
         Init(1);
         name = "Damage Boost";
     }
@@ -19,31 +24,36 @@ public class SplitBoost : Buff
     public override void Init(int level_)
     {
         duration = 5;
-        DAMAGE_BOOST = 10 * level_;
-        EMISSION_RATE_BOOST = 2 * level_;
-        description = "+" + DAMAGE_BOOST + " damage";
+        SPLITS = level_;
+        DAMAGE_PENALTY_FACTOR = 1.0f - (1.0f/level_ + 0.15f);
+        SPLASH_PENALTY_FACTOR = 1.0f - (1.0f/level_ + 0.15f);
+        description = "+" + SPLITS + " projectiles";
         base.Init(level_);
     }
 
     public override void onApplication()
     {
-        if(gameObject.particleSystem != null)
-            gameObject.particleSystem.emissionRate += EMISSION_RATE_BOOST;
         base.onApplication();
     }
 
     public override void onProjectile(Projectile p)
     {
-        p.addDamage(DAMAGE_BOOST);
-        if(p.gameObject.particleSystem != null)
-            p.gameObject.particleSystem.emissionRate += EMISSION_RATE_BOOST;
+        p.addDamageFactor(-DAMAGE_PENALTY_FACTOR);
+        p.addSplashFactor(-SPLASH_PENALTY_FACTOR);
         base.onProjectile(p);
+
+        spawned++;
+        if(spawned == 1)
+        {
+            oldMult = p.getOwningTower().cooldown.getMultiplier();
+            p.getOwningTower().cooldown.setMultiplier(0);
+        }
+        if(spawned >= SPLITS)
+            p.getOwningTower().cooldown.setMultiplier(oldMult);
     }
 
     public override void OnDestroy()
     {
-        if(gameObject.particleSystem != null)
-            gameObject.particleSystem.emissionRate -= EMISSION_RATE_BOOST;
         base.OnDestroy();
     }
 }

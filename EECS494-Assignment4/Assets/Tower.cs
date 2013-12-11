@@ -14,8 +14,8 @@ public abstract class Tower: Spawnable, Selectable
     public bool selected = false;
 
     //Internal Attribues
-    protected Attribute range = new Attribute(1);
-    protected Attribute cooldown = new Attribute(1);
+    public Attribute range = new Attribute(1);
+    public Attribute cooldown = new Attribute(1);
 
     //Internal Book-Keeping
     protected double lastFired = 0;

@@ -11,9 +11,9 @@ public class Projectile : Unit
     public bool homing = true;
 
     //Internal Attributes
-    protected Attribute speed = new Attribute(1);
-    protected Attribute damage = new Attribute(1);
-    protected Attribute splash = new Attribute(1);
+    public Attribute speed = new Attribute(1);
+    public Attribute damage = new Attribute(1);
+    public Attribute splash = new Attribute(1);
     public Tower owningTower = null;
     public Creep target = null;
 	public Transform targetTrans;
