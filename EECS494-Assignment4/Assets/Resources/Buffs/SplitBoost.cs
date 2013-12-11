@@ -7,8 +7,6 @@ using System.Collections;
 public class SplitBoost : Buff
 {
     private static int SPLITS;
-    private static float DAMAGE_PENALTY_FACTOR;
-    private static float SPLASH_PENALTY_FACTOR;
 
     private int spawned;
     private float oldMult;
@@ -31,8 +29,6 @@ public class SplitBoost : Buff
             duration = sb.getLevel() * otherBuffDuration + level_ * 5.0f;
             Destroy(sb);
         }
-        DAMAGE_PENALTY_FACTOR = 1.0f - (1.0f/level_ + 0.15f);
-        SPLASH_PENALTY_FACTOR = 1.0f - (1.0f/level_ + 0.15f);
         description = "+" + SPLITS + " projectiles";
         base.Init(level_);
     }
@@ -44,15 +40,13 @@ public class SplitBoost : Buff
 
     public override void onProjectile(Projectile p)
     {
-        p.addDamageFactor(-DAMAGE_PENALTY_FACTOR);
-        p.addSplashFactor(-SPLASH_PENALTY_FACTOR);
         base.onProjectile(p);
 
         spawned++;
         if(spawned == 1)
         {
             oldMult = p.getOwningTower().cooldown.getMultiplier();
-            p.getOwningTower().cooldown.setMultiplier(0);
+            p.getOwningTower().cooldown.setMultiplier(0.2f);
         }
         if(spawned >= SPLITS)
             p.getOwningTower().cooldown.setMultiplier(oldMult);
