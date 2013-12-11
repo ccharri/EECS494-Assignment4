@@ -14,7 +14,7 @@ public class Slowed : Buff
 
     public override void Init(int level_)
     {
-        SLOW_FACTOR = 1 - Mathf.Pow(0.90f, level_);
+        SLOW_FACTOR = 1 - Mathf.Pow(0.50f, level_);
         description = "+" + SLOW_FACTOR + " % slow";
         base.Init(level_);
     }
