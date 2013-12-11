@@ -13,9 +13,9 @@ public class Creep : Spawnable, Selectable
 
 	float updateTimeStep = 0.2f;
 
-	public Attribute health = new Attribute(1);
-	public Attribute speed = new Attribute(200);
-	public Attribute mana = new Attribute(1);
+	protected Attribute health = new Attribute(1);
+	protected Attribute speed = new Attribute(200);
+	protected Attribute mana = new Attribute(1);
 
     public void setHealth(float health_)    { health = new Attribute(health_); }
     public void setSpeed(float speed_)      { speed = new Attribute(speed_); }
@@ -101,7 +101,7 @@ public class Creep : Spawnable, Selectable
 //        	navAgent.speed = speed.get();
 
 			Vector3 dest = getDestination();
-//            Debug.Log("dest = " + dest.x + "," + dest.z);
+            Debug.Log("dest = " + dest.x + "," + dest.z);
 
 			transform.position = Vector3.MoveTowards(transform.position, dest, speed.get()*Time.fixedDeltaTime);
 			transform.LookAt(dest);
@@ -160,7 +160,7 @@ public class Creep : Spawnable, Selectable
 		Debug.Log ("Begin updating Creep Position");
 		while(health.get() > 0)
 		{
-			networkView.RPC("update", RPCMode.Others, getDestination(), health.getFlat());
+			networkView.RPC("update", RPCMode.Others, gameObject.transform.position, health.getFlat());
 			yield return new WaitForSeconds(updateTimeStep);
 		}
 	}
@@ -169,7 +169,7 @@ public class Creep : Spawnable, Selectable
 	void update(Vector3 position_, float damage_, NetworkMessageInfo info_)
 	{
 		Debug.Log ("Updating position = " + position_);
-		lerpPos = Vector3.MoveTowards(transform.position, position_, speed.get()*Time.fixedDeltaTime*updateTimeStep);
+		lerpPos = position_;
 		health.setFlat(damage_);
 		StartCoroutine("lerpPosition");
 	}
