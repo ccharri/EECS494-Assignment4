@@ -28,6 +28,13 @@ public class Attribute
 		flat = flat_;
 		recalculate();
 	}
+    public Attribute(Attribute copy)
+    {
+        baseValue = copy.baseValue;
+        multiplier = copy.multiplier;
+        flat = copy.flat;
+        recalculate();
+    }
 
 	public float get() 
 	{

@@ -45,7 +45,6 @@ public class Projectile : Unit
     public Tower getOwningTower()   { return owningTower; }
     public Vector3 getTargetPos()   { return targetPos; }
 
-
     void Awake()
     {
         birthTime = Time.time;
@@ -60,7 +59,11 @@ public class Projectile : Unit
         setSpeed(p_.getSpeedBase());
         setTarget(p_.getTarget());
         setTargetPos(p_.getTargetPos());
+        damage = new Attribute(p_.damage);
+        splash = new Attribute(p_.splash);
+        speed = new Attribute(p_.speed);
         setOwner(p_.getOwner());
+        setOwningTower(p_.getOwningTower());
     }
 
     protected virtual List<Creep> getCreepsInRadius(Vector3 origin, float radius)
