@@ -20,7 +20,7 @@ public class SplashBoost : Buff
     public override void Init(int level_)
     {
         duration = 5;
-        SPLASH_BOOST = 0.5f * level_;
+        SPLASH_BOOST = 1f * level_;
         DAMAGE_PENALTY_MULTIPLIER = 1.0f - Mathf.Pow(0.8f, level_);
         SPEED_BOOST = 2 * level_;
         description = "+" + SPLASH_BOOST + " splash, -" + DAMAGE_PENALTY_MULTIPLIER + "% damage";

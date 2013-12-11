@@ -16,7 +16,7 @@ public class DamageBoost : Buff
     public override void Init(int level_)
     {
         duration = 5;
-        DAMAGE_BOOST = 10 * level_;
+        DAMAGE_BOOST = 15 * level_;
         EMISSION_RATE_BOOST = 2 * level_;
         description = "+" + DAMAGE_BOOST + " damage";
         base.Init(level_);
