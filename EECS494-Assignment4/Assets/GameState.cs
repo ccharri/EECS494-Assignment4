@@ -46,7 +46,7 @@ public class GameState : MonoBehaviour
 
 	public ShowSelected selection;
 
-  public Texture hpBar_texture;
+  	public Texture hpBar_texture;
 
     public static GameState getInstance()
     {
@@ -76,16 +76,17 @@ public class GameState : MonoBehaviour
         incomeTimer.gameObject.GetComponent<ParticleSystem>().Stop();
         playerNums = new List<string>();
 
-        Vector3 pos = Camera.main.transform.position;
-        Quaternion quat = Camera.main.transform.rotation;
+		Vector3 pos = mainCamera.transform.position;
+		Quaternion quat = mainCamera.transform.rotation;
         if (Network.isServer)
         {
             player2Terrain.tag = "Unbuildable";
         }
         else
         {
-            Camera.main.transform.position = new Vector3(55, pos.y, pos.z);
-			Camera.main.transform.Rotate(120, 180 ,0);
+			Debug.Log("I am a client");
+            mainCamera.transform.position = new Vector3(-pos.x, pos.y, pos.z);
+			mainCamera.transform.Rotate(120, 180 ,0);
             incomeTimer.gameObject.transform.Rotate(Vector3.up, 180.0f);
             player1Terrain.tag = "Unbuildable";
         }
@@ -95,7 +96,7 @@ public class GameState : MonoBehaviour
 
     void OnLevelWasLoaded(int level)
     {
-        Awake();  //maybe just copy code from awake
+//        Awake();  //maybe just copy code from awake
     }
 
     void Start()
