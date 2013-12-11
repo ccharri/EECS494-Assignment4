@@ -20,7 +20,7 @@ public class GameState : MonoBehaviour
     List<string> playerNums;
 
     float incomeTimeIncrement = 10;
-    float nextIncomeTime = 10;
+    float nextIncomeTime = 30;
     float time = 0;
 
     bool showMenu = false;
