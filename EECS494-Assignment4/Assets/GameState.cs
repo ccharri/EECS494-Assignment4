@@ -199,7 +199,9 @@ public class GameState : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.skin = skin;
+		GUISkin oldskin = GUI.skin;
+
+		GUI.skin = skin;
 
         GUILayout.BeginArea(new Rect(5, 5, Screen.width - 10, Screen.height - 10));
         GUILayout.BeginVertical();
@@ -217,6 +219,15 @@ public class GameState : MonoBehaviour
         {
             GUILayout.Window(0, new Rect(Screen.width / 2 - 200, Screen.height / 2 - 200, 400, 400), WindowGUI, "", GUILayout.Width(400), GUILayout.Height(400));
         }
+
+		GUI.skin = oldskin;
+		if(GUI.tooltip != "")
+		{
+			var x = Event.current.mousePosition.x;
+			var y = Event.current.mousePosition.y;
+			
+			GUI.Label(new Rect(x - 150, y + 20, 160, 90), GUI.tooltip, "box");
+		}
     }
 
     void WindowGUI(int windowID)
@@ -354,7 +365,7 @@ public class GameState : MonoBehaviour
                 GUI.enabled = false;
             }
 
-            if (GUILayout.Button(entry.Key)) //use entry.Value.name after towers have a name defined (maybe)
+            if (GUILayout.Button(new GUIContent(entry.Key, entry.Value.getDescription()))) //use entry.Value.name after towers have a name defined (maybe)
             {
                 pMan.enabled = true;
                 pMan.beginPlacing(entry.Value.prefab, entry.Key);
@@ -476,7 +487,15 @@ public class GameState : MonoBehaviour
                 GUI.enabled = false;
             }
 
-            if (GUILayout.Button(entry.Key.Replace(' ', '\n'), GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true), GUILayout.MinWidth(100))) //use entry.Value.name, after creeps have a name defined (maybe)
+			int health = (int)entry.Value.healthBase;
+			for(int i = 0; i < pState.creepUpgradeLevel; i++)
+			{
+				health *= 2;
+			}
+
+			string tooltip = entry.Value.name + '\n' + "Gold: " + us.cost+ "\t" + "Bounty: " + us.income + "\n" + "Health: " + health;
+
+            if (GUILayout.Button(new GUIContent(entry.Key.Replace(' ', '\n'), tooltip), GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true), GUILayout.MinWidth(100))) //use entry.Value.name, after creeps have a name defined (maybe)
             {
                 if (Network.isServer)
                 {
