@@ -46,7 +46,7 @@ public class GameState : MonoBehaviour
 
 	public ShowSelected selection;
 
-  public Texture hpBar_texture;
+  	public Texture hpBar_texture;
 
     public static GameState getInstance()
     {
@@ -84,6 +84,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
+			Debug.Log("I am a client");
             mainCamera.transform.position = new Vector3(-pos.x, pos.y, pos.z);
 			mainCamera.transform.Rotate(120, 180 ,0);
             incomeTimer.gameObject.transform.Rotate(Vector3.up, 180.0f);
@@ -95,7 +96,7 @@ public class GameState : MonoBehaviour
 
     void OnLevelWasLoaded(int level)
     {
-        Awake();  //maybe just copy code from awake
+//        Awake();  //maybe just copy code from awake
     }
 
     void Start()
