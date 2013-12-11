@@ -13,9 +13,9 @@ public class Creep : Spawnable, Selectable
 
 	float updateTimeStep = 0.2f;
 
-	protected Attribute health = new Attribute(1);
-	protected Attribute speed = new Attribute(200);
-	protected Attribute mana = new Attribute(1);
+	public Attribute health = new Attribute(1);
+	public Attribute speed = new Attribute(200);
+	public Attribute mana = new Attribute(1);
 
     public void setHealth(float health_)    { health = new Attribute(health_); }
     public void setSpeed(float speed_)      { speed = new Attribute(speed_); }

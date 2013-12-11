@@ -26,6 +26,7 @@ public class SplitBoost : Buff
         if(sb != null)
         {
             SPLITS = level_ + sb.getLevel();
+            level_ += sb.getLevel();
             float otherBuffDuration = (sb.birthTime + sb.duration) - GameState.getInstance().getGameTime();
             duration = sb.getLevel() * otherBuffDuration + level_ * 5.0f;
             Destroy(sb);

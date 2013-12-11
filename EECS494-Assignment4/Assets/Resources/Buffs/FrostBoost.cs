@@ -6,8 +6,7 @@ using System.Collections;
 
 public class FrostBoost : Buff
 {
-    private static float DAMAGE_BOOST;
-    private static float EMISSION_RATE_BOOST;
+    private static float SLOW_FACTOR;
 
     public override void Awake()
     {
@@ -18,10 +17,16 @@ public class FrostBoost : Buff
 
     public override void Init(int level_)
     {
-        duration = 5;
-        DAMAGE_BOOST = 10 * level_;
-        EMISSION_RATE_BOOST = 2 * level_;
-        description = "+" + DAMAGE_BOOST + " damage";
+        FrostBoost fb = gameObject.GetComponent<FrostBoost>();
+        if(fb != null)
+        {
+            level_ += fb.getLevel();
+            float otherBuffDuration = (fb.birthTime + fb.duration) - GameState.getInstance().getGameTime();
+            duration = fb.getLevel() * otherBuffDuration + level_ * 5.0f;
+            Destroy(fb);
+        }
+        SLOW_FACTOR =  1 - Mathf.Pow(0.90f, level_);
+        description = "+" + SLOW_FACTOR + " % slow";
         base.Init(level_);
     }
 
@@ -32,9 +37,6 @@ public class FrostBoost : Buff
 
     public override void onProjectile(Projectile p)
     {
-        p.addDamage(DAMAGE_BOOST);
-        if(p.gameObject.particleSystem != null)
-            p.gameObject.particleSystem.emissionRate += EMISSION_RATE_BOOST;
         base.onProjectile(p);
     }
 
