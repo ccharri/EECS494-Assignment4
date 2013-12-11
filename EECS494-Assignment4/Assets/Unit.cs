@@ -23,7 +23,7 @@ public abstract class Unit : MonoBehaviour
         string ret = buffs.GetLength(0) + "\n";
         foreach(Buff b in buffs)
         {
-            ret += b.name + ": " + ((b.birthTime + b.duration) + "/" + GameState.getInstance().getGameTime()) + "\n";
+            ret += b.name + "\n";
             ret += "\t" + b.description + "\n";
         }
         return ret;

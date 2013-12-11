@@ -61,16 +61,16 @@ public class Projectile : Unit
         setOwner(p_.getOwner());
     }
 
-    protected virtual List<T> getAllTypesInRadius<T>(Vector3 origin, float radius) where T : Unit
+    protected virtual List<Creep> getCreepsInRadius(Vector3 origin, float radius)
     {
-        List<T> objects = new List<T>();
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(origin.x, origin.z), radius);
-        foreach(Collider2D c in colliders)
+        List<Creep> objects = new List<Creep>();
+        List<Creep> allCreeps = GameState.getInstance().getEnemyCreeps(getOwner());
+        foreach(Creep c in allCreeps)
         {
-            GameObject o = c.attachedRigidbody.gameObject;
-            T t = o.GetComponent<T>();
-            if(t != null)
-                objects.Add(t);
+            float dist = Mathf.Sqrt(Mathf.Pow(c.gameObject.transform.position.x - origin.x, 2) + 
+                                     Mathf.Pow(c.gameObject.transform.position.z - origin.z, 2));
+            if(dist < radius)
+                objects.Add(c);
         }
         return objects;
     }
@@ -103,7 +103,6 @@ public class Projectile : Unit
 					targetPos = targetTrans.position;
 				}
             }
-
 			transform.position = Vector3.MoveTowards(transform.position, targetPos, speed.get()*Time.fixedDeltaTime);
             //NOTE: This can skip over enemies
         }
@@ -124,7 +123,7 @@ public class Projectile : Unit
 		        }
 		        else
 		        {
-		            List<Creep> victims = getAllTypesInRadius<Creep>(transform.position, splash.get());
+		            List<Creep> victims = getCreepsInRadius(transform.position, splash.get());
 		            foreach(Creep victim in victims)
 		            {
 		                victim.onDamage(getDamage());
@@ -140,7 +139,6 @@ public class Projectile : Unit
 
     public virtual void destroy()
     {
-		Debug.Log ("Projectile destroy");
         Destroy(this.gameObject);
     }
 
