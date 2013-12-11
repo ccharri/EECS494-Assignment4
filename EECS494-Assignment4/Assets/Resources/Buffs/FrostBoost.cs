@@ -6,13 +6,11 @@ using System.Collections;
 
 public class FrostBoost : Buff
 {
-    private static float SLOW_FACTOR;
-
     public override void Awake()
     {
         base.Awake();
         Init(1);
-        name = "Damage Boost";
+        name = "Frost Boost";
     }
 
     public override void Init(int level_)
@@ -25,8 +23,6 @@ public class FrostBoost : Buff
             duration = fb.getLevel() * otherBuffDuration + level_ * 5.0f;
             Destroy(fb);
         }
-        SLOW_FACTOR =  1 - Mathf.Pow(0.90f, level_);
-        description = "+" + SLOW_FACTOR + " % slow";
         base.Init(level_);
     }
 
@@ -37,6 +33,7 @@ public class FrostBoost : Buff
 
     public override void onProjectile(Projectile p)
     {
+        
         base.onProjectile(p);
     }
 
