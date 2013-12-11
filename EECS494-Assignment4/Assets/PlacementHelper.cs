@@ -28,14 +28,21 @@ public class PlacementHelper : MonoBehaviour {
 		if((position.x != gameObject.transform.position.x) || (position.z != gameObject.transform.position.z))
 		{
 			PathingManager pman = GameState.getInstance().pathMan;
-			pman.recalculateNow = false;
 			pman.turnOnShadow(position.x, position.z);
-			pman.recalculateNow = true;
+
+			validPlacement = GameState.getInstance().pathMan.isPlaceable(gameObject.transform.position.x, gameObject.transform.position.z);
+			
+			if(!validPlacement)
+			{
+				position = gameObject.transform.position;
+				valid = false;
+				markInvalid ();
+				return;
+			}
+
 			pman.turnOffShadow(gameObject.transform.position.x, gameObject.transform.position.z);
 
 			refreshBlockingValidity();
-
-			validPlacement = GameState.getInstance().pathMan.isPlaceable(gameObject.transform.position.x, gameObject.transform.position.z);
 
 			position = gameObject.transform.position;
 			man.updatePath();

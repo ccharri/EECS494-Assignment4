@@ -1,15 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PathingAgent.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlacementManager.cs">
     <Files>
-      <File FileName="Assets/Amplifer.cs" Line="1" Column="1" />
-      <File FileName="Assets/GameState.cs" Line="295" Column="30" />
-      <File FileName="Assets/Creep.cs" Line="187" Column="3" />
-      <File FileName="Assets/Unit.cs" Line="1" Column="1" />
-      <File FileName="Assets/UnitSpawn.cs" Line="1" Column="1" />
-      <File FileName="Assets/SpawnerState.cs" Line="1" Column="1" />
-      <File FileName="Assets/PlayerState.cs" Line="1" Column="1" />
-      <File FileName="Assets/PathingAgent.cs" Line="62" Column="7" />
+      <File FileName="Assets/Tower.cs" Line="47" Column="10" />
+      <File FileName="Assets/BasicTower.cs" Line="1" Column="1" />
+      <File FileName="Assets/GameState.cs" Line="109" Column="6" />
+      <File FileName="Assets/Buff.cs" Line="1" Column="1" />
+      <File FileName="Assets/PathingAgent.cs" Line="47" Column="26" />
+      <File FileName="Assets/Creep.cs" Line="104" Column="5" />
+      <File FileName="Assets/PathingManager.cs" Line="381" Column="26" />
+      <File FileName="Assets/PlacementManager.cs" Line="120" Column="39" />
+      <File FileName="Assets/PlacementHelper.cs" Line="26" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
