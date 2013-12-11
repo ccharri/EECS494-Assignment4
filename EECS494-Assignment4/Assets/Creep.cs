@@ -160,7 +160,7 @@ public class Creep : Spawnable, Selectable
 		Debug.Log ("Begin updating Creep Position");
 		while(health.get() > 0)
 		{
-			networkView.RPC("update", RPCMode.Others, gameObject.transform.position, health.getFlat());
+			networkView.RPC("update", RPCMode.Others, getDestination(), health.getFlat());
 			yield return new WaitForSeconds(updateTimeStep);
 		}
 	}
