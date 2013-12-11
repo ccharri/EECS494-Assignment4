@@ -114,14 +114,14 @@ public class PlacementManager : MonoBehaviour {
 
 			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rhit, Camera.main.farClipPlane, myLayerMask))
 			{
-				Vector3 point = alignToGrid (rhit.point);
-				placeObject.transform.position = point;
-				
 				if(Input.GetMouseButtonDown(0) && ready && helper.valid)
 				{
-					place(point);
+					place(helper.position);
 					//place(alignToGrid(rhit.point));
 				}
+
+				Vector3 point = alignToGrid (rhit.point);
+				placeObject.transform.position = point;
 			}
 		}
 		else

@@ -14,6 +14,7 @@ public class PlacementHelper : MonoBehaviour {
 
 	private bool validCollision;
 	private bool validPath;
+	private bool validPlacement;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +24,7 @@ public class PlacementHelper : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if((position.x != gameObject.transform.position.x) || (position.z != gameObject.transform.position.z))
 		{
 			PathingManager pman = GameState.getInstance().pathMan;
@@ -34,11 +35,13 @@ public class PlacementHelper : MonoBehaviour {
 
 			refreshBlockingValidity();
 
+			validPlacement = GameState.getInstance().pathMan.isPlaceable(gameObject.transform.position.x, gameObject.transform.position.z);
+
 			position = gameObject.transform.position;
 			man.updatePath();
 		}
 
-		valid = validCollision && validPath;
+		valid = validCollision && validPath && validPlacement;
 
 		if(valid)
 		{

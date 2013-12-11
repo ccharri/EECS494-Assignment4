@@ -376,6 +376,36 @@ public class PathingManager : MonoBehaviour {
 		if(recalculateNow) recalculate(dictShadow, end);
 	}
 
+	public bool isPlaceable(float x, float z)
+	{
+		bool isPlayer1 = z > 0;
+		Dictionary<int, Dictionary<int, PathingNode>> grid = isPlayer1 ? player1Zone : player2Zone;
+		return isPlaceable(grid, x, z);
+	}
+
+	public bool isPlaceable(Dictionary<int, Dictionary<int, PathingNode>> grid, float x, float z)
+	{
+		bool pathable = true;
+		int xmin = Mathf.FloorToInt(x);
+		int xmax = Mathf.CeilToInt(x);
+		int zmin = Mathf.FloorToInt(z);
+		int zmax = Mathf.CeilToInt(z);
+
+		for(int i = xmin; i <= xmax; i++)
+		{
+			for(int j = zmin; j <= zmax; j++)
+			{
+				Dictionary<int, PathingNode> inDict;
+				
+				if(!grid.TryGetValue(i, out inDict)) return false;
+				if(!inDict.ContainsKey(j)) return false;
+				
+				pathable = pathable && grid[i][j].pathable;
+			}
+		}
+
+		return pathable;
+	}
 
 //	PathingNode getNode(int x, int z, PathingNode[][] grid)
 //	{
