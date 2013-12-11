@@ -15,16 +15,14 @@ public class Suffering : Buff
 
     public override void Init(int level_)
     {
-        base.Init(level_);
-        duration = 1*level_;
+        duration = 1 * level_;
         DPS = level * 1.5f;
         MISSING_HEALTH_MULTIPLIER = level * 0.1f + 0.20f;
+        base.Init(level_);
     }
 
-    public override void FixedUpdate()
+    public override void onUpdate()
     {
-        if(!getEnabled())
-            return;
         Creep c = GetComponent<Creep>();
         if(c == null)
             return;
@@ -34,6 +32,6 @@ public class Suffering : Buff
             float damage = (DPS * (1f + missMult)) * Time.fixedDeltaTime;
             c.onDamage(damage);
         }
-        base.FixedUpdate();
+        base.onUpdate();
     }
 }
