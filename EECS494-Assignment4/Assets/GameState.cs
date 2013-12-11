@@ -493,7 +493,7 @@ public class GameState : MonoBehaviour
 				health *= 2;
 			}
 
-			string tooltip = entry.Value.name + '\n' + "Gold: " + us.cost+ "\t" + "Bounty: " + us.income + "\n" + "Health: " + health;
+			string tooltip = entry.Value.name + '\n' + "Gold: " + us.cost+ "\t" + "Bounty: " + us.income + "\n" + "Health: " + health + "\n" + "Speed: " + entry.Value.getSpeed();
 
             if (GUILayout.Button(new GUIContent(entry.Key.Replace(' ', '\n'), tooltip), GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true), GUILayout.MinWidth(100))) //use entry.Value.name, after creeps have a name defined (maybe)
             {
