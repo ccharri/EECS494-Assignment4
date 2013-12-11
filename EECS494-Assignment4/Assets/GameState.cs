@@ -76,16 +76,16 @@ public class GameState : MonoBehaviour
         incomeTimer.gameObject.GetComponent<ParticleSystem>().Stop();
         playerNums = new List<string>();
 
-        Vector3 pos = Camera.main.transform.position;
-        Quaternion quat = Camera.main.transform.rotation;
+		Vector3 pos = mainCamera.transform.position;
+		Quaternion quat = mainCamera.transform.rotation;
         if (Network.isServer)
         {
             player2Terrain.tag = "Unbuildable";
         }
         else
         {
-            Camera.main.transform.position = new Vector3(55, pos.y, pos.z);
-			Camera.main.transform.Rotate(120, 180 ,0);
+            mainCamera.transform.position = new Vector3(-pos.x, pos.y, pos.z);
+			mainCamera.transform.Rotate(120, 180 ,0);
             incomeTimer.gameObject.transform.Rotate(Vector3.up, 180.0f);
             player1Terrain.tag = "Unbuildable";
         }
