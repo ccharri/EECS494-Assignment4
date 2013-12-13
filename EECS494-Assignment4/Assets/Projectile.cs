@@ -109,7 +109,6 @@ public class Projectile : Unit
 				}
             }
 			transform.position = Vector3.MoveTowards(transform.position, targetPos, speed.get()*Time.fixedDeltaTime);
-            //NOTE: This can skip over enemies
         }
     }
 

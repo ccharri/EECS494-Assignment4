@@ -87,6 +87,6 @@ public class Amplifer : Tower
         return "Name: " + getName() + 
                 "\nRange: " + range.get() + 
                 "\nCooldown: " + cooldown.get() +
-                "\nEffect: Buffs the damage of adjacent towers";
+				"\nEffect: Buffs adjacent towers.";
     }
 }
