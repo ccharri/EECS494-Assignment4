@@ -347,6 +347,32 @@ public class GameNetworkManager : MonoBehaviour {
 		GUILayout.EndHorizontal();
 		GUILayout.EndVertical();
 		GUILayout.FlexibleSpace();
+
+		GUILayout.BeginVertical("window");
+
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		string race = RaceDatabase.getRace(Network.player);
+		GUILayout.Label(race);
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+
+
+		string description = "";
+		if(race == "Undead")
+		{
+			description = "The great bogs of the South claim hundreds of lives a year, but not every death is of natural causes.  This boneyard presents the perfect location for aspiring Necromancers to practice their craft.  The Necromancer towers are cheap and weak, but their attacks are fast.  The trapped souls also share their Suffering with their target, applying a small damage over time effect on their attacks that deals more damage the lower life their target is.";  
+		}
+		else if (race == "Arcane")
+		{
+			description = "The humans of the Plains are avid practitioners of magic.  Indeed, this edge is the only way they have maintained a civilized life for as long as they have.  Vast walls were erected in haste after the latest Undead Incursion.  Speed took priority over power in this matter, but the humans discovered a new field of magic in the process.  Only the most basic Arcane tower is capable of attacking enemies.  The higher level towers instead buff these nearby towers with special attributes such as increased attacking speed, higher damage, or area of effect splash.";
+		}
+
+		GUILayout.TextArea(description, GUILayout.Height(100), GUILayout.ExpandWidth(false));
+		GUILayout.EndVertical();
+
+
+		GUILayout.FlexibleSpace();
 		GUILayout.EndVertical();
 		GUILayout.EndArea();
 	}
