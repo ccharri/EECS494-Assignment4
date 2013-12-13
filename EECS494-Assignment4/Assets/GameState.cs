@@ -826,6 +826,9 @@ public class GameState : MonoBehaviour
 
     public void onCreepLeaked(Creep creep)
     {
+
+		if(Network.isClient) return;
+
         var ps = players[creep.getOwner()];
 
         removeCreep(creep.networkView.viewID, ps.player);
