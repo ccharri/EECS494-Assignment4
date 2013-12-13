@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using UnityEngine;
-using System.Collections;
-
 public class FrostBoost : Buff
 {
     public override void Awake()
@@ -15,15 +12,15 @@ public class FrostBoost : Buff
 
     public override void Init(int level_)
     {
-        FrostBoost fb = gameObject.GetComponent<FrostBoost>();
-        if(fb != null)
-        {
-            level_ += fb.getLevel();
-            float otherBuffDuration = (fb.birthTime + fb.duration) - GameState.getInstance().getGameTime();
-            duration = fb.getLevel() * otherBuffDuration + level_ * 5.0f;
-            Destroy(fb);
-        }
-        else
+//        FrostBoost fb = gameObject.GetComponent<FrostBoost>();
+//        if(fb != null)
+//        {
+//            level_ += fb.getLevel();
+//            float otherBuffDuration = (fb.birthTime + fb.duration) - GameState.getInstance().getGameTime();
+//            duration = fb.getLevel() * otherBuffDuration + level_ * 5.0f;
+//            Destroy(fb);
+//        }
+//        else
             duration = 5.0f;
         base.Init(level_);
     }

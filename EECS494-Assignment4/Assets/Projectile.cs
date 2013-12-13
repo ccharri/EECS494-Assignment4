@@ -58,7 +58,7 @@ public class Projectile : Unit
         transform.position = p_.transform.position;
         setSpeed(p_.getSpeedBase());
         setTarget(p_.getTarget());
-        setTargetPos(p_.getTargetPos());
+//        setTargetPos(p_.getTargetPos());
         damage = new Attribute(p_.damage);
         splash = new Attribute(p_.splash);
         speed = new Attribute(p_.speed);

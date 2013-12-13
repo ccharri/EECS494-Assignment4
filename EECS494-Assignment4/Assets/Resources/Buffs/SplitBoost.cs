@@ -20,16 +20,16 @@ public class SplitBoost : Buff
 
     public override void Init(int level_)
     {
-        SplitBoost sb = gameObject.GetComponent<SplitBoost>();
-        if(sb != null)
-        {
-            SPLITS = level_ + sb.getLevel();
-            level_ += sb.getLevel();
-            float otherBuffDuration = (sb.birthTime + sb.duration) - GameState.getInstance().getGameTime();
-            duration = sb.getLevel() * otherBuffDuration + level_ * 5.0f;
-            Destroy(sb);
-        }
-        else
+//        SplitBoost sb = gameObject.GetComponent<SplitBoost>();
+//        if(sb != null)
+//        {
+//            SPLITS = level_ + sb.getLevel();
+//            level_ += sb.getLevel();
+//            float otherBuffDuration = (sb.birthTime + sb.duration) - GameState.getInstance().getGameTime();
+//            duration = sb.getLevel() * otherBuffDuration + level_ * 5.0f;
+//            Destroy(sb);
+//        }
+//        else
             duration = 5.0f;
         description = "+" + SPLITS + " projectiles";
         base.Init(level_);

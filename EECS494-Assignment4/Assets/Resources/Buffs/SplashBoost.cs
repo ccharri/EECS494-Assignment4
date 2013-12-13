@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using UnityEngine;
-using System.Collections;
-
 public class SplashBoost : Buff
 {
     private static float SPLASH_BOOST;
