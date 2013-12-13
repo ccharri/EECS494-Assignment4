@@ -23,6 +23,9 @@ public class GameState : MonoBehaviour
     float nextIncomeTime = 30;
     float time = 0;
 
+	bool gameOver = false;
+	NetworkPlayer loser;
+
     bool showMenu = false;
 
     public GameObject spawnLocation;
@@ -199,6 +202,20 @@ public class GameState : MonoBehaviour
 
     void OnGUI()
     {
+		if(gameOver)
+		{
+			GUI.skin = skin;
+			GUILayout.BeginArea(new Rect(5, 5, Screen.width - 10, Screen.height - 10));
+			GUILayout.BeginVertical("window");
+			GUILayout.FlexibleSpace();
+			GUILayout.Label(NameDatabase.getName(loser.guid) + " has lost!");
+			GUILayout.FlexibleSpace();
+			GUILayout.EndVertical();
+			GUILayout.EndArea();
+			return;
+		}
+
+
 		GUISkin oldskin = GUI.skin;
 
 		GUI.skin = skin;
@@ -816,8 +833,8 @@ public class GameState : MonoBehaviour
 
         if ((ps.lives -= creep.lifeCost) <= 0)
         {
-            networkView.RPC("endGame", RPCMode.Others);
-            endGame();
+            networkView.RPC("gameLost", RPCMode.Others, ps.player);
+            gameLost(ps.player);
         }
         networkView.RPC("setLives", RPCMode.Others, ps.lives, ps.player);
 
@@ -1220,6 +1237,27 @@ public class GameState : MonoBehaviour
         Network.Disconnect();
         Application.LoadLevel("MainScene");
     }
+
+	[RPC]
+	void gameLost(NetworkPlayer loser_, NetworkMessageInfo info_)
+	{
+		gameLost(loser_);
+	}
+
+	void gameLost(NetworkPlayer loser_)
+	{
+		if(gameOver) return;
+		
+		gameOver = true;
+		loser = loser_;
+		StartCoroutine("endCountdown", 5f);
+	}
+
+	IEnumerator endCountdown(float time)
+	{
+		yield return new WaitForSeconds(time);
+		endGame();
+	}
 
 	[RPC]
 	void showCreepGold(Vector3 pos, int amount, NetworkMessageInfo info_)
